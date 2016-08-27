@@ -6,13 +6,8 @@ import android.view.ViewGroup;
 
 public abstract class RecyclerDataHolder<T> {
 
-    public static final int HOLDER_NORMAL = 0;
-    public static final int HOLDER_SELECT = 2;
-    public static final int HOLDER_UN_SELECT = 1;
-
     private T mData = null;
     private int mId;
-    private int mHolderState = 0;
 
     public RecyclerDataHolder(T data) {
         mData = data;
@@ -35,11 +30,4 @@ public abstract class RecyclerDataHolder<T> {
         return mData;
     }
 
-    public int getHolderState() {
-        return mHolderState;
-    }
-
-    public void setHolderState(int holderState) {
-        this.mHolderState = holderState;
-    }
 }
