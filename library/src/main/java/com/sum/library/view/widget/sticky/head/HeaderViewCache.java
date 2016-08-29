@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sum.library.utils.Logger;
 import com.sum.library.view.widget.sticky.Helper.OrientationProvider;
 import com.sum.library.view.widget.sticky.StickyRecyclerHeadersAdapter;
 
@@ -26,11 +27,12 @@ public class HeaderViewCache implements HeaderProvider {
 
   @Override
   public View getHeader(RecyclerView parent, int position) {
-    long headerId = mAdapter.getHeaderId(position);
+    long headerId = mAdapter.getHeadId(position);
 
     View header = mHeaderViews.get(headerId);
     if (header == null) {
       //TODO - recycle views
+      Logger.e("createView:"+position);
       RecyclerView.ViewHolder viewHolder = mAdapter.onCreateHeaderViewHolder(parent);
       mAdapter.onBindHeaderViewHolder(viewHolder, position);
       header = viewHolder.itemView;

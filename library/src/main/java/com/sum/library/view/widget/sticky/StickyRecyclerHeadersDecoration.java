@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.sum.library.utils.Logger;
 import com.sum.library.view.widget.sticky.Helper.DimensionCalculator;
 import com.sum.library.view.widget.sticky.Helper.HeaderPositionCalculator;
 import com.sum.library.view.widget.sticky.Helper.HeaderRenderer;
@@ -118,7 +117,7 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
                 }
                 mHeaderPositionCalculator.initHeaderBounds(headerOffset, parent, header, itemView, hasStickyHeader);
                 mRenderer.drawHeader(parent, canvas, header, headerOffset);
-                Logger.e("pos:"+position+" head:"+headerOffset.toString());
+//                Logger.e("pos:"+position+" head:"+headerOffset.toString());
             }
         }
     }

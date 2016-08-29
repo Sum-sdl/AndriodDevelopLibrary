@@ -50,6 +50,7 @@ public class HeaderRenderer {
 
     canvas.translate(offset.left, offset.top);
 
+
     header.draw(canvas);
     canvas.restore();
   }

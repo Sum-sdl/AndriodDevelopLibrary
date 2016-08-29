@@ -57,7 +57,7 @@ public class HeaderPositionCalculator {
             margin = mTempRect1.left;
         }
 
-        return offset <= margin && mAdapter.getHeaderId(position) >= 0;
+        return offset <= margin && mAdapter.getHeadId(position) >= 0;
     }
 
     /**
@@ -67,14 +67,14 @@ public class HeaderPositionCalculator {
      * @param position        of the list item in questions
      * @param isReverseLayout TRUE if layout manager has flag isReverseLayout
      * @return true if this item has a different header than the previous item in the list
-     * @see {@link StickyRecyclerHeadersAdapter#getHeaderId(int)}
+     * @see {@link StickyRecyclerHeadersAdapter#getHeadId(int)}
      */
     public boolean hasNewHeader(int position, boolean isReverseLayout) {
         if (indexOutOfBounds(position)) {
             return false;
         }
 
-        long headerId = mAdapter.getHeaderId(position);
+        long headerId = mAdapter.getHeadId(position);
 
         if (headerId < 0) {
             return false;
@@ -83,7 +83,7 @@ public class HeaderPositionCalculator {
         long nextItemHeaderId = -1;
         int nextItemPosition = position + (isReverseLayout ? 1 : -1);
         if (!indexOutOfBounds(nextItemPosition)) {
-            nextItemHeaderId = mAdapter.getHeaderId(nextItemPosition);
+            nextItemHeaderId = mAdapter.getHeadId(nextItemPosition);
         }
         int firstItemPosition = isReverseLayout ? mAdapter.getItemCount() - 1 : 0;
 

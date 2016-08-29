@@ -15,8 +15,8 @@ import com.sum.library.utils.ToastUtil;
 import com.sum.library.view.recyclerview.RecyclerDataHolder;
 import com.sum.library.view.recyclerview.RecyclerViewHolder;
 import com.sum.library.view.recyclerview.line.DividerItemDecoration;
+import com.sum.library.view.recyclerview.sticky.StickyHeadDecoration;
 import com.sum.library.view.widget.sticky.StickRecyclerAdapter;
-import com.sum.library.view.widget.sticky.StickyRecyclerHeadersDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +43,9 @@ public class StickyActivity extends AppCompatActivity {
         mAdapter = new StickAdapter(this, holders);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.addItemDecoration(new StickyRecyclerHeadersDecoration(mAdapter));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recyclerView.addItemDecoration(new StickyHeadDecoration(mAdapter));
+//        recyclerView.addItemDecoration(new StickyRecyclerHeadersDecoration(mAdapter));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
@@ -57,12 +58,11 @@ public class StickyActivity extends AppCompatActivity {
         int i = 0;
 
         for (String s : array) {
-            i++;
             if (i <= 5) {
                 itemModels.add(new StickyItemModel(s, 1));
-            } else if (i <= 10) {
+            } else if (i < 8) {
                 itemModels.add(new StickyItemModel(s, 2));
-            } else if (i <= 14) {
+            } else if (i <= 10) {
                 itemModels.add(new StickyItemModel(s, 4));
             } else if (i <= 40) {
                 itemModels.add(new StickyItemModel(s, 5));
@@ -71,6 +71,7 @@ public class StickyActivity extends AppCompatActivity {
             } else {
                 itemModels.add(new StickyItemModel(s, 3));
             }
+            i++;
         }
 
 
@@ -94,12 +95,15 @@ public class StickyActivity extends AppCompatActivity {
 
         @Override
         public long headId(int position, StickyItemModel o) {
+            if (position == 0 || position == 1) {
+                return -1;//负数，忽略不偏移
+            }
             return o.headId;
         }
 
         @Override
-        public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position, StickyItemModel o) {
-            TextView name = (TextView) holder.itemView.findViewById(R.id.tv_title);
+        public void onBindHeaderViewHolder(View holder, int position, StickyItemModel o) {
+            TextView name = (TextView) holder.findViewById(R.id.tv_title);
             StickyItemModel d = o;
             name.setText(d.name + " " + d.headId);
         }
@@ -124,7 +128,7 @@ public class StickyActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(Context context, int position, RecyclerView.ViewHolder vHolder, final StickyItemModel data) {
             TextView name = (TextView) vHolder.itemView.findViewById(R.id.tv);
-            name.setText(""+position+" ;" +data.name);
+            name.setText("" + position + "->" + data.name);
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

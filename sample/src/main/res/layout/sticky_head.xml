@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="100px"
         android:clickable="true"
-        android:background="#80aaaccc"
+        android:background="#aaaccc"
         android:gravity="center_vertical"
-        android:paddingLeft="16dp"
+        android:paddingLeft="20px"
         android:text="@string/app_name" />
 
 </LinearLayout>

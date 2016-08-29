@@ -1,4 +1,4 @@
-package com.sum.library.view.widget.sticky;
+package com.sum.library.view.recyclerview.sticky;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.sum.library.view.recyclerview.RecyclerAdapter;
 import com.sum.library.view.recyclerview.RecyclerDataHolder;
-import com.sum.library.view.recyclerview.sticky.StickyHeadView;
 
 import java.util.List;
 
