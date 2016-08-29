@@ -7,8 +7,9 @@
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#ccc"
+        android:layout_height="100px"
+        android:clickable="true"
+        android:background="#80aaaccc"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:text="@string/app_name" />

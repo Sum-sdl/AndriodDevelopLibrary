@@ -15,21 +15,38 @@ import java.util.List;
 /**
  * Created by Summer on 2016/8/27.
  */
-public abstract class StickRecyclerAdapter extends RecyclerAdapter implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
+public abstract class StickRecyclerAdapter<T> extends RecyclerAdapter<T> implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
+
 
     public StickRecyclerAdapter(Context context) {
         super(context);
     }
 
-    public StickRecyclerAdapter(Context context, List<RecyclerDataHolder> holders) {
-        super(context, holders);
+    public StickRecyclerAdapter(Context context, List<RecyclerDataHolder<T>> recyclerDataHolders) {
+        super(context, recyclerDataHolders);
     }
 
-    //布局Id
+    /**
+     * @return 头部布局的id
+     */
     public abstract int layoutId();
 
-    //头部view的数据绑定
-    public abstract void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position, Object o);
+    /**
+     * @param position 数据源所在的位置
+     * @param data     每项的数据源中存放该数据属于的一组类型
+     * @return 区分不同数据源的一个id
+     */
+    public abstract long headId(int position, T data);
+
+    /**
+     * 头部view的数据绑定
+     */
+    public abstract void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position, T data);
+
+    @Override
+    public long getHeaderId(int position) {
+        return headId(position, queryDataHolder(position).getData());
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
