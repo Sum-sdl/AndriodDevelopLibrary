@@ -15,7 +15,6 @@ import java.util.List;
  */
 public abstract class StickRecyclerAdapter<T> extends RecyclerAdapter<T> implements StickyHeadView {
 
-
     public StickRecyclerAdapter(Context context) {
         super(context);
     }
@@ -49,8 +48,7 @@ public abstract class StickRecyclerAdapter<T> extends RecyclerAdapter<T> impleme
 
     @Override
     public View onCreateHeadView(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutId(), parent, false);
-        return view;
+        return LayoutInflater.from(parent.getContext()).inflate(layoutId(), parent, false);
     }
 
     @Override
@@ -58,7 +56,19 @@ public abstract class StickRecyclerAdapter<T> extends RecyclerAdapter<T> impleme
         onBindHeaderViewHolder(headView, position, queryDataHolder(position).getData());
     }
 
-    public void setScrollToHeadId(long headId) {
-
+    /**
+     * 获取headId对应的第一个Item的pos
+     */
+    public int getTargetHeadPos(long headId) {
+        int count = getItemCount();
+        int targetPos = -1;
+        for (int i = 0; i < count; i++) {
+            long id = getHeadId(i);
+            if (id == headId) {
+                targetPos = i;
+                break;
+            }
+        }
+        return targetPos;
     }
 }

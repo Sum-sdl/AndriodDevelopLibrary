@@ -26,6 +26,11 @@ public interface StickyHeadView {
 
 
     /**
+     * 第一个头部的位置信息
+     */
+    void firstHead(long fHeadId, int fPosition);
+
+    /**
      * 总数
      */
     int getItemCount();

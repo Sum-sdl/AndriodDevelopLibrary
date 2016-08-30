@@ -15,8 +15,8 @@ import com.sum.library.utils.ToastUtil;
 import com.sum.library.view.recyclerview.RecyclerDataHolder;
 import com.sum.library.view.recyclerview.RecyclerViewHolder;
 import com.sum.library.view.recyclerview.line.DividerItemDecoration;
+import com.sum.library.view.recyclerview.sticky.StickRecyclerAdapter;
 import com.sum.library.view.recyclerview.sticky.StickyHeadDecoration;
-import com.sum.library.view.widget.sticky.StickRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,9 +95,9 @@ public class StickyActivity extends AppCompatActivity {
 
         @Override
         public long headId(int position, StickyItemModel o) {
-            if (position == 0 || position == 1) {
+         /*   if (position == 0 || position == 1) {
                 return -1;//负数，忽略不偏移
-            }
+            }*/
             return o.headId;
         }
 
@@ -109,6 +109,9 @@ public class StickyActivity extends AppCompatActivity {
         }
 
 
+        @Override
+        public void firstHead(long headId, int position) {
+        }
     }
 
 

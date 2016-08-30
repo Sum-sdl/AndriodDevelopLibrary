@@ -18,20 +18,12 @@ public class StickyHeadDecoration extends RecyclerView.ItemDecoration {
     private HeadViewPositionCalculator mHeadViewCalculator;
     private final SparseArray<Rect> mHeaderRectes = new SparseArray<>();
 
-    private StickyHeadChangeListener mChangeListener;
-
-    private int mCurHeadId;
-
     private final Rect mTempRect = new Rect();
 
     public StickyHeadDecoration(StickyHeadView headView) {
         mHeadView = headView;
         mHeadViewManager = new HeadViewManager();
         mHeadViewCalculator = new HeadViewPositionCalculator();
-    }
-
-    public void setHeadChangeListener(StickyHeadChangeListener listener) {
-        mChangeListener = listener;
     }
 
     //将View的margin保存到Rect中
@@ -71,6 +63,7 @@ public class StickyHeadDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDrawOver(c, parent, state);
+
         //绘制View
         int childCount = parent.getChildCount();
         if (childCount <= 0 || mHeadView.getItemCount() <= 0) {
@@ -98,9 +91,10 @@ public class StickyHeadDecoration extends RecyclerView.ItemDecoration {
                     mHeaderRectes.put(position, rect);
                 }
                 //初始化HeadView的位置
-                mHeadViewCalculator.resolveHeadViewBound(parent, rect, headView, childAt, hasHeadView);
+                mHeadViewCalculator.resolveHeadViewBound(parent, rect, headView, childAt, hasHeadView, position);
                 drawHead(parent, headView, c, rect);
             }
+//            Logger.e("t:" + childAt.getTop() + " b:" + childAt.getBottom() + " " + position);
         }
     }
 
@@ -133,7 +127,6 @@ public class StickyHeadDecoration extends RecyclerView.ItemDecoration {
 
         private final Rect mTempRect2 = new Rect();
 
-
         public boolean hasStickyHeadView(View itemView, int position) {
             resolveMargin(mTempRect1, itemView);
             return itemView.getTop() <= mTempRect1.top && mHeadView.getHeadId(position) >= 0;
@@ -162,7 +155,7 @@ public class StickyHeadDecoration extends RecyclerView.ItemDecoration {
         }
 
         //设置HeadView的边界
-        public void resolveHeadViewBound(RecyclerView recyclerView, Rect bound, View headView, View itemView, boolean firstHeader) {
+        public void resolveHeadViewBound(RecyclerView recyclerView, Rect bound, View headView, View itemView, boolean firstHeader, int pos) {
             //设置初始化view
             resolveMargin(mTempRect1, headView);
             int defaultX, defaultY;
@@ -195,6 +188,7 @@ public class StickyHeadDecoration extends RecyclerView.ItemDecoration {
                 if (shiftFromNextHeader < topOfStickyHeader) {
                     bound.top += shiftFromNextHeader;
                 }
+//                Logger.e("change " + pos + " t:" + topOfStickyHeader + " s:" + shiftFromNextHeader + " " + nextItem.getTop());
             }
         }
 
@@ -206,6 +200,7 @@ public class StickyHeadDecoration extends RecyclerView.ItemDecoration {
             if (firstViewUnderHeaderPosition == RecyclerView.NO_POSITION) {
                 return false;
             }
+            boolean pushing = false;
             if (firstViewUnderHeaderPosition > 0 && needStickHeadView(firstViewUnderHeaderPosition)) {
                 View nextHeader = mHeadViewManager.getHeadView(recyclerView, firstViewUnderHeaderPosition);
                 resolveMargin(mTempRect1, nextHeader);
@@ -215,11 +210,13 @@ public class StickyHeadDecoration extends RecyclerView.ItemDecoration {
                 int bottomOfThisHeader = recyclerView.getPaddingTop() + stickyHeader.getBottom() + mTempRect2.top + mTempRect2.bottom;
                 //判断两个headView是否已经接触
                 if (topOfNextHeader < bottomOfThisHeader) {
-                    return true;
+                    pushing = true;
+                } else {
+                    firstViewUnderHeaderPosition--;
                 }
             }
-
-            return false;
+            mHeadView.firstHead(mHeadView.getHeadId(firstViewUnderHeaderPosition), firstViewUnderHeaderPosition);
+            return pushing;
         }
 
         //查询第一个未被遮盖的Item 的View
