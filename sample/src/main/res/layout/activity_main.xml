@@ -38,6 +38,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Swipe view" />
+        <Button
+            android:id="@+id/b3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shadow view" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

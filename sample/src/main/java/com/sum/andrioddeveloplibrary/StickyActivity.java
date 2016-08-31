@@ -44,7 +44,6 @@ public class StickyActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new StickyHeadDecoration(mAdapter));
-//        recyclerView.addItemDecoration(new StickyRecyclerHeadersDecoration(mAdapter));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

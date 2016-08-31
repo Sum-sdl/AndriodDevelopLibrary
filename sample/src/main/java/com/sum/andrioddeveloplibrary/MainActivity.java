@@ -22,6 +22,19 @@ public class MainActivity extends AppCompatActivity {
                 startTargetActivity(StickyActivity.class);
             }
         });
+        findViewById(R.id.b2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTargetActivity(StickyActivity.class);
+            }
+        });
+        findViewById(R.id.b3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTargetActivity(ShadowActivity.class);
+            }
+        });
+
     }
 
     private void startTargetActivity(Class a) {
