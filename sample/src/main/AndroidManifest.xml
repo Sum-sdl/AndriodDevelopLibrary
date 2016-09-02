@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".StickyActivity" />
-        <activity android:name=".ShadowActivity"></activity>
+        <activity android:name=".ShadowActivity" />
+        <activity android:name=".SwipeActivity"></activity>
     </application>
 
 </manifest>

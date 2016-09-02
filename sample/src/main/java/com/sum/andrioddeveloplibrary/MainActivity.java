@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.b2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTargetActivity(StickyActivity.class);
+                startTargetActivity(SwipeActivity.class);
             }
         });
         findViewById(R.id.b3).setOnClickListener(new View.OnClickListener() {
