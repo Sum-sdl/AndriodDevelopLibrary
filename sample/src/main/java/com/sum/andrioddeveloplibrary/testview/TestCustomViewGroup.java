@@ -106,7 +106,6 @@ public class TestCustomViewGroup extends ViewGroup {
 //        t_drawPic(canvas);
 //        t_drawPath(canvas);
         t_drawPath2(canvas);
-
     }
 
     private void t_drawPath2(Canvas canvas) {
@@ -127,7 +126,7 @@ public class TestCustomViewGroup extends ViewGroup {
         Path path = new Path();
         path.moveTo(start.x, start.y);
 //        path.quadTo(control.x, control.y, end.x, end.y);
-        //三阶曲线
+        //三阶曲线(2个控制点)
         path.cubicTo(control.x, control.y, 0,0,end.x, end.y);
         canvas.drawPath(path, mPaint);
     }

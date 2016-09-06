@@ -38,16 +38,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="滑动View" />
+
         <Button
             android:id="@+id/b3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="阴影效果" />
+
         <Button
             android:id="@+id/b4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="自定义View" />
+
+        <Button
+            android:id="@+id/b5"
+            android:layout_marginTop="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="执行动画" />
+
+        <com.sum.library.view.widget.MagicCircle
+            android:id="@+id/magic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -6,13 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.sum.library.utils.ToastUtil;
+import com.sum.library.view.widget.MagicCircle;
 
 public class MainActivity extends AppCompatActivity {
+
+    private MagicCircle magic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        magic = (MagicCircle) findViewById(R.id.magic);
 
         ToastUtil.init(this);
 
@@ -34,10 +39,17 @@ public class MainActivity extends AppCompatActivity {
                 startTargetActivity(ShadowActivity.class);
             }
         });
-    findViewById(R.id.b4).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.b4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startTargetActivity(CustomViewActivity.class);
+            }
+        });
+
+        findViewById(R.id.b5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                magic.startAnimation();
             }
         });
 
