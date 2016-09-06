@@ -13,4 +13,15 @@
         <attr name="bga_sil_swipeAble" format="boolean" />
     </declare-styleable>
 
+
+    <declare-styleable name="SwipeLayout">
+
+        <attr name="swipe_direction" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="both" value="2" />
+        </attr>
+
+    </declare-styleable>
+
 </resources>
