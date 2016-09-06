@@ -34,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
                 startTargetActivity(ShadowActivity.class);
             }
         });
+    findViewById(R.id.b4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTargetActivity(CustomViewActivity.class);
+            }
+        });
 
     }
 

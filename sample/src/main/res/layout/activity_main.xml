@@ -31,18 +31,23 @@
             android:id="@+id/b1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RecyclerView Stick Head" />
+            android:text="RecyclerView 浮动头部" />
 
         <Button
             android:id="@+id/b2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Swipe view" />
+            android:text="滑动View" />
         <Button
             android:id="@+id/b3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shadow view" />
+            android:text="阴影效果" />
+        <Button
+            android:id="@+id/b4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义View" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.sum.andrioddeveloplibrary.view;
+package com.sum.andrioddeveloplibrary.testview;
 
 import android.content.Context;
 import android.graphics.Canvas;
