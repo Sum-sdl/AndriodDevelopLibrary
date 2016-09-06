@@ -6,48 +6,43 @@ import android.widget.Toast;
 
 /**
  * Created by Sum on 15/11/23.
+ * 注意SnackBar的使用
  */
 public class ToastUtil {
 
     private static Context mContext;
-
-    private static Toast mToast;
 
     public static void init(Context context) {
         mContext = context;
     }
 
     public static void showToastShort(String msg) {
-        String text = TextUtils.isEmpty(msg) ? "" : msg;
-
-        int duration = Toast.LENGTH_SHORT;
-
-        if (null != mToast) {
-            mToast.setText(text);
-            mToast.setDuration(duration);
-        } else {
-            mToast = Toast.makeText(mContext, text, duration);
+        if (mContext == null) {
+            return;
         }
-        mToast.show();
+        Toast.makeText(mContext, TextUtils.isEmpty(msg) ? "" : msg, Toast.LENGTH_SHORT).show();
     }
 
     public static void showToastLong(String msg) {
-        Toast.makeText(mContext,
-                TextUtils.isEmpty(msg) ? "" : msg,
-                Toast.LENGTH_LONG).show();
+        if (mContext == null) {
+            return;
+        }
+        Toast.makeText(mContext,TextUtils.isEmpty(msg) ? "" : msg,Toast.LENGTH_LONG).show();
     }
 
     public static void showToastShort(int msgId) {
+        if (mContext == null) {
+            return;
+        }
         String msg = mContext.getResources().getString(msgId);
-        Toast.makeText(mContext,
-                TextUtils.isEmpty(msg) ? "" : msg,
-                Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, TextUtils.isEmpty(msg) ? "" : msg,Toast.LENGTH_SHORT).show();
     }
 
     public static void showToastLong(int msgId) {
+        if (mContext == null) {
+            return;
+        }
         String msg = mContext.getResources().getString(msgId);
-        Toast.makeText(mContext,
-                TextUtils.isEmpty(msg) ? "" : msg,
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, TextUtils.isEmpty(msg) ? "" : msg,Toast.LENGTH_LONG).show();
     }
 }

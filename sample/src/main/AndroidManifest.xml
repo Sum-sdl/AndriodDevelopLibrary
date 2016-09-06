@@ -21,7 +21,11 @@
         <activity android:name=".StickyActivity" />
         <activity android:name=".ShadowActivity" />
         <activity android:name=".SwipeActivity" />
-        <activity android:name=".CustomViewActivity"></activity>
+        <activity android:name=".CustomViewActivity" />
+        <activity
+            android:name=".testActivity.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

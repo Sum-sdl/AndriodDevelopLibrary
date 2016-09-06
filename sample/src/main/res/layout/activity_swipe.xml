@@ -2,14 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
     <com.sum.library.view.widget.SwipeLayout
         android:layout_width="match_parent"
         android:background="@color/colorAccent"
-        android:layout_height="80dp">
+        app:swipe_direction="both"
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
     </com.sum.library.view.widget.SwipeLayout>
