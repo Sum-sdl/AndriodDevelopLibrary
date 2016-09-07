@@ -43,6 +43,24 @@ public class SwipeLayout extends FrameLayout {
     }
 
     @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        Logger.e("generateLayoutParams 属性");
+        return super.generateLayoutParams(attrs);
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        Logger.e("generateLayoutParams 默认");
+        return super.generateDefaultLayoutParams();
+    }
+
+    @Override
+    protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
+        Logger.e("generateLayoutParams ");
+        return super.generateLayoutParams(p);
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         Logger.e("onSizeChanged ");
@@ -51,16 +69,26 @@ public class SwipeLayout extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Logger.e("onMeasure "+getLayoutParams().width+" "+MeasureSpec.getSize(widthMeasureSpec));
+
+        Logger.e("onMeasure self:"+getLayoutParams().width+" "+MeasureSpec.getSize(widthMeasureSpec));
 
         ViewGroup.LayoutParams layoutParams = getChildAt(0).getLayoutParams();
-        Logger.e("child layout:" + layoutParams.width + " " + layoutParams.height + " " + layoutParams);
-//        setMeasuredDimension(getLayoutParams().width,getLayoutParams().height);
+        layoutParams.width = 100;
+
+        Logger.e("onMeasure child:" + layoutParams.width + " " + layoutParams.height + " " + layoutParams);
+
+        int childMeasureSpec = getChildMeasureSpec(widthMeasureSpec, 0, layoutParams.width+100);
+
+
+        measureChild(getChildAt(0), widthMeasureSpec, heightMeasureSpec);
+
+        Logger.e("onMeasure childSpec:" + MeasureSpec.getSize(childMeasureSpec)+" "+getChildAt(0).getMeasuredWidth());
+
+        setMeasuredDimension(getLayoutParams().width,getLayoutParams().height);
 //        getChildMeasureSpec() $ child.measure(cWspec,cHspec);
 //        measureChild(getChildAt(0),widthMeasureSpec,heightMeasureSpec);
 
-
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     }
 

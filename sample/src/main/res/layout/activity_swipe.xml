@@ -16,12 +16,8 @@
 
         <com.sum.andrioddeveloplibrary.testview.TestTextView
             android:layout_width="100px"
-            android:layout_height="wrap_content" />
-
-        <com.sum.andrioddeveloplibrary.testview.TestTextView
-            android:layout_width="100px"
             android:text="@string/app_name"
-            android:layout_height="100px" />
+            android:layout_height="wrap_content" />
 
 
     </com.sum.library.view.widget.SwipeLayout>
