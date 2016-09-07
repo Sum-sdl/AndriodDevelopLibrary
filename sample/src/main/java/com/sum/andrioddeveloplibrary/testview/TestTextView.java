@@ -1,7 +1,6 @@
 package com.sum.andrioddeveloplibrary.testview;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -32,29 +31,14 @@ public class TestTextView extends TextView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int mode = MeasureSpec.getMode(widthMeasureSpec);
-        int size = MeasureSpec.getSize(widthMeasureSpec);
-        int hsize = MeasureSpec.getSize(heightMeasureSpec);
-
-        Logger.e("onMeasure w:" + widthMeasureSpec + " h:" + heightMeasureSpec + " m:" + mode + " s:" + size + " h:" + hsize);
-
+        Logger.e("onMeasure "+getLayoutParams().height+" "+getLayoutParams().width);
     }
-
-    int i = 0;
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         //动态的来设置子view的layout位置
-        Logger.e(changed + " onLayout left:" + left + " top:" + top + " right:" + right + " bottom:" + bottom+" i "+i);
+        Logger.e(changed + " onLayout left:" + left + " top:" + top + " right:" + right + " bottom:" + bottom);
 
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        Logger.e("onDraw");
-//        canvas.drawColor(Color.BLACK);
     }
 }

@@ -24,8 +24,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#ff0"
             android:layout_margin="@dimen/text_margin"
+            android:background="#ff0"
             android:text="@string/app_name" />
 
         <TextView
@@ -41,6 +41,23 @@
             android:layout_margin="@dimen/text_margin"
             android:layout_marginTop="10dp"
             android:text="@string/large_text" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="10dp"
+            android:text="@string/app_name" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="10dp"
+            android:text="@string/app_name" />
+
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -86,10 +86,10 @@ public class ShadowActivity extends AppCompatActivity {
 //        porTest(R.id.image3, PorterDuff.Mode.DST_ATOP);
 //        porTest(R.id.image4, PorterDuff.Mode.XOR);
 
-        porTest(R.id.image1, PorterDuff.Mode.DARKEN);
-        porTest(R.id.image2, PorterDuff.Mode.LIGHTEN);
-        porTest(R.id.image3, PorterDuff.Mode.MULTIPLY);
-        porTest(R.id.image4, PorterDuff.Mode.SCREEN);
+//        porTest(R.id.image1, PorterDuff.Mode.DARKEN);
+//        porTest(R.id.image2, PorterDuff.Mode.LIGHTEN);
+//        porTest(R.id.image3, PorterDuff.Mode.MULTIPLY);
+//        porTest(R.id.image4, PorterDuff.Mode.SCREEN);
     }
 
     private void porTest(int resId, PorterDuff.Mode mode) {

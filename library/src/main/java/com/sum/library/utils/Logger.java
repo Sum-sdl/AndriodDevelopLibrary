@@ -2,13 +2,11 @@ package com.sum.library.utils;
 
 import android.util.Log;
 
-import com.sum.library.LibConfig;
-
 public class Logger {
 
     private String tag = "com.logger";
 
-    private static boolean debug = LibConfig.Logger;
+    private static boolean debug = true;
 
     private static Logger instance = new Logger();
 

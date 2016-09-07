@@ -1,6 +1,7 @@
 package com.sum.library.view.widget;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -10,6 +11,8 @@ import com.sum.library.utils.Logger;
  * Created by Summer on 2016/9/5.
  */
 public class SwipeLayout extends FrameLayout {
+
+    //LayoutParams 是父容器的布局参数
 
 
     public SwipeLayout(Context context) {
@@ -34,14 +37,14 @@ public class SwipeLayout extends FrameLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Logger.e("onSizeChanged");
+        Logger.e("onSizeChanged ");
     }
 
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Logger.e("onMeasure");
+        Logger.e("onMeasure "+getLayoutParams().height+" "+getLayoutParams().width+" "+getLayoutParams());
     }
 
 
@@ -49,7 +52,13 @@ public class SwipeLayout extends FrameLayout {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         //动态的来设置子view的layout位置
-        Logger.e(changed + " onLayout left:" + left + " top:" + top + " right:" + right + " bottom:" + bottom);
+        Logger.e(changed + " onLayout left:" + left + " top:" + top + " right:" + right + " bottom:"+bottom);
 
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        Logger.e("onDraw");
     }
 }
