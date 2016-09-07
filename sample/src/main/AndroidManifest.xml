@@ -26,6 +26,13 @@
             android:name=".testActivity.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <!--渠道统计-->
+        <meta-data
+            android:name="leancloud"
+            android:value="${LEAN_CLOUD_CHANNEL}" />
+
     </application>
 
 </manifest>

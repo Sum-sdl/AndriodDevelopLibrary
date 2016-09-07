@@ -1,21 +1,86 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'sum'
+            keyPassword '123456'
+            storeFile file('../sample/debug_keystore.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "com.sum.andrioddeveloplibrary"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+        //默认渠道 LEAN_CLOUD_CHANNEL:manifest 中的key
+        manifestPlaceholders = [LEAN_CLOUD_CHANNEL: "huawei"]
+        //添加自定义BuildConfig属性,可用来避免手动配置代码（如不同的环境域名）
+        buildConfigField("boolean", "LOG_SHOW", "true")
+        buildConfigField("String", "API_HOST", "\"https\"")
+        // 用于动态添加新的资源文件里面值
+        resValue("string", "app_add_res", "AAA")
+        signingConfig signingConfigs.config
     }
     buildTypes {
-        release {
-            minifyEnabled false
+        debug {
+            minifyEnabled false//混淆
+            debuggable true//调试
+            buildConfigField("String", "API_HOST", "\"https+++重写构建值\"")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        release {
+            minifyEnabled false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //渠道名称
+    productFlavors {
+        _360 {}
+        baidu {}
+        anzhi {}
+        wandoujia {}
+        yingyongbao {}
+        huawei {}
+        xiaomi {}
+    }
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [LEAN_CLOUD_CHANNEL: name]
+    }
+    //jni 调用位置
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    //修改生成的apk名字
+    applicationVariants.all {
+        variant ->
+            variant.outputs.each {
+                output ->
+                    def oldFile = output.outputFile
+                    if (variant.buildType.name.equals('release')) {
+                        def releaseApkName = 'com.sum-v' + defaultConfig.versionName + '-' + variant.productFlavors[0].name + '-rel.apk'
+                        output.outputFile = new File(oldFile.parent, releaseApkName)
+                    }
+                    if (variant.buildType.name.equals('debug')) {
+                        def newName = 'com.-v' + defaultConfig.versionName + '-' + variant.productFlavors[0].name + '-debug.apk'
+                        output.outputFile = new File(oldFile.parent, newName)
+                    }
+
+                    if (output.zipAlign != null) {
+                        output.zipAlign.doLast {
+                            output.zipAlign.inputFile.delete()
+                        }
+                    }
+            }
     }
 }
 

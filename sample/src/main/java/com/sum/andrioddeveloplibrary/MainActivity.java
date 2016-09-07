@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.sum.andrioddeveloplibrary.testActivity.ScrollingActivity;
+import com.sum.library.utils.Logger;
 import com.sum.library.utils.ToastUtil;
 import com.sum.library.view.widget.MagicCircle;
 
@@ -60,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        String string = getString(R.string.app_add_res);
+        Logger.e("编译时添加的资源属性:" + string);
+
+        boolean logShow = BuildConfig.LOG_SHOW;
+
+        Logger.e("编译时添加的构建配置:" + logShow+" BuildType:"+BuildConfig.API_HOST);
     }
 
     private void startTargetActivity(Class a) {
