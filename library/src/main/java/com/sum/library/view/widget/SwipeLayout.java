@@ -3,6 +3,8 @@ package com.sum.library.view.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.sum.library.utils.Logger;
@@ -35,6 +37,12 @@ public class SwipeLayout extends FrameLayout {
     }
 
     @Override
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
+        super.addView(child, index, params);
+        Logger.e("addView");
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         Logger.e("onSizeChanged ");
@@ -43,8 +51,17 @@ public class SwipeLayout extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Logger.e("onMeasure "+getLayoutParams().width+" "+MeasureSpec.getSize(widthMeasureSpec));
+
+        ViewGroup.LayoutParams layoutParams = getChildAt(0).getLayoutParams();
+        Logger.e("child layout:" + layoutParams.width + " " + layoutParams.height + " " + layoutParams);
+//        setMeasuredDimension(getLayoutParams().width,getLayoutParams().height);
+//        getChildMeasureSpec() $ child.measure(cWspec,cHspec);
+//        measureChild(getChildAt(0),widthMeasureSpec,heightMeasureSpec);
+
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Logger.e("onMeasure "+getLayoutParams().height+" "+getLayoutParams().width+" "+getLayoutParams());
+
     }
 
 

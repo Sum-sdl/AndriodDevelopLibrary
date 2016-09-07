@@ -20,6 +20,13 @@ public class TestTextView extends TextView {
 
     public TestTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        Logger.e("init");
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        Logger.e("onFinishInflate");
     }
 
     @Override
@@ -31,7 +38,7 @@ public class TestTextView extends TextView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Logger.e("onMeasure "+getLayoutParams().height+" "+getLayoutParams().width);
+        Logger.e("onMeasure " + getLayoutParams().height + " " + getLayoutParams().width + " " + getLayoutParams());
     }
 
     @Override

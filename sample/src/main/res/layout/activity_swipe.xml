@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
     <com.sum.library.view.widget.SwipeLayout
-        android:layout_width="match_parent"
+        android:layout_width="200px"
         android:id="@+id/swipe"
         android:background="@color/colorAccent"
         app:swipe_direction="both"
@@ -16,6 +17,11 @@
         <com.sum.andrioddeveloplibrary.testview.TestTextView
             android:layout_width="100px"
             android:layout_height="wrap_content" />
+
+        <com.sum.andrioddeveloplibrary.testview.TestTextView
+            android:layout_width="100px"
+            android:text="@string/app_name"
+            android:layout_height="100px" />
 
 
     </com.sum.library.view.widget.SwipeLayout>
