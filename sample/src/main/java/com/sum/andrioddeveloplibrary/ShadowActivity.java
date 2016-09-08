@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 
 import com.sum.library.utils.Logger;
 import com.sum.library.view.Helper.ViewHelper;
+import com.sum.library.view.widget.MultiRadioGroup;
 
 public class ShadowActivity extends AppCompatActivity {
 
@@ -38,6 +39,8 @@ public class ShadowActivity extends AppCompatActivity {
 
     private CardView mCar;
 
+    MultiRadioGroup multiRadioGroup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +49,9 @@ public class ShadowActivity extends AppCompatActivity {
 
         mCar = (CardView) findViewById(R.id.card4);
         mCar.setMaxCardElevation(40);
+
+        multiRadioGroup = (MultiRadioGroup) findViewById(R.id.rg);
+
 
         SeekBar bar = (SeekBar) findViewById(R.id.seekBar);
         bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

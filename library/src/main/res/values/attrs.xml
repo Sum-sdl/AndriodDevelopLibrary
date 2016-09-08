@@ -24,10 +24,22 @@
 
     <declare-styleable name="SwipeLayout_LayoutParams">
 
-        <attr name="layout_bottom" format="boolean"/>
+        <attr name="layout_bottom" format="boolean" />
 
-        <attr name="layout_top" format="boolean"/>
+        <attr name="layout_top" format="boolean" />
 
+    </declare-styleable>
+
+
+    <!--组合复选框-->
+    <!--reference 参考某一个资源id string integer dimension(dip) float(0.7)-->
+    <!--color 颜色 enum 枚举值 boolean (true/false)-->
+    <declare-styleable name="MultiRadioButton">
+        <attr name="multiText" format="reference|string" />
+        <attr name="multiColorDefault" format="reference|color" />
+        <attr name="multiColorChecked" format="reference|color" />
+        <attr name="multiDrawableDefault" format="reference" />
+        <attr name="multiDrawableChecked" format="reference" />
     </declare-styleable>
 
 </resources>
