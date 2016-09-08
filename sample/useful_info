@@ -1,0 +1,3 @@
+//给APK包签名
+jarsigner -verbose -keystore 签名文件.keystore -storepass （密钥） -signedjar 签名后的文件.apk -dig
+estalg SHA1 -sigalg MD5withRSA 要签名的文件.apk com.xhl

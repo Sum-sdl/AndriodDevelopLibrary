@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipChildren="true"
     android:orientation="vertical">
 
 
-    <com.sum.library.view.widget.SwipeLayout
-        android:layout_width="200px"
+    <com.sum.andrioddeveloplibrary.testview.TestView
         android:id="@+id/swipe"
+        android:layout_width="400px"
+        android:layout_height="500px"
         android:background="@color/colorAccent"
-        app:swipe_direction="both"
-        android:layout_height="500px">
+        app:swipe_direction="both">
 
         <com.sum.andrioddeveloplibrary.testview.TestTextView
-            android:layout_width="100px"
-            android:text="@string/app_name"
-            android:layout_height="wrap_content" />
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name" />
 
-
-    </com.sum.library.view.widget.SwipeLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RequestLayout"
-        android:id="@+id/button" />
-
+    </com.sum.andrioddeveloplibrary.testview.TestView>
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="invalidate"
-        android:id="@+id/button1" />
+        android:text="RequestLayout" />
+
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="invalidate" />
 
 
 </LinearLayout>

@@ -39,7 +39,6 @@ public class TestTextView extends TextView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         Logger.e("onMeasure " + getLayoutParams().height + " " + getLayoutParams().width + " " + getLayoutParams());
-//        setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight());
     }
 
     @Override
