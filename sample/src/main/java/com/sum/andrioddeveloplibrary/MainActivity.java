@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
 //        boolean logShow = BuildConfig.LOG_SHOW;
 //
 //        Logger.e("编译时添加的构建配置:" + logShow+" BuildType:"+BuildConfig.API_HOST);
-        xml();
+//        xml();
 
-
+        doMainTest();
     }
 
     private void xml() {
@@ -101,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
     private void startTargetActivity(Class a) {
         Intent intent = new Intent(this, a);
         startActivity(intent);
+    }
+
+
+    private void doMainTest(){
+
     }
 
 }
