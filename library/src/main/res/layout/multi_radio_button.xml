@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/multi_iv_image"
-            android:layout_width="28dp"
-            android:layout_height="28dp" />
+            android:layout_width="26dp"
+            android:layout_height="26dp" />
 
         <TextView
             android:id="@+id/multi_tv_name"

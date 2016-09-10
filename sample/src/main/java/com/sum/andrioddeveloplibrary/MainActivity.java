@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.sum.andrioddeveloplibrary.testActivity.ScrollingActivity;
 import com.sum.library.utils.Logger;
@@ -66,6 +67,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        final View b2 = findViewById(R.id.b2);
+        //view的布局参数在layoutInflate的时候就创建完成
+        Logger.e(b2.getWidth() + " " + b2.getMeasuredWidth() + " " + b2.getLayoutParams().width);
+        b2.post(new Runnable() {
+            @Override
+            public void run() {
+                Logger.e("Runnable:" + b2.getWidth() + " " + b2.getMeasuredWidth() + " " + b2.getLayoutParams().width);
+                //layoutparmas 规定了view的绘制区域
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) b2.getLayoutParams();
+                layoutParams.topMargin = 100;
+                layoutParams.width += 300;
+                b2.setLayoutParams(layoutParams);
+                Logger.e("Runnable2:" + b2.getWidth() + " " + b2.getMeasuredWidth() + " " + b2.getLayoutParams().width);
+            }
+        });
+
 //        String string = getString(R.string.app_add_res);
 //        Logger.e("编译时添加的资源属性:" + string);
 //
@@ -104,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void doMainTest(){
+    private void doMainTest() {
 
     }
 

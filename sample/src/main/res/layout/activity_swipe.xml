@@ -15,9 +15,10 @@
         app:swipe_direction="both">
 
         <com.sum.andrioddeveloplibrary.testview.TestTextView
-            android:layout_width="300px"
+            android:id="@+id/ttv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name" />
+            android:text="app_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_name" />
 
     </com.sum.andrioddeveloplibrary.testview.TestView>
 

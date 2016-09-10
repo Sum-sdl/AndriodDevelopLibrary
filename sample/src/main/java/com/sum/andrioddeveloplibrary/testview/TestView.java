@@ -44,6 +44,14 @@ public class TestView extends FrameLayout {
     }
 
     @Override
+    protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
+
+        Logger.e("addView LayoutParams is null? -> " + p);
+
+        return super.generateLayoutParams(p);
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         Logger.e("onSizeChanged ");
@@ -52,8 +60,8 @@ public class TestView extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-        int childCount = getChildCount();
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+       /* int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             int width = getChildMeasureSpec(widthMeasureSpec, 0, child.getLayoutParams().width);
@@ -69,7 +77,7 @@ public class TestView extends FrameLayout {
 
 //        measureChildren(widthMeasureSpec,heightMeasureSpec);
         //确定最后的View大小
-        setMeasuredDimension(-2,200);
+        setMeasuredDimension(-2,200);*/
     }
 
 
