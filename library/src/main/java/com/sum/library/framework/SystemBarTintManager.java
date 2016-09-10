@@ -1,4 +1,4 @@
-package com.sum.library.app;
+package com.sum.library.framework;
 
 /*
  * Copyright (C) 2013 readyState Software Ltd
