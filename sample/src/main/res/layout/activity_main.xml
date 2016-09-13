@@ -38,10 +38,16 @@
             android:text="内部联动" />
 
         <Button
+            android:id="@+id/b7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coordinator联动测试" />
+
+        <Button
             android:id="@+id/b2"
-            android:background="#fab"
             android:layout_width="300px"
             android:layout_height="wrap_content"
+            android:background="#fab"
             android:text="滑动View" />
 
         <Button

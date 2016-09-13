@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sum.andrioddeveloplibrary.testActivity.ScrollingActivity;
+import com.sum.andrioddeveloplibrary.testCoordinator.CoordinatorActivity;
 import com.sum.library.utils.Logger;
 import com.sum.library.utils.ToastUtil;
 import com.sum.library.view.widget.MagicCircle;
@@ -57,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startTargetActivity(ScrollingActivity.class);
+            }
+        });
+        findViewById(R.id.b7).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTargetActivity(CoordinatorActivity.class);
             }
         });
 

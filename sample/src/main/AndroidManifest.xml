@@ -24,7 +24,11 @@
         <activity android:name=".CustomViewActivity" />
         <activity
             android:name=".testActivity.ScrollingActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".testCoordinator.CoordinatorActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
 
         <!--渠道统计-->
