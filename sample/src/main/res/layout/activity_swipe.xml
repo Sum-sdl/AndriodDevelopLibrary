@@ -6,21 +6,21 @@
     android:clipChildren="true"
     android:orientation="vertical">
 
+    <!--
+        <com.sum.andrioddeveloplibrary.testview.TestView
+            android:id="@+id/swipe"
+            android:layout_width="400px"
+            android:layout_height="500px"
+            android:background="@color/colorAccent"
+            app:swipe_direction="both">
 
-    <com.sum.andrioddeveloplibrary.testview.TestView
-        android:id="@+id/swipe"
-        android:layout_width="400px"
-        android:layout_height="500px"
-        android:background="@color/colorAccent"
-        app:swipe_direction="both">
+            <com.sum.andrioddeveloplibrary.testview.TestTextView
+                android:id="@+id/ttv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="app_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_name" />
 
-        <com.sum.andrioddeveloplibrary.testview.TestTextView
-            android:id="@+id/ttv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="app_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_nameapp_name" />
-
-    </com.sum.andrioddeveloplibrary.testview.TestView>
+        </com.sum.andrioddeveloplibrary.testview.TestView>-->
 
     <Button
         android:id="@+id/button"
@@ -34,6 +34,100 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="invalidate" />
+
+
+    <com.sum.library.view.widget.SwipeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        app:swipe_drag_distance="180px">
+
+        <LinearLayout
+            android:id="@+id/layer_hide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="#abc"
+                android:gravity="center"
+                android:text="TV1" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="#abc"
+                android:gravity="center"
+                android:text="TV2" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/layer_touch"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/large_text" />
+
+        </FrameLayout>
+
+
+    </com.sum.library.view.widget.SwipeLayout>
+
+    <com.sum.library.view.widget.SwipeItemLayout
+        android:id="@+id/item_contact_swipe_root"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        app:bga_sil_bottomMode="pullOut"
+        app:bga_sil_springDistance="20dp"
+        app:bga_sil_swipeDirection="left">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
+
+            <TextView
+                android:id="@+id/item_contact_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="删除"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/item_contact_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:text="标题"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </com.sum.library.view.widget.SwipeItemLayout>
 
 
 </LinearLayout>
