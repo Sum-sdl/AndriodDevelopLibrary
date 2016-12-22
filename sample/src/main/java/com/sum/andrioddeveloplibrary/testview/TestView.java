@@ -39,7 +39,7 @@ public class TestView extends FrameLayout {
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        Logger.e("generateLayoutParams attrs");
+        Logger.e("generateLayoutParams attrs:"+attrs);
         return super.generateLayoutParams(attrs);
     }
 

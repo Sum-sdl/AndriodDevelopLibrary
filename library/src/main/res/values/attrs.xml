@@ -15,18 +15,14 @@
 
 
     <declare-styleable name="SwipeLayout">
+
         <attr name="swipe_direction" format="enum">
             <enum name="left" value="0" />
             <enum name="right" value="1" />
             <enum name="both" value="2" />
         </attr>
-    </declare-styleable>
 
-    <declare-styleable name="SwipeLayout_LayoutParams">
-
-        <attr name="layout_bottom" format="boolean" />
-
-        <attr name="layout_top" format="boolean" />
+        <attr name="swipe_drag_distance" format="dimension" />
 
     </declare-styleable>
 
