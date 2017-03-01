@@ -10,7 +10,7 @@ import android.view.ViewParent;
 
 import com.sum.library.utils.Logger;
 
-import org.xutils.x;
+import java.lang.ref.WeakReference;
 
 /**
  * Created by Summer on 2016/9/9.
@@ -18,32 +18,44 @@ import org.xutils.x;
 public abstract class BaseFragment extends Fragment {
 
     private static final boolean DEBUG = false;
-    private boolean isInject = false;
-    protected View mView;//显示的Fragment布局,对象的缓存使用
+    //缓存View对象
+    private WeakReference<View> mWRView;
+
+    public View getCacheView() {
+        if (mWRView == null) {
+            return null;
+        }
+        return mWRView.get();
+    }
 
     //首次创建调用
     protected abstract void initParams();
+
+    //手动初始化布局
+    protected abstract int getLayoutId();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        if (!isInject) {
-            isInject = true;
-            mView = x.view().inject(this, inflater, container);
+        View cacheView = getCacheView();
+
+        if (cacheView == null) {
+//            View view = x.view().inject(this, inflater, container);
+            cacheView = inflater.inflate(getLayoutId(), container, false);
+            mWRView = new WeakReference<>(cacheView);
             initParams();
         } else {
-            ViewParent parent = mView.getParent();
+            ViewParent parent = cacheView.getParent();
             if (parent != null && parent instanceof ViewGroup) {
-                ((ViewGroup) parent).removeView(mView);
+                ((ViewGroup) parent).removeView(cacheView);
                 Logger.e("base fragment remove from parent  " + this.getClass().getName());
             }
             if (DEBUG) {
                 Logger.v("onCreateView show cache view");
             }
         }
-
-        return mView;
+        return cacheView;
     }
 
 }

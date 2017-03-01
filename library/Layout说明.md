@@ -5,7 +5,9 @@
 
 **所有View的实例化都是在LayoutInflater类中完成创建和添加的ParentView中**
 
-inflate(...)如果参数中带**有父View并且没有attach到父View**，在子View创建的时候会创建LayoutParams设置给该子View,如果没有,则在xml设置的rootView(如:LinearLayout作为xml的跟布局)的布局属性attr无效,在addView的时候就会创建一个默认的LayoutParmas，rootView的子View有效
+inflate(...)如果参数中带**有父View并且没有attach到父View**，在子View创建的时候会创建LayoutParams设置给该子View,
+如果没有,则在xml设置的rootView(如:LinearLayout作为xml的跟布局)的布局属性attr无效,
+在addView的时候就会创建一个默认的LayoutParmas，rootView的子View有效
 
 
 ### 2.LayoutParams
