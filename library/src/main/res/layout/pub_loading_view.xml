@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:clickable="true">
+
+    <LinearLayout
+        android:id="@+id/load_content"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/loading"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+        <TextView
+            android:id="@+id/loading_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数据加载中..."
+            android:textColor="#b4b4b4"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</FrameLayout>

@@ -4,4 +4,7 @@
     <string name="download_start">立即下载</string>
     <string name="download_cancel">下回再说</string>
     <string name="download_quit">退出应用</string>
+
+    <string name="no_more">已经到底了</string>
+
 </resources>
