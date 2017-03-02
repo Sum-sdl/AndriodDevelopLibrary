@@ -10,9 +10,16 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     protected Context mContext;
 
+    private View mParent;
+
     public RecyclerViewHolder(View view) {
         super(view);
+        mParent = view;
         mContext = view.getContext();
+    }
+
+    public <T> T _findViewById(int id) {
+        return (T) mParent.findViewById(id);
     }
 
     public RecyclerViewHolder setParams(View... params) {

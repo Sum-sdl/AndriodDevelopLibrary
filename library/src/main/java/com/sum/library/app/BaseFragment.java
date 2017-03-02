@@ -36,7 +36,7 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
     private WeakReference<View> mWRView;
 
     //首次创建调用
-    protected abstract void initParams();
+    protected abstract void initParams(View view);
 
     //手动初始化布局
     protected abstract int getLayoutId();
@@ -63,13 +63,15 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View cacheView = getCacheView();
-
+        View cacheView = null;
+        if (mWRView != null) {
+            cacheView = getCacheView();
+        }
         if (cacheView == null) {
 //            View view = x.view().inject(this, inflater, container);
             cacheView = inflater.inflate(getLayoutId(), container, false);
             mWRView = new WeakReference<>(cacheView);
-            initParams();
+            initParams(cacheView);
         } else {
             ViewParent parent = cacheView.getParent();
             if (parent != null && parent instanceof ViewGroup) {
@@ -91,10 +93,11 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
     }
 
     public View getCacheView() {
-        if (mWRView == null) {
-            return null;
-        }
         return mWRView.get();
+    }
+
+    public <T> T _findViewById(int id) {
+        return (T) getCacheView().findViewById(id);
     }
 
     @Override

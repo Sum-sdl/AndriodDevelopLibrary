@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.sum.andrioddeveloplibrary.model.StickyItemModel;
 import com.sum.andrioddeveloplibrary.model.TypeShow;
+import com.sum.andrioddeveloplibrary.testActivity.LibraryActivity;
 import com.sum.andrioddeveloplibrary.testActivity.ScrollingActivity;
 import com.sum.andrioddeveloplibrary.testCoordinator.CoordinatorActivity;
 import com.sum.library.utils.Logger;
@@ -25,7 +26,7 @@ import org.xutils.common.Callback;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Callback.CommonCallback<TypeShow<List<StickyItemModel>>>,TypeShow<String>{
+public class MainActivity extends AppCompatActivity implements Callback.CommonCallback<TypeShow<List<StickyItemModel>>>, TypeShow<String> {
 
     private MagicCircle magic;
 
@@ -79,6 +80,14 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
             @Override
             public void onClick(View v) {
                 magic.startAnimation();
+            }
+        });
+
+
+        findViewById(R.id.b8).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, LibraryActivity.class));
             }
         });
 
