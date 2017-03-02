@@ -13,9 +13,15 @@
 
     <Button
         android:id="@+id/b1"
-        android:text="常用底部Tab切换"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="常用底部Tab切换" />
+
+    <Button
+        android:id="@+id/b2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="常用顶部滚动Tab" />
 
 
 </LinearLayout>

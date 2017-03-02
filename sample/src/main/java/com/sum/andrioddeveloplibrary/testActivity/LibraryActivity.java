@@ -16,6 +16,11 @@ public class LibraryActivity extends BaseActivity {
         startActivity(BottomTabActivity.class);
     }
 
+    @Event(R.id.b2)
+    private void b2(View view) {
+        startActivity(TopTabActivity.class);
+    }
+
 
     @Override
     protected void initParams() {

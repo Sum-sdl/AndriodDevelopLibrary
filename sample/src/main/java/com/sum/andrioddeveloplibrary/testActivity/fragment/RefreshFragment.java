@@ -41,6 +41,9 @@ public class RefreshFragment extends BaseFragment {
         //统一适配器
         adapter = new RecyclerAdapter(getContext());
         recyclerView.setAdapter(adapter);
+
+        
+        refreshTop();
     }
 
     @Override

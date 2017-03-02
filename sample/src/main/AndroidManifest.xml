@@ -35,7 +35,11 @@
             android:value="${LEAN_CLOUD_CHANNEL}" />
 
         <activity android:name=".testActivity.LibraryActivity" />
-        <activity android:name=".testActivity.BottomTabActivity"></activity>
+        <activity android:name=".testActivity.BottomTabActivity" />
+        <activity
+            android:name=".testActivity.TopTabActivity"
+            android:label="@string/title_activity_top_tab"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
