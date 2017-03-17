@@ -49,12 +49,12 @@ public class CharacterParserUtils {
             "zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuai", "zhuan", "zhuang", "zhui",
             "zhun", "zhuo", "zi", "zong", "zou", "zu", "zuan", "zui", "zun", "zuo"};
     private StringBuilder buffer;
-    private static CharacterParser characterParser = new CharacterParser();
+    private static CharacterParserUtils characterParser = new CharacterParserUtils();
 
     private CharacterParserUtils() {
     }
 
-    public static CharacterParser getInstance() {
+    public static CharacterParserUtils getInstance() {
         return characterParser;
     }
 
