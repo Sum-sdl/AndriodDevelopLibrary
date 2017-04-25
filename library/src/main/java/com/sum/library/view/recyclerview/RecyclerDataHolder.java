@@ -20,7 +20,13 @@ public abstract class RecyclerDataHolder<T> {
         return mId;
     }
 
-    public abstract ViewHolder onCreateViewHolder(Context context, ViewGroup parent, int position);
+    public abstract int getLayoutId();
+
+    public View onCreateView(Context context, ViewGroup parent) {
+        return LayoutInflater.from(context).inflate(getLayoutId(), parent, false);
+    }
+
+    public abstract ViewHolder onCreateViewHolder(View contentView, int position);
 
     public abstract void onBindViewHolder(Context context, int position, ViewHolder vHolder, T data);
 

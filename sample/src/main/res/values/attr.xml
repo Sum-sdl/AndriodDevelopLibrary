@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RangeBar">
+
+        <attr name="lineHeight" format="dimension" />
+
+        <!-- 底部颜色 -->
+        <attr name="lineColor" format="color" />
+
+        <!-- 第二颜色 -->
+        <attr name="lineSecondColor" format="color" />
+
+        <!-- 最大值 -->
+        <attr name="maxValue" format="integer" />
+
+        <!--最小单位-->
+        <attr name="minUnit" format="integer" />
+
+        <!--图标-->
+        <attr name="thumbRes" format="reference" />
+
+    </declare-styleable>
+
+</resources>

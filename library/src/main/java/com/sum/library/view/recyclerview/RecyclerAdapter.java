@@ -3,13 +3,13 @@ package com.sum.library.view.recyclerview;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @param <T>
  */
 public class RecyclerAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
@@ -106,8 +106,9 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public final ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        return queryDataHolder(mCurPosition).onCreateViewHolder(mContext, parent, mCurPosition);
+        RecyclerDataHolder<T> holder = queryDataHolder(mCurPosition);
+        View view = holder.onCreateView(mContext, parent);
+        return holder.onCreateViewHolder(view, mCurPosition);
     }
 
     @Override

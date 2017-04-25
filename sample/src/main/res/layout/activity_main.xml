@@ -87,6 +87,9 @@
                 android:layout_marginTop="20dp"
                 android:text="Library库测试使用" />
 
+            <com.sum.andrioddeveloplibrary.testview.RangeBar
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
