@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sum.andrioddeveloplibrary.model.StickyItemModel;
@@ -121,10 +119,13 @@ public class StickyActivity extends AppCompatActivity {
         }
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(Context context, ViewGroup parent, int position) {
-//            View view = View.inflate(context, R.layout.sticky_item, null);
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sticky_item, parent, false);
-            return new RecyclerViewHolder(view);
+        public int getLayoutId() {
+            return R.layout.sticky_item;
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(View contentView, int position) {
+            return new RecyclerViewHolder(contentView);
         }
 
         @Override
