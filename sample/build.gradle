@@ -9,14 +9,18 @@ android {
             storePassword '123456'
         }
     }
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
-        applicationId "com.sum.andrioddeveloplibrary"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+
+        applicationId rootProject.ext.app.applicationId
+        minSdkVersion rootProject.ext.app.minSdkVersion
+        targetSdkVersion rootProject.ext.app.targetSdkVersion
+        versionCode rootProject.ext.app.versionCode
+        versionName rootProject.ext.app.versionName
+
         multiDexEnabled true
         //默认渠道 LEAN_CLOUD_CHANNEL:manifest 中的key
         manifestPlaceholders = [LEAN_CLOUD_CHANNEL: "huawei"]
@@ -25,6 +29,13 @@ android {
         buildConfigField("String", "API_HOST", "\"https\"")
         // 用于动态添加新的资源文件里面值
         resValue("string", "app_add_res", "AAA")
+
+        /*ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+            // 还可以添加 'armeabi-v8a', 'x86_64', 'mips', 'mips64'
+        }*/
+
         signingConfig signingConfigs.config
     }
     buildTypes {

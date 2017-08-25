@@ -1,0 +1,16 @@
+ext {
+    compileSdkVersion = 25
+    buildToolsVersion = "26.0.0"
+
+    app = [
+            applicationId   : "com.sum.andrioddeveloplibrary",
+            minSdkVersion   : 19,
+            targetSdkVersion: 25,
+            versionCode     : 3,
+            versionName     : "1.0.1"
+    ]
+
+    dependencies = [
+            supportLibraryVersion : "25.3.1",
+    ]
+}
