@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.sum.library.utils.Logger;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +44,10 @@ public class FragmentCacheManager {
     private HashMap<Object, FragmentInfo> mCacheFragment;
 
     public static boolean DEBUG = false;
+
+    private boolean mHasLife = true;
+
+    private boolean mCheckRoot = true;
 
     //当前展示的Fragment
     private Fragment mCurrentFragment;
@@ -95,8 +97,11 @@ public class FragmentCacheManager {
      * @return
      */
     public Fragment getCacheFragment(Object index) {
-
-        return mCacheFragment.get(index).fragment;
+        FragmentInfo info = mCacheFragment.get(index);
+        if (info == null) {
+            return null;
+        }
+        return info.fragment;
     }
 
     /**
@@ -104,13 +109,13 @@ public class FragmentCacheManager {
      *
      * @param index
      */
-    public void setCurrentFragment(Object index) {
+    public Fragment setCurrentFragment(Object index) {
         if (index == mCurrentFragmentIndex) {
-            return;
+            return mCurrentFragment;
         }
         FragmentInfo info = mCacheFragment.get(index);
         mCurrentFragmentIndex = index;
-        goToThisFragment(info);
+        return goToThisFragment(info);
     }
 
     /**
@@ -141,6 +146,14 @@ public class FragmentCacheManager {
         this.mListener = listener;
     }
 
+    public void setHasLife(boolean hasLife) {
+        this.mHasLife = hasLife;
+    }
+
+    public void setCheckRoot(boolean checkRoot) {
+        this.mCheckRoot = checkRoot;
+    }
+
     private static final class FragmentInfo {
         private final String tag;
         private final Class<?> clss;
@@ -158,16 +171,13 @@ public class FragmentCacheManager {
         return new FragmentInfo(tag, clss, args);
     }
 
-    private void goToThisFragment(FragmentInfo param) {
+    private Fragment goToThisFragment(FragmentInfo param) {
         int containerId = mContainerId;
         Class<?> cls = param.clss;
         if (cls == null) {
-            return;
+            return null;
         }
         try {
-            if (DEBUG) {
-                Logger.d("before operate, stack entry count: " + mFragmentManager.getBackStackEntryCount());
-            }
             String fragmentTag = param.tag;
             //通过Tag查找活动的Fragment，相同到Fragment可以创建多个实力对象通过设置不同到Tag
             Fragment fragment = mFragmentManager.findFragmentByTag(fragmentTag);
@@ -178,52 +188,47 @@ public class FragmentCacheManager {
                     fragment.setArguments(param.args);
                 }
                 param.fragment = fragment;
-                if (DEBUG) {
-                    Logger.d("newInstance " + fragmentTag);
-                }
             }
+
             if (mCurrentFragment != null && mCurrentFragment != fragment) {
-                //去除跟Activity关联的Fragment
-                //detach会将Fragment所占用的View从父容器中移除，但不会完全销毁，还处于活动状态
-                mFragmentManager.beginTransaction().detach(mCurrentFragment).commit();
-                if (DEBUG) {
-                    Logger.d("detach " + mCurrentFragment.getClass().getName());
+                if (mHasLife) {
+                    //去除跟Activity关联的Fragment
+                    //detach会将Fragment所占用的View从父容器中移除，但不会完全销毁，还处于活动状态
+                    mFragmentManager.beginTransaction().detach(mCurrentFragment).commit();
+                } else {
+                    mFragmentManager.beginTransaction().hide(mCurrentFragment).commit();
                 }
             }
 
             FragmentTransaction ft = mFragmentManager.beginTransaction();
-
             if (fragment.isDetached()) {
                 //重新关联到Activity
                 ft.attach(fragment);
-                if (DEBUG) {
-                    Logger.d("attach " + fragmentTag);
-                }
+            } else if (fragment.isHidden()) {
+                //显示fragment
+                ft.show(fragment);
             } else {
-                if (DEBUG) {
-                    Logger.d(fragmentTag + " is added");
-                }
                 if (!fragment.isAdded()) {
                     ft.add(containerId, fragment, fragmentTag);
                 }
             }
             mCurrentFragment = fragment;
-
             ft.commitAllowingStateLoss();
+            return fragment;
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
     public void onBackPress() {
-
-        if (mActivity.isTaskRoot()) {
+        if (mActivity.isTaskRoot() || !mCheckRoot) {
             int cnt = mFragmentManager.getBackStackEntryCount();
             long secondClickBackTime = System.currentTimeMillis();
-            if (cnt <= 1 && (secondClickBackTime - mLastBackTime) > 2000) {
+            if (cnt < 1 && (secondClickBackTime - mLastBackTime) > 2000) {
                 if (mListener != null) {
                     mListener.rootCallBack();
                 }
@@ -236,13 +241,44 @@ public class FragmentCacheManager {
         }
     }
 
+    public void onFastBackClick() {
+        long secondClickBackTime = System.currentTimeMillis();
+        if ((secondClickBackTime - mLastBackTime) > 2000) {
+            if (mListener != null) {
+                mListener.rootCallBack();
+            }
+            mLastBackTime = secondClickBackTime;
+        } else {
+            mActivity.finish();
+        }
+    }
+
+    public boolean popTopBackStack() {
+        int count = mFragmentManager.getBackStackEntryCount();
+        if (count > 0) {
+            mFragmentManager.popBackStackImmediate();
+            return true;
+        }
+        return false;
+    }
+
     private void doReturnBack() {
         int count = mFragmentManager.getBackStackEntryCount();
-        if (count <= 1) {
+        if (count < 1) {
             mActivity.finish();
         } else {
             mFragmentManager.popBackStackImmediate();
         }
+    }
+
+    public boolean removeShowFragment() {
+        if (mCurrentFragment != null && mCurrentFragmentIndex != null) {
+            //去除跟Activity关联的Fragment
+            mFragmentManager.beginTransaction().detach(mCurrentFragment).commit();
+            mCurrentFragmentIndex = null;
+            return true;
+        }
+        return false;
     }
 
     public interface BootCallBackListener {
