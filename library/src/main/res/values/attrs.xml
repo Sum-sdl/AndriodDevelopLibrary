@@ -38,4 +38,16 @@
         <attr name="multiDrawableChecked" format="reference" />
     </declare-styleable>
 
+
+
+    <declare-styleable name="ChooseView">
+        <attr name="workPaddingToLine" format="dimension" />
+        <attr name="workTextSize" format="dimension" />
+        <attr name="workTextColorNor" format="reference|color" />
+        <attr name="workTextColorSelected" format="reference|color" />
+        <attr name="workLineColorNor" format="reference|color" />
+        <attr name="workLineColorSelected" format="reference|color" />
+    </declare-styleable>
+
+
 </resources>

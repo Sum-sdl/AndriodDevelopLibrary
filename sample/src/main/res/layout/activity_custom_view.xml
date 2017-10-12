@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.sum.andrioddeveloplibrary.CustomViewActivity">
+    android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="500dp"
-        android:layout_height="500dp">
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal">
 
         <com.sum.andrioddeveloplibrary.testview.TestCustomViewGroup
             android:layout_width="match_parent"
@@ -20,4 +17,13 @@
             android:background="#9f9f81" />
 
     </FrameLayout>
-</RelativeLayout>
+
+    <com.sum.library.view.widget.ChooseView
+        android:id="@+id/choose_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp" />
+
+</LinearLayout>

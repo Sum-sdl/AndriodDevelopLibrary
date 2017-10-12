@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
 //        Logger.e("编译时添加的构建配置:" + logShow+" BuildType:"+BuildConfig.API_HOST);
 //        xml();
         typeTest();
+
+        startTargetActivity(CustomViewActivity.class);
     }
 
     private void xml() {
