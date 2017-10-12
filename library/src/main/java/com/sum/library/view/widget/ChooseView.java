@@ -25,7 +25,8 @@ import java.util.List;
 
 public class ChooseView extends BaseView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
 
-    private int[] tipText = new int[]{15, 30, 45, 60, 75, 90};
+    //默认显示参数
+    private List<ShowData> mTipData;
 
     //默认值颜色
     private int mColorLineBg = 0xffe5e5e5;
@@ -69,7 +70,7 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
     private Bitmap mBitmap;
 
     public interface ChooseChangeListener {
-        void onChooseChange(int time);
+        void onChooseChange(ShowData time);
     }
 
     public ChooseView(Context context) {
@@ -93,6 +94,15 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
             array.recycle();
         }
         initPaint();
+
+        //默认值
+        mTipData = new ArrayList<>();
+        mTipData.add(new ShowData("15", 15));
+        mTipData.add(new ShowData("30", 30));
+        mTipData.add(new ShowData("45", 45));
+        mTipData.add(new ShowData("60", 60));
+        mTipData.add(new ShowData("75", 75));
+        mTipData.add(new ShowData("90", 90));
     }
 
     private void initPaint() {
@@ -119,6 +129,11 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
         mCircleMove.setDither(true);
     }
 
+    public void setShowData(List<ShowData> data) {
+        mTipData = data;
+        calculateArea(getMeasuredWidth());
+        invalidate();
+    }
 
     public void setChooseChangeListener(ChooseChangeListener mListener) {
         this.mListener = mListener;
@@ -126,8 +141,8 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
 
     public void setChooseTime(int time) {
         int index = 0;
-        for (int t : tipText) {
-            if (t == time) {
+        for (ShowData item : mTipData) {
+            if (item.value == time) {
                 break;
             }
             index++;
@@ -149,12 +164,16 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
         if (w == oldw) {//修改高度的时候不做计算
             return;
         }
-        int length = tipText.length;
+        calculateArea(w);
+    }
+
+    private void calculateArea(int width) {
+        int length = mTipData.size();
         //单个矩阵宽度
-        int singleWidth = w / length;
+        int singleWidth = width / length;
         int unitWidth = singleWidth / 2;
         mTouchPointX = mUnitWidth = unitWidth;
-        mBgLineEndPoint = w - mUnitWidth;
+        mBgLineEndPoint = width - mUnitWidth;
         //单选的分快
         mAverageArea = new ArrayList<>();
         for (int i = 0; i < length; i++) {
@@ -175,6 +194,9 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
             rect.bottom = 50;
             mShowArea.add(rect);
         }
+        //默认位置
+        mShowIndex = 0;
+        mLastIndex = 0;
     }
 
     @Override
@@ -226,9 +248,12 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
 
     //绘制文字
     private void drawTipText(Canvas canvas, TextPaint paint, Rect rect, int index) {
+        if (index >= mTipData.size()) {
+            return;
+        }
         Paint.FontMetricsInt metricsInt = paint.getFontMetricsInt();
         int baseline = rect.top - metricsInt.top;//画文本的基线，相当于顶部
-        String content = String.valueOf(tipText[index]);
+        String content = String.valueOf(mTipData.get(index).tip);
         if (index == mShowIndex) {
             paint.setColor(mColorTextAccent);
         } else {
@@ -320,7 +345,7 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
             mShowIndex = mLastIndex;
         }
         if (mListener != null) {
-            mListener.onChooseChange(tipText[mLastIndex]);
+            mListener.onChooseChange(mTipData.get(mLastIndex));
         }
     }
 
@@ -339,6 +364,20 @@ public class ChooseView extends BaseView implements Animator.AnimatorListener, V
         mTouchPointX = (float) animation.getAnimatedValue();
         checkShowPoint((int) mTouchPointX, 10);
         invalidate();
+    }
+
+
+    public static class ShowData {
+        public ShowData() {
+        }
+
+        public ShowData(String tip, int value) {
+            this.tip = tip;
+            this.value = value;
+        }
+
+        public String tip;
+        public int value;
     }
 
 }

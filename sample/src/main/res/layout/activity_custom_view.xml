@@ -26,4 +26,10 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="50dp" />
 
+    <Button
+        android:id="@+id/bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="修改参数" />
+
 </LinearLayout>
