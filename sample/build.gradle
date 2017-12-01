@@ -52,7 +52,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    //渠道名称
+   /* //渠道名称
     productFlavors {
         _360 {}
         baidu {}
@@ -64,7 +64,7 @@ android {
     }
     productFlavors.all { flavor ->
         flavor.manifestPlaceholders = [LEAN_CLOUD_CHANNEL: name]
-    }
+    }*/
     //jni 调用位置
     sourceSets {
         main {
@@ -76,7 +76,7 @@ android {
         abortOnError false
     }
 
-    //修改生成的apk名字
+   /* //修改生成的apk名字
     applicationVariants.all {
         variant ->
             variant.outputs.each {
@@ -97,14 +97,15 @@ android {
                         }
                     }
             }
-    }
+    }*/
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
-    compile 'com.android.support:cardview-v7:23.2.0'
+    compile "com.android.support:appcompat-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
+    compile "com.android.support:design:${rootProject.ext.dependencies.supportLibraryVersion}"
+    compile "com.android.support:cardview-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
     compile project(':library')
+    compile 'com.blankj:utilcode:1.9.6'
 }

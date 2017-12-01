@@ -1,17 +1,17 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.Sum-sdl'
+group = 'com.github.Sum-sdl'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.app.minSdkVersion
+        targetSdkVersion rootProject.ext.app.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.3"
     }
 
     lintOptions {
@@ -21,8 +21,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            //自定义BuildConfig属性
-            buildConfigField("boolean","LOG_SHOW","true")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,8 +28,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:${android_support_lib_version}"
-    compile "com.android.support:support-v4:${android_support_lib_version}"
-    compile "com.android.support:recyclerview-v7:${android_support_lib_version}"
+    compile "com.android.support:appcompat-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
+    compile "com.android.support:support-v4:${rootProject.ext.dependencies.supportLibraryVersion}"
+    compile "com.android.support:recyclerview-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
     compile "org.xutils:xutils:${xutils_version}"
 }

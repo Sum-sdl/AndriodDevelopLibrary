@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.Utils;
 import com.sum.andrioddeveloplibrary.model.StickyItemModel;
 import com.sum.andrioddeveloplibrary.model.TypeShow;
 import com.sum.andrioddeveloplibrary.testActivity.LibraryActivity;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
 //        StatusBarUtil.darkMode(this);
         StatusBarUtil.immersive(this, 0xff00ff00);
 
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
         magic = (MagicCircle) findViewById(R.id.magic);
 
         ToastUtil.init(this);
+        Utils.init(getApplication());
 
         findViewById(R.id.b1).setOnClickListener(new View.OnClickListener() {
             @Override

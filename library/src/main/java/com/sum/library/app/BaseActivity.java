@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import com.sum.library.R;
 import com.sum.library.app.common.ActivePresent;
@@ -26,7 +26,7 @@ import java.io.File;
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseActivity extends FragmentActivity implements ContextView, RefreshLoadListener, RefreshView, LoadingView {
+public abstract class BaseActivity extends AppCompatActivity implements ContextView, RefreshLoadListener, RefreshView, LoadingView {
 
     private static final String EXTRA_RESTORE_PHOTO = "extra_photo";
     //统一拍照帮助类
@@ -34,16 +34,15 @@ public abstract class BaseActivity extends FragmentActivity implements ContextVi
 
     private ActivePresent mPresent;
 
-
     protected abstract void initParams();
 
     public boolean isNeedInject() {
         return true;
     }
 
-    public <T> T _findViewById(int id) {
-        return (T) findViewById(id);
-    }
+   /* public <T extends View> T _findViewById(int id) {
+        return findViewById(id);
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
