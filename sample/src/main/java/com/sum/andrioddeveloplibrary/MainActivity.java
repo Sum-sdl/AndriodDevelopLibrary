@@ -16,6 +16,7 @@ import com.sum.andrioddeveloplibrary.model.TypeShow;
 import com.sum.andrioddeveloplibrary.testActivity.LibraryActivity;
 import com.sum.andrioddeveloplibrary.testActivity.ScrollingActivity;
 import com.sum.andrioddeveloplibrary.testCoordinator.CoordinatorActivity;
+import com.sum.library.framework.StatusBarUtil;
 import com.sum.library.utils.Logger;
 import com.sum.library.utils.ToastUtil;
 import com.sum.library.utils.TypeParser;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        StatusBarUtil.darkMode(this);
+        StatusBarUtil.immersive(this, 0xff00ff00);
+
 
         magic = (MagicCircle) findViewById(R.id.magic);
 
