@@ -7,10 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.sum.library.R;
 import com.sum.library.view.SwipeRefresh.MaterialProgressDrawable;
@@ -58,15 +60,15 @@ public class DialogMaker {
         AlertDialog.Builder dialog = new AlertDialog.Builder(context, style);
         View view = LayoutInflater.from(context).inflate(R.layout.pub_loading_view, null);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.loading);
+        ImageView imageView = view.findViewById(R.id.loading);
         View viewParent = view.findViewById(R.id.load_content);
 
-//        TextView tv = (TextView) view.findViewById(R.id.loading_hint);
-//        if (!TextUtils.isEmpty(content)) {
-//            tv.setText(content);
-//        } else {
-//            tv.setVisibility(View.GONE);
-//        }
+        TextView tv = view.findViewById(R.id.loading_hint);
+        if (!TextUtils.isEmpty(content)) {
+            tv.setText(content);
+        } else {
+            tv.setVisibility(View.GONE);
+        }
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
         view.setLayoutParams(params);
@@ -88,12 +90,8 @@ public class DialogMaker {
     }
 
 
-    public static ProgressDialog showProgress(Context context,
-                                              CharSequence title, CharSequence message, boolean cancelable) {
+    public static ProgressDialog showProgress(Context context, CharSequence title, CharSequence message, boolean cancelable) {
         try {
-            if (context == null) {
-                return null;
-            }
             final ProgressDialog dialog = ProgressDialog.show(context, title, message);
             dialog.setTitle(title);
             dialog.setMessage(message);

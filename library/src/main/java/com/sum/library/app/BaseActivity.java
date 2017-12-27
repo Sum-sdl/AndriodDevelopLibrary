@@ -8,25 +8,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.sum.library.R;
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
-import com.sum.library.app.common.RefreshLoadListener;
-import com.sum.library.app.common.RefreshView;
 import com.sum.library.domain.ContextView;
-import com.sum.library.utils.ToastUtil;
 import com.sum.library.view.Helper.PhotoHelper;
-import com.sum.library.view.SwipeRefresh.SwipeRefreshLayout;
-import com.sum.library.view.SwipeRefresh.SwipeRefreshLayoutDirection;
-
-import org.xutils.x;
 
 import java.io.File;
 
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseActivity extends AppCompatActivity implements ContextView, RefreshLoadListener, RefreshView, LoadingView {
+public abstract class BaseActivity extends AppCompatActivity implements ContextView, LoadingView {
 
     private static final String EXTRA_RESTORE_PHOTO = "extra_photo";
     //统一拍照帮助类
@@ -34,25 +26,25 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
 
     private ActivePresent mPresent;
 
+    //布局id
+    protected abstract int getLayoutId();
+
+    //kotlin 不需要实现view 初始化
     protected abstract void initParams();
 
-    public boolean isNeedInject() {
-        return true;
-    }
+    //加载数据
+    protected void loadData() {
 
-   /* public <T extends View> T _findViewById(int id) {
-        return findViewById(id);
-    }*/
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (isNeedInject()) {
-            x.view().inject(this);
-            initParams();
-        }
+        setContentView(getLayoutId());
         mPhotoHelper = new PhotoHelper(this);
         mPresent = new ActivePresent(this);
+        initParams();
+        loadData();
     }
 
     @Override
@@ -75,40 +67,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
         mPresent.loadingView.hideLoading();
     }
 
-    @Override
-    public void onRefreshLoadData() {
-
-    }
-
-    @Override
-    public void onRefreshNoMore() {
-        ToastUtil.showToastShort(R.string.no_more);
-    }
-
-    @Override
-    public void initRefresh(SwipeRefreshLayout refresh, SwipeRefreshLayoutDirection direction) {
-        mPresent.refreshView.initRefresh(refresh, direction);
-    }
-
-    @Override
-    public void refreshTop() {
-        mPresent.refreshView.refreshTop();
-    }
-
-    @Override
-    public void refreshMore() {
-        mPresent.refreshView.refreshMore();
-    }
-
-    @Override
-    public void setTotalSize(int total) {
-        mPresent.refreshView.setTotalSize(total);
-    }
-
-    @Override
-    public int getPageIndex() {
-        return mPresent.refreshView.getPageIndex();
-    }
 
     @Override
     public Object getValue(int type) {
@@ -147,14 +105,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
 
 
     //useful
-    public void setTintDrawable(Drawable drawable, int colorRes) {
+    public void updateDrawableTint(Drawable drawable, int colorRes) {
         DrawableCompat.setTint(drawable, ContextCompat.getColor(this, colorRes));
     }
 
     public Drawable getTintDrawable(int drawableRes, int colorRes) {
         Drawable drawable = ContextCompat.getDrawable(this, drawableRes);
         if (colorRes != -1) {
-            setTintDrawable(drawable, colorRes);
+            updateDrawableTint(drawable, colorRes);
         }
         return drawable;
     }

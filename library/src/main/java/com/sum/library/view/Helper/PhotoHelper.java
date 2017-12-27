@@ -12,9 +12,9 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.AppFileConfig;
 import com.sum.library.utils.Logger;
-import com.sum.library.utils.ToastUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,11 +30,11 @@ import java.util.Locale;
 public class PhotoHelper {
 
     //拍照
-    public final static int CAPTURE_PHOTO_DEFAULT_CODE = 0x1111;
+    private final static int CAPTURE_PHOTO_DEFAULT_CODE = 0x1111;
     //相册
-    public final static int DICM_PHOTO_DEFAULT_CODE = 0x1112;
+    private final static int DICM_PHOTO_DEFAULT_CODE = 0x1112;
     //剪裁照片
-    public final static int CROP_PHOTO_DEFAULT_CODE = 0x1113;
+    private final static int CROP_PHOTO_DEFAULT_CODE = 0x1113;
     //请求拍照权限6.0
     private final static int CAMERA_PER_REQ = 0x11;
 
@@ -121,7 +121,7 @@ public class PhotoHelper {
             takePhone();
         } else {
             // Permission Denied
-            ToastUtil.showToastLong("拒绝打开相机");
+            ToastUtils.showShort("您拒绝打开相机");
         }
     }
 

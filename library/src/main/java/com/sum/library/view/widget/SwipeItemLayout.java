@@ -25,7 +25,6 @@ import java.lang.reflect.Method;
 
 public class SwipeItemLayout extends RelativeLayout {
 
-    private static final String TAG = SwipeItemLayout.class.getSimpleName();
     private static final String INSTANCE_STATUS = "instance_status";
     private static final String STATUS_OPEN_CLOSE = "status_open_close";
     private static final int VEL_THRESHOLD = 400;
@@ -627,7 +626,8 @@ public class SwipeItemLayout extends RelativeLayout {
             mDragHelper.settleCapturedViewAt(finalLeft, getPaddingTop() + mTopLp.topMargin);
 
             // 要执行下面的代码，不然不会自动收缩完毕或展开完毕
-            ViewCompat.postInvalidateOnAnimation(SwipeItemLayout.this);
+            ViewCompat.postInvalidateOnAnimation(
+                    SwipeItemLayout.this);
         }
 
     };

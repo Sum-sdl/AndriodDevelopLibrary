@@ -10,7 +10,6 @@ import com.sum.andrioddeveloplibrary.testActivity.holder.Demo3DataHolder;
 import com.sum.andrioddeveloplibrary.testActivity.holder.DemoDataHolder;
 import com.sum.library.app.BaseFragment;
 import com.sum.library.view.SwipeRefresh.SwipeRefreshLayout;
-import com.sum.library.view.SwipeRefresh.SwipeRefreshLayoutDirection;
 import com.sum.library.view.recyclerview.RecyclerAdapter;
 import com.sum.library.view.recyclerview.RecyclerDataHolder;
 
@@ -35,7 +34,6 @@ public class ComplexViewFragment extends BaseFragment {
 
         recyclerView = _findViewById(R.id.recyclerView);
         refreshLayout = _findViewById(R.id.swipeLayout);
-        initRefresh(refreshLayout, SwipeRefreshLayoutDirection.BOTTOM);
 
         //recyclerView 设置布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -46,15 +44,7 @@ public class ComplexViewFragment extends BaseFragment {
         onRefreshLoadData();
     }
 
-    @Override
-    public int getPageIndex() {
-        //返回分页参数
-        return super.getPageIndex();
-    }
-
-    @Override
     public void onRefreshLoadData() {
-        super.onRefreshLoadData();
         //这个方法是配合SwipeRefreshLayout刷新组件回掉使用的
         //每次上啦或者下拉都会返回到这边，通过getPageIndex获取下一页
         //注意RefreshViewImpl里面的实现流程

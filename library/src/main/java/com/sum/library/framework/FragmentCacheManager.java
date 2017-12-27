@@ -1,6 +1,5 @@
 package com.sum.library.framework;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -30,9 +29,7 @@ public class FragmentCacheManager {
     //Activity 中的Fragment管理
     private FragmentManager mFragmentManager;
 
-    private Activity mActivity;
-
-    private Fragment mFragment;
+    private FragmentActivity mBaseActivity;
 
     private int mContainerId;
 
@@ -42,11 +39,7 @@ public class FragmentCacheManager {
 
     //缓存的Fragment集合数据
     private HashMap<Object, FragmentInfo> mCacheFragment;
-
-    public static boolean DEBUG = false;
-
-    private boolean mHasLife = true;
-
+    //
     private boolean mCheckRoot = true;
 
     //当前展示的Fragment
@@ -54,23 +47,16 @@ public class FragmentCacheManager {
     private Object mCurrentFragmentIndex = null;
 
     public void setUp(FragmentActivity activity, @IdRes int containerId) {
-        if (mFragment != null) {
-            throw new RuntimeException("you have setup for Fragment");
-        }
-        this.mActivity = activity;
+        this.mBaseActivity = activity;
         this.mContainerId = containerId;
         mFragmentManager = activity.getSupportFragmentManager();
     }
 
     public void setUp(Fragment fragment, @IdRes int containerId) {
-        if (mActivity != null) {
-            throw new RuntimeException("you have setup for Activity");
-        }
-        this.mFragment = fragment;
         this.mContainerId = containerId;
         mFragmentManager = fragment.getChildFragmentManager();
         //Fragment所在的Activity
-        mActivity = fragment.getActivity();
+        mBaseActivity = fragment.getActivity();
     }
 
     /**
@@ -115,7 +101,10 @@ public class FragmentCacheManager {
         }
         FragmentInfo info = mCacheFragment.get(index);
         mCurrentFragmentIndex = index;
-        return goToThisFragment(info);
+        if (info != null) {
+            return goToThisFragment(info);
+        }
+        return null;
     }
 
     /**
@@ -144,10 +133,6 @@ public class FragmentCacheManager {
 
     public void setListener(BootCallBackListener listener) {
         this.mListener = listener;
-    }
-
-    public void setHasLife(boolean hasLife) {
-        this.mHasLife = hasLife;
     }
 
     public void setCheckRoot(boolean checkRoot) {
@@ -191,13 +176,9 @@ public class FragmentCacheManager {
             }
 
             if (mCurrentFragment != null && mCurrentFragment != fragment) {
-                if (mHasLife) {
-                    //去除跟Activity关联的Fragment
-                    //detach会将Fragment所占用的View从父容器中移除，但不会完全销毁，还处于活动状态
-                    mFragmentManager.beginTransaction().detach(mCurrentFragment).commit();
-                } else {
-                    mFragmentManager.beginTransaction().hide(mCurrentFragment).commit();
-                }
+                //去除跟Activity关联的Fragment
+                //detach会将Fragment所占用的View从父容器中移除，但不会完全销毁，还处于活动状态
+                mFragmentManager.beginTransaction().detach(mCurrentFragment).commit();
             }
 
             FragmentTransaction ft = mFragmentManager.beginTransaction();
@@ -219,13 +200,15 @@ public class FragmentCacheManager {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
 
 
     public void onBackPress() {
-        if (mActivity.isTaskRoot() || !mCheckRoot) {
+        if (mBaseActivity.isTaskRoot() || !mCheckRoot) {
             int cnt = mFragmentManager.getBackStackEntryCount();
             long secondClickBackTime = System.currentTimeMillis();
             if (cnt < 1 && (secondClickBackTime - mLastBackTime) > 2000) {
@@ -249,23 +232,21 @@ public class FragmentCacheManager {
             }
             mLastBackTime = secondClickBackTime;
         } else {
-            mActivity.finish();
+            mBaseActivity.finish();
         }
     }
 
-    public boolean popTopBackStack() {
+    public void popTopBackStack() {
         int count = mFragmentManager.getBackStackEntryCount();
         if (count > 0) {
             mFragmentManager.popBackStackImmediate();
-            return true;
         }
-        return false;
     }
 
     private void doReturnBack() {
         int count = mFragmentManager.getBackStackEntryCount();
         if (count < 1) {
-            mActivity.finish();
+            mBaseActivity.finish();
         } else {
             mFragmentManager.popBackStackImmediate();
         }

@@ -12,23 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.Utils;
-import com.sum.andrioddeveloplibrary.model.StickyItemModel;
-import com.sum.andrioddeveloplibrary.model.TypeShow;
-import com.sum.andrioddeveloplibrary.testActivity.LibraryActivity;
 import com.sum.andrioddeveloplibrary.testActivity.ScrollingActivity;
 import com.sum.andrioddeveloplibrary.testCoordinator.CoordinatorActivity;
 import com.sum.library.framework.StatusBarUtil;
 import com.sum.library.utils.Logger;
-import com.sum.library.utils.ToastUtil;
-import com.sum.library.utils.TypeParser;
 import com.sum.library.view.widget.MagicCircle;
 
-import org.xutils.common.Callback;
-
-import java.lang.reflect.Type;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements Callback.CommonCallback<TypeShow<List<StickyItemModel>>>, TypeShow<String> {
+public class MainActivity extends AppCompatActivity {
 
     private MagicCircle magic;
 
@@ -37,15 +27,12 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
 //        StatusBarUtil.darkMode(this);
         StatusBarUtil.immersive(this, 0xff00ff00);
 
 
         magic = (MagicCircle) findViewById(R.id.magic);
 
-        ToastUtil.init(this);
         Utils.init(getApplication());
 
         findViewById(R.id.b1).setOnClickListener(new View.OnClickListener() {
@@ -96,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
         findViewById(R.id.b8).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LibraryActivity.class));
             }
         });
 
@@ -124,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
 //
 //        Logger.e("编译时添加的构建配置:" + logShow+" BuildType:"+BuildConfig.API_HOST);
 //        xml();
-        typeTest();
 
         startTargetActivity(CustomViewActivity.class);
     }
@@ -155,51 +140,4 @@ public class MainActivity extends AppCompatActivity implements Callback.CommonCa
         startActivity(intent);
     }
 
-
-    private void typeTest() {
-        type(this);
-        load(this);
-    }
-
-    private void load(CommonCallback commonCallback) {
-        Type parameterizedType = TypeParser.parserType(commonCallback.getClass(), CommonCallback.class, 0);
-
-        Logger.e("load:" + parameterizedType);
-    }
-
-    private <T> void type(TypeShow<T> data) {
-        //获取T类型
-
-        Class<?> aClass = data.getClass();
-
-        Type parameterizedType = TypeParser.parserType(aClass, TypeShow.class, 0);
-
-        Logger.e("type:" + parameterizedType);
-    }
-
-
-    @Override
-    public void onSuccess(TypeShow<List<StickyItemModel>> result) {
-
-    }
-
-    @Override
-    public void onError(Throwable ex, boolean isOnCallback) {
-
-    }
-
-    @Override
-    public void onCancelled(CancelledException cex) {
-
-    }
-
-    @Override
-    public void onFinished() {
-
-    }
-
-    @Override
-    public void showT(String obj) {
-
-    }
 }

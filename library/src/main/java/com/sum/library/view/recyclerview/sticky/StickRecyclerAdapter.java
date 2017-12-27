@@ -31,7 +31,7 @@ public abstract class StickRecyclerAdapter<T> extends RecyclerAdapter<T> impleme
     /**
      * @param position 数据源所在的位置
      * @param data     每项的数据源中存放该数据属于的一组类型
-     * @return 区分不同数据源的一个id
+     * @return 区分不同数据源的一个id（String.chartAt(0)）
      */
     public abstract long headId(int position, T data);
 

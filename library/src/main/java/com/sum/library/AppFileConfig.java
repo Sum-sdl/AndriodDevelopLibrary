@@ -2,7 +2,7 @@ package com.sum.library;
 
 import android.os.Environment;
 
-import org.xutils.x;
+import com.blankj.utilcode.util.Utils;
 
 import java.io.File;
 
@@ -12,20 +12,18 @@ import java.io.File;
 public class AppFileConfig {
 
     public static File getDownloadAppFile() {
-
         return getDir("app");
     }
 
     public static File getLogFile() {
-
         return getDir("log");
     }
 
-    public static File getTakePhoneFile(){
+    public static File getTakePhoneFile() {
         return getDir("pic");
     }
 
-    public static File getCacheFile(){
+    public static File getCacheFile() {
         return getDir("cache");
     }
 
@@ -46,11 +44,11 @@ public class AppFileConfig {
     public static File getBaseDir() {
         File result;
         if (existsSdcard()) {
-            String cacheDir = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/sum";
+            String cacheDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/sum";
 
             result = new File(cacheDir);
         } else {
-            result = (x.app().getFilesDir());
+            result = (Utils.getApp().getFilesDir());
         }
         if (result.exists() || result.mkdirs()) {
             return result;

@@ -103,9 +103,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
-    compile "com.android.support:design:${rootProject.ext.dependencies.supportLibraryVersion}"
-    compile "com.android.support:cardview-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
     compile project(':library')
-    compile 'com.blankj:utilcode:1.9.6'
+    // butterknife
+    compile 'com.jakewharton:butterknife:8.8.1'
 }

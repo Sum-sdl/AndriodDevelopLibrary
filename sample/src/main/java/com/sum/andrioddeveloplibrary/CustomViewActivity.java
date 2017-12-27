@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.sum.library.utils.ToastUtil;
+import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.view.widget.ChooseView;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class CustomViewActivity extends AppCompatActivity {
         chooseView.setChooseChangeListener(new ChooseView.ChooseChangeListener() {
             @Override
             public void onChooseChange(ChooseView.ShowData time) {
-                ToastUtil.showToastShort(time.tip + "," + time.value);
+                ToastUtils.showShort(time.tip + "," + time.value);
             }
         });
 

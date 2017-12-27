@@ -9,17 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.sum.library.R;
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
-import com.sum.library.app.common.RefreshLoadListener;
-import com.sum.library.app.common.RefreshView;
 import com.sum.library.domain.ContextView;
 import com.sum.library.utils.Logger;
-import com.sum.library.utils.ToastUtil;
 import com.sum.library.view.Helper.PhotoHelper;
-import com.sum.library.view.SwipeRefresh.SwipeRefreshLayout;
-import com.sum.library.view.SwipeRefresh.SwipeRefreshLayoutDirection;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -27,7 +21,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseFragment extends Fragment implements ContextView, RefreshView, RefreshLoadListener, LoadingView {
+public abstract class BaseFragment extends Fragment implements ContextView, LoadingView {
 
     private static final String EXTRA_RESTORE_PHOTO = "extra_photo";
 
@@ -38,7 +32,11 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
     //首次创建调用
     protected abstract void initParams(View view);
 
-    //手动初始化布局
+    //加载数据
+    protected void loadData() {
+
+    }
+    //初始化布局
     protected abstract int getLayoutId();
 
     //统一拍照帮助类
@@ -68,10 +66,10 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
             cacheView = getCacheView();
         }
         if (cacheView == null) {
-//            View view = x.view().inject(this, inflater, container);
             cacheView = inflater.inflate(getLayoutId(), container, false);
             mWRView = new WeakReference<>(cacheView);
             initParams(cacheView);
+            loadData();
         } else {
             ViewParent parent = cacheView.getParent();
             if (parent != null && parent instanceof ViewGroup) {
@@ -89,15 +87,15 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mIsPrepared = true;
-        loadData();
+        onVisibleLoadData();
     }
 
     public View getCacheView() {
         return mWRView.get();
     }
 
-    public <T> T _findViewById(int id) {
-        return (T) getCacheView().findViewById(id);
+    public <T extends View> T _findViewById(int id) {
+        return getCacheView().findViewById(id);
     }
 
     @Override
@@ -121,41 +119,6 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
     }
 
     @Override
-    public void onRefreshLoadData() {
-
-    }
-
-    @Override
-    public void onRefreshNoMore() {
-        ToastUtil.showToastShort(R.string.no_more);
-    }
-
-    @Override
-    public void initRefresh(SwipeRefreshLayout refresh, SwipeRefreshLayoutDirection direction) {
-        mPresent.refreshView.initRefresh(refresh, direction);
-    }
-
-    @Override
-    public void refreshTop() {
-        mPresent.refreshView.refreshTop();
-    }
-
-    @Override
-    public void refreshMore() {
-        mPresent.refreshView.refreshMore();
-    }
-
-    @Override
-    public void setTotalSize(int total) {
-        mPresent.refreshView.setTotalSize(total);
-    }
-
-    @Override
-    public int getPageIndex() {
-        return mPresent.refreshView.getPageIndex();
-    }
-
-    @Override
     public Object getValue(int type) {
         return mPresent.getValue(type);
     }
@@ -164,7 +127,6 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
     public void showValue(int type, Object obj) {
         mPresent.showValue(type, obj);
     }
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -198,14 +160,14 @@ public abstract class BaseFragment extends Fragment implements ContextView, Refr
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {//获取fragment的可见状态
             mIsNeedLoadData = true;
-            loadData();
+            onVisibleLoadData();
         } else {
             mIsNeedLoadData = false;
         }
     }
 
-    //首次加载和多次加载
-    private void loadData() {
+    //首次加载和viewpager中可见加载
+    private void onVisibleLoadData() {
         if (mIsNeedLoadData && mIsPrepared) {
             onFragmentVisibleLoadData();
         }

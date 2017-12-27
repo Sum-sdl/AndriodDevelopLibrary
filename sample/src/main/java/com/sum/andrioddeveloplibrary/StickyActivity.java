@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.sum.andrioddeveloplibrary.model.StickyItemModel;
-import com.sum.library.utils.ToastUtil;
 import com.sum.library.view.recyclerview.RecyclerDataHolder;
 import com.sum.library.view.recyclerview.RecyclerViewHolder;
 import com.sum.library.view.recyclerview.line.DividerItemDecoration;
@@ -135,7 +135,7 @@ public class StickyActivity extends AppCompatActivity {
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToastShort(data.name);
+                    ToastUtils.showShort(data.name);
                 }
             });
         }
