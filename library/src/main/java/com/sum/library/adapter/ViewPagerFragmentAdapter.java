@@ -1,4 +1,4 @@
-package com.sum.andrioddeveloplibrary.adapter;
+package com.sum.library.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,14 +9,20 @@ import java.util.List;
 /**
  * Created by Sum on 15/11/28.
  */
-public class FragmentViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
 
     private List<? extends Fragment> mFragments;
     private List<String> mTitles;
 
 
-    public FragmentViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerFragmentAdapter(FragmentManager fm) {
         super(fm);
+    }
+
+    public ViewPagerFragmentAdapter(FragmentManager fm, List<? extends Fragment> mFragments, List<String> mTitles) {
+        super(fm);
+        this.mFragments = mFragments;
+        this.mTitles = mTitles;
     }
 
     @Override

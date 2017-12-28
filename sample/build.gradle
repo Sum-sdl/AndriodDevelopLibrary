@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     signingConfigs {
@@ -52,7 +54,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-   /* //渠道名称
+    /* //渠道名称
     productFlavors {
         _360 {}
         baidu {}
@@ -76,7 +78,7 @@ android {
         abortOnError false
     }
 
-   /* //修改生成的apk名字
+    /* //修改生成的apk名字
     applicationVariants.all {
         variant ->
             variant.outputs.each {
@@ -106,4 +108,9 @@ dependencies {
     compile project(':library')
     // butterknife
     compile 'com.jakewharton:butterknife:8.8.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+
+repositories {
+    mavenCentral()
 }
