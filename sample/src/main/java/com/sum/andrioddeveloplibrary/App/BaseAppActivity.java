@@ -1,19 +1,23 @@
 package com.sum.andrioddeveloplibrary.App;
 
+import android.os.Bundle;
+
 import com.sum.library.app.BaseActivity;
 
 /**
  * Created by sdl on 2017/12/29.
  */
 
-public class BaseAppActivity extends BaseActivity {
+public abstract class BaseAppActivity extends BaseActivity {
+
     @Override
-    protected int getLayoutId() {
-        return 0;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected void initParams() {
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -11,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by sdl on 2017/12/27.
+ * Retrofit 快速初始化使用
  */
 
 public class Retrofit2Helper {
@@ -37,12 +38,12 @@ public class Retrofit2Helper {
         mBuilder = new Retrofit.Builder();
         //自动将ResponseBody转成对象
         mBuilder.addConverterFactory(GsonConverterFactory.create());
-
     }
 
     //自己添加添加公共参数Interceptor
     public OkHttpClient.Builder buildDefaultOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        //ChuckInterceptor 广播调试请求参数
         builder.addInterceptor(new ChuckInterceptor(Utils.getApp()))
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)

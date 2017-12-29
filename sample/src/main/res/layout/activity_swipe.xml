@@ -36,7 +36,7 @@
         android:text="invalidate" />
 
 
-    <com.sum.library.view.widget.SwipeLayout
+    <com.sum.library.view.widget.SwipeItemLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
@@ -83,7 +83,7 @@
         </FrameLayout>
 
 
-    </com.sum.library.view.widget.SwipeLayout>
+    </com.sum.library.view.widget.SwipeItemLayout>
 
     <com.sum.library.view.widget.SwipeItemLayout
         android:id="@+id/item_contact_swipe_root"

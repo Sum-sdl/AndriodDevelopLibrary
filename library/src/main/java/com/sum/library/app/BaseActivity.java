@@ -11,9 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ContextView;
+import com.sum.library.net.Retrofit2Helper;
 import com.sum.library.view.Helper.PhotoHelper;
 
 import java.io.File;
+
+import retrofit2.Retrofit;
 
 /**
  * Created by Summer on 2016/9/9.
@@ -24,7 +27,11 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
     //统一拍照帮助类
     protected PhotoHelper mPhotoHelper;
 
+    //活动数据处理
     private ActivePresent mPresent;
+
+    //统一网络请求
+    protected Retrofit mRetrofit;
 
     //布局id
     protected abstract int getLayoutId();
@@ -41,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        mRetrofit = Retrofit2Helper.getRetrofit();
         mPhotoHelper = new PhotoHelper(this);
         mPresent = new ActivePresent(this);
         initParams();

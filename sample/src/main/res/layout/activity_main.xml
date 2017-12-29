@@ -38,6 +38,12 @@
             android:text="自定义View" />
 
         <Button
+            android:id="@+id/b5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BottomSheet Dialog" />
+
+        <Button
             android:id="@+id/b6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
