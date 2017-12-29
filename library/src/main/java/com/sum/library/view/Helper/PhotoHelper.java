@@ -61,13 +61,13 @@ public class PhotoHelper {
     public PhotoHelper(Activity activity) {
         mContext = activity;
         this.mActivity = activity;
-        this.mPhotoFolder = AppFileConfig.getCacheFile();
+        this.mPhotoFolder = AppFileConfig.getTakePhoneFile();
     }
 
     public PhotoHelper(Fragment fragment) {
         mContext = fragment.getContext();
         this.mFragment = fragment;
-        this.mPhotoFolder = AppFileConfig.getCacheFile();
+        this.mPhotoFolder = AppFileConfig.getTakePhoneFile();
     }
 
     //显示相册

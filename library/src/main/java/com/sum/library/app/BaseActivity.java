@@ -8,13 +8,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.blankj.utilcode.util.PermissionUtils;
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ContextView;
 import com.sum.library.net.Retrofit2Helper;
-import com.sum.library.view.Helper.PhotoHelper;
-
-import java.io.File;
 
 import retrofit2.Retrofit;
 
@@ -22,10 +20,6 @@ import retrofit2.Retrofit;
  * Created by Summer on 2016/9/9.
  */
 public abstract class BaseActivity extends AppCompatActivity implements ContextView, LoadingView {
-
-    private static final String EXTRA_RESTORE_PHOTO = "extra_photo";
-    //统一拍照帮助类
-    protected PhotoHelper mPhotoHelper;
 
     //活动数据处理
     private ActivePresent mPresent;
@@ -49,7 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         mRetrofit = Retrofit2Helper.getRetrofit();
-        mPhotoHelper = new PhotoHelper(this);
         mPresent = new ActivePresent(this);
         initParams();
         loadData();
@@ -86,31 +79,16 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
         mPresent.showValue(type, obj);
     }
 
+    public void onCheckPermission(String[] permissions){
+        boolean gend = PermissionUtils.hasAlwaysDeniedPermission(this, permissions);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        mPhotoHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtils.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        File photo = mPhotoHelper.getPhoto();
-        if (photo != null) {
-            outState.putSerializable(EXTRA_RESTORE_PHOTO, photo);
-        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        File photo = (File) savedInstanceState.getSerializable(EXTRA_RESTORE_PHOTO);
-        if (photo != null) {
-            mPhotoHelper.setPhoto(photo);
-        }
-    }
-
 
     //useful
     public void updateDrawableTint(Drawable drawable, int colorRes) {

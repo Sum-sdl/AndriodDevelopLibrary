@@ -1,1 +1,2 @@
-//
+//app退到后台
+adb shell am kill com.house365.aizuna（包名）

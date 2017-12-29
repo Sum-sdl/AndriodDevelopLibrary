@@ -3,8 +3,6 @@
 
     <item>
         <shape>
-            <size android:width="300dp" />
-
             <corners android:radius="4dp" />
 
             <solid android:color="@color/dialog_bg" />

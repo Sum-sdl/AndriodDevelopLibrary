@@ -13,17 +13,13 @@ import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ContextView;
 import com.sum.library.utils.Logger;
-import com.sum.library.view.Helper.PhotoHelper;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 
 /**
  * Created by Summer on 2016/9/9.
  */
 public abstract class BaseFragment extends Fragment implements ContextView, LoadingView {
-
-    private static final String EXTRA_RESTORE_PHOTO = "extra_photo";
 
     //缓存View对象
     private WeakReference<View> mWRView;
@@ -39,9 +35,6 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     //初始化布局
     protected abstract int getLayoutId();
 
-    //统一拍照帮助类
-    protected PhotoHelper mPhotoHelper;
-
     private ActivePresent mPresent;
 
     private boolean mIsNeedLoadData = false;//view创建完成后，状态是当前可见的
@@ -54,7 +47,6 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresent = new ActivePresent(this);
-        mPhotoHelper = new PhotoHelper(this);
     }
 
     @Nullable
@@ -131,27 +123,16 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        File photo = mPhotoHelper.getPhoto();
-        if (photo != null) {
-            outState.putSerializable(EXTRA_RESTORE_PHOTO, photo);
-        }
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null) {
-            File photo = (File) savedInstanceState.getSerializable(EXTRA_RESTORE_PHOTO);
-            if (photo != null) {
-                mPhotoHelper.setPhoto(photo);
-            }
-        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        mPhotoHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 

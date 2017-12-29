@@ -47,12 +47,20 @@
         <activity
             android:name=".testActivity.ScrollingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!-- 渠道统计 -->
-        <meta-data
-            android:name="leancloud"
-            android:value="${LEAN_CLOUD_CHANNEL}" />
 
-        <activity android:name=".net.NetActivity"></activity>
+        <activity android:name=".net.NetActivity"/>
+        <activity android:name=".SplashActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
 
 </manifest>

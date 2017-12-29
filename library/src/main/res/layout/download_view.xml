@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/code_dialog_bg"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/dialog_padding_24"
-    android:paddingRight="@dimen/dialog_padding_24"
-    android:paddingTop="@dimen/dialog_padding_24">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         android:focusable="false"
         android:text="@string/download_title"
         android:textColor="@color/dialog_title_color"
@@ -21,15 +19,20 @@
         android:id="@+id/download_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:focusable="false"
+        android:paddingBottom="18dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="18dp"
         android:textColor="@color/dialog_content_color"
-        android:textSize="@dimen/dialog_content_size" />
+        android:textSize="@dimen/dialog_content_size"
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/ll_progress"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -44,15 +47,16 @@
             android:id="@+id/tv_process"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/dialog_content_color"
-            android:textSize="10sp" />
+            android:layout_marginTop="4dp"
+            android:text="0%"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_action"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="@dimen/dialog_padding_24"
         android:baselineAligned="true"
         android:orientation="horizontal">
 
@@ -62,19 +66,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:minWidth="64dp"
             android:paddingLeft="@dimen/dialog_padding_8"
             android:paddingRight="@dimen/dialog_padding_8"
             android:text="@string/download_cancel"
-            android:textColor="@color/dialog_btn_color"
+            android:textColor="#cccccc"
             android:textSize="@dimen/dialog_btn_size" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_marginTop="@dimen/dialog_padding_8"
-            android:layout_marginBottom="@dimen/dialog_padding_8"
-            android:layout_height="match_parent"
-            android:background="#cccccc" />
 
         <Button
             android:id="@+id/btn_start"
@@ -82,12 +78,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:minWidth="64dp"
             android:paddingLeft="@dimen/dialog_padding_8"
             android:paddingRight="@dimen/dialog_padding_8"
             android:text="@string/download_start"
-            android:textColor="@color/dialog_btn_color"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/dialog_btn_size" />
+
+        <Button
+            android:id="@+id/btn_to_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:paddingLeft="@dimen/dialog_padding_8"
+            android:paddingRight="@dimen/dialog_padding_8"
+            android:text="@string/download_back"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/dialog_btn_size"
+            android:visibility="gone" />
 
     </LinearLayout>
 
