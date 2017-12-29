@@ -1,11 +1,9 @@
-package com.sum.library.utils;
+package com.sum.library.view.widget;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -74,9 +72,9 @@ public class DialogMaker {
         view.setLayoutParams(params);
 
         MaterialProgressDrawable drawable = new MaterialProgressDrawable(context, viewParent);
-//        int color1 = ContextCompat.getColor(context, R.color.colorAccent);
+        int color1 = ContextCompat.getColor(context, R.color.colorPrimary);
 //        int color2 = ContextCompat.getColor(context, R.color.colorPrimary);
-//        drawable.setColorSchemeColors(color1, color2);
+        drawable.setColorSchemeColors(color1);
         imageView.setImageDrawable(drawable);
         drawable.setAlpha(255);
         drawable.start();
@@ -91,71 +89,10 @@ public class DialogMaker {
 
 
     public static ProgressDialog showProgress(Context context, CharSequence title, CharSequence message, boolean cancelable) {
-        try {
-            final ProgressDialog dialog = ProgressDialog.show(context, title, message);
-            dialog.setTitle(title);
-            dialog.setMessage(message);
-            dialog.setCancelable(cancelable);
-            return dialog;
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
-
-    public static void refuseShowSetLocation(final Activity context) {
-        AlertDialog.Builder dialog = getDialog(context);
-        dialog.setTitle("定位拒绝");
-        dialog.setMessage("请您到系统设置中应用允许定位");
-        dialog.setPositiveButton("设置", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                context.startActivity(intent);
-                context.finish();
-            }
-        });
-        dialog.setNegativeButton("拒绝", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                context.finish();
-            }
-        });
-        dialog.create().show();
-    }
-
-    public static void refuseShowSetCamera(final Activity context) {
-        AlertDialog.Builder dialog = getDialog(context);
-        dialog.setTitle("相机拒绝");
-        dialog.setMessage("请您到系统设置中应用允许打开摄像头");
-        dialog.setPositiveButton("设置", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                context.startActivity(intent);
-                context.finish();
-            }
-        });
-        dialog.setNegativeButton("拒绝", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                context.finish();
-            }
-        });
-        dialog.create().show();
-    }
-
-    public static void refuseShow(final Activity context) {
-        AlertDialog.Builder dialog = getDialog(context);
-        dialog.setTitle("温馨提示");
-        dialog.setMessage("权限错误，请重新打开应用");
-        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                context.finish();
-            }
-        });
-        dialog.setCancelable(false);
-        dialog.create().show();
+        final ProgressDialog dialog = ProgressDialog.show(context, title, message);
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setCancelable(cancelable);
+        return dialog;
     }
 }

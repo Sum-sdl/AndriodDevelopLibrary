@@ -1,12 +1,16 @@
 package com.sum.library.net.token;
 
+import android.util.Log;
+
+import com.sum.library.BuildConfig;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,9 +19,13 @@ import java.util.TreeMap;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.Buffer;
+import okio.BufferedSource;
 
 /**
  * Created by sdl on 2017/12/28.
@@ -25,85 +33,121 @@ import okhttp3.Response;
  */
 
 public abstract class BaseDynamicInterceptor implements Interceptor {
-    private HttpUrl httpUrl;
 
     public BaseDynamicInterceptor() {
+
     }
 
-    private String parseUrl(String url) {
-        if (!"".equals(url) && url.contains("?")) {
-            url = url.substring(0, url.indexOf(63));
-        }
-        return url;
-    }
-
+    @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (request.method().equals("GET")) {
-            this.httpUrl = HttpUrl.parse(parseUrl(request.url().toString()));
             request = this.addGetParamsSign(request);
         } else if (request.method().equals("POST")) {
-            this.httpUrl = request.url();
             request = this.addPostParamsSign(request);
         }
-
-        return chain.proceed(request);
+        if (BuildConfig.DEBUG) {
+            Log.d("net",
+                    "req->method:" + request.method() +
+                            " head:" + request.headers().toString() +
+                            " url:" + request.url().toString());
+        }
+        Response response = chain.proceed(request);
+        if (BuildConfig.DEBUG) {
+            Log.d("net", "rsp->" + getBodyString(response));
+        }
+        return response;
     }
 
-    public HttpUrl getHttpUrl() {
-        return this.httpUrl;
+
+    private String getBodyString(Response response) throws IOException {
+        ResponseBody responseBody = response.body();
+        BufferedSource source = responseBody.source();
+        if (source == null) {
+            return null;
+        }
+        source.request(Long.MAX_VALUE);
+        Buffer buffer = source.buffer();
+        Charset charset = Charset.forName("UTF-8");
+        MediaType contentType = responseBody.contentType();
+        if (contentType != null) {
+            contentType.charset(charset);
+        }
+        return buffer.clone().readString(charset);
     }
 
     private Request addGetParamsSign(Request request) throws UnsupportedEncodingException {
         HttpUrl httpUrl = request.url();
-        HttpUrl.Builder newBuilder = httpUrl.newBuilder();
+        HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
         Set<String> nameSet = httpUrl.queryParameterNames();
+        //GET查询参数
         ArrayList<String> nameList = new ArrayList<>();
         nameList.addAll(nameSet);
-        TreeMap<String, String> oldParams = new TreeMap<>();
 
+        TreeMap<String, String> oldParams = new TreeMap<>();
         for (int i = 0; i < nameList.size(); ++i) {
-            String value = httpUrl.queryParameterValues((String) nameList.get(i)) != null && httpUrl.queryParameterValues((String) nameList.get(i)).size() > 0 ? (String) httpUrl.queryParameterValues((String) nameList.get(i)).get(0) : "";
-            oldParams.put(nameList.get(i), value);
+            String name = nameList.get(i);
+            //同个key对应多个value
+            String value = httpUrl.queryParameterValues(name) != null
+                    &&
+                    httpUrl.queryParameterValues(name).size() > 0 ?
+                    httpUrl.queryParameterValues(name).get(0) : "";
+            oldParams.put(name, value);
         }
         String nameKeys = Arrays.asList(new ArrayList[]{nameList}).toString();
         addPubParams(oldParams);
-        Iterator var9 = oldParams.entrySet().iterator();
-
-        while (var9.hasNext()) {
-            Map.Entry<String, String> entry = (Map.Entry) var9.next();
-            String urlValue = URLEncoder.encode((String) entry.getValue(), "UTF-8");
-            if (!nameKeys.contains((CharSequence) entry.getKey())) {
-                newBuilder.addQueryParameter((String) entry.getKey(), urlValue);
+        //过滤重复数据
+        for (Map.Entry<String, String> entry : oldParams.entrySet()) {
+            if (entry.getKey() == null || entry.getValue() == null) {
+                continue;
+            }
+            //String urlValue = URLEncoder.encode((String) entry.getValue(), "UTF-8");
+            if (!nameKeys.contains(entry.getKey())) {
+                urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
             }
         }
-        httpUrl = newBuilder.build();
-        request = request.newBuilder().url(httpUrl).build();
+        httpUrl = urlBuilder.build();
+
+        Request.Builder builder = request.newBuilder();
+        HashMap<String, String> headers = addPubHeaders();
+        if (headers != null && !headers.isEmpty()) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                builder.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
+        request = builder.url(httpUrl).build();
         return request;
     }
 
     private Request addPostParamsSign(Request request) throws UnsupportedEncodingException {
         if (request.body() instanceof FormBody) {
+            //完全新创建一个查询参数体
             okhttp3.FormBody.Builder bodyBuilder = new okhttp3.FormBody.Builder();
             FormBody formBody = (FormBody) request.body();
-
             TreeMap<String, String> oldParams = new TreeMap<>();
             if (formBody != null) {
                 for (int i = 0; i < formBody.size(); ++i) {
                     oldParams.put(formBody.encodedName(i), formBody.encodedValue(i));
                 }
             }
-
             this.addPubParams(oldParams);
-            Iterator var6 = oldParams.entrySet().iterator();
 
-            while (var6.hasNext()) {
-                Map.Entry<String, String> entry = (Map.Entry) var6.next();
-                String value = URLDecoder.decode((String) entry.getValue(), "UTF-8");
-                bodyBuilder.addEncoded((String) entry.getKey(), value);
+            for (Map.Entry<String, String> entry : oldParams.entrySet()) {
+                if (entry.getValue() == null) {
+                    continue;
+                }
+                bodyBuilder.addEncoded(entry.getKey(), URLDecoder.decode(entry.getValue(), "UTF-8"));
             }
             formBody = bodyBuilder.build();
-            request = request.newBuilder().post(formBody).build();
+
+            Request.Builder builder = request.newBuilder();
+            HashMap<String, String> headers = addPubHeaders();
+            if (headers != null && !headers.isEmpty()) {
+                for (Map.Entry<String, String> entry : headers.entrySet()) {
+                    builder.addHeader(entry.getKey(), entry.getValue());
+                }
+            }
+            request = builder.post(formBody).build();
         } else if (request.body() instanceof MultipartBody) {
             MultipartBody multipartBody = (MultipartBody) request.body();
             okhttp3.MultipartBody.Builder bodyBuilder = new okhttp3.MultipartBody.Builder();
@@ -113,58 +157,29 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
 
             TreeMap<String, String> newParams = new TreeMap<>();
             this.addPubParams(newParams);
-            Iterator var21 = newParams.entrySet().iterator();
 
-            while (var21.hasNext()) {
-                Map.Entry<String, String> stringEntry = (Map.Entry) var21.next();
-                MultipartBody.Part part = MultipartBody.Part.createFormData((String) stringEntry.getKey(), (String) stringEntry.getValue());
+            for (Map.Entry<String, String> entry : newParams.entrySet()) {
+                MultipartBody.Part part = MultipartBody.Part.createFormData(entry.getKey(), entry.getValue());
                 newparts.add(part);
             }
 
-            var21 = newparts.iterator();
-
-            while (var21.hasNext()) {
-                MultipartBody.Part part = (MultipartBody.Part) var21.next();
+            for (MultipartBody.Part part : newparts) {
                 bodyBuilder.addPart(part);
             }
 
             multipartBody = bodyBuilder.build();
             request = request.newBuilder().post(multipartBody).build();
-        } else if (request.body() != null) {
-            TreeMap<String, String> params = new TreeMap<>();
-            addPubParams(params);
-            String url = createUrlFromParams(this.httpUrl.url().toString(), params);
-            request = request.newBuilder().url(url).build();
         }
         return request;
-    }
-
-    private String createUrlFromParams(String url, Map<String, String> params) {
-        try {
-            StringBuilder sb = new StringBuilder();
-            sb.append(url);
-            if (url.indexOf(38) <= 0 && url.indexOf(63) <= 0) {
-                sb.append("?");
-            } else {
-                sb.append("&");
-            }
-            Iterator var3 = params.entrySet().iterator();
-            while (var3.hasNext()) {
-                Map.Entry<String, String> urlParams = (Map.Entry) var3.next();
-                String urlValues = (String) urlParams.getValue();
-                String urlValue = URLEncoder.encode(urlValues, "UTF-8");
-                sb.append((String) urlParams.getKey()).append("=").append(urlValue).append("&");
-            }
-
-            sb.deleteCharAt(sb.length() - 1);
-            return sb.toString();
-        } catch (UnsupportedEncodingException var7) {
-            return url;
-        }
     }
 
     /**
      * 添加统一请求参数
      */
-    abstract void addPubParams(TreeMap<String, String> old);
+    public abstract void addPubParams(TreeMap<String, String> params);
+
+    /**
+     * 添加统一head参数
+     */
+    public abstract HashMap<String, String> addPubHeaders();
 }

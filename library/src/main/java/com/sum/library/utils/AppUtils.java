@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +34,7 @@ public class AppUtils {
         // 最后通知图库更新
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + photoPath)));
     }
+
     /**
      * 计算当然值占据比例
      *
@@ -88,5 +90,12 @@ public class AppUtils {
                 ((startR + (int) (fraction * (endR - startR))) << 16) |
                 ((startG + (int) (fraction * (endG - startG))) << 8) |
                 ((startB + (int) (fraction * (endB - startB))));
+    }
+
+    public static <T> T checkNotNull(@Nullable T object, String message) {
+        if (object == null) {
+            throw new NullPointerException(message);
+        }
+        return object;
     }
 }

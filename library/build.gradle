@@ -45,7 +45,10 @@ dependencies {
     // retrofit2
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    //retrofit2 http 内容查看
+    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+//    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
     // MarqueeViewLibrary跑马灯效果
     compile 'com.gongwen:marqueelibrary:1.1.2'

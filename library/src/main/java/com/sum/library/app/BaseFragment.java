@@ -25,17 +25,17 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
 
     private static final String EXTRA_RESTORE_PHOTO = "extra_photo";
 
-    private static final boolean DEBUG = false;
     //缓存View对象
     private WeakReference<View> mWRView;
 
-    //首次创建调用
+    //首次创建调用（Kotlin通过id查布局需要在onViewCreated执行后才能使用）
     protected abstract void initParams(View view);
 
     //加载数据
     protected void loadData() {
 
     }
+
     //初始化布局
     protected abstract int getLayoutId();
 
@@ -44,11 +44,11 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
 
     private ActivePresent mPresent;
 
-
     private boolean mIsNeedLoadData = false;//view创建完成后，状态是当前可见的
 
     private boolean mIsPrepared = false;//view是否已经创建完成，可以加载数据
 
+    private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@Nullable LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View cacheView = null;
         if (mWRView != null) {
@@ -68,24 +68,24 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
         if (cacheView == null) {
             cacheView = inflater.inflate(getLayoutId(), container, false);
             mWRView = new WeakReference<>(cacheView);
-            initParams(cacheView);
-            loadData();
+            mIsInflateView = true;
         } else {
+            mIsInflateView = false;
             ViewParent parent = cacheView.getParent();
             if (parent != null && parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(cacheView);
                 Logger.e("base fragment remove from parent  " + this.getClass().getName());
-            }
-            if (DEBUG) {
-                Logger.v("onCreateView show cache view");
             }
         }
         return cacheView;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(@Nullable View view, @Nullable Bundle savedInstanceState) {
+        if (mIsInflateView) {
+            initParams(view);
+            loadData();
+        }
         mIsPrepared = true;
         onVisibleLoadData();
     }

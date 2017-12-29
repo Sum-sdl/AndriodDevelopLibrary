@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 
-import com.sum.library.utils.DialogMaker;
+import com.sum.library.view.widget.DialogMaker;
 
 
 /**
@@ -34,7 +34,7 @@ public class LoadingViewImpl implements LoadingView {
 
     @Override
     public void showLoading(String msg) {
-        showLoading(msg, false);
+        showLoading(msg, true);
     }
 
     @Override

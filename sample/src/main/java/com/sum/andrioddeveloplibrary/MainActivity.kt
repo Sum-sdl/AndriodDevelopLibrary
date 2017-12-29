@@ -2,7 +2,7 @@ package com.sum.andrioddeveloplibrary
 
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.sum.andrioddeveloplibrary.App_net.NetActivity
+import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.library.app.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
