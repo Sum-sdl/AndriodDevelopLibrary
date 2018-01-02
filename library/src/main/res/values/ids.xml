@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--基础控件-->
+    <item name="fl_content" type="id" />
+
+    <item name="view_pager" type="id" />
+    <item name="recycler_view" type="id" />
+    <item name="swipe_refresh_layout" type="id" />
+
+    <!--统一title-->
+    <item name="pub_title_view" type="id" />
+    <item name="pub_title_content" type="id" />
+    <item name="pub_title_back" type="id" />
+    <item name="pub_title_text" type="id" />
+    <item name="pub_title_right" type="id" />
+
+    <item name="pub_web_view" type="id" />
+
+
+</resources>

@@ -152,7 +152,7 @@ public class DownloadManager {
         params.setMaxRetryCount(1);
         params.setConnectTimeout(30 * 1000);
         params.setReadTimeout(30 * 1000);
-        mSaveFile = new File(AppFileConfig.getDownloadAppFile().getPath()
+        mSaveFile = new File(AppFileConfig.getDownloadDirectoryFile().getPath()
                 + File.separator + mFileName);
         params.setSaveFilePath(mSaveFile.getPath());
         params.setCancelFast(false);

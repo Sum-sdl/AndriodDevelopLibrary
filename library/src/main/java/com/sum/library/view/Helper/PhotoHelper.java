@@ -61,13 +61,13 @@ public class PhotoHelper {
     public PhotoHelper(Activity activity) {
         mContext = activity;
         this.mActivity = activity;
-        this.mPhotoFolder = AppFileConfig.getTakePhoneFile();
+        this.mPhotoFolder = AppFileConfig.getImageDirectoryFile();
     }
 
     public PhotoHelper(Fragment fragment) {
         mContext = fragment.getContext();
         this.mFragment = fragment;
-        this.mPhotoFolder = AppFileConfig.getTakePhoneFile();
+        this.mPhotoFolder = AppFileConfig.getImageDirectoryFile();
     }
 
     //显示相册
@@ -104,11 +104,12 @@ public class PhotoHelper {
             if (mActivity == null && mFragment != null) {
                 mActivity = mFragment.getActivity();
             }
-            if (!PermissionHelper.hasPermissionCamera(mActivity)) {
+           /* if (!PermissionHelper.hasPermissionCamera(mActivity)) {
                 PermissionHelper.reqPermissionCamera(mActivity, CAMERA_PER_REQ);
             } else {
                 takePhone();
-            }
+            }*/
+            takePhone();
         } else {
             takePhone();
         }

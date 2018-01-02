@@ -12,8 +12,8 @@
         android:layout_marginTop="20dp"
         android:focusable="false"
         android:text="@string/download_title"
-        android:textColor="@color/dialog_title_color"
-        android:textSize="@dimen/dialog_title_size" />
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/download_label"
@@ -24,8 +24,8 @@
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
         android:paddingTop="18dp"
-        android:textColor="@color/dialog_content_color"
-        android:textSize="@dimen/dialog_content_size"
+        android:textColor="#262626"
+        android:textSize="13sp"
         android:visibility="visible" />
 
     <LinearLayout
@@ -66,11 +66,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:paddingLeft="@dimen/dialog_padding_8"
-            android:paddingRight="@dimen/dialog_padding_8"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:text="@string/download_cancel"
             android:textColor="#cccccc"
-            android:textSize="@dimen/dialog_btn_size" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btn_start"
@@ -78,11 +78,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:paddingLeft="@dimen/dialog_padding_8"
-            android:paddingRight="@dimen/dialog_padding_8"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:text="@string/download_start"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/dialog_btn_size" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btn_to_back"
@@ -90,11 +90,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:paddingLeft="@dimen/dialog_padding_8"
-            android:paddingRight="@dimen/dialog_padding_8"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:text="@string/download_back"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/dialog_btn_size"
+            android:textSize="14sp"
             android:visibility="gone" />
 
     </LinearLayout>

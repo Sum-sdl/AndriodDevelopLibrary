@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
@@ -38,10 +39,26 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
 
     }
 
+    //状态栏背景透明
+    protected boolean statusBarTranslate() {
+        return false;
+    }
+
+    //状态栏背景颜色
+    protected int statusBarColor() {
+        return 0;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        if (statusBarTranslate()) {
+            BarUtils.setStatusBarAlpha(this, 0);
+        } else if (statusBarColor() != 0) {
+            BarUtils.setStatusBarColor(this, statusBarColor());
+        }
+
         mRetrofit = Retrofit2Helper.getRetrofit();
         mPresent = new ActivePresent(this);
         initParams();
@@ -79,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
         mPresent.showValue(type, obj);
     }
 
-    public void onCheckPermission(String[] permissions){
+    public void onCheckPermission(String[] permissions) {
         boolean gend = PermissionUtils.hasAlwaysDeniedPermission(this, permissions);
     }
 

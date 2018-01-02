@@ -33,19 +33,19 @@ public class AppFileConfig {
     }
 
 
-    public static File getDownloadAppFile() {
+    public static File getDownloadDirectoryFile() {
         return getDir("file");
     }
 
-    public static File getLogFile() {
+    public static File getLogDirectoryFile() {
         return getDir("logs");
     }
 
-    public static File getTakePhoneFile() {
+    public static File getImageDirectoryFile() {
         return getDir("image");
     }
 
-    public static File getCacheFile() {
+    public static File getCacheDirectoryFile() {
         return getDir("cache");
     }
 

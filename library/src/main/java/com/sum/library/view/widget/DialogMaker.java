@@ -92,6 +92,7 @@ public class DialogMaker {
         final ProgressDialog dialog = ProgressDialog.show(context, title, message);
         dialog.setTitle(title);
         dialog.setMessage(message);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(cancelable);
         return dialog;
     }

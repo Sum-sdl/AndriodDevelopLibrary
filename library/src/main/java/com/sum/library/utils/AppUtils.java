@@ -1,14 +1,20 @@
 package com.sum.library.utils;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.view.Window;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Created by sdl on 2017/12/27.
@@ -97,5 +103,56 @@ public class AppUtils {
             throw new NullPointerException(message);
         }
         return object;
+    }
+
+
+    /**
+     * 状态栏设置为黑字字体
+     */
+    public static void setDark(Activity activity) {
+        String brand= Build.BRAND;
+        if (brand.indexOf("Xiaomi")!=-1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                setMstatusBarDarkMode(activity);
+            }
+            else {
+                setMIStatusBarDarkMode(true, activity);
+            }
+        }
+        else if (brand.indexOf("Meizu")!=-1) {
+            StatusbarColorUtils.setStatusBarDarkIcon(activity, true);
+        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setMstatusBarDarkMode(activity);
+        }
+    }
+
+    private static void setMstatusBarDarkMode(Activity activity) {
+        View decor = activity.getWindow().getDecorView();
+        int ui = decor.getSystemUiVisibility();
+        // 设置浅色状态栏时的界面显示
+        ui |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        // 设置深色状态栏时的界面显示
+//            ui &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        decor.setSystemUiVisibility(ui);
+    }
+
+    /**
+     * 小米修改状态栏字体颜色
+     * @param darkmode
+     * @param activity
+     */
+    private static void setMIStatusBarDarkMode(boolean darkmode, Activity activity) {
+        Class<? extends Window> clazz = activity.getWindow().getClass();
+        try {
+            int darkModeFlag = 0;
+            Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+            darkModeFlag = field.getInt(layoutParams);
+            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+            extraFlagField.invoke(activity.getWindow(), darkmode ? darkModeFlag : 0, darkModeFlag);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

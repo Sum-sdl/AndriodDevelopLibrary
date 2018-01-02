@@ -47,8 +47,7 @@
         <activity
             android:name=".testActivity.ScrollingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".net.NetActivity"/>
+        <activity android:name=".net.NetActivity" />
         <activity android:name=".SplashActivity" />
 
         <provider
@@ -61,6 +60,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".WidgetUseActivity"></activity>
     </application>
 
 </manifest>

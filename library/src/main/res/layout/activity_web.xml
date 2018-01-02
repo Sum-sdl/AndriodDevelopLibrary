@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.sum.library.view.widget.PubTitleView
+        android:id="@id/pub_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="#999999" />
+
+    <WebView
+        android:id="@id/pub_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layerType="software" />
+</LinearLayout>
