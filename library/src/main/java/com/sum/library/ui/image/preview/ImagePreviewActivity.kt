@@ -30,6 +30,7 @@ class ImagePreviewActivity : BaseActivity() {
 
     override fun initParams() {
         mTitle = findViewById(R.id.pub_title_view)
+        mTitle.getTitleBgView()?.setBackgroundColor(0x50000000)
         val list = intent.getStringArrayListExtra("urls")
         val size = list.size
         val fragments = arrayListOf<ImagePreviewFragment>()

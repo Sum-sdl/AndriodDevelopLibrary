@@ -5,7 +5,6 @@ import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.DownloadManager
-import com.sum.library.ui.image.preview.ImagePreviewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
@@ -42,17 +41,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
             startActivity(WidgetUseActivity::class.java)
         }
         b9.setOnClickListener {
-            val list = arrayListOf<String>()
-            list.add("/storage/emulated/0/fgj/image/左右阳光2018-01-03 14:25:04.png")
-            list.add("http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5qAGnRYAAda-f68kug942.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5iAetrnAAGSIF0wiv0935.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5iAUIriAAJYXBzYogs778.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAJDA5AAMhtOOBMJA321.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAZ7LcAAM8wtR8X-E576.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAcaZdAAMWXiLK-Nk224.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mADsEOAALPYONdMdk748.jpg")
-            ImagePreviewActivity.open(this,list)
+            startActivity(UIActivity::class.java)
         }
     }
 

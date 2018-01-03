@@ -23,6 +23,28 @@ import java.lang.reflect.Method;
  */
 
 public class AppUtils {
+
+    /**
+     * 选择调用系统相册
+     */
+    public static void systemChooseImage(Activity activity, int requestCode) {
+        //调用调用系统相册
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 选择调用系统相机
+     */
+    public static void systemTakePhoto(Activity activity, int requestCode, Uri fileUri) {
+        Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        activity.startActivityForResult(captureIntent, requestCode);
+    }
+
+
     /**
      * 通知到系统上下文中
      */

@@ -57,7 +57,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".WidgetUseActivity"></activity>
+        <activity android:name=".WidgetUseActivity" />
+        <activity android:name=".UIActivity"></activity>
     </application>
 
 </manifest>
