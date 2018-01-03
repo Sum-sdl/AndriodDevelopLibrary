@@ -1,5 +1,8 @@
 package com.sum.andrioddeveloplibrary;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 
 import com.blankj.utilcode.util.PermissionUtils;
@@ -44,8 +47,22 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void onPermissionDenied(String[] deniedPermissions) {
                         ToastUtils.showShort("onPermissionDenied" + deniedPermissions[0]);
+
+                        show(deniedPermissions[0]);
+
                     }
                 }
         );
+    }
+
+    private void show(String deniedPermission) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
+        builder.setTitle("提示").setMessage(deniedPermission)
+                .setPositiveButton("确定", (dialog, which) -> {
+                    Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+                    intent.setData(Uri.parse("package:" + SplashActivity.this.getPackageName()));
+                    this.startActivity(intent);
+                }).setNegativeButton("取消", (dialog, which) -> {
+        }).setCancelable(false).show();
     }
 }

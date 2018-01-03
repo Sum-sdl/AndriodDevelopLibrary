@@ -1,6 +1,7 @@
 package com.sum.library.app;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ContextView;
 import com.sum.library.net.Retrofit2Helper;
+import com.sum.library.utils.AppUtils;
 
 import retrofit2.Retrofit;
 
@@ -55,8 +57,11 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
         setContentView(getLayoutId());
         if (statusBarTranslate()) {
             BarUtils.setStatusBarAlpha(this, 0);
-        } else if (statusBarColor() != 0) {
-            BarUtils.setStatusBarColor(this, statusBarColor());
+        } else if (statusBarColor() != 0) {//状态栏颜色
+            AppUtils.setColor(this, statusBarColor());
+            if (statusBarColor() == Color.WHITE) {
+                AppUtils.setDark(this);
+            }
         }
 
         mRetrofit = Retrofit2Helper.getRetrofit();

@@ -2,8 +2,9 @@ package com.sum.library.view.widget
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.support.v4.content.ContextCompat
-import android.text.TextUtils
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -29,21 +30,32 @@ open class PubTitleView : FrameLayout {
         val array = context.obtainStyledAttributes(attrs, R.styleable.PubTitleView)
         val layoutId = array.getResourceId(R.styleable.PubTitleView_title_view, R.layout.pub_title)
         initLayout(context, layoutId)
-        val name = array.getString(R.styleable.PubTitleView_title_name)
-        if (!TextUtils.isEmpty(name)) {
-            mTitle.text = name
-        }
+        mTitle?.text = array.getString(R.styleable.PubTitleView_title_name)
 
+        val dark = array.getBoolean(R.styleable.PubTitleView_title_dark, false)
+        if (dark) {
+            val drawable = mTitleBack?.drawable
+            if (drawable != null) {
+                DrawableCompat.setTint(drawable, Color.WHITE)
+            }
+            mTitle?.setTextColor(Color.WHITE)
+        }
         array.recycle()
     }
 
-    lateinit var mTitle: TextView
+    private var mTitle: TextView? = null//标题
 
-    lateinit var mTitleBack: ImageView
+    private var mTitleBack: ImageView? = null//返回
 
-     lateinit var mTitleRightContent: LinearLayout
+    private var mTitleRightContent: LinearLayout? = null//右侧按钮
 
-    lateinit var mTitleBgView: View
+    private var mTitleBgView: View? = null//背景
+
+    open fun getTitleText(): TextView? = mTitle
+
+    open fun getTitleBackImage(): ImageView? = mTitleBack
+
+    open fun getTitleBgView(): View? = mTitleBgView
 
     private fun initLayout(context: Context, layoutId: Int) {
         val view = LayoutInflater.from(context).inflate(layoutId, this, true)
@@ -59,18 +71,20 @@ open class PubTitleView : FrameLayout {
     }
 
     private fun defaultSetting() {
-        mTitleBack.setOnClickListener {
+        mTitleBack?.setOnClickListener {
             if (context is Activity) {
                 (context as Activity).finish()
             }
         }
     }
 
-    fun setTitle(title: CharSequence?) {
-        mTitle.text = title
+    //设置标题
+    open fun setTitle(title: CharSequence?) {
+        mTitle?.text = title
     }
 
-    fun addRightTextButton(btnName: String, clickListener: OnClickListener) {
+    //添加文本按钮
+    fun addRightTextButton(btnName: String, clickListener: OnClickListener?) {
         val view = TextView(context)
         view.text = btnName
         view.textSize = 14f
@@ -78,16 +92,22 @@ open class PubTitleView : FrameLayout {
         view.setPadding(0, 0, SizeUtils.dp2px(12f), 0)
         view.setTextColor(ContextCompat.getColor(context, R.color.pub_title_text_right_color))
         view.setOnClickListener(clickListener)
-        mTitleRightContent.addView(view, 0, ViewGroup.LayoutParams(-2, -1))
+        addRightView(view)
     }
 
-    fun addRightImageButton(imageSrc: Int, clickListener: OnClickListener) {
+    //添加图片按钮
+    fun addRightImageButton(imageSrc: Int, clickListener: OnClickListener?) {
         val view = ImageView(context)
         view.setImageResource(imageSrc)
         view.scaleType = ImageView.ScaleType.CENTER
         view.setPadding(0, 0, SizeUtils.dp2px(12f), 0)
         view.setOnClickListener(clickListener)
-        mTitleRightContent.addView(view, 0, ViewGroup.LayoutParams(-2, -1))
+        addRightView(view)
+    }
+
+    //添加按钮
+    open fun addRightView(view: View) {
+        mTitleRightContent?.addView(view, 0, ViewGroup.LayoutParams(-2, -1))
     }
 
 }

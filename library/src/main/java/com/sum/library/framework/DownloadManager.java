@@ -204,6 +204,7 @@ public class DownloadManager {
 
         @Override
         public void onCancelled(CancelledException cex) {
+            ToastUtils.showShort("下载取消");
         }
 
         @Override

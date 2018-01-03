@@ -33,8 +33,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,9 +43,7 @@
         <activity android:name=".StickyActivity" />
         <activity android:name=".SwipeActivity" />
         <activity android:name=".CustomViewActivity" />
-        <activity
-            android:name=".testActivity.ScrollingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".testActivity.ScrollingActivity" />
         <activity android:name=".net.NetActivity" />
         <activity android:name=".SplashActivity" />
 

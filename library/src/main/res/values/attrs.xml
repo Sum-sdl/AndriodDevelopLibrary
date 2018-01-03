@@ -52,6 +52,7 @@
     <declare-styleable name="PubTitleView">
         <attr name="title_view" format="reference" />
         <attr name="title_name" format="string" />
+        <attr name="title_dark" format="boolean" />
     </declare-styleable>
 
 

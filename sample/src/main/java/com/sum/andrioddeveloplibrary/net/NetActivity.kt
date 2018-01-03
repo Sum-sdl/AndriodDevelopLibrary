@@ -22,6 +22,7 @@ class NetActivity : BaseAppActivity() {
                 .enqueue(object : RetCallBack<Respone>() {
                     override fun onSuccess(response: Respone?) {
                         text.text = response?.toString()
+                        text.postDelayed(({ hideLoading() }), 1000)
                     }
                 })
 
