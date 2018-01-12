@@ -12,7 +12,7 @@
 
     <alpha
         android:duration="@android:integer/config_shortAnimTime"
-        android:fromXDelta="0.4"
+        android:fromXDelta="0.5"
         android:toXDelta="1" />
 
 </set>  

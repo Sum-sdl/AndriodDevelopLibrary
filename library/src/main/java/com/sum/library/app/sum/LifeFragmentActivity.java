@@ -77,7 +77,9 @@ public abstract class LifeFragmentActivity extends BaseActivity {
             LifeFragment fragment = (LifeFragment) fm.findFragmentByTag(fragmentTag);
             if (fragment == null) {
                 fragment = (LifeFragment) cls.newInstance();
-                Logger.e("newInstance " + fragmentTag);
+                if (DEBUG) {
+                    Logger.d("newInstance " + fragmentTag);
+                }
             }
             if (mCurrentFragment != null && mCurrentFragment != fragment) {
                 mCurrentFragment.onLeave();

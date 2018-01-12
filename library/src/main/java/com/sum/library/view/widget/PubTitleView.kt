@@ -10,17 +10,18 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.sum.library.R
 
 /**
  * Created by sdl on 2018/1/2.
+ * 自定义title
  */
-open class PubTitleView : FrameLayout {
+open class PubTitleView : LinearLayout {
 
     constructor(context: Context) : super(context) {
         initLayout(context, R.layout.pub_title)
@@ -43,6 +44,8 @@ open class PubTitleView : FrameLayout {
         array.recycle()
     }
 
+    private lateinit var mView: View
+
     private var mTitle: TextView? = null//标题
 
     private var mTitleBack: ImageView? = null//返回
@@ -58,15 +61,18 @@ open class PubTitleView : FrameLayout {
     open fun getTitleBgView(): View? = mTitleBgView
 
     private fun initLayout(context: Context, layoutId: Int) {
+        orientation = LinearLayout.VERTICAL
         val view = LayoutInflater.from(context).inflate(layoutId, this, true)
         initView(view)
+        mView = view
     }
 
     private fun initView(view: View) {
         mTitle = view.findViewById(R.id.pub_title_text)
         mTitleBack = view.findViewById(R.id.pub_title_back)
         mTitleRightContent = view.findViewById(R.id.pub_title_right)
-        mTitleBgView = view.findViewById(R.id.pub_title_content)
+//        mTitleBgView = view.findViewById(R.id.pub_title_content)
+        mTitleBgView = this
         defaultSetting()
     }
 
@@ -76,6 +82,12 @@ open class PubTitleView : FrameLayout {
                 (context as Activity).finish()
             }
         }
+    }
+
+    //插入一个状态栏高度的view
+    fun addStatusBarHeight() {
+        val space = View(context)
+        addView(space, 0, LayoutParams(-1, BarUtils.getStatusBarHeight()))
     }
 
     //设置标题

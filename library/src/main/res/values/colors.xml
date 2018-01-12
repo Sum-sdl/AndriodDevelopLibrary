@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark">#2b6cd4</color>
     <color name="colorAccent">#2b6cd4</color>
 
+    <color name="translate">#00000000</color>
+    <color name="translate_50">#7f000000</color>
+    <color name="translate_20">#50000000</color>
+    <color name="translate_50_white">#7fffffff</color>
+
     <color name="pub_title_text_color">#333333</color>
     <color name="pub_title_text_right_color">#666666</color>
 

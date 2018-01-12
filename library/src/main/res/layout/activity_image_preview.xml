@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.sum.library.ui.image.MultiTouchViewPager
+    <com.sum.library.ui.image.view.MultiTouchViewPager
         android:id="@+id/image_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,6 +22,7 @@
         android:id="@id/pub_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/translate_50"
         android:layout_alignParentTop="true"
         app:title_dark="true" />
 

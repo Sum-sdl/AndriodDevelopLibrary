@@ -42,6 +42,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
         b9.setOnClickListener {
             startActivity(UIActivity::class.java)
+            overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit)
         }
     }
 

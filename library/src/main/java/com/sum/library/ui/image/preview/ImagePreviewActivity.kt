@@ -2,7 +2,6 @@ package com.sum.library.ui.image.preview
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.support.v4.view.ViewPager
 import com.sum.library.R
 import com.sum.library.adapter.ViewPagerFragmentAdapter
@@ -24,13 +23,15 @@ class ImagePreviewActivity : BaseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_image_preview
 
-    override fun statusBarColor(): Int = Color.BLACK
+    override fun statusBarTranslate(): Boolean {
+        return true
+    }
 
     private lateinit var mTitle: PubTitleView
 
     override fun initParams() {
         mTitle = findViewById(R.id.pub_title_view)
-        mTitle.getTitleBgView()?.setBackgroundColor(0x50000000)
+        mTitle.addStatusBarHeight()
         val list = intent.getStringArrayListExtra("urls")
         val size = list.size
         val fragments = arrayListOf<ImagePreviewFragment>()

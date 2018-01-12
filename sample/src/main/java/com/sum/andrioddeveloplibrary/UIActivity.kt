@@ -2,8 +2,8 @@ package com.sum.andrioddeveloplibrary
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.preview.ImagePreviewActivity
-import com.sum.library.utils.AppUtils
 import kotlinx.android.synthetic.main.activity_ui.*
 
 class UIActivity : AppCompatActivity() {
@@ -28,10 +28,15 @@ class UIActivity : AppCompatActivity() {
         }
 
         btn_2.setOnClickListener {
-            AppUtils.systemChooseImage(this, 1)
+            AppImageUtils.systemChooseImage(this, 1)
         }
         btn_3.setOnClickListener {
-            AppUtils.systemTakePhoto(this, 1, null)
+            AppImageUtils.systemTakePhoto(this, 1, null)
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.activity_close_enter, R.anim.activity_close_exit)
     }
 }
