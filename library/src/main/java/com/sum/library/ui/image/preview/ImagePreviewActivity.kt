@@ -3,6 +3,7 @@ package com.sum.library.ui.image.preview
 import android.content.Context
 import android.content.Intent
 import android.support.v4.view.ViewPager
+import android.text.TextUtils
 import com.sum.library.R
 import com.sum.library.adapter.ViewPagerFragmentAdapter
 import com.sum.library.app.BaseActivity
@@ -12,6 +13,15 @@ import kotlinx.android.synthetic.main.activity_image_preview.*
 class ImagePreviewActivity : BaseActivity() {
 
     companion object {
+        fun open(context: Context, url: String?) {
+            if (TextUtils.isEmpty(url)) {
+                return
+            }
+            val list = ArrayList<String>()
+            list.add(url!!)
+            open(context, list)
+        }
+
         fun open(context: Context, list: ArrayList<String>) {
             if (list.isNotEmpty()) {
                 val intent = Intent(context, ImagePreviewActivity::class.java)
@@ -33,9 +43,9 @@ class ImagePreviewActivity : BaseActivity() {
         mTitle = findViewById(R.id.pub_title_view)
         mTitle.addStatusBarHeight()
         val list = intent.getStringArrayListExtra("urls")
-        val size = list.size
+        val size = list?.size ?: 0
         val fragments = arrayListOf<ImagePreviewFragment>()
-        list.forEach {
+        list?.forEach {
             fragments.add(ImagePreviewFragment.instance(it, true))
         }
 
@@ -51,6 +61,4 @@ class ImagePreviewActivity : BaseActivity() {
             mTitle.setTitle("1/$size")
         }
     }
-
-
 }

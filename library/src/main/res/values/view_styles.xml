@@ -34,4 +34,17 @@
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 
+    <!--水平-->
+    <style name="line_hor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/gray_line</item>
+    </style>
+    <!--垂直-->
+    <style name="line_ver">
+        <item name="android:layout_width">0.5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/gray_line</item>
+    </style>
+
 </resources>

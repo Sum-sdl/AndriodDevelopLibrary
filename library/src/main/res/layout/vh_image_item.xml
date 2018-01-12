@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/vh_album_image"
+        android:layout_width="match_parent"
+        android:layout_height="115dip"
+        fresco:failureImage="@mipmap/ic_default_image"
+        fresco:failureImageScaleType="centerCrop"
+        fresco:placeholderImage="@mipmap/ic_default_image"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:retryImage="@mipmap/ic_default_image"
+        fresco:retryImageScaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/vh_album_selected"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="top|end"
+        android:scaleType="center"
+        android:tint="@color/colorPrimary" />
+
+</FrameLayout>

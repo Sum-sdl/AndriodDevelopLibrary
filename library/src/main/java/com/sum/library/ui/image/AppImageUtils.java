@@ -1,9 +1,14 @@
 package com.sum.library.ui.image;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+
+import com.sum.library.ui.image.preview.ImagePreviewActivity;
+
+import java.util.ArrayList;
 
 /**
  * Created by sdl on 2018/1/12.
@@ -31,5 +36,11 @@ public class AppImageUtils {
         activity.startActivityForResult(captureIntent, requestCode);
     }
 
+    /**
+     * 图片预览界面
+     */
+    public static void appImagePreview(Context context, ArrayList<String> urls) {
+        ImagePreviewActivity.Companion.open(context, urls);
+    }
 
 }

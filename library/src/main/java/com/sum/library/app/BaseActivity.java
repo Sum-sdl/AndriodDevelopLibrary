@@ -16,6 +16,7 @@ import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ContextView;
 import com.sum.library.net.Retrofit2Helper;
 import com.sum.library.utils.AppUtils;
+import com.sum.library.view.recyclerview.RecyclerAdapter;
 
 import retrofit2.Retrofit;
 
@@ -50,6 +51,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
     protected int statusBarColor() {
         return 0;
     }
+
+    //kotlin 必须指定泛型类型
+    protected RecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +135,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
 
     //base
     public void startActivity(Class<?> clazz) {
-        Intent intent = new Intent(this, clazz);
-        startActivity(intent);
+        startActivity(new Intent(this, clazz));
     }
 }

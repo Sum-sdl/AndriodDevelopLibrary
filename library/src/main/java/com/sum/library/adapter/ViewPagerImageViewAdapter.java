@@ -1,6 +1,7 @@
 package com.sum.library.adapter;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,8 +27,9 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
         this.mListener = mListener;
     }
 
-    public void setNetErrorImageRes(int mNetErrorImageRes) {
-        this.mNetErrorImageRes = mNetErrorImageRes;
+    //加载异常图片
+    public void setNetErrorImageRes(int netErrorImageRes) {
+        this.mNetErrorImageRes = netErrorImageRes;
     }
 
     public static abstract class ImageData {
@@ -35,7 +37,7 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
     }
 
     public interface onItemImageClick<T> {
-        void onItemClick(T item);
+        void onItemClick(T item, int position);
     }
 
     private List<T> mData;
@@ -53,26 +55,23 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
 
 
     @Override
-    public View instantiateItem(ViewGroup container, final int position) {
-
+    public View instantiateItem(@NonNull ViewGroup container, final int position) {
         SimpleDraweeView view = new SimpleDraweeView(container.getContext());
         view.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
         if (mData != null) {
             String url = mData.get(position).getImageUrl();
             if (!TextUtils.isEmpty(url)) {
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mListener != null) {
-                            mListener.onItemClick(mData.get(position));
-                        }
+                view.setOnClickListener(v -> {
+                    if (mListener != null) {
+                        mListener.onItemClick(mData.get(position), position);
                     }
                 });
                 ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
-//                .setResizeOptions(new ResizeOptions(SizeUtils.dp2px(72), SizeUtils.dp2px(72)))
                         .build();
                 DraweeController draweeController = Fresco.newDraweeControllerBuilder()
-                        .setImageRequest(request).setAutoPlayAnimations(true).build();
+                        .setImageRequest(request)
+                        .setOldController(view.getController())
+                        .setAutoPlayAnimations(true).build();
                 if (mNetErrorImageRes != -1) {
                     view.getHierarchy().setFailureImage(mNetErrorImageRes);
                     view.getHierarchy().setPlaceholderImage(mNetErrorImageRes);

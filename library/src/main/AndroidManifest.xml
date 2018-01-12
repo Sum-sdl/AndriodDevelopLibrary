@@ -12,10 +12,12 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.web.WebActivity"
-            android:screenOrientation="portrait"
-           />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.image.preview.ImagePreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.image.photoAlbum.PhotoAlbumActivity"
             android:screenOrientation="portrait" />
     </application>
 

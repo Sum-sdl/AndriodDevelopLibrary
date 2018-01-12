@@ -1,8 +1,11 @@
 package com.sum.andrioddeveloplibrary
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.sum.library.ui.image.AppImageUtils
+import com.sum.library.ui.image.photoAlbum.PhotoAlbumActivity
 import com.sum.library.ui.image.preview.ImagePreviewActivity
 import kotlinx.android.synthetic.main.activity_ui.*
 
@@ -31,7 +34,22 @@ class UIActivity : AppCompatActivity() {
             AppImageUtils.systemChooseImage(this, 1)
         }
         btn_3.setOnClickListener {
-            AppImageUtils.systemTakePhoto(this, 1, null)
+            AppImageUtils.systemTakePhoto(this, 2, null)
+        }
+
+        btn_4.setOnClickListener {
+           startActivity(Intent(this,PhotoAlbumActivity::class.java))
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK)
+            return
+        if (requestCode == 1) {
+
+        } else if (requestCode == 2) {
+
         }
     }
 

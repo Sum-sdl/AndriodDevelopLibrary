@@ -23,4 +23,18 @@ public class PermissionHelper {
         };
     }
 
+    //拍照权限
+    public static String[] CameraPermission() {
+        return new String[]{
+                Manifest.permission.CAMERA,
+        };
+    }
+
+    //录音权限
+    public static String[] VoicePermission() {
+        return new String[]{
+                Manifest.permission.RECORD_AUDIO,
+        };
+    }
+
 }

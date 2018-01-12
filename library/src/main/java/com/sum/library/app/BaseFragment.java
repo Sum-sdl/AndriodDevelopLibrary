@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ContextView;
 import com.sum.library.utils.Logger;
+import com.sum.library.view.recyclerview.RecyclerAdapter;
 
 import java.lang.ref.WeakReference;
 
@@ -42,6 +44,9 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     private boolean mIsPrepared = false;//view是否已经创建完成，可以加载数据
 
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
+
+    //kotlin 必须指定泛型类型
+    protected RecyclerAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -161,4 +166,15 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     protected void onFragmentVisibleLoadData() {
     }
 
+
+    //关闭Activity里面的fragment
+    public void closeBackStackFragment() {
+        FragmentManager fragmentManager = getFragmentManager();
+        if (fragmentManager != null) {
+            int backStackEntryCount = fragmentManager.getBackStackEntryCount();
+            if (backStackEntryCount > 0) {
+                fragmentManager.popBackStackImmediate();
+            }
+        }
+    }
 }
