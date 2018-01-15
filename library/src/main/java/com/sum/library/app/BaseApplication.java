@@ -24,6 +24,7 @@ public class BaseApplication extends Application {
         x.Ext.setDebug(BuildConfig.DEBUG);
         //图片框架
         Fresco.initialize(this, ImagePipelineConfigUtils.getDefaultImagePipelineConfig(this));
+//        Fresco.initialize(this);
     }
 
 }

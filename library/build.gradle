@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'kotlin-android-extensions'
 
 group = 'com.github.Sum-sdl'
 
@@ -47,8 +48,8 @@ dependencies {
     // eventbus
     compile 'org.greenrobot:eventbus:3.1.1'
     // fresco
-    compile 'com.facebook.fresco:fresco:1.7.1'
-    compile 'com.facebook.fresco:animated-gif:1.7.1'
+    compile 'com.facebook.fresco:fresco:1.5.0'
+    compile 'com.facebook.fresco:animated-gif:1.5.0'
     // retrofit2
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -73,5 +74,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-apply plugin: 'kotlin-android-extensions'

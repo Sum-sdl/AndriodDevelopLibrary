@@ -1,23 +1,27 @@
 package com.sum.library.ui.image.photoAlbum
 
+import android.app.Activity
+import android.content.Intent
 import android.database.Cursor
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.LoaderManager
+import android.support.v4.content.ContextCompat
 import android.support.v4.content.Loader
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.ListPopupWindow
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
+import android.view.Gravity
 import android.view.View
+import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.library.R
 import com.sum.library.app.BaseActivity
-import com.sum.library.ui.image.photoAlbum.base.Photo
-import com.sum.library.ui.image.photoAlbum.base.PhotoDataHolder
-import com.sum.library.ui.image.photoAlbum.base.PhotoDirectory
-import com.sum.library.ui.image.photoAlbum.base.PhotoDirectoryLoader
+import com.sum.library.ui.image.photoAlbum.base.*
 import com.sum.library.ui.image.preview.ImagePreviewActivity
 import com.sum.library.view.recyclerview.RecyclerAdapter
 import com.sum.library.view.recyclerview.RecyclerDataHolder
@@ -33,6 +37,15 @@ import kotlin.collections.ArrayList
  */
 class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
 
+    companion object {
+        fun open(activity: Activity, info: AlbumInfo) {
+            val intent = Intent(activity, PhotoAlbumActivity::class.java)
+            intent.putExtra("data", info)
+            activity.startActivityForResult(intent, info.request_code)
+        }
+    }
+
+
     override fun getLayoutId(): Int = R.layout.activity_album_photo
 
     override fun statusBarColor(): Int = Color.WHITE
@@ -43,25 +56,88 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
 
     private var mMaxNum = 9
 
+    private var mTakePhotoOpen = false
+
     private lateinit var mChoosePhoto: ArrayList<Photo>
+
+    private lateinit var mRightView: TextView
+
+    private lateinit var mPopupWindow: ListPopupWindow
+    private val mDictData = arrayListOf<PhotoDirectory>()
+
+    private lateinit var mAlbumInfo: AlbumInfo
 
     override fun initParams() {
         mChoosePhoto = arrayListOf()
         mTitle = findViewById(R.id.pub_title_view)
+        mRightView = mTitle.addRightTextButton("完成", View.OnClickListener {
+            rightBtnClick()
+        })
+
+        var data = intent.getSerializableExtra("data")
+        if (data != null && data is AlbumInfo) {
+            mAlbumInfo = data
+        } else {
+            data = AlbumInfo()
+            mAlbumInfo = data
+        }
+        mMaxNum = data.max_count
+        mTakePhotoOpen = data.take_photo_open
+
         mAdapter = RecyclerAdapter<Any>(this)
         rv_images.adapter = mAdapter
         rv_images.setHasFixedSize(true)
-        rv_images.layoutManager = GridLayoutManager(this, 3)
+        rv_images.layoutManager = GridLayoutManager(this, data.span_count)
         rv_images.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
                 super.getItemOffsets(outRect, view, parent, state)
-                outRect?.left = SizeUtils.dp2px(3f)
-                outRect?.bottom = SizeUtils.dp2px(3f)
-                if (parent?.getChildLayoutPosition(view)!! % 3 == 0) {
+                outRect?.left = data.default_space
+                outRect?.bottom = data.default_space
+                val loc = parent?.getChildLayoutPosition(view)!! % data.span_count
+                if (loc == 0) {
                     outRect?.left = 0
                 }
             }
         })
+
+        mPopupWindow = ListPopupWindow(this)
+        mPopupWindow.width = ListPopupWindow.MATCH_PARENT
+        mPopupWindow.anchorView = tv_album_file
+        mPopupWindow.isModal = true
+        mPopupWindow.setDropDownGravity(Gravity.TOP)
+        mPopupWindow.setOnDismissListener {
+            val params = window.attributes
+            params.alpha = 1f
+            window.attributes = params
+
+        }
+        mPopupWindow.setOnItemClickListener { _, _, position, _ ->
+            val type = mDictData[position].name
+            tv_album_file.text = type
+            mPopupWindow.dismiss()
+            showDirectoryKey(type)
+        }
+
+        tv_album_file.setOnClickListener {
+            if (mPopupWindow.isShowing) {
+                mPopupWindow.dismiss()
+            } else if (!isFinishing) {
+                val params = window.attributes
+                params.alpha = 0.5f
+                window.attributes = params
+
+                mPopupWindow.show()
+            }
+        }
+        tv_album_preview.setOnClickListener {
+            if (mChoosePhoto.size > 0) {
+                val list = arrayListOf<String>()
+                mChoosePhoto.forEach {
+                    list.add(it.path!!)
+                }
+                ImagePreviewActivity.open(this, list)
+            }
+        }
     }
 
     override fun loadData() {
@@ -73,18 +149,21 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
                 if (data == null) return
                 val hashMap = LinkedHashMap<String, PhotoDirectory>()
-                val photoDirectoryAll = PhotoDirectory("all", "所有图片", null, null)
+                val photoAll = PhotoDirectory("所有图片", "所有图片", null, null)
+                hashMap.put(photoAll.id, photoAll)
+                mAllFile = hashMap
+
+                //add
                 while (data.moveToNext()) {
                     val imageId = data.getInt(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID))
-                    val bucketId = data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.BUCKET_ID))
+//                    val bucketId = data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.BUCKET_ID))
                     val name = data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME))
+                    val bucketId = name
                     val path = data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATA))
                     val file = File(path)
-                    if (file.exists() && file.length() > 0) {
-                    } else {
+                    if (!file.exists() || file.length() <= 0 || TextUtils.isEmpty(name)) {
                         continue
                     }
-//                    Log.d("PhotoPickerActivity", "$bucketId ,$name, $path")
                     if (!hashMap.containsKey(bucketId)) {
                         val photoDirectory = PhotoDirectory(bucketId, name, path, data.getLong(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATE_ADDED)))
                         photoDirectory.addPhoto(imageId, path)
@@ -92,13 +171,30 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                     } else {
                         hashMap[bucketId]?.addPhoto(imageId, path)
                     }
-                    photoDirectoryAll.addPhoto(imageId, path)
                 }
-                if (photoDirectoryAll.getAllPhotos().size > 0) {
-                    photoDirectoryAll.coverPath = photoDirectoryAll.getAllPhotos()[0].path
+                //add total
+                hashMap.entries.forEach {
+                    if (photoAll != it.value) {
+                        photoAll.addAllPhoto(it.value.getAllPhotos())
+                    }
                 }
-                hashMap.put("all", photoDirectoryAll)
-                mAllFile = hashMap
+                if (photoAll.getAllPhotos().size > 0) {
+                    photoAll.coverPath = photoAll.getAllPhotos()[0].path
+                }
+
+
+                //文件夹数据
+                mDictData.clear()
+                hashMap.entries.forEach {
+                    mDictData.add(it.value)
+                }
+                mPopupWindow.setAdapter(DictAdapter(this@PhotoAlbumActivity, mDictData))
+                if (mDictData.size > 0) {
+                    val count = if (mDictData.size > 4) 4 else mDictData.size
+                    mPopupWindow.height = count * SizeUtils.dp2px(90f)
+                }
+                //回复上次选中的文件状态
+
                 showImages()
             }
 
@@ -113,9 +209,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     }
 
     private fun showImages() {
-        if (mAllFile == null) return
-
-        showDirectoryKey("all")
+        showDirectoryKey("所有图片")
     }
 
     private fun showDirectoryKey(key: String) {
@@ -123,9 +217,39 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         tv_album_file.text = directory.name
         val holders = ArrayList<RecyclerDataHolder<*>>()
         directory.getAllPhotos().forEach {
-            holders.add(PhotoDataHolder(it, this))
+            val item = PhotoDataHolder(it, this)
+            item.albumInfo = mAlbumInfo
+            holders.add(item)
         }
         mAdapter.setDataHolders(holders)
+    }
+
+    //完成按钮点击
+    private fun rightBtnClick() {
+        if (mChoosePhoto.size > 0) {
+            val data = Intent()
+            val list = arrayListOf<String>()
+            mChoosePhoto.forEach {
+                list.add(it.path!!)
+            }
+            data.putExtra("images", list)
+            setResult(Activity.RESULT_OK, data)
+            finish()
+        }
+    }
+
+
+    private fun updateBtn() {
+        val size = mChoosePhoto.size
+        if (size == 0) {
+            mRightView.setTextColor(ContextCompat.getColor(this, R.color.pub_title_text_right_color))
+            mRightView.text = "完成"
+            tv_album_preview.text = "预览"
+        } else {
+            mRightView.setTextColor(mAlbumInfo.choose_tint_sel)
+            mRightView.text = getString(R.string.photo_finish, size)
+            tv_album_preview.text = getString(R.string.photo_preview, size)
+        }
     }
 
     override fun onChooseClick(photo: Photo, position: Int) {
@@ -142,6 +266,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             photo.selected = false
             mAdapter.notifyItemChanged(position)
         }
+        updateBtn()
     }
 
     override fun onImageClick(photo: Photo?, position: Int) {

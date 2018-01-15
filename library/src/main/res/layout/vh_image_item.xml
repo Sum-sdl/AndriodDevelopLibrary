@@ -8,19 +8,25 @@
         android:id="@+id/vh_album_image"
         android:layout_width="match_parent"
         android:layout_height="115dip"
-        fresco:failureImage="@mipmap/ic_default_image"
+        fresco:failureImage="@drawable/shape_image_bg"
         fresco:failureImageScaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/ic_default_image"
+        fresco:placeholderImage="@drawable/shape_image_bg"
         fresco:placeholderImageScaleType="centerCrop"
-        fresco:retryImage="@mipmap/ic_default_image"
+        fresco:retryImage="@drawable/shape_image_bg"
         fresco:retryImageScaleType="centerCrop" />
+
+    <View
+        android:id="@+id/view_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#60000000"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/vh_album_selected"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="top|end"
-        android:scaleType="center"
-        android:tint="@color/colorPrimary" />
+        android:scaleType="center" />
 
 </FrameLayout>

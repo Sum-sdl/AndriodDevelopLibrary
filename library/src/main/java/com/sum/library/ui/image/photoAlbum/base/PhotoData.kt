@@ -5,21 +5,21 @@ package com.sum.library.ui.image.photoAlbum.base
  */
 data class Photo(var id: Int?, var path: String?, var selected: Boolean)
 
-data class PhotoDirectory(var id: String?, var name: String?, var coverPath: String?, var date: Long?) {
+data class PhotoDirectory(var id: String, var name: String, var coverPath: String?, var date: Long?) {
 
-    private var photos: ArrayList<Photo>? = null
+    private val photos: ArrayList<Photo> by lazy {
+        arrayListOf<Photo>()
+    }
 
     fun addPhoto(id: Int, path: String) {
-        if (photos == null) {
-            photos = arrayListOf()
-        }
-        photos?.add(Photo(id, path, false))
+        photos.add(Photo(id, path, false))
+    }
+
+    fun addAllPhoto(photo: ArrayList<Photo>) {
+        photos.addAll(photo)
     }
 
     fun getAllPhotos(): ArrayList<Photo> {
-        if (photos == null) {
-            photos = arrayListOf()
-        }
-        return photos as ArrayList<Photo>
+        return photos
     }
 }

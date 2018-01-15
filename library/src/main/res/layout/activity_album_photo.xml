@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <com.sum.library.view.widget.PubTitleView
@@ -17,7 +18,8 @@
         android:id="@+id/rv_images"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@color/black" />
 
 
     <LinearLayout
@@ -50,13 +52,11 @@
 
         <TextView
             android:id="@+id/tv_album_preview"
-            android:layout_width="wrap_content"
+            android:layout_width="66dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
             android:text="预览"
             android:textColor="@drawable/shape_text_color" />
 

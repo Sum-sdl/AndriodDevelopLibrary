@@ -36,6 +36,12 @@
         android:layout_height="wrap_content"
         android:text="系统拍照" />
 
+    <TextView
+        android:id="@+id/tv_xc_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" />
+
     <Button
         android:id="@+id/btn_4"
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.sum.library.ui.image.AppImageUtils
+import com.sum.library.ui.image.photoAlbum.AlbumInfo
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumActivity
 import com.sum.library.ui.image.preview.ImagePreviewActivity
 import kotlinx.android.synthetic.main.activity_ui.*
@@ -38,7 +39,7 @@ class UIActivity : AppCompatActivity() {
         }
 
         btn_4.setOnClickListener {
-           startActivity(Intent(this,PhotoAlbumActivity::class.java))
+            PhotoAlbumActivity.open(this, AlbumInfo())
         }
     }
 
@@ -50,6 +51,14 @@ class UIActivity : AppCompatActivity() {
 
         } else if (requestCode == 2) {
 
+        } else if (requestCode == 10) {
+            val extra = data?.getStringArrayListExtra("images")
+
+            val text = StringBuilder()
+            extra?.forEach {
+                text.append("file:$it\n")
+            }
+            tv_xc_2.text = text
         }
     }
 

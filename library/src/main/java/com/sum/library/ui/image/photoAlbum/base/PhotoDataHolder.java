@@ -2,11 +2,13 @@ package com.sum.library.ui.image.photoAlbum.base;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -14,6 +16,7 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.sum.library.R;
+import com.sum.library.ui.image.photoAlbum.AlbumInfo;
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumListener;
 import com.sum.library.view.recyclerview.RecyclerDataHolder;
 import com.sum.library.view.recyclerview.RecyclerViewHolder;
@@ -25,6 +28,8 @@ import com.sum.library.view.recyclerview.RecyclerViewHolder;
 public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
 
     private PhotoAlbumListener mListener;
+
+    public AlbumInfo albumInfo;
 
     public PhotoDataHolder(Photo data, PhotoAlbumListener listener) {
         super(data);
@@ -55,31 +60,70 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
     class ViewHolder extends RecyclerViewHolder implements View.OnClickListener {
         SimpleDraweeView mDView;
         ImageView mState;
+        View mBgView;
         Photo mData;
+
+        private int mSize = 0;
 
         private ViewHolder(View view) {
             super(view);
+            mBgView = view.findViewById(R.id.view_bg);
             mDView = view.findViewById(R.id.vh_album_image);
             mDView.setOnClickListener(this);
+            //计算view大小
+            int default_space = albumInfo.default_space;
+            int span_count = albumInfo.span_count;
+            int screenWidth = ScreenUtils.getScreenWidth();
+            int width = screenWidth / span_count;
+            int height = width;
+            ViewGroup.LayoutParams params = mDView.getLayoutParams();
+            params.width = width;
+            params.height = height;
+            mDView.setLayoutParams(params);
+            mSize = height;
+            mBgView.setLayoutParams(params);
+
             mState = view.findViewById(R.id.vh_album_selected);
             mState.setOnClickListener(this);
         }
 
         private void onBindData(Photo photo) {
+            if (mData == photo) {
+                updateUI();
+                return;
+            }
+
             mData = photo;
             String path = photo.getPath();
             ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse("file://" + path))
-                    .setResizeOptions(new ResizeOptions(SizeUtils.dp2px(115), SizeUtils.dp2px(115))).build();
+                    .setResizeOptions(new ResizeOptions(mSize, mSize))
+                    .build();
             DraweeController draweeController = Fresco.newDraweeControllerBuilder()
                     .setImageRequest(request)
                     .setOldController(mDView.getController())
                     .setAutoPlayAnimations(true).build();
             mDView.setController(draweeController);
 
-            if (photo.getSelected()) {
-                mState.setImageResource(R.mipmap.ic_choice_select);
+            updateUI();
+        }
+
+        private void updateUI() {
+            if (mData.getSelected()) {
+                if (albumInfo.choose_tint_nor_res_id != -1) {
+                    mState.setImageResource(albumInfo.choose_tint_nor_res_id);
+                } else {
+                    mState.setImageResource(R.mipmap.ic_selected);
+                }
+                DrawableCompat.setTint(mState.getDrawable(), albumInfo.choose_tint_sel);
+                mBgView.setVisibility(View.VISIBLE);
             } else {
-                mState.setImageResource(R.mipmap.ic_choice_normal);
+                if (albumInfo.choose_tint_sel_res_id != -1) {
+                    mState.setImageResource(albumInfo.choose_tint_sel_res_id);
+                } else {
+                    mState.setImageResource(R.mipmap.ic_select);
+                }
+                DrawableCompat.setTint(mState.getDrawable(), albumInfo.choose_tint_nor);
+                mBgView.setVisibility(View.GONE);
             }
         }
 
@@ -87,6 +131,7 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
         public void onClick(View v) {
             if (v.getId() == R.id.vh_album_image) {
                 mListener.onImageClick(mData, getAdapterPosition());
+//                mListener.onChooseClick(mData, getAdapterPosition());
             } else if (v.getId() == R.id.vh_album_selected) {
                 mListener.onChooseClick(mData, getAdapterPosition());
             }

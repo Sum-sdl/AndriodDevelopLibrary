@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="10dip">
+    android:layout_height="90dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/adapter_dict_cover"
-        android:layout_width="70dip"
-        android:layout_height="70dip"
-        android:layout_marginEnd="10dip"
-        fresco:failureImage="@mipmap/ic_default_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        fresco:failureImage="@drawable/shape_image_bg"
         fresco:failureImageScaleType="focusCrop"
-        fresco:placeholderImage="@mipmap/ic_default_image"
+        fresco:placeholderImage="@drawable/shape_image_bg"
         fresco:placeholderImageScaleType="centerCrop"
-        fresco:retryImage="@mipmap/ic_default_image"
+        fresco:retryImage="@drawable/shape_image_bg"
         fresco:retryImageScaleType="focusCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_gravity="center"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/adapter_dict_cover"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -36,8 +39,12 @@
             android:id="@+id/adapter_dict_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
+            android:layout_marginTop="10dp"
             android:textColor="#999999"
             android:textSize="13sp" />
     </LinearLayout>
-</LinearLayout>
+
+    <View
+        style="@style/line_hor"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
