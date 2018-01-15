@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
+    <com.sum.library.view.widget.PubTitleView
+        android:id="@id/pub_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_dark="true"
+        app:title_name="图片剪裁" />
+
+    <!--<View style="@style/line_hor" />-->
+
+    <com.yalantis.ucrop.view.UCropView
+        android:id="@+id/cv_crop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1" />
+
+</LinearLayout>

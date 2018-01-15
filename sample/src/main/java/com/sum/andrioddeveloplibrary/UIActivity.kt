@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.photoAlbum.AlbumInfo
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumActivity
 import com.sum.library.ui.image.preview.ImagePreviewActivity
+import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_ui.*
 
 class UIActivity : AppCompatActivity() {
@@ -59,6 +61,20 @@ class UIActivity : AppCompatActivity() {
                 text.append("file:$it\n")
             }
             tv_xc_2.text = text
+
+            if (!TextUtils.isEmpty(text)) {
+                /*val uri = Uri.fromFile(File(extra?.get(0)))
+                val target = Uri.parse("file://" + AppFileConfig.getImageDirectoryFile())
+                UCrop.of(uri, target)
+                        .withAspectRatio(16f, 9f)
+                        .start(this)*/
+//                AppImageUtils.appImageCrop(this, extra!![0], 11, 0f, null)
+                AppImageUtils.appImageCrop(this, extra!![0], 11)
+            }
+        } else if (requestCode == 11) {
+            val output = UCrop.getOutput(data!!)
+            tv_xc_2.append("\n")
+            tv_xc_2.append(output?.path)
         }
     }
 

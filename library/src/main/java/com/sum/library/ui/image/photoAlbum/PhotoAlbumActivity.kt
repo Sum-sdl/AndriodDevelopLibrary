@@ -5,6 +5,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.graphics.Color
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.LoaderManager
@@ -19,8 +20,10 @@ import android.view.View
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.sum.library.AppFileConfig
 import com.sum.library.R
 import com.sum.library.app.BaseActivity
+import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.photoAlbum.base.*
 import com.sum.library.ui.image.preview.ImagePreviewActivity
 import com.sum.library.view.recyclerview.RecyclerAdapter
@@ -57,6 +60,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     private var mMaxNum = 9
 
     private var mTakePhotoOpen = false
+    private var mTakePhotoFile: File? = null
 
     private lateinit var mChoosePhoto: ArrayList<Photo>
 
@@ -66,6 +70,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     private val mDictData = arrayListOf<PhotoDirectory>()
 
     private lateinit var mAlbumInfo: AlbumInfo
+
 
     override fun initParams() {
         mChoosePhoto = arrayListOf()
@@ -216,6 +221,11 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         val directory = mAllFile?.get(key) ?: return
         tv_album_file.text = directory.name
         val holders = ArrayList<RecyclerDataHolder<*>>()
+
+        if (mTakePhotoOpen) {
+            holders.add(PhotoTakeDataHolder(mAlbumInfo, this))
+        }
+
         directory.getAllPhotos().forEach {
             val item = PhotoDataHolder(it, this)
             item.albumInfo = mAlbumInfo
@@ -274,6 +284,19 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     }
 
     override fun onTakePhotoClick() {
-        ToastUtils.showShort("拍照")
+        val target = AppFileConfig.getImageDirectoryFile().toString() + File.separator + System.currentTimeMillis() + ".jpg"
+        mTakePhotoFile = File(target)
+        AppImageUtils.systemTakePhoto(this, 11, Uri.fromFile(mTakePhotoFile))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK) {
+            return
+        }
+        if (requestCode == 11) {//系统拍照
+            AppImageUtils.appRefreshAlbum(this, mTakePhotoFile?.path)
+            loadData()
+        }
     }
 }
