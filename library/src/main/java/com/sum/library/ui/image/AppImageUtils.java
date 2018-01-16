@@ -77,6 +77,13 @@ public class AppImageUtils {
         activity.startActivityForResult(captureIntent, requestCode);
     }
 
+    public static File systemTakePhoto(Activity activity, int requestCode) {
+        String target = AppFileConfig.getImageDirectoryFile().getPath() + File.separator + System.currentTimeMillis() + ".jpg";
+        File file = new File(target);
+        systemTakePhoto(activity, requestCode, AppFileConfig.getAppSelfUri(activity, file));
+        return file;
+    }
+
 
     /**
      * 刷新系统相册
@@ -114,7 +121,6 @@ public class AppImageUtils {
     public static void appImagePreview(Context context, ArrayList<String> urls) {
         ImagePreviewActivity.Companion.open(context, urls);
     }
-
 
 
     /**

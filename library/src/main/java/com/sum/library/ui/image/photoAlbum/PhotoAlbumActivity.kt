@@ -19,7 +19,6 @@ import android.view.View
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.sum.library.AppFileConfig
 import com.sum.library.R
 import com.sum.library.app.BaseActivity
 import com.sum.library.ui.image.AppImageUtils
@@ -305,9 +304,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     }
 
     override fun onTakePhotoClick() {//系统拍照
-        val target = AppFileConfig.getImageDirectoryFile().path + File.separator + System.currentTimeMillis() + ".jpg"
-        mTakePhotoFile = File(target)
-        AppImageUtils.systemTakePhoto(this, 101, AppFileConfig.getAppSelfUri(this, mTakePhotoFile))
+        mTakePhotoFile = AppImageUtils.systemTakePhoto(this, 101)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
