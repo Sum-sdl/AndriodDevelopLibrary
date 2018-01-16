@@ -16,6 +16,6 @@ build.config文件添加
 添加依赖
 
 	dependencies {
-	        compile 'com.github.Sum-sdl:AndriodDevelopLibrary:v1.0.5'
+	        compile 'com.github.Sum-sdl:AndriodDevelopLibrary:1.0.6'
 	}
 
