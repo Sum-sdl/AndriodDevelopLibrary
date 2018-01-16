@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 
+import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.app.BaseActivity;
@@ -38,7 +39,9 @@ public class SplashActivity extends BaseActivity {
 
     private void per() {
         List<String> permissions = PermissionUtils.getPermissions();
-        PermissionUtils.permission(permissions.toArray(new String[permissions.size()])).callback(new PermissionUtils.FullCallback() {
+
+
+        PermissionUtils.permission(PermissionConstants.getPermissions(PermissionConstants.STORAGE)).callback(new PermissionUtils.FullCallback() {
             @Override
             public void onGranted(List<String> permissionsGranted) {//允许
                 ToastUtils.showLong(permissions.toString());

@@ -20,7 +20,7 @@ class WidgetUseActivity : AppCompatActivity() {
         })
 */
         view.addRightImageButton(R.mipmap.ic_edit_delete,null)
-        view.addRightTextButton("网页", View.OnClickListener {
+        view.addRightTextButton("网页连接", View.OnClickListener {
             WebActivity.open(this, "网页", "https://github.com/ongakuer/PhotoDraweeView/tree/master/sample/src/main/java/me/relex/photodraweeview/sample", null, null)
         })
 
