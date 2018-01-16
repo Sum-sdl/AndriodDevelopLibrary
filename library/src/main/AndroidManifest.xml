@@ -19,9 +19,6 @@
         <activity
             android:name=".ui.image.photoAlbum.PhotoAlbumActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.image.crop.CropImageActivity"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

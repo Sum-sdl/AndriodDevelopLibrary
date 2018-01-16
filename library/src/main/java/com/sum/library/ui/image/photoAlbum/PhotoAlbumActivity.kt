@@ -5,7 +5,6 @@ import android.content.Intent
 import android.database.Cursor
 import android.graphics.Color
 import android.graphics.Rect
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.LoaderManager
@@ -71,6 +70,10 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
 
     private lateinit var mAlbumInfo: AlbumInfo
 
+    //当前勾选的文件夹
+    private var mCurDict: String = ""
+
+    private var TAG_ALL: String = "所有图片"
 
     override fun initParams() {
         mChoosePhoto = arrayListOf()
@@ -138,7 +141,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             if (mChoosePhoto.size > 0) {
                 val list = arrayListOf<String>()
                 mChoosePhoto.forEach {
-                    list.add(it.path!!)
+                    list.add(it.path)
                 }
                 ImagePreviewActivity.open(this, list)
             }
@@ -154,7 +157,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
                 if (data == null) return
                 val hashMap = LinkedHashMap<String, PhotoDirectory>()
-                val photoAll = PhotoDirectory("所有图片", "所有图片", null, null)
+                val photoAll = PhotoDirectory(TAG_ALL, TAG_ALL, null, null)
                 hashMap.put(photoAll.id, photoAll)
                 mAllFile = hashMap
 
@@ -198,7 +201,22 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                     val count = if (mDictData.size > 4) 4 else mDictData.size
                     mPopupWindow.height = count * SizeUtils.dp2px(90f)
                 }
+
                 //回复上次选中的文件状态
+                if (mChoosePhoto.size > 0) {
+                    val selected = arrayListOf<Photo>()
+                    val allPhotos = photoAll.getAllPhotos()
+                    for (photo in allPhotos) {
+                        mChoosePhoto.forEach {
+                            if (photo.path == it.path) {
+                                photo.selected = true
+                                selected.add(photo)
+                            }
+                        }
+                    }
+                    mChoosePhoto.clear()
+                    mChoosePhoto.addAll(selected)
+                }
 
                 showImages()
             }
@@ -214,18 +232,21 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     }
 
     private fun showImages() {
-        showDirectoryKey("所有图片")
+        showDirectoryKey(TAG_ALL)
     }
 
     private fun showDirectoryKey(key: String) {
         val directory = mAllFile?.get(key) ?: return
+        if (mCurDict == key) {
+            return
+        }
+        mCurDict = key
         tv_album_file.text = directory.name
         val holders = ArrayList<RecyclerDataHolder<*>>()
 
-        if (mTakePhotoOpen) {
+        if (mTakePhotoOpen && key == TAG_ALL) {
             holders.add(PhotoTakeDataHolder(mAlbumInfo, this))
         }
-
         directory.getAllPhotos().forEach {
             val item = PhotoDataHolder(it, this)
             item.albumInfo = mAlbumInfo
@@ -240,7 +261,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             val data = Intent()
             val list = arrayListOf<String>()
             mChoosePhoto.forEach {
-                list.add(it.path!!)
+                list.add(it.path)
             }
             data.putExtra("images", list)
             setResult(Activity.RESULT_OK, data)
@@ -280,13 +301,13 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     }
 
     override fun onImageClick(photo: Photo?, position: Int) {
-        ImagePreviewActivity.open(this, photo?.path)
+        AppImageUtils.appImagePreview(this, photo?.path)
     }
 
-    override fun onTakePhotoClick() {
-        val target = AppFileConfig.getImageDirectoryFile().toString() + File.separator + System.currentTimeMillis() + ".jpg"
+    override fun onTakePhotoClick() {//系统拍照
+        val target = AppFileConfig.getImageDirectoryFile().path + File.separator + System.currentTimeMillis() + ".jpg"
         mTakePhotoFile = File(target)
-        AppImageUtils.systemTakePhoto(this, 11, Uri.fromFile(mTakePhotoFile))
+        AppImageUtils.systemTakePhoto(this, 101, AppFileConfig.getAppSelfUri(this, mTakePhotoFile))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -294,9 +315,24 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         if (resultCode != Activity.RESULT_OK) {
             return
         }
-        if (requestCode == 11) {//系统拍照
-            AppImageUtils.appRefreshAlbum(this, mTakePhotoFile?.path)
-            loadData()
+        if (requestCode == 101) {//系统拍照
+            AppImageUtils.appRefreshAlbum(mTakePhotoFile?.path)
+            if (mTakePhotoFile != null && mTakePhotoFile!!.exists()) {
+                addTakePic()
+            }
+//            else {
+//                loadData()
+//            }
+        }
+    }
+
+    private fun addTakePic() {
+        if (mTakePhotoOpen) {//在第一个位置添加图片
+            val directory = mAllFile?.get(TAG_ALL)
+            val photo = directory?.addPhoto(1, mTakePhotoFile!!.path)
+            val holder = PhotoDataHolder(photo, this)
+            holder.albumInfo = mAlbumInfo
+            mAdapter.addDataHolder(1, holder)
         }
     }
 }

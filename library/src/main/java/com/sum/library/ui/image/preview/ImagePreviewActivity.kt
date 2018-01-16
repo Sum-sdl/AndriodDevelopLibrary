@@ -3,7 +3,6 @@ package com.sum.library.ui.image.preview
 import android.content.Context
 import android.content.Intent
 import android.support.v4.view.ViewPager
-import android.text.TextUtils
 import com.sum.library.R
 import com.sum.library.adapter.ViewPagerFragmentAdapter
 import com.sum.library.app.BaseActivity
@@ -13,15 +12,6 @@ import kotlinx.android.synthetic.main.activity_image_preview.*
 class ImagePreviewActivity : BaseActivity() {
 
     companion object {
-        fun open(context: Context, url: String?) {
-            if (TextUtils.isEmpty(url)) {
-                return
-            }
-            val list = ArrayList<String>()
-            list.add(url!!)
-            open(context, list)
-        }
-
         fun open(context: Context, list: ArrayList<String>) {
             if (list.isNotEmpty()) {
                 val intent = Intent(context, ImagePreviewActivity::class.java)
@@ -55,9 +45,9 @@ class ImagePreviewActivity : BaseActivity() {
                 mTitle.setTitle("${position + 1}/$size")
             }
         })
-        image_indicator.setViewPager(image_view_pager)
 
         if (size > 1) {
+            image_indicator.setViewPager(image_view_pager)
             mTitle.setTitle("1/$size")
         }
     }

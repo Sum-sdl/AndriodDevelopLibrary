@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.PermissionUtils;
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ContextView;
@@ -103,17 +101,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
     @Override
     public void showValue(int type, Object obj) {
         mPresent.showValue(type, obj);
-    }
-
-    public void onCheckPermission(String[] permissions) {
-        boolean gend = PermissionUtils.hasAlwaysDeniedPermission(this, permissions);
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtils.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
     //useful

@@ -1,14 +1,17 @@
 package com.sum.library.ui.image;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.Utils;
 import com.sum.library.AppFileConfig;
 import com.sum.library.R;
 import com.sum.library.ui.image.preview.ImagePreviewActivity;
@@ -35,19 +38,50 @@ public class AppImageUtils {
     }
 
     /**
+     * 调用系统相册返回图片路劲
+     */
+    public static String systemChooseImageIntentImagePath(Intent intent) {
+        if (intent == null) {
+            return null;
+        }
+        Uri uri = intent.getData();
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String img_path = null;
+        if (null == scheme) {
+            img_path = uri.getPath();
+        } else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            img_path = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = Utils.getApp().getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        img_path = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return img_path;
+    }
+
+
+    /**
      * 选择调用系统相机
      */
-    public static void systemTakePhoto(Activity activity, int requestCode, Uri fileUri) {
+    public static void systemTakePhoto(Activity activity, int requestCode, Uri targetUri) {
         Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, targetUri);
         activity.startActivityForResult(captureIntent, requestCode);
     }
 
 
     /**
-     * 拍照后刷新系统相册
+     * 刷新系统相册
      */
-    public static void appRefreshAlbum(Context context, String newFile) {
+    public static void appRefreshAlbum(String newFile) {
         if (TextUtils.isEmpty(newFile)) {
             return;
         }
@@ -56,20 +90,32 @@ public class AppImageUtils {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
             Intent scan_dir = new Intent(Intent.ACTION_MEDIA_MOUNTED);
             scan_dir.setData(Uri.fromFile(target.getParentFile()));
-            context.sendBroadcast(scan_dir);
+            Utils.getApp().sendBroadcast(scan_dir);
         }
         //刷新文件
         Intent intent_scan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent_scan.setData(Uri.fromFile(target));
-        context.sendBroadcast(intent_scan);
+        Utils.getApp().sendBroadcast(intent_scan);
     }
+
 
     /**
      * 图片预览界面
      */
+    public static void appImagePreview(Context context, String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        ArrayList<String> list = new ArrayList<>();
+        list.add(url);
+        appImagePreview(context, list);
+    }
+
     public static void appImagePreview(Context context, ArrayList<String> urls) {
         ImagePreviewActivity.Companion.open(context, urls);
     }
+
+
 
     /**
      * 图片剪裁
@@ -86,11 +132,9 @@ public class AppImageUtils {
         options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
         options.setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark));
         options.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary));
-//        options.setToolbarWidgetColor(Color.BLACK);
         options.setCompressionQuality(80);
         options.setHideBottomControls(true);
         uCrop.withOptions(options);
-
         if (option != null) {
             uCrop.withOptions(option);
         }
@@ -99,7 +143,24 @@ public class AppImageUtils {
 
     public static void appImageCrop(Activity activity, String sourcePath, int requestCode) {
         appImageCrop(activity, sourcePath, requestCode, 0, null);
+    }
 
+    public static void appImageCrop(Activity activity, String sourcePath, int requestCode, UCrop.Options option) {
+        appImageCrop(activity, sourcePath, requestCode, 0, option);
+    }
+
+    /**
+     * 图片剪裁返回路劲
+     */
+    public static String appImageCropIntentPath(Intent intent) {
+        if (intent == null) {
+            return null;
+        }
+        Uri uri = UCrop.getOutput(intent);
+        if (uri != null) {
+            return uri.getPath();
+        }
+        return null;
     }
 
 }

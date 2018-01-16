@@ -8,7 +8,8 @@ import android.view.View;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.app.BaseActivity;
-import com.sum.library.view.Helper.PermissionHelper;
+
+import java.util.List;
 
 /**
  * Created by sdl on 2017/12/29.
@@ -36,23 +37,20 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void per() {
-        PermissionUtils.requestPermissions(
-                this, 10, PermissionHelper.FilePermission(),
-                new PermissionUtils.OnPermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        ToastUtils.showShort("onPermissionGranted");
-                    }
+        List<String> permissions = PermissionUtils.getPermissions();
+        PermissionUtils.permission(permissions.toArray(new String[permissions.size()])).callback(new PermissionUtils.FullCallback() {
+            @Override
+            public void onGranted(List<String> permissionsGranted) {//允许
+                ToastUtils.showLong(permissions.toString());
+            }
 
-                    @Override
-                    public void onPermissionDenied(String[] deniedPermissions) {
-                        ToastUtils.showShort("onPermissionDenied" + deniedPermissions[0]);
+            @Override
+            public void onDenied(List<String> permissionsDeniedForever, List<String> permissionsDenied) {
+                show("权限拒绝");
+            }
+        }).request();
 
-                        show(deniedPermissions[0]);
 
-                    }
-                }
-        );
     }
 
     private void show(String deniedPermission) {

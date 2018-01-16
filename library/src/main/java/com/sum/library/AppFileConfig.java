@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 
 import com.blankj.utilcode.util.Utils;
 
@@ -20,15 +19,15 @@ public class AppFileConfig {
     //配置文件路劲
     public static String FOLDER_NAME = "A_Sum";
 
+    //FileProvider使用的Uri文件
+    public static String FOLDER_PROVIDER = ".fileProvider";
+
     //FileProvider 获取app文件的Uri
-    public static Uri getAppSelfUri(Context context, File file, String expand) {
-        if (TextUtils.isEmpty(expand)) {
-            expand = ".fileProvider";
-        }
+    public static Uri getAppSelfUri(Context context, File file) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return FileProvider.getUriForFile(context, context.getPackageName() + expand, file);
+            return FileProvider.getUriForFile(context, context.getPackageName() + FOLDER_PROVIDER, file);
         } else {
-            return (Uri.fromFile(file));
+            return Uri.fromFile(file);
         }
     }
 

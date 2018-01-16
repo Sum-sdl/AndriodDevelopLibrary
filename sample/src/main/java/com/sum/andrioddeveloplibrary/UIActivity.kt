@@ -9,10 +9,12 @@ import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.photoAlbum.AlbumInfo
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumActivity
 import com.sum.library.ui.image.preview.ImagePreviewActivity
-import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_ui.*
 
+
 class UIActivity : AppCompatActivity() {
+
+    private val mData: ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +23,7 @@ class UIActivity : AppCompatActivity() {
 
         btn_1.setOnClickListener {
             val list = arrayListOf<String>()
-            list.add("/storage/emulated/0/fgj/image/左右阳光2018-01-03 14:25:04.png")
+            list.addAll(mData)
             list.add("http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg")
             list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5qAGnRYAAda-f68kug942.jpg")
             list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5iAetrnAAGSIF0wiv0935.jpg")
@@ -50,15 +52,19 @@ class UIActivity : AppCompatActivity() {
         if (resultCode != Activity.RESULT_OK)
             return
         if (requestCode == 1) {
-
+            val uri = AppImageUtils.systemChooseImageIntentImagePath(data)
+            if (uri != null) {
+                tv_xc.append(uri)
+            }
         } else if (requestCode == 2) {
 
         } else if (requestCode == 10) {
             val extra = data?.getStringArrayListExtra("images")
+            mData.addAll(extra!!)
 
             val text = StringBuilder()
-            extra?.forEach {
-                text.append("file:$it\n")
+            extra.forEach {
+                text.append("$it\n")
             }
             tv_xc_2.text = text
 
@@ -72,9 +78,8 @@ class UIActivity : AppCompatActivity() {
                 AppImageUtils.appImageCrop(this, extra!![0], 11)
             }
         } else if (requestCode == 11) {
-            val output = UCrop.getOutput(data!!)
             tv_xc_2.append("\n")
-            tv_xc_2.append(output?.path)
+            tv_xc_2.append(AppImageUtils.appImageCropIntentPath(data))
         }
     }
 

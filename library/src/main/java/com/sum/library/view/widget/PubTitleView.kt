@@ -40,6 +40,12 @@ open class PubTitleView : LinearLayout {
                 DrawableCompat.setTint(drawable, Color.WHITE)
             }
             mTitle?.setTextColor(Color.WHITE)
+        } else {
+            val drawable = mTitleBack?.drawable
+            if (drawable != null) {
+                DrawableCompat.setTint(drawable, ContextCompat.getColor(context, R.color.pub_title_text_color))
+            }
+            mTitle?.setTextColor(ContextCompat.getColor(context, R.color.pub_title_text_color))
         }
         array.recycle()
     }
