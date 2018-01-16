@@ -14,6 +14,8 @@ import android.text.TextUtils;
 import com.blankj.utilcode.util.Utils;
 import com.sum.library.AppFileConfig;
 import com.sum.library.R;
+import com.sum.library.ui.image.photoAlbum.AlbumInfo;
+import com.sum.library.ui.image.photoAlbum.PhotoAlbumActivity;
 import com.sum.library.ui.image.preview.ImagePreviewActivity;
 import com.yalantis.ucrop.UCrop;
 
@@ -169,4 +171,17 @@ public class AppImageUtils {
         return null;
     }
 
+    /**
+     * 自定义多选相册
+     */
+    public static void appImageAlbum(Activity activity, int requestCode, int maxNum) {
+        AlbumInfo info = new AlbumInfo();
+        info.max_count = maxNum;
+        info.request_code = requestCode;
+        PhotoAlbumActivity.Companion.open(activity, info);
+    }
+
+    public static void appImageAlbum(Activity activity, AlbumInfo info) {
+        PhotoAlbumActivity.Companion.open(activity, info);
+    }
 }
