@@ -18,9 +18,9 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.AppFileConfig;
 import com.sum.library.R;
+import com.sum.library.utils.Logger;
 
 import org.xutils.common.Callback;
-import org.xutils.common.util.LogUtil;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -84,6 +84,7 @@ public class DownloadManager {
         btn_to_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Logger.e("to back download");
                 mDialog.dismiss();
             }
         });
@@ -141,10 +142,10 @@ public class DownloadManager {
 
     private void downFile() {
         if (TextUtils.isEmpty(downloadUrl)) {
-            LogUtil.e("download url is null");
+            Logger.e("download url is null");
             return;
         }
-        LogUtil.e("start download: " + downloadUrl);
+        Logger.e("start download: " + downloadUrl);
         getFileName();
         RequestParams params = new RequestParams(downloadUrl);
         params.setAutoRename(true);
@@ -191,7 +192,7 @@ public class DownloadManager {
         @Override
         public void onSuccess(File result) {
             ToastUtils.showShort("下载完成");
-            LogUtil.e("start install file: " + result.getAbsolutePath());
+            Logger.e("start install file: " + result.getAbsolutePath());
             if (result.getName().endsWith(".apk")) {
                 install(mActivity, result);
             }
@@ -218,12 +219,12 @@ public class DownloadManager {
 
     private void install(Context context, File result) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
         Uri uri = AppFileConfig.getAppSelfUri(context, result);
         intent.setDataAndType(uri, "application/vnd.android.package-archive");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

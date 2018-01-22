@@ -1,5 +1,8 @@
 package com.sum.andrioddeveloplibrary
 
+import android.os.Bundle
+import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
@@ -44,6 +47,12 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
             startActivity(UIActivity::class.java)
             overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        PermissionUtils.permission(*PermissionConstants.getPermissions(PermissionConstants.STORAGE)).request()
     }
 
 }

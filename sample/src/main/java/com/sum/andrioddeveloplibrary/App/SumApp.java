@@ -3,7 +3,6 @@ package com.sum.andrioddeveloplibrary.App;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.sum.andrioddeveloplibrary.BuildConfig;
 import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.AppFileConfig;
 import com.sum.library.app.BaseApplication;
@@ -16,11 +15,15 @@ import okhttp3.OkHttpClient;
  */
 
 public class SumApp extends BaseApplication {
+
+    static {
+        AppFileConfig.FOLDER_FILE = "AA_files";
+        AppFileConfig.FOLDER_NAME = "AA_Sum";
+    }
+
     @Override
     public void onCreate() {
-        AppFileConfig.FOLDER_NAME = BuildConfig.APPLICATION_ID;
         super.onCreate();
-
         Retrofit2Helper instance = Retrofit2Helper.getInstance();
         OkHttpClient client = instance.buildDefaultOkHttpClient().addInterceptor(new TestToken()).build();
         instance.initRetrofit("http://newfgjapi.seconddepartment.house365.com/", client);
