@@ -79,6 +79,9 @@ public class AppImageUtils {
         activity.startActivityForResult(captureIntent, requestCode);
     }
 
+    /**
+     * @return 拍照完成时，返回拍照的文件位置
+     */
     public static File systemTakePhoto(Activity activity, int requestCode) {
         String target = AppFileConfig.getImageDirectoryFile().getPath() + File.separator + System.currentTimeMillis() + ".jpg";
         File file = new File(target);

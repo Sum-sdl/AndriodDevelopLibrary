@@ -6,15 +6,16 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import com.sum.library.ui.image.AppImageUtils
-import com.sum.library.ui.image.photoAlbum.AlbumInfo
-import com.sum.library.ui.image.photoAlbum.PhotoAlbumActivity
 import com.sum.library.ui.image.preview.ImagePreviewActivity
 import kotlinx.android.synthetic.main.activity_ui.*
+import java.io.File
 
 
 class UIActivity : AppCompatActivity() {
 
     private val mData: ArrayList<String> = arrayListOf()
+
+    private var mPhoto: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +40,11 @@ class UIActivity : AppCompatActivity() {
             AppImageUtils.systemChooseImage(this, 1)
         }
         btn_3.setOnClickListener {
-            AppImageUtils.systemTakePhoto(this, 2, null)
+            mPhoto = AppImageUtils.systemTakePhoto(this, 2)
         }
 
         btn_4.setOnClickListener {
-            PhotoAlbumActivity.open(this, AlbumInfo())
+            AppImageUtils.appImageAlbum(this, 10, 2)
         }
     }
 
@@ -75,7 +76,7 @@ class UIActivity : AppCompatActivity() {
                         .withAspectRatio(16f, 9f)
                         .start(this)*/
 //                AppImageUtils.appImageCrop(this, extra!![0], 11, 0f, null)
-                AppImageUtils.appImageCrop(this, extra!![0], 11)
+                AppImageUtils.appImageCrop(this, extra[0], 11)
             }
         } else if (requestCode == 11) {
             tv_xc_2.append("\n")

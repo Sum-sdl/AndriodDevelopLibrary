@@ -35,6 +35,14 @@ public class SplashActivity extends BaseActivity {
                 per();
             }
         });
+
+
+        findViewById(R.id.b1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PermissionUtils.openAppSettings();
+            }
+        });
     }
 
     private void per() {
@@ -44,21 +52,21 @@ public class SplashActivity extends BaseActivity {
         PermissionUtils.permission(PermissionConstants.getPermissions(PermissionConstants.STORAGE)).callback(new PermissionUtils.FullCallback() {
             @Override
             public void onGranted(List<String> permissionsGranted) {//允许
-                ToastUtils.showLong(permissions.toString());
+                ToastUtils.showShort(permissions.toString());
             }
 
             @Override
             public void onDenied(List<String> permissionsDeniedForever, List<String> permissionsDenied) {
-                show("权限拒绝");
+                show();
             }
         }).request();
 
 
     }
 
-    private void show(String deniedPermission) {
+    private void show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
-        builder.setTitle("提示").setMessage(deniedPermission)
+        builder.setTitle("提示").setMessage("权限拒绝")
                 .setPositiveButton("确定", (dialog, which) -> {
                     Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
                     intent.setData(Uri.parse("package:" + SplashActivity.this.getPackageName()));

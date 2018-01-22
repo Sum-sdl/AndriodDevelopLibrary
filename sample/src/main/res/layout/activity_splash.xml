@@ -20,6 +20,12 @@
             android:layout_height="wrap_content"
             android:text="权限申请" />
 
+        <Button
+            android:id="@+id/b1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="权限设置" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -12,3 +12,5 @@ Activity保存流程： onResume -> onPause -> onSaveInstanceState -> onStop
 Activity恢复流程： onCreate -> onRestoreInstanceState -> onResume
 
 被系统杀了-> 声明周期重新走, 在不同的方法中，bundle不为空，并且是同一个对象
+
+处理方案：在Activity被回收后，进程被杀，整个流程会重新走一边，自己保存少数关键的数据

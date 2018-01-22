@@ -17,8 +17,15 @@ import java.io.File;
  */
 public class AppFileConfig {
 
-    //配置文件路劲
+    //根文件夹名称
     public static String FOLDER_NAME = "A_File";
+
+    //配置文件夹名称
+    public static String FOLDER_FILE = "file";
+
+    public static String FOLDER_IMAGE = "image";
+
+    public static String FOLDER_LOGS = "logs";
 
     //FileProvider使用的Uri文件
     public static String FOLDER_PROVIDER = ".fileProvider";
@@ -33,31 +40,31 @@ public class AppFileConfig {
     }
 
     public static File getDownloadDirectoryFile() {
-        return getDir("file");
+        return getDir(FOLDER_FILE);
     }
 
     public static File getLogDirectoryFile() {
-        return getDir("logs");
+        return getDir(FOLDER_LOGS);
     }
 
     public static File getImageDirectoryFile() {
-        return getDir("image");
+        return getDir(FOLDER_IMAGE);
     }
 
     public static File getCacheDirectoryFile() {
         return getDir("cache", true);
     }
 
-    private static File getDir(String dirName) {
+    public static File getDir(String dirName) {
         return getDir(dirName, false);
     }
 
-    private static File getDir(String dirName, boolean isCacheFile) {
+    //创建项目目录下的文件夹
+    public static File getDir(String dirName, boolean isCacheFile) {
         File baseDir = getBaseDir(isCacheFile);
         if (baseDir == null) {
             return null;
         }
-//        Logger.e("baseFile:" + baseDir.getAbsolutePath());
         File result = new File(baseDir.getPath() + File.separator + dirName);
         if (result.exists() || result.mkdirs()) {
             return result;
@@ -71,7 +78,7 @@ public class AppFileConfig {
         if (existsSdcard()) {
             String cacheDir = null;
             if (isCacheFile) {
-                File file = Utils.getApp().getExternalCacheDir();
+                File file = Utils.getApp().getExternalCacheDir();//系统缓存数据文件夹路劲
                 if (file != null) {
                     cacheDir = file.getAbsolutePath();
                 }
