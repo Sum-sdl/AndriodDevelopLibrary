@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 
 import com.blankj.utilcode.util.Utils;
 
@@ -17,7 +18,7 @@ import java.io.File;
 public class AppFileConfig {
 
     //配置文件路劲
-    public static String FOLDER_NAME = "A_Sum";
+    public static String FOLDER_NAME = "A_File";
 
     //FileProvider使用的Uri文件
     public static String FOLDER_PROVIDER = ".fileProvider";
@@ -30,7 +31,6 @@ public class AppFileConfig {
             return Uri.fromFile(file);
         }
     }
-
 
     public static File getDownloadDirectoryFile() {
         return getDir("file");
@@ -45,14 +45,19 @@ public class AppFileConfig {
     }
 
     public static File getCacheDirectoryFile() {
-        return getDir("cache");
+        return getDir("cache", true);
     }
 
     private static File getDir(String dirName) {
-        File baseDir = getBaseDir();
+        return getDir(dirName, false);
+    }
+
+    private static File getDir(String dirName, boolean isCacheFile) {
+        File baseDir = getBaseDir(isCacheFile);
         if (baseDir == null) {
             return null;
         }
+//        Logger.e("baseFile:" + baseDir.getAbsolutePath());
         File result = new File(baseDir.getPath() + File.separator + dirName);
         if (result.exists() || result.mkdirs()) {
             return result;
@@ -61,14 +66,26 @@ public class AppFileConfig {
         }
     }
 
-    private static File getBaseDir() {
+    private static File getBaseDir(boolean isCacheFile) {
         File result;
         if (existsSdcard()) {
-            String cacheDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + FOLDER_NAME;
-
+            String cacheDir = null;
+            if (isCacheFile) {
+                File file = Utils.getApp().getExternalCacheDir();
+                if (file != null) {
+                    cacheDir = file.getAbsolutePath();
+                }
+            }
+            if (TextUtils.isEmpty(cacheDir)) {
+                cacheDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + FOLDER_NAME;
+            }
             result = new File(cacheDir);
         } else {
-            result = (Utils.getApp().getFilesDir());
+            if (isCacheFile) {
+                result = (Utils.getApp().getCacheDir());
+            } else {
+                result = (Utils.getApp().getFilesDir());
+            }
         }
         if (result.exists() || result.mkdirs()) {
             return result;

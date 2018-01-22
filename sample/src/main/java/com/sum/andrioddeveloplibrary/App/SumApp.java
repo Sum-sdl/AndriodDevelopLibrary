@@ -3,6 +3,7 @@ package com.sum.andrioddeveloplibrary.App;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.sum.andrioddeveloplibrary.BuildConfig;
 import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.AppFileConfig;
 import com.sum.library.app.BaseApplication;
@@ -17,7 +18,7 @@ import okhttp3.OkHttpClient;
 public class SumApp extends BaseApplication {
     @Override
     public void onCreate() {
-        AppFileConfig.FOLDER_NAME = "A_SumApp";
+        AppFileConfig.FOLDER_NAME = BuildConfig.APPLICATION_ID;
         super.onCreate();
 
         Retrofit2Helper instance = Retrofit2Helper.getInstance();

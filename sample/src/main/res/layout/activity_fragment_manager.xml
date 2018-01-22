@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <com.sum.library.view.widget.MultiRadioGroup
+        android:id="@+id/mrg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.sum.library.view.widget.MultiRadioButton
+            android:id="@+id/rb1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:multiColorChecked="@color/colorPrimary"
+            app:multiColorDefault="@color/black"
+            app:multiDrawableChecked="@mipmap/ic_index_home_sel"
+            app:multiDrawableDefault="@mipmap/ic_index_home_nor"
+            app:multiText="Tab1" />
+
+        <com.sum.library.view.widget.MultiRadioButton
+            android:id="@+id/rb2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:multiColorChecked="@color/colorPrimary"
+            app:multiColorDefault="@color/black"
+            app:multiDrawableChecked="@mipmap/ic_index_customer_sel"
+            app:multiDrawableDefault="@mipmap/ic_index_customer_nor"
+            app:multiText="Tab2" />
+
+    </com.sum.library.view.widget.MultiRadioGroup>
+
+</LinearLayout>

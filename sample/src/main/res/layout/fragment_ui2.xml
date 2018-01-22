@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.sum.library.view.widget.PubTitleView
-        android:id="@+id/pub_view"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:title_name="网页测试" />
+        android:layout_gravity="center"
+        android:text="UI2"
+        android:textSize="40sp" />
 
 
-    <Button
-        android:id="@+id/btn_1"
-        android:text="FragmentCacheManager使用"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="match_parent" />
 
 </LinearLayout>

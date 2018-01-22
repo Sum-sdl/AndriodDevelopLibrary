@@ -49,4 +49,11 @@ public class SwipeActivity extends AppCompatActivity {
 //        swipeLayout.addView(new TestView(this),null);
 
     }
+
+    private View.OnClickListener Listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
 }

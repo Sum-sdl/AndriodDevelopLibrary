@@ -31,6 +31,8 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     private int mColorDefault, mColorChecked;
 
+    private boolean mDefaultChecked = false;
+
     private String mName;
 
     private int mShowType;//0:颜色 1:图片
@@ -50,8 +52,8 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         loadAttrs(context, attrs);
         mContext = context;
         LayoutInflater.from(context).inflate(R.layout.multi_radio_button, this, true);
-        mImageView = (ImageView) findViewById(R.id.multi_iv_image);
-        mTextView = (TextView) findViewById(R.id.multi_tv_name);
+        mImageView = findViewById(R.id.multi_iv_image);
+        mTextView = findViewById(R.id.multi_tv_name);
 
         //初始化状态值
         initDefaultTint();
@@ -74,9 +76,8 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         if (mImageResChecked != -1) {
             mShowType = 1;
         }
-
         mName = array.getString(R.styleable.MultiRadioButton_multiText);
-
+        mDefaultChecked = array.getBoolean(R.styleable.MultiRadioButton_multiChecked, false);
         array.recycle();
     }
 
@@ -134,8 +135,10 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
             Drawable drawable = ContextCompat.getDrawable(mContext, mImageResDefault);
             DrawableCompat.setTintList(drawable, sl);
             mImageView.setImageDrawable(drawable);
-        }else {
+        } else {
             mImageView.setImageResource(mImageResDefault);
         }
+
+        setChecked(mDefaultChecked);
     }
 }

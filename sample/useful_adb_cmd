@@ -1,2 +1,14 @@
 //app退到后台
 adb shell am kill com.house365.aizuna（包名）
+adb shell am kill com.sum.andrioddeveloplibrary
+
+
+fragment 生命周期
+onAttach -> onCreate ->onViewCreate->onViewCreated->onDestroyView ->onDestroy-> onDetach
+
+退到后台的时候-fragment的 onSaveInstanceState -> Activity的onSaveInstanceState
+
+Activity保存流程： onResume -> onPause -> onSaveInstanceState -> onStop
+Activity恢复流程： onCreate -> onRestoreInstanceState -> onResume
+
+被系统杀了-> 声明周期重新走, 在不同的方法中，bundle不为空，并且是同一个对象

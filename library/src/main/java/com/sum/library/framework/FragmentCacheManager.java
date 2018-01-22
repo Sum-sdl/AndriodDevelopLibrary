@@ -61,10 +61,9 @@ public class FragmentCacheManager {
 
     /**
      * 获取所有显示过的缓存的Fragment
-     *
-     * @return
+     * mFragmentManager.getFragments() 只能获取Add状态的Fragment
      */
-    public List<Fragment> getAllCacheFragment() {
+    public List<Fragment> getCacheFragment() {
         ArrayList<Fragment> list = new ArrayList<>();
         Set<Map.Entry<Object, FragmentInfo>> entries = mCacheFragment.entrySet();
         for (Map.Entry<Object, FragmentInfo> entry : entries) {
@@ -78,9 +77,6 @@ public class FragmentCacheManager {
 
     /**
      * 获取缓存的Fragment
-     *
-     * @param index
-     * @return
      */
     public Fragment getCacheFragment(Object index) {
         FragmentInfo info = mCacheFragment.get(index);
@@ -92,8 +88,6 @@ public class FragmentCacheManager {
 
     /**
      * 显示index对应的Fragment
-     *
-     * @param index
      */
     public Fragment setCurrentFragment(Object index) {
         if (index == mCurrentFragmentIndex) {
@@ -165,15 +159,16 @@ public class FragmentCacheManager {
         try {
             String fragmentTag = param.tag;
             //通过Tag查找活动的Fragment，相同到Fragment可以创建多个实力对象通过设置不同到Tag
+            //在系统回收的情况下，FragmentManager会自动保存Fragment，findFragmentByTag找到新的实例对象
             Fragment fragment = mFragmentManager.findFragmentByTag(fragmentTag);
             if (fragment == null) {
                 //创建对象将数据传递给Fragment对象
                 fragment = (Fragment) cls.newInstance();
-                if (param.args != null) {
-                    fragment.setArguments(param.args);
-                }
-                param.fragment = fragment;
             }
+            if (param.args != null) {
+                fragment.setArguments(param.args);
+            }
+            param.fragment = fragment;
 
             if (mCurrentFragment != null && mCurrentFragment != fragment) {
                 //去除跟Activity关联的Fragment
