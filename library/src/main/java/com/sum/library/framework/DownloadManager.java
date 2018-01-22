@@ -193,7 +193,7 @@ public class DownloadManager {
         public void onSuccess(File result) {
             ToastUtils.showShort("下载完成");
             Logger.e("start install file: " + result.getAbsolutePath());
-            if (result.getName().endsWith(".apk")) {
+            if (result.exists()) {
                 install(mActivity, result);
             }
         }
