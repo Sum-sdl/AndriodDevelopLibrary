@@ -14,9 +14,17 @@
 
     <Button
         android:id="@+id/btn_1"
-        android:text="FragmentCacheManager使用"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="FragmentCacheManager使用" />
+
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/anim4"
+        android:text="5.0过场动画" />
 
 
 </LinearLayout>

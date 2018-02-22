@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import com.blankj.utilcode.util.BarUtils
 import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.preview.ImagePreviewActivity
 import kotlinx.android.synthetic.main.activity_ui.*
@@ -18,6 +19,7 @@ class UIActivity : AppCompatActivity() {
     private var mPhoto: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        BarUtils.setStatusBarAlpha(this, 0)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ui)
 
@@ -45,6 +47,13 @@ class UIActivity : AppCompatActivity() {
 
         btn_4.setOnClickListener {
             AppImageUtils.appImageAlbum(this, 10, 2)
+        }
+
+        btn_5.setOnClickListener {
+            val test = com.sum.andrioddeveloplibrary.testview.BasePushMessage()
+            for (i in 1..100) {
+                test.addOneMessage(i)
+            }
         }
     }
 
@@ -82,6 +91,10 @@ class UIActivity : AppCompatActivity() {
             tv_xc_2.append("\n")
             tv_xc_2.append(AppImageUtils.appImageCropIntentPath(data))
         }
+    }
+
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
     }
 
     override fun finish() {

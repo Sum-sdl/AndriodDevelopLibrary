@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.sum.andrioddeveloplibrary.UIActivity">
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:transitionName="iv_2"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/anim5" />
 
     <Button
         android:id="@+id/btn_1"
@@ -47,5 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="我的相册" />
+
+    <Button
+        android:id="@+id/btn_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="循环任务" />
 
 </LinearLayout>

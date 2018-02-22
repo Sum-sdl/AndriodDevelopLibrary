@@ -1,6 +1,8 @@
 package com.sum.andrioddeveloplibrary
 
+import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -33,5 +35,22 @@ class WidgetUseActivity : AppCompatActivity() {
             startActivity(Intent(this, FragmentManagerActivity::class.java))
         }
 
+        iv_2.setOnClickListener {
+            anim()
+        }
+
+    }
+
+    private fun anim() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            val options = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptions.makeSceneTransitionAnimation(
+                        this, iv_2, "iv_2")
+            } else {
+               null
+            }
+        val intent = Intent(this, UIActivity::class.java)
+            intent.putExtra("url", 1)
+            startActivity(intent, options?.toBundle())
     }
 }

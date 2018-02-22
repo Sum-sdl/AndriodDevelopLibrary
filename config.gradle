@@ -1,6 +1,5 @@
 ext {
     compileSdkVersion = 26
-    buildToolsVersion = "26.0.3"
 
     app = [
             applicationId   : "com.sum.andrioddeveloplibrary",
