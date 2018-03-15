@@ -1,5 +1,6 @@
 package com.sum.library.framework;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,9 @@ public class FragmentCacheManager {
     //Activity 中的Fragment管理
     private FragmentManager mFragmentManager;
 
-    private FragmentActivity mBaseActivity;
+    private Activity mActivity;
+
+    private Fragment mFragment;
 
     private int mContainerId;
 
@@ -39,7 +42,9 @@ public class FragmentCacheManager {
 
     //缓存的Fragment集合数据
     private HashMap<Object, FragmentInfo> mCacheFragment;
-    //
+
+    private boolean mHasLife = true;
+
     private boolean mCheckRoot = true;
 
     //当前展示的Fragment
@@ -47,23 +52,31 @@ public class FragmentCacheManager {
     private Object mCurrentFragmentIndex = null;
 
     public void setUp(FragmentActivity activity, @IdRes int containerId) {
-        this.mBaseActivity = activity;
+        if (mFragment != null) {
+            throw new RuntimeException("you have setup for Fragment");
+        }
+        this.mActivity = activity;
         this.mContainerId = containerId;
         mFragmentManager = activity.getSupportFragmentManager();
     }
 
     public void setUp(Fragment fragment, @IdRes int containerId) {
+        if (mActivity != null) {
+            throw new RuntimeException("you have setup for Activity");
+        }
+        this.mFragment = fragment;
         this.mContainerId = containerId;
         mFragmentManager = fragment.getChildFragmentManager();
         //Fragment所在的Activity
-        mBaseActivity = fragment.getActivity();
+        mActivity = fragment.getActivity();
     }
 
     /**
      * 获取所有显示过的缓存的Fragment
-     * mFragmentManager.getFragments() 只能获取Add状态的Fragment
+     *
+     * @return
      */
-    public List<Fragment> getCacheFragment() {
+    public List<Fragment> getAllCacheFragment() {
         ArrayList<Fragment> list = new ArrayList<>();
         Set<Map.Entry<Object, FragmentInfo>> entries = mCacheFragment.entrySet();
         for (Map.Entry<Object, FragmentInfo> entry : entries) {
@@ -77,6 +90,9 @@ public class FragmentCacheManager {
 
     /**
      * 获取缓存的Fragment
+     *
+     * @param index
+     * @return
      */
     public Fragment getCacheFragment(Object index) {
         FragmentInfo info = mCacheFragment.get(index);
@@ -88,6 +104,8 @@ public class FragmentCacheManager {
 
     /**
      * 显示index对应的Fragment
+     *
+     * @param index
      */
     public Fragment setCurrentFragment(Object index) {
         if (index == mCurrentFragmentIndex) {
@@ -129,6 +147,10 @@ public class FragmentCacheManager {
         this.mListener = listener;
     }
 
+    public void setHasLife(boolean hasLife) {
+        this.mHasLife = hasLife;
+    }
+
     public void setCheckRoot(boolean checkRoot) {
         this.mCheckRoot = checkRoot;
     }
@@ -159,42 +181,40 @@ public class FragmentCacheManager {
         try {
             String fragmentTag = param.tag;
             //通过Tag查找活动的Fragment，相同到Fragment可以创建多个实力对象通过设置不同到Tag
-            //在系统回收的情况下，FragmentManager会自动保存Fragment，findFragmentByTag找到新的实例对象
             Fragment fragment = mFragmentManager.findFragmentByTag(fragmentTag);
             if (fragment == null) {
                 //创建对象将数据传递给Fragment对象
-                fragment = (Fragment) cls.newInstance();
+                fragment = Fragment.instantiate(mActivity, cls.getName(), param.args);
+                param.fragment = fragment;
             }
-            if (param.args != null) {
-                fragment.setArguments(param.args);
-            }
-            param.fragment = fragment;
+
+            FragmentTransaction ts = mFragmentManager.beginTransaction();
 
             if (mCurrentFragment != null && mCurrentFragment != fragment) {
-                //去除跟Activity关联的Fragment
-                //detach会将Fragment所占用的View从父容器中移除，但不会完全销毁，还处于活动状态
-                mFragmentManager.beginTransaction().detach(mCurrentFragment).commit();
+                Fragment lastFragment = this.mCurrentFragment;
+                if (mHasLife) {
+                    //去除跟Activity关联的Fragment
+                    //detach会将Fragment所占用的View从父容器中移除，但不会完全销毁，还处于活动状态
+                    ts.detach(lastFragment);
+                } else {
+                    ts.hide(lastFragment);
+                }
             }
-
-            FragmentTransaction ft = mFragmentManager.beginTransaction();
+//            FragmentTransaction ft = mFragmentManager.beginTransaction();
             if (fragment.isDetached()) {
                 //重新关联到Activity
-                ft.attach(fragment);
+                ts.attach(fragment);
             } else if (fragment.isHidden()) {
                 //显示fragment
-                ft.show(fragment);
+                ts.show(fragment);
             } else {
                 if (!fragment.isAdded()) {
-                    ft.add(containerId, fragment, fragmentTag);
+                    ts.add(containerId, fragment, fragmentTag);
                 }
             }
             mCurrentFragment = fragment;
-            ft.commitAllowingStateLoss();
+            ts.commitAllowingStateLoss();
             return fragment;
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -203,7 +223,8 @@ public class FragmentCacheManager {
 
 
     public void onBackPress() {
-        if (mBaseActivity.isTaskRoot() || !mCheckRoot) {
+
+        if (mActivity.isTaskRoot() || !mCheckRoot) {
             int cnt = mFragmentManager.getBackStackEntryCount();
             long secondClickBackTime = System.currentTimeMillis();
             if (cnt < 1 && (secondClickBackTime - mLastBackTime) > 2000) {
@@ -227,7 +248,7 @@ public class FragmentCacheManager {
             }
             mLastBackTime = secondClickBackTime;
         } else {
-            mBaseActivity.finish();
+            mActivity.finish();
         }
     }
 
@@ -241,7 +262,7 @@ public class FragmentCacheManager {
     private void doReturnBack() {
         int count = mFragmentManager.getBackStackEntryCount();
         if (count < 1) {
-            mBaseActivity.finish();
+            mActivity.finish();
         } else {
             mFragmentManager.popBackStackImmediate();
         }
