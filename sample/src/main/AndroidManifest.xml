@@ -56,7 +56,7 @@
 
         <activity android:name=".WidgetUseActivity" />
         <activity android:name=".UIActivity" />
-        <activity android:name=".activity.FragmentManagerActivity"></activity>
+        <activity android:name=".activity.FragmentManagerActivity"/>
     </application>
 
 </manifest>

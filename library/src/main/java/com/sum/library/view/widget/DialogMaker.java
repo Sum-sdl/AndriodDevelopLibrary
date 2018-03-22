@@ -45,7 +45,7 @@ public class DialogMaker {
     }
 
     public static AlertDialog.Builder getDialog(Context context) {
-        return new AlertDialog.Builder(context, R.style.dialog_alert);
+        return new AlertDialog.Builder(context);
     }
 
 

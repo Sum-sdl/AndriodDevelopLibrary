@@ -73,8 +73,6 @@ public class FragmentCacheManager {
 
     /**
      * 获取所有显示过的缓存的Fragment
-     *
-     * @return
      */
     public List<Fragment> getAllCacheFragment() {
         ArrayList<Fragment> list = new ArrayList<>();
@@ -90,9 +88,6 @@ public class FragmentCacheManager {
 
     /**
      * 获取缓存的Fragment
-     *
-     * @param index
-     * @return
      */
     public Fragment getCacheFragment(Object index) {
         FragmentInfo info = mCacheFragment.get(index);
@@ -104,8 +99,6 @@ public class FragmentCacheManager {
 
     /**
      * 显示index对应的Fragment
-     *
-     * @param index
      */
     public Fragment setCurrentFragment(Object index) {
         if (index == mCurrentFragmentIndex) {
@@ -121,7 +114,7 @@ public class FragmentCacheManager {
 
     /**
      * 添加Fragment到管理栈里，同一个实力对象只会创建一次
-     * 功能实现原理FragmentTabhost相同,注意hide和detach区别
+     * 功能实现原理FragmentTabHost相同,注意hide和detach区别
      */
 
     public void addFragmentToCache(Object index, Class<?> clss) {
@@ -200,7 +193,6 @@ public class FragmentCacheManager {
                     ts.hide(lastFragment);
                 }
             }
-//            FragmentTransaction ft = mFragmentManager.beginTransaction();
             if (fragment.isDetached()) {
                 //重新关联到Activity
                 ts.attach(fragment);
@@ -223,7 +215,6 @@ public class FragmentCacheManager {
 
 
     public void onBackPress() {
-
         if (mActivity.isTaskRoot() || !mCheckRoot) {
             int cnt = mFragmentManager.getBackStackEntryCount();
             long secondClickBackTime = System.currentTimeMillis();

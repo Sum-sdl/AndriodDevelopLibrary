@@ -71,7 +71,7 @@ public class DownloadManager {
         final Button btn_start = view.findViewById(R.id.btn_start);
         final Button btn_to_back = view.findViewById(R.id.btn_to_back);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity, R.style.dialog_alert);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         builder.setView(view);
         builder.setCancelable(false);
         if (!TextUtils.isEmpty(mLabel)) {

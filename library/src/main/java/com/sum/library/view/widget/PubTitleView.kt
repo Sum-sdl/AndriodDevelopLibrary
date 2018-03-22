@@ -33,8 +33,8 @@ open class PubTitleView : LinearLayout {
         initLayout(context, layoutId)
         mTitle?.text = array.getString(R.styleable.PubTitleView_title_name)
 
-        val dark = array.getBoolean(R.styleable.PubTitleView_title_dark, false)
-        if (dark) {
+        val white = array.getBoolean(R.styleable.PubTitleView_title_white, false)
+        if (white) {
             val drawable = mTitleBack?.drawable
             if (drawable != null) {
                 DrawableCompat.setTint(drawable, Color.WHITE)

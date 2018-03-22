@@ -59,13 +59,13 @@
             android:id="@+id/b8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="组件使用" />
+            android:text="组件功能测试" />
 
         <Button
             android:id="@+id/b9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="功能界面" />
+            android:text="实用的功能界面" />
 
     </LinearLayout>
 

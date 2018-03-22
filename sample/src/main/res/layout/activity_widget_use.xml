@@ -9,14 +9,23 @@
         android:id="@+id/pub_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_name="网页测试" />
+        app:title_name="White Model" />
+
+    <com.sum.library.view.widget.PubTitleView
+        android:id="@+id/pub_view2"
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:layout_height="wrap_content"
+        app:title_white="true"
+        app:title_name="Dark Model" />
 
 
-    <Button
+    <TextView
         android:id="@+id/btn_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="FragmentCacheManager使用" />
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="FragmentCacheManager测试使用" />
 
     <ImageView
         android:id="@+id/iv_2"

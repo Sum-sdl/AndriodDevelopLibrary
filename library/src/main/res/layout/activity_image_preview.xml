@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:background="@color/translate_50"
         android:layout_alignParentTop="true"
-        app:title_dark="true" />
+        app:title_white="true" />
 
 </RelativeLayout>

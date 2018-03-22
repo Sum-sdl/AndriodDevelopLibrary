@@ -10,6 +10,7 @@ ext {
     ]
 
     dependencies = [
+            //27.1.0库图片选择界面，LoaderManager加载数据库会重复
             supportLibraryVersion : "27.0.2",
     ]
 }

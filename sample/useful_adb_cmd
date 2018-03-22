@@ -5,6 +5,9 @@ adb shell am kill com.sum.andrioddeveloplibrary
 
 fragment 生命周期
 onAttach -> onCreate ->onViewCreate->onViewCreated->onDestroyView ->onDestroy-> onDetach
+FragmentTransaction attach/detach 重复方法【onViewCreate->onViewCreated->onDestroyView ->onViewCreate】
+Activity销毁时才会走 ->onDestroy-> onDetach
+
 
 退到后台的时候-fragment的 onSaveInstanceState -> Activity的onSaveInstanceState
 

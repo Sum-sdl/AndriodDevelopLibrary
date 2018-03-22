@@ -2,15 +2,20 @@ package com.sum.andrioddeveloplibrary.activity
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.sum.andrioddeveloplibrary.R
 import com.sum.library.app.BaseFragment
+import com.sum.library.utils.Logger
 import kotlinx.android.synthetic.main.fragment_ui1.*
 
 /**
  * Created by sdl on 2018/1/19.
  */
 class FragmentUI1 : BaseFragment() {
+
+    var mLife: String? = ""
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -27,10 +32,14 @@ class FragmentUI1 : BaseFragment() {
         log("onSaveInstanceState," + outState.toString())
     }
 
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        log("onCreateView," + savedInstanceState.toString())
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         log("onViewCreated," + savedInstanceState.toString())
-
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -57,8 +66,15 @@ class FragmentUI1 : BaseFragment() {
         tv_1.append(",managerSize:" + fragmentManager?.fragments?.size)
     }
 
+    override fun onResume() {
+        super.onResume()
+        log("onResume")
+        tv_1.text = mLife
+    }
+
     private fun log(text: String) {
-//        Logger.e("FragmentUI1:" + text)
+        Logger.e("FragmentUI1:" + text)
+        mLife += text + " -> "
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_ui1
