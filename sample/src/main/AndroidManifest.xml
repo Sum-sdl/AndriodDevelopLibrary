@@ -56,7 +56,8 @@
 
         <activity android:name=".WidgetUseActivity" />
         <activity android:name=".UIActivity" />
-        <activity android:name=".activity.FragmentManagerActivity"/>
+        <activity android:name=".activity.FragmentManagerActivity" />
+        <activity android:name=".WebViewActivity"></activity>
     </application>
 
 </manifest>

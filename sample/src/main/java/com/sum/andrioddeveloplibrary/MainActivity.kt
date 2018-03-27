@@ -8,6 +8,7 @@ import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.DownloadManager
+import com.sum.library.ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
@@ -42,6 +43,13 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
         b8.setOnClickListener {
             startActivity(WidgetUseActivity::class.java)
+        }
+        b10.setOnClickListener {
+            startActivity(WebViewActivity::class.java)
+        }
+        b11.setOnClickListener {
+            WebActivity.open(this, "自定义", "http://m.018929.com/index.php/phone/userReg", null, null)
+
         }
         b9.setOnClickListener {
             startActivity(UIActivity::class.java)
