@@ -18,6 +18,5 @@
     <WebView
         android:id="@id/pub_web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layerType="software" />
+        android:layout_height="match_parent" />
 </LinearLayout>

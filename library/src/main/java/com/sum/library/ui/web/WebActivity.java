@@ -37,8 +37,7 @@ public class WebActivity extends BaseActivity {
     public WebView mWeb;
     public TextView mTitle;
     public PubTitleView mTitleView;
-
-    WebJavascriptInterface mJs;
+    public WebJavascriptInterface mJs;
 
     public static void open(Context c, String title, String url, WebJavascriptInterface js, String jsName) {
         Intent intent = new Intent(c, WebActivity.class);
@@ -92,7 +91,7 @@ public class WebActivity extends BaseActivity {
                 }
             }
         });
-        mWeb.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        mWeb.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         WebSettings settings = mWeb.getSettings();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
