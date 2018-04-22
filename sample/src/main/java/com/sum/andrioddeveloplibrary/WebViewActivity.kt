@@ -44,6 +44,7 @@ class WebViewActivity : AppCompatActivity() {
             }
         })
 
-        mWebView.loadUrl("http://m.018929.com/index.php/phone/userReg")
+//        mWebView.loadUrl("http://m.018929.com/index.php/phone/userReg")
+        mWebView.loadUrl("http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12")
     }
 }

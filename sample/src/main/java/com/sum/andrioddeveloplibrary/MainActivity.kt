@@ -49,7 +49,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
         b11.setOnClickListener {
 //            WebActivity.open(this, "自定义", "http://m.018929.com/index.php/phone/userReg", null, null)
-            WebActivity.open(this, "自定义", "http://www.baidu.com", null, null)
+            WebActivity.open(this, "自定义", "http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12", null, null)
 
         }
         b9.setOnClickListener {
