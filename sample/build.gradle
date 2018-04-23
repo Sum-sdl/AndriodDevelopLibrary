@@ -83,38 +83,29 @@ android {
     }
 
     /* //修改生成的apk名字
-    applicationVariants.all {
-        variant ->
-            variant.outputs.each {
-                output ->
-                    def oldFile = output.outputFile
-                    if (variant.buildType.name.equals('release')) {
-                        def releaseApkName = 'com.sum-v' + defaultConfig.versionName + '-' + variant.productFlavors[0].name + '-rel.apk'
-                        output.outputFile = new File(oldFile.parent, releaseApkName)
-                    }
-                    if (variant.buildType.name.equals('debug')) {
-                        def newName = 'com.-v' + defaultConfig.versionName + '-' + variant.productFlavors[0].name + '-debug.apk'
-                        output.outputFile = new File(oldFile.parent, newName)
-                    }
-
-                    if (output.zipAlign != null) {
-                        output.zipAlign.doLast {
-                            output.zipAlign.inputFile.delete()
-                        }
-                    }
-            }
+      android.applicationVariants.all { variant ->
+        variant.outputs.all {
+//            outputFileName = "${variant.name}-${variant.versionName}.apk"
+            outputFileName = "com.rent.azn_v${variant.versionName}_${variant.buildType.name}.apk"
+        }
     }*/
+}
+
+//强制相同的库使用统一的版本
+configurations.all {
+    resolutionStrategy {
+//        force "com.android.support:appcompat-v7:27.1.1"
+    }
 }
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile project(':library')
-    compile "io.reactivex.rxjava2:rxjava:2.1.7"
+    testImplementation 'junit:junit:4.12'
+    implementation project(':library')
+    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
     // butterknife
 //    compile 'com.jakewharton:butterknife:8.8.1'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 repositories {

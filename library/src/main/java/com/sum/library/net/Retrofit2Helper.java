@@ -1,8 +1,5 @@
 package com.sum.library.net;
 
-import com.blankj.utilcode.util.Utils;
-import com.readystatesoftware.chuck.ChuckInterceptor;
-
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -44,10 +41,9 @@ public class Retrofit2Helper {
     public OkHttpClient.Builder buildDefaultOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //ChuckInterceptor 广播调试请求参数
-        builder.addInterceptor(new ChuckInterceptor(Utils.getApp()))
-                .readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(10, TimeUnit.SECONDS);
+        builder.readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS);
         return builder;
     }
 

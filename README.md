@@ -1,10 +1,10 @@
 # AndriodDevelopLibrary
 
-**封装的快速开发的Library库**
+**个人快速开发框架库**
 
-#### AndroidStudio添加使用
+#### AndroidStudio添加使用方法
 
-build.config文件添加
+在build.config文件添加远程库地址
 
 	allprojects {
 		repositories {
@@ -13,9 +13,9 @@ build.config文件添加
 		}
 	}
 
-添加依赖
+添加远程库依赖
 
 	dependencies {
-	        compile 'com.github.Sum-sdl:AndriodDevelopLibrary:1.0.7'
+	        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:1.0.8'
 	}
 

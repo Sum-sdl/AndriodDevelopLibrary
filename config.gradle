@@ -10,7 +10,8 @@ ext {
     ]
 
     dependencies = [
-            //27.1.0库图片选择界面，LoaderManager加载数据库会重复
-            supportLibraryVersion : "27.0.2",
+            //27.1.0库图片选择界面，LoaderManager加载数据库onLoadFinished会多次调用
+            //27.1.1库图片选择界面，加载数据库会重复bug已经修复
+            supportLibraryVersion : "27.1.1",
     ]
 }

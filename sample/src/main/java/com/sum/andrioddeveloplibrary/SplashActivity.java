@@ -40,7 +40,7 @@ public class SplashActivity extends BaseActivity {
         findViewById(R.id.b1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PermissionUtils.openAppSettings();
+                PermissionUtils.launchAppDetailsSettings();
             }
         });
     }

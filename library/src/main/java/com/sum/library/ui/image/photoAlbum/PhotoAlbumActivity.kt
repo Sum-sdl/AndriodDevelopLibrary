@@ -153,8 +153,9 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
 
     private fun loadDirectory() {
         supportLoaderManager.initLoader(0, null, object : LoaderManager.LoaderCallbacks<Cursor> {
-            override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
-                if (data == null) return
+            override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
+                if (data == null)
+                    return
                 val hashMap = LinkedHashMap<String, PhotoDirectory>()
                 val photoAll = PhotoDirectory(TAG_ALL, TAG_ALL, null, null)
                 hashMap.put(photoAll.id, photoAll)
@@ -220,13 +221,14 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 showImages()
             }
 
-            override fun onLoaderReset(loader: Loader<Cursor>?) {
+            override fun onLoaderReset(loader: Loader<Cursor>) {
 
             }
 
             override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
                 return PhotoDirectoryLoader(this@PhotoAlbumActivity, false)
             }
+
         })
     }
 
