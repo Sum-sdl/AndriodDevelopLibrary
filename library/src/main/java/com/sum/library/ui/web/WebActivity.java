@@ -48,6 +48,10 @@ public class WebActivity extends BaseActivity {
         c.startActivity(intent);
     }
 
+    public static void open(Context c, String url) {
+        open(c, null, url, null, null);
+    }
+
     @Override
     protected int statusBarColor() {
         return Color.WHITE;
@@ -64,7 +68,7 @@ public class WebActivity extends BaseActivity {
         return R.layout.activity_web;
     }
 
-    @SuppressLint("JavascriptInterface")
+    @SuppressLint({"JavascriptInterface", "SetJavaScriptEnabled"})
     @Override
     public void initParams() {
         mTitleView = findViewById(R.id.pub_title_view);

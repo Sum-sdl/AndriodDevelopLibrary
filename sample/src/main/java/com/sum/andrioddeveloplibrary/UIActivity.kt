@@ -2,12 +2,13 @@ package com.sum.andrioddeveloplibrary
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import com.blankj.utilcode.util.BarUtils
 import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.preview.ImagePreviewActivity
+import com.sum.library.utils.AppUtils
 import kotlinx.android.synthetic.main.activity_ui.*
 import java.io.File
 
@@ -19,10 +20,9 @@ class UIActivity : AppCompatActivity() {
     private var mPhoto: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        BarUtils.setStatusBarAlpha(this, 0)
+        AppUtils.setDark(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ui)
-
 
         btn_1.setOnClickListener {
             val list = arrayListOf<String>()
@@ -38,13 +38,17 @@ class UIActivity : AppCompatActivity() {
             ImagePreviewActivity.open(this, list)
         }
 
+        //系统相册
         btn_2.setOnClickListener {
             AppImageUtils.systemChooseImage(this, 1)
         }
+
+        //系统拍照
         btn_3.setOnClickListener {
             mPhoto = AppImageUtils.systemTakePhoto(this, 2)
         }
 
+        //自定义相册
         btn_4.setOnClickListener {
             AppImageUtils.appImageAlbum(this, 10, 2)
         }
@@ -57,6 +61,26 @@ class UIActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        mPhoto = savedInstanceState?.getSerializable("file") as File?
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putSerializable("file", mPhoto)
+
+    }
+
+    private fun updateImageShow(file: String?) {
+        if (file != null) {
+            iv_2.post {
+                iv_2.setImageURI(Uri.fromFile(File(file)), null)
+            }
+        }
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK)
@@ -66,8 +90,9 @@ class UIActivity : AppCompatActivity() {
             if (uri != null) {
                 tv_xc.append(uri)
             }
+            updateImageShow(uri)
         } else if (requestCode == 2) {
-
+            updateImageShow(mPhoto?.path)
         } else if (requestCode == 10) {
             val extra = data?.getStringArrayListExtra("images")
             mData.addAll(extra!!)
@@ -89,7 +114,9 @@ class UIActivity : AppCompatActivity() {
             }
         } else if (requestCode == 11) {
             tv_xc_2.append("\n")
+            tv_xc_2.append("剪裁图片地址：")
             tv_xc_2.append(AppImageUtils.appImageCropIntentPath(data))
+            updateImageShow(AppImageUtils.appImageCropIntentPath(data))
         }
     }
 

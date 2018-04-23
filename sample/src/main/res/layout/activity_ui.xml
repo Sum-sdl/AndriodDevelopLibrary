@@ -5,13 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.sum.andrioddeveloplibrary.UIActivity">
-    <ImageView
+
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_2"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:transitionName="iv_2"
         android:scaleType="centerCrop"
-        android:src="@mipmap/anim5" />
+        android:src="@mipmap/anim5"
+        android:transitionName="iv_2" />
 
     <Button
         android:id="@+id/btn_1"
