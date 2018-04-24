@@ -16,6 +16,6 @@
 添加远程库依赖
 
 	dependencies {
-	        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:1.0.8'
+	        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:1.0.9'
 	}
 
