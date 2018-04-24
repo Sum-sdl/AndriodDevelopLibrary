@@ -14,7 +14,6 @@ import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ContextView;
 import com.sum.library.utils.Logger;
-import com.sum.library.view.recyclerview.RecyclerAdapter;
 
 import java.lang.ref.WeakReference;
 
@@ -44,9 +43,6 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     private boolean mIsPrepared = false;//view是否已经创建完成，可以加载数据
 
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
-
-    //kotlin 必须指定泛型类型
-    protected RecyclerAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

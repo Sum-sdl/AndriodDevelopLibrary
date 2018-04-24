@@ -1,16 +1,15 @@
 package com.sum.library.ui.image.photoAlbum.base;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ScreenUtils;
+import com.sum.lib.rvadapter.RecyclerDataHolder;
+import com.sum.lib.rvadapter.RecyclerViewHolder;
 import com.sum.library.R;
 import com.sum.library.ui.image.photoAlbum.AlbumInfo;
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumListener;
-import com.sum.library.view.recyclerview.RecyclerDataHolder;
-import com.sum.library.view.recyclerview.RecyclerViewHolder;
 
 /**
  * Created by sdl on 2018/1/12.
@@ -35,7 +34,7 @@ public class PhotoTakeDataHolder extends RecyclerDataHolder<Photo> {
     }
 
     @Override
-    public int getLayoutId() {
+    public int getItemViewLayoutId() {
         return R.layout.vh_image_take_item;
     }
 
@@ -45,7 +44,8 @@ public class PhotoTakeDataHolder extends RecyclerDataHolder<Photo> {
     }
 
     @Override
-    public void onBindViewHolder(Context context, int position, RecyclerView.ViewHolder vHolder, Photo data) {
+    public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, Photo photo) {
+
     }
 
     class ViewHolder extends RecyclerViewHolder {

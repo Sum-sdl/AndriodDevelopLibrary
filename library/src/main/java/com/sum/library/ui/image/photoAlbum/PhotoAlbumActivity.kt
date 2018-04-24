@@ -19,13 +19,13 @@ import android.view.View
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.sum.lib.rvadapter.RecyclerAdapter
+import com.sum.lib.rvadapter.RecyclerDataHolder
 import com.sum.library.R
 import com.sum.library.app.BaseActivity
 import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.photoAlbum.base.*
 import com.sum.library.ui.image.preview.ImagePreviewActivity
-import com.sum.library.view.recyclerview.RecyclerAdapter
-import com.sum.library.view.recyclerview.RecyclerDataHolder
 import com.sum.library.view.widget.PubTitleView
 import kotlinx.android.synthetic.main.activity_album_photo.*
 import java.io.File
@@ -74,6 +74,8 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
 
     private var TAG_ALL: String = "所有图片"
 
+    private lateinit var mAdapter: RecyclerAdapter<RecyclerDataHolder<*>>
+
     override fun initParams() {
         mChoosePhoto = arrayListOf()
         mTitle = findViewById(R.id.pub_title_view)
@@ -91,7 +93,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         mMaxNum = data.max_count
         mTakePhotoOpen = data.take_photo_open
 
-        mAdapter = RecyclerAdapter<Any>(this)
+        mAdapter = RecyclerAdapter()
         rv_images.adapter = mAdapter
         rv_images.setHasFixedSize(true)
         rv_images.layoutManager = GridLayoutManager(this, data.span_count)
@@ -147,6 +149,8 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         }
     }
 
+    private var mHasLoadFinish = false
+
     override fun loadData() {
         loadDirectory()
     }
@@ -156,6 +160,10 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
                 if (data == null)
                     return
+                if (mHasLoadFinish) {
+                    return
+                }
+                mHasLoadFinish = true
                 val hashMap = LinkedHashMap<String, PhotoDirectory>()
                 val photoAll = PhotoDirectory(TAG_ALL, TAG_ALL, null, null)
                 hashMap.put(photoAll.id, photoAll)

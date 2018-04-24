@@ -1,6 +1,5 @@
 package com.sum.library.ui.image.photoAlbum.base;
 
-import android.content.Context;
 import android.net.Uri;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +14,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.sum.lib.rvadapter.RecyclerDataHolder;
+import com.sum.lib.rvadapter.RecyclerViewHolder;
 import com.sum.library.R;
 import com.sum.library.ui.image.photoAlbum.AlbumInfo;
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumListener;
-import com.sum.library.view.recyclerview.RecyclerDataHolder;
-import com.sum.library.view.recyclerview.RecyclerViewHolder;
 
 /**
  * Created by sdl on 2018/1/12.
@@ -42,7 +41,7 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
     }
 
     @Override
-    public int getLayoutId() {
+    public int getItemViewLayoutId() {
         return R.layout.vh_image_item;
     }
 
@@ -52,9 +51,9 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
     }
 
     @Override
-    public void onBindViewHolder(Context context, int position, RecyclerView.ViewHolder vHolder, Photo data) {
-        ViewHolder holder = (ViewHolder) vHolder;
-        holder.onBindData(data);
+    public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, Photo photo) {
+        ViewHolder holder = (ViewHolder) viewHolder;
+        holder.onBindData(photo);
     }
 
     class ViewHolder extends RecyclerViewHolder implements View.OnClickListener {

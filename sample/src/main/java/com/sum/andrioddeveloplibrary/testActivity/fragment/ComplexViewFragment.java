@@ -8,10 +8,10 @@ import com.sum.andrioddeveloplibrary.R;
 import com.sum.andrioddeveloplibrary.testActivity.holder.Demo2DataHolder;
 import com.sum.andrioddeveloplibrary.testActivity.holder.Demo3DataHolder;
 import com.sum.andrioddeveloplibrary.testActivity.holder.DemoDataHolder;
+import com.sum.lib.rvadapter.RecyclerAdapter;
+import com.sum.lib.rvadapter.RecyclerDataHolder;
 import com.sum.library.app.BaseFragment;
 import com.sum.library.view.SwipeRefresh.SwipeRefreshLayout;
-import com.sum.library.view.recyclerview.RecyclerAdapter;
-import com.sum.library.view.recyclerview.RecyclerDataHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ComplexViewFragment extends BaseFragment {
         //recyclerView 设置布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         //统一适配器
-        adapter = new RecyclerAdapter(getContext());
+        adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
         onRefreshLoadData();

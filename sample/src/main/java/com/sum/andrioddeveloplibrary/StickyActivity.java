@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.andrioddeveloplibrary.model.StickyItemModel;
-import com.sum.library.view.recyclerview.RecyclerDataHolder;
-import com.sum.library.view.recyclerview.RecyclerViewHolder;
-import com.sum.library.view.recyclerview.line.DividerItemDecoration;
-import com.sum.library.view.recyclerview.sticky.StickRecyclerAdapter;
-import com.sum.library.view.recyclerview.sticky.StickyHeadDecoration;
+import com.sum.lib.rvadapter.RecyclerDataHolder;
+import com.sum.lib.rvadapter.RecyclerViewHolder;
+import com.sum.lib.rvadapter.line.DividerItemDecoration;
+import com.sum.lib.rvadapter.sticky.StickRecyclerAdapter;
+import com.sum.lib.rvadapter.sticky.StickyHeadDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +78,7 @@ public class StickyActivity extends AppCompatActivity {
     class StickAdapter extends StickRecyclerAdapter<StickyItemModel> {
 
         public StickAdapter(Context context) {
-            super(context);
+            super();
         }
 
         public StickAdapter(Context context, List<RecyclerDataHolder<StickyItemModel>> holders) {
@@ -86,9 +86,10 @@ public class StickyActivity extends AppCompatActivity {
         }
 
         @Override
-        public int layoutId() {
+        public int headLayoutId() {
             return R.layout.sticky_head;
         }
+
 
         @Override
         public long headId(int position, StickyItemModel o) {
@@ -119,7 +120,7 @@ public class StickyActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getLayoutId() {
+        public int getItemViewLayoutId() {
             return R.layout.sticky_item;
         }
 
@@ -129,13 +130,13 @@ public class StickyActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(Context context, int position, RecyclerView.ViewHolder vHolder, final StickyItemModel data) {
-            TextView name = (TextView) vHolder.itemView.findViewById(R.id.tv);
-            name.setText("" + position + "->" + data.name);
+        public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, StickyItemModel stickyItemModel) {
+            TextView name = (TextView) viewHolder.itemView.findViewById(R.id.tv);
+            name.setText("" + i + "->" + stickyItemModel.name);
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtils.showShort(data.name);
+                    ToastUtils.showShort(stickyItemModel.name);
                 }
             });
         }
