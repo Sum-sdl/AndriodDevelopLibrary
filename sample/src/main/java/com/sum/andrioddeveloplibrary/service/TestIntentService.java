@@ -11,13 +11,8 @@ import com.sum.library.utils.Logger;
  */
 public class TestIntentService extends IntentService {
 
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
-    public TestIntentService(String name) {
-        super(name);
+    public TestIntentService() {
+        super("worker");
     }
 
     @Override
@@ -41,6 +36,11 @@ public class TestIntentService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         print("onHandleIntent");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void print(String msg) {

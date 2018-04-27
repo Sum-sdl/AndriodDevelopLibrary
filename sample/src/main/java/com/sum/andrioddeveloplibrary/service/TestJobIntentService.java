@@ -33,6 +33,11 @@ public class TestJobIntentService extends JobIntentService {
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
         print("onHandleWork");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void print(String msg) {
