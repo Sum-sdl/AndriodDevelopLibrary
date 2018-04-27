@@ -57,7 +57,10 @@
         <activity android:name=".WidgetUseActivity" />
         <activity android:name=".UIActivity" />
         <activity android:name=".activity.FragmentManagerActivity" />
-        <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".WebViewActivity" />
+        <activity android:name=".testActivity.ServiceTestActivity"></activity>
+
+        <service android:name=".service.TestIntentService" />
     </application>
 
 </manifest>

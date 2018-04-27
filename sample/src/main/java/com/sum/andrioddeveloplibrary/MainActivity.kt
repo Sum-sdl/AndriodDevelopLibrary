@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
+import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.DownloadManager
 import com.sum.library.ui.web.WebActivity
@@ -56,6 +57,10 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         b11.setOnClickListener {
             //            WebActivity.open(this, "自定义", "http://m.018929.com/index.php/phone/userReg", null, null)
             WebActivity.open(this, "自定义", "http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12", null, null)
+        }
+
+        b12.setOnClickListener {
+            startActivity(ServiceTestActivity::class.java)
         }
     }
 

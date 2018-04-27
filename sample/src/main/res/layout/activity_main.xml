@@ -79,6 +79,12 @@
             android:layout_height="wrap_content"
             android:text="Lib 里面的 WebView界面" />
 
+        <Button
+            android:id="@+id/b12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service 测试使用" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
