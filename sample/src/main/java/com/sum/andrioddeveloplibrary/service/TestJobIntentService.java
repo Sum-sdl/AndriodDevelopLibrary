@@ -1,24 +1,16 @@
 package com.sum.andrioddeveloplibrary.service;
 
-import android.app.IntentService;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.JobIntentService;
 
 import com.sum.library.utils.Logger;
 
 /**
  * Created by sdl on 2018/4/27.
  */
-public class TestIntentService extends IntentService {
-
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
-    public TestIntentService(String name) {
-        super(name);
-    }
+public class TestJobIntentService extends JobIntentService {
 
     @Override
     public void onCreate() {
@@ -39,8 +31,8 @@ public class TestIntentService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        print("onHandleIntent");
+    protected void onHandleWork(@NonNull Intent intent) {
+        print("onHandleWork");
     }
 
     private void print(String msg) {

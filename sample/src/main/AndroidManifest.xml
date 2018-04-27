@@ -61,6 +61,8 @@
         <activity android:name=".testActivity.ServiceTestActivity"></activity>
 
         <service android:name=".service.TestIntentService" />
+        <service android:name=".service.TestService" />
+        <service android:name=".service.TestJobIntentService" />
     </application>
 
 </manifest>

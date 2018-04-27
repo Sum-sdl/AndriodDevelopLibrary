@@ -1,7 +1,8 @@
 package com.sum.andrioddeveloplibrary.service;
 
-import android.app.IntentService;
+import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.sum.library.utils.Logger;
@@ -9,16 +10,7 @@ import com.sum.library.utils.Logger;
 /**
  * Created by sdl on 2018/4/27.
  */
-public class TestIntentService extends IntentService {
-
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
-    public TestIntentService(String name) {
-        super(name);
-    }
+public class TestService extends Service {
 
     @Override
     public void onCreate() {
@@ -38,10 +30,13 @@ public class TestIntentService extends IntentService {
         print("onDestroy");
     }
 
+    @Nullable
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        print("onHandleIntent");
+    public IBinder onBind(Intent intent) {
+        print("onBind");
+        return null;
     }
+
 
     private void print(String msg) {
         Logger.e("JobIntentService:" + msg);
