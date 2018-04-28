@@ -36,6 +36,19 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
         public abstract String getImageUrl();
     }
 
+    public static class SimpleImageData extends ImageData {
+        private String mUrl;
+
+        public SimpleImageData(String imageUrl) {
+            this.mUrl = mUrl;
+        }
+
+        @Override
+        public String getImageUrl() {
+            return mUrl;
+        }
+    }
+
     public interface onItemImageClick<T> {
         void onItemClick(T item, int position);
     }
