@@ -122,6 +122,12 @@ public class FragmentCacheManager {
         mCacheFragment.put(index, info);
     }
 
+    //Bundle 单个fragment 参数
+    public void addFragmentToCache(Object index, Class<?> clss, Bundle args) {
+        FragmentInfo info = createInfo(clss.getName(), clss, args);
+        mCacheFragment.put(index, info);
+    }
+
     /**
      * 要实现同一个对象多次创建必须通过不同的Tag来做唯一标示
      *
