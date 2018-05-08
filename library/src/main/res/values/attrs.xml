@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--侧滑删除布局-->
     <declare-styleable name="BGASwipeItemLayout">
         <attr name="bga_sil_swipeDirection" format="enum">
             <enum name="left" value="0" />
@@ -13,17 +15,14 @@
         <attr name="bga_sil_swipeAble" format="boolean" />
     </declare-styleable>
 
-
+    <!--下来刷新-->
     <declare-styleable name="SwipeLayout">
-
         <attr name="swipe_direction" format="enum">
             <enum name="left" value="0" />
             <enum name="right" value="1" />
             <enum name="both" value="2" />
         </attr>
-
         <attr name="swipe_drag_distance" format="dimension" />
-
     </declare-styleable>
 
 
@@ -39,7 +38,7 @@
         <attr name="multiDrawableChecked" format="reference" />
     </declare-styleable>
 
-
+    <!--自定义滑动选择view-->
     <declare-styleable name="ChooseView">
         <attr name="workPaddingToLine" format="dimension" />
         <attr name="workTextSize" format="dimension" />
@@ -50,11 +49,19 @@
     </declare-styleable>
 
 
+    <!--通用头部布局-->
     <declare-styleable name="PubTitleView">
         <attr name="title_view" format="reference" />
         <attr name="title_name" format="string" />
         <attr name="title_white" format="boolean" />
     </declare-styleable>
 
+
+    <!--通用数据空View-->
+    <declare-styleable name="PubEmptyView">
+        <attr name="pub_empty_layout" format="reference" />
+        <attr name="pub_empty_text" format="string" />
+        <attr name="pub_empty_img" format="reference" />
+    </declare-styleable>
 
 </resources>

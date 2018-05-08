@@ -102,7 +102,7 @@ open class PubTitleView : LinearLayout {
     }
 
     //添加文本按钮
-    fun addRightTextButton(btnName: String, clickListener: OnClickListener?): TextView {
+    fun addRightTextButton(btnName: String, clickListener: View.OnClickListener?): TextView {
         val view = TextView(context)
         view.text = btnName
         view.textSize = 14f
@@ -115,7 +115,7 @@ open class PubTitleView : LinearLayout {
     }
 
     //添加图片按钮
-    fun addRightImageButton(imageSrc: Int, clickListener: OnClickListener?): ImageView {
+    fun addRightImageButton(imageSrc: Int, clickListener: View.OnClickListener?): ImageView {
         val view = ImageView(context)
         view.setImageResource(imageSrc)
         view.scaleType = ImageView.ScaleType.CENTER
