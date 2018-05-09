@@ -24,12 +24,12 @@ import com.sum.library.R
 open class PubTitleView : LinearLayout {
 
     constructor(context: Context) : super(context) {
-        initLayout(context, R.layout.pub_title)
+        initLayout(context, R.layout.pub_title_view)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         val array = context.obtainStyledAttributes(attrs, R.styleable.PubTitleView)
-        val layoutId = array.getResourceId(R.styleable.PubTitleView_title_view, R.layout.pub_title)
+        val layoutId = array.getResourceId(R.styleable.PubTitleView_title_view, R.layout.pub_title_view)
         initLayout(context, layoutId)
         mTitle?.text = array.getString(R.styleable.PubTitleView_title_name)
 

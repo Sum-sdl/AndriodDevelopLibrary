@@ -9,5 +9,5 @@
         android:layout_height="60dp"
         android:background="@drawable/shape_image_bg"
         android:scaleType="center"
-        android:src="@mipmap/ic_take_photo" />
+        android:src="@mipmap/lib_ic_take_photo" />
 </FrameLayout>

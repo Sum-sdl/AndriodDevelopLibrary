@@ -28,7 +28,7 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
     }
 
     private void init(Context context) {
-        clearDrawable = context.getResources().getDrawable(R.mipmap.ic_edit_delete);
+        clearDrawable = context.getResources().getDrawable(R.mipmap.lib_ic_edit_delete);
         clearDrawable.setBounds(0, 0, clearDrawable.getIntrinsicWidth(), clearDrawable.getIntrinsicHeight());
         setClearIconVisible(false);
         setOnTouchListener(this);

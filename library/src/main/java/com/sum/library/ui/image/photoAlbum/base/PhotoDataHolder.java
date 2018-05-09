@@ -111,7 +111,7 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
                 if (albumInfo.choose_tint_nor_res_id != -1) {
                     mState.setImageResource(albumInfo.choose_tint_nor_res_id);
                 } else {
-                    mState.setImageResource(R.mipmap.ic_selected);
+                    mState.setImageResource(R.mipmap.lib_ic_selected);
                 }
                 DrawableCompat.setTint(mState.getDrawable(), albumInfo.choose_tint_sel);
                 mBgView.setVisibility(View.VISIBLE);
@@ -119,7 +119,7 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
                 if (albumInfo.choose_tint_sel_res_id != -1) {
                     mState.setImageResource(albumInfo.choose_tint_sel_res_id);
                 } else {
-                    mState.setImageResource(R.mipmap.ic_select);
+                    mState.setImageResource(R.mipmap.lib_ic_select);
                 }
                 DrawableCompat.setTint(mState.getDrawable(), albumInfo.choose_tint_nor);
                 mBgView.setVisibility(View.GONE);
