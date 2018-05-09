@@ -14,11 +14,10 @@
     <com.sum.library.view.widget.PubTitleView
         android:id="@+id/pub_view2"
         android:layout_width="match_parent"
-        android:background="@color/black"
         android:layout_height="wrap_content"
-        app:title_white="true"
-        app:title_name="Dark Model" />
-
+        android:background="@color/black"
+        app:title_name="Dark Model"
+        app:title_white="true" />
 
     <TextView
         android:id="@+id/btn_1"
@@ -35,5 +34,12 @@
         android:src="@mipmap/anim4"
         android:text="5.0过场动画" />
 
+
+    <com.sum.library.view.widget.PubEmptyView
+        android:id="@+id/pub_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:pub_empty_img="@mipmap/ic_launcher"
+        app:pub_empty_text="@string/app_name" />
 
 </LinearLayout>
