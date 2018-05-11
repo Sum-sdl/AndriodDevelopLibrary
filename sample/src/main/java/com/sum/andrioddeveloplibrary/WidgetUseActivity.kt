@@ -19,16 +19,21 @@ class WidgetUseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_widget_use)
         Logger.e("WidgetUseActivity onCreate")
+
         val view: PubTitleView = pub_view
-         view.addRightTextButton("分享", View.OnClickListener {
-             ToastUtils.showLong("分享")
-         })
+        view.addRightTextButton("分享", View.OnClickListener {
+            ToastUtils.showLong("分享")
+            pub_empty_view.setEmptyText("pub_view set Empty text!!!")
+        })
 
         view.addRightImageButton(R.mipmap.lib_ic_edit_delete, null)
         view.addRightTextButton("网页连接", View.OnClickListener {
             WebActivity.open(this, "网页", "https://github.com/ongakuer/PhotoDraweeView/tree/master/sample/src/main/java/me/relex/photodraweeview/sample", null, null)
         })
 
+        pub_view2.addRightTextButton("空View2", View.OnClickListener {
+            pub_empty_view.setEmptyText("pub_view2 set Empty text!!!")
+        })
 
 
         btn_1.setOnClickListener {
@@ -36,21 +41,27 @@ class WidgetUseActivity : AppCompatActivity() {
         }
 
         iv_2.setOnClickListener {
-            anim()
+            //            anim()
+            if (pub_empty_view.visibility != View.VISIBLE) {
+                pub_empty_view.visibility = View.VISIBLE
+            } else {
+                pub_empty_view.visibility = View.GONE
+            }
         }
+
 
     }
 
     private fun anim() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            val options = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ActivityOptions.makeSceneTransitionAnimation(
-                        this, iv_2, "iv_2")
-            } else {
-               null
-            }
+        val options = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions.makeSceneTransitionAnimation(
+                    this, iv_2, "iv_2")
+        } else {
+            null
+        }
         val intent = Intent(this, UIActivity::class.java)
-            intent.putExtra("url", 1)
-            startActivity(intent, options?.toBundle())
+        intent.putExtra("url", 1)
+        startActivity(intent, options?.toBundle())
     }
 }

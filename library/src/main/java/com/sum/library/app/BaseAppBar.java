@@ -45,8 +45,8 @@ public abstract class BaseAppBar extends FrameLayout {
         initParams();
     }
 
-    public <T> T _findViewById(int id) {
-        return (T) findViewById(id);
+    public <T extends View> T _findViewById(int id) {
+        return mView.findViewById(id);
     }
 
     public void startActivity(Class activity) {
