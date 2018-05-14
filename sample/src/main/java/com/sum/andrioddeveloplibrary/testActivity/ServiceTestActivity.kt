@@ -6,6 +6,7 @@ import com.sum.andrioddeveloplibrary.service.TestIntentService
 import com.sum.andrioddeveloplibrary.service.TestJobIntentService
 import com.sum.andrioddeveloplibrary.service.TestService
 import com.sum.library.app.BaseActivity
+import com.sum.library.utils.Logger
 import kotlinx.android.synthetic.main.activity_test_service.*
 
 //Service功能测试
@@ -32,6 +33,14 @@ class ServiceTestActivity : BaseActivity() {
             val intent = Intent(this, TestService::class.java)
 
             startService(intent)
+        }
+
+        btn_4.setOnClickListener {
+            Thread({
+                Logger.e("child thread start")
+                val intent = Intent(this, TestService::class.java)
+                startService(intent)
+            }).start()
         }
 
     }

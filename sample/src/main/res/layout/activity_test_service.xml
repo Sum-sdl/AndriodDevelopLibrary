@@ -22,4 +22,10 @@
         android:layout_height="wrap_content"
         android:text="Job-Intent-Service测试" />
 
+    <Button
+        android:id="@+id/btn_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thread start Service测试" />
+
 </LinearLayout>
