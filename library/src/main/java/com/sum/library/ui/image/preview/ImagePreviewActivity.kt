@@ -7,7 +7,7 @@ import com.sum.library.R
 import com.sum.library.adapter.ViewPagerFragmentAdapter
 import com.sum.library.app.BaseActivity
 import com.sum.library.view.widget.PubTitleView
-import kotlinx.android.synthetic.main.activity_image_preview.*
+import kotlinx.android.synthetic.main.ui_activity_image_preview.*
 
 class ImagePreviewActivity : BaseActivity() {
 
@@ -21,7 +21,7 @@ class ImagePreviewActivity : BaseActivity() {
         }
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_image_preview
+    override fun getLayoutId(): Int = R.layout.ui_activity_image_preview
 
     override fun statusBarTranslate(): Boolean {
         return true

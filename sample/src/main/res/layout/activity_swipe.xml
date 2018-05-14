@@ -22,25 +22,12 @@
 
         </com.sum.andrioddeveloplibrary.testview.TestView>-->
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RequestLayout" />
-
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="invalidate" />
-
 
     <com.sum.library.view.widget.SwipeItemLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        app:swipe_drag_distance="180px">
+        app:swipe_drag_distance="120dp">
 
         <LinearLayout
             android:id="@+id/layer_hide"
@@ -49,31 +36,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_c"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:background="#abc"
                 android:gravity="center"
-                android:text="TV1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
+                android:text="收藏" />
 
             <TextView
+                android:id="@+id/tv_d"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:background="#abc"
                 android:gravity="center"
-                android:text="TV2" />
+                android:text="删除" />
 
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/layer_touch"
-            android:background="#fff"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#81d9b1">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -103,7 +87,6 @@
                 android:id="@+id/item_contact_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:clickable="true"
                 android:gravity="center"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -118,11 +101,10 @@
 
             <TextView
                 android:id="@+id/item_contact_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
                 android:gravity="center"
-                android:text="标题"
+                android:text="用户辩题"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </LinearLayout>

@@ -12,7 +12,7 @@ import com.facebook.imagepipeline.image.ImageInfo
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.sum.library.R
 import com.sum.library.app.BaseFragment
-import kotlinx.android.synthetic.main.fragment_image_preview.*
+import kotlinx.android.synthetic.main.ui_fragment_image_preview.*
 import me.relex.photodraweeview.OnPhotoTapListener
 
 /**
@@ -67,5 +67,5 @@ class ImagePreviewFragment : BaseFragment() {
         }
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_image_preview
+    override fun getLayoutId(): Int = R.layout.ui_fragment_image_preview
 }

@@ -27,7 +27,7 @@ import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.photoAlbum.base.*
 import com.sum.library.ui.image.preview.ImagePreviewActivity
 import com.sum.library.view.widget.PubTitleView
-import kotlinx.android.synthetic.main.activity_album_photo.*
+import kotlinx.android.synthetic.main.ui_activity_album_photo.*
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -47,7 +47,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     }
 
 
-    override fun getLayoutId(): Int = R.layout.activity_album_photo
+    override fun getLayoutId(): Int = R.layout.ui_activity_album_photo
 
     override fun statusBarColor(): Int = Color.WHITE
 

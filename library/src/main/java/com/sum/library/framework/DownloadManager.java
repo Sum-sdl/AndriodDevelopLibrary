@@ -59,7 +59,7 @@ public class DownloadManager {
         if (mActivity == null) {
             return;
         }
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.download_view, null);
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.pub_download_view, null);
         final LinearLayout ll_progress = view.findViewById(R.id.ll_progress);
         ll_progress.setVisibility(View.GONE);
 

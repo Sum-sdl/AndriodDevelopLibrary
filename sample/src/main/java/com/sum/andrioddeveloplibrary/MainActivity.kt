@@ -10,6 +10,7 @@ import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.DownloadManager
 import com.sum.library.ui.web.WebActivity
+import com.sum.library.view.sheet.BottomSheetView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
@@ -32,7 +33,8 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         b3.setOnClickListener { startActivity(SwipeActivity::class.java) }
         b4.setOnClickListener { startActivity(CustomViewActivity::class.java) }
         b5.setOnClickListener {
-            ItemListDialogFragment.newInstance(30).show(supportFragmentManager, "11")
+//            ItemListDialogFragment.newInstance(30).show(supportFragmentManager, "11")
+            BottomSheetView().show(supportFragmentManager,"tag")
         }
         b6.setOnClickListener {
             DownloadManager().setActivity(this).setLabel("更新内容")

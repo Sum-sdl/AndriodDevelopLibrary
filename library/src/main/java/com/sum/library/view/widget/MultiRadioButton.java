@@ -51,7 +51,7 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         super(context, attrs, defStyleAttr);
         loadAttrs(context, attrs);
         mContext = context;
-        LayoutInflater.from(context).inflate(R.layout.multi_radio_button, this, true);
+        LayoutInflater.from(context).inflate(R.layout.cus_multi_radio_button, this, true);
         mImageView = findViewById(R.id.multi_iv_image);
         mTextView = findViewById(R.id.multi_tv_name);
 
