@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
+        android:background="#ab2"
+        android:gravity="center"
+        android:text="测试内容" />
+
+    <Button
+        android:id="@+id/choice_container_negative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#aa0ab2"
+        android:text="取消"
+        android:textColor="#999999"
+        android:textSize="14sp" />
+
+</LinearLayout>
