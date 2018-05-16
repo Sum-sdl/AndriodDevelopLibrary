@@ -4,19 +4,17 @@
 - 1 [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary)
 - 2 [RecyclerView通用适配器库](https://github.com/Sum-sdl/RvAdapter)
 
- 在build.config文件添加远程库地址
+ 添加远程库地址和远程库依赖
 
 	allprojects {
 		repositories {
 			maven { url 'https://jitpack.io' }
 		}
 	}
-
-添加远程库依赖
-
+	
 	dependencies {
-	        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:1.1.0'
-	}
+       implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:1.1.0'
+    }
 
 
 #### 1. 基础的功能
