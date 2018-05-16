@@ -19,17 +19,30 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
         bt1.setOnClickListener { ItemListDialogFragment.newInstance(3).show(supportFragmentManager, "3") }
         bt2.setOnClickListener {
+            var time = ""
+            if (it.tag is String) {
+                time = it.tag as String
+            }
+            BottomSheetView.Builder()
+                    .setShowHours()
+                    .setHours(time)
+                    .setListener { _, content ->
+                        it.tag = content
+                        ToastUtils.showLong("time = $content")
+                    }.show(this)
+
+        }
+
+        bt5.setOnClickListener {
             var time = "2018-08-18"
             if (it.tag is String) {
                 time = it.tag as String
             }
             BottomSheetView.Builder()
-                    .setShowTimeHasHours(false)
                     .setCurrentTime(time)
-                    .setMaxDate(System.currentTimeMillis() + 99999999999)
                     .setListener { _, content ->
                         it.tag = content
-                        ToastUtils.showLong("time = $content")
+                        ToastUtils.showLong("date = $content")
                     }.show(this)
 
         }

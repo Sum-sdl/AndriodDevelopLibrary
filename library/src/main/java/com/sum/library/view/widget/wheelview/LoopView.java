@@ -6,11 +6,13 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -44,6 +46,7 @@ public class LoopView extends View {
     Paint paintIndicator;
 
     List<String> items;
+    private String unit;
 
     int textSize;
     int maxTextWidth;
@@ -207,12 +210,6 @@ public class LoopView extends View {
         mFuture = mExecutor.scheduleWithFixedDelay(new SmoothScrollTimerTask(this, mOffset), 0, 10, TimeUnit.MILLISECONDS);
     }
 
-//    void smoothScroll() {
-//        int offset = (int) (totalScrollY % (lineSpacingMultiplier * maxTextHeight));
-//        cancelFuture();
-//        mFuture = mExecutor.scheduleWithFixedDelay(new SmoothScrollTimerTask(this, offset), 0, 10, TimeUnit.MILLISECONDS);
-//    }
-
     protected final void scrollBy(float velocityY) {
         cancelFuture();
         // 修改这个值可以改变滑行速度
@@ -274,9 +271,21 @@ public class LoopView extends View {
     }
 
     public final void setItems(List<String> items) {
-        this.items = items;
+        if (!TextUtils.isEmpty(unit)) {
+            List<String> data = new ArrayList<>();
+            for (String item : items) {
+                data.add(item + unit);
+            }
+            this.items = data;
+        } else {
+            this.items = items;
+        }
         requestLayout();
         invalidate();
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     @Override

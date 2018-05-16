@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  * Created by sdl on 2018/5/15.
  * 底部浮层界面，点击空白部分，自动关闭界面
  */
-public abstract class BottomSheetFragment extends BottomSheetDialogFragment {
+public abstract class AbstractBottomSheetFragment extends BottomSheetDialogFragment {
 
     //底部统一布局
     public abstract int getBottomLayoutId();

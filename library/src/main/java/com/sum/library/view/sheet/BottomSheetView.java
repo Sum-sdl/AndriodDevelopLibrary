@@ -27,7 +27,7 @@ import java.util.Locale;
  * Created by sdl on 2018/5/14.
  * 时间,单选，操作界面
  */
-public class BottomSheetView extends BottomSheetFragment {
+public class BottomSheetView extends AbstractBottomSheetFragment {
 
     public void setListener(SheetListener listener) {
         this.mListener = listener;
@@ -42,7 +42,8 @@ public class BottomSheetView extends BottomSheetFragment {
     private Builder mData;
 
     //month 需要+1
-    private int mYear, mMonth, mDay, mHours, mMin;
+    private int mYear, mMonth, mDay;
+    private String mHours, mMin;
 
     @Override
     public int getBottomLayoutId() {
@@ -64,15 +65,15 @@ public class BottomSheetView extends BottomSheetFragment {
         }
 
         if (mData.mIsShowTime) {
-            initTime(view);
+            if (mData.mHoursType == 1) {
+                initHours(view);
+            } else {
+                initTime(view);
+            }
         } else {
             List<String> list = Arrays.asList(mData.mItems);
             LoopView loop_view_1 = view.findViewById(R.id.loop_view_1);
-            loop_view_1.setItems(list);
-            loop_view_1.setViewPadding(SizeUtils.dp2px(22), SizeUtils.dp2px(16), SizeUtils.dp2px(22), SizeUtils.dp2px(16));
-            loop_view_1.setInitPosition(mData.mChooseIndex);
-            loop_view_1.setNotLoop();
-
+            setLoopData(loop_view_1, list, mData.mChooseIndex);
             view.findViewById(R.id.tv_ok).setOnClickListener(v -> {
                 dismiss();
                 if (mListener != null) {
@@ -81,6 +82,44 @@ public class BottomSheetView extends BottomSheetFragment {
                 }
             });
         }
+    }
+
+    private void initHours(@NonNull View view) {
+        String h, m;
+        if (!TextUtils.isEmpty(mData.mCurHour) && mData.mCurHour.contains(":")) {
+            int index = mData.mCurHour.indexOf(":");
+            h = mData.mCurHour.substring(0, index);
+            m = mData.mCurHour.substring(index + 1, mData.mCurHour.length());
+        } else {
+            Calendar instance = Calendar.getInstance();
+            h = instance.get(Calendar.HOUR_OF_DAY) + "";
+            m = instance.get(Calendar.MINUTE) + "";
+        }
+
+        //时
+        LoopView loop_view_4 = view.findViewById(R.id.loop_view_4);
+        loop_view_4.setUnit("时");
+        ArrayList<String> time = getRangeHasZero(1, 23);
+        int index_hour = time.indexOf(h);
+        mHours = time.get(index_hour);
+        setLoopData(loop_view_4, time, index_hour);
+        loop_view_4.setListener(index -> mHours = time.get(index));
+
+        //分
+        ArrayList<String> min = getRangeHasZero(1, 59);
+        LoopView loop_view_5 = view.findViewById(R.id.loop_view_5);
+        loop_view_5.setUnit("分");
+        int index_min = min.indexOf(m);
+        mMin = min.get(index_min);
+        setLoopData(loop_view_5, min, index_min);
+        loop_view_5.setListener(index -> mMin = min.get(index));
+
+        view.findViewById(R.id.tv_ok).setOnClickListener(v -> {
+            dismiss();
+            if (mListener != null) {
+                mListener.onConfirm(0, mHours + ":" + mMin);
+            }
+        });
     }
 
     private void initTime(@NonNull View view) {
@@ -103,8 +142,8 @@ public class BottomSheetView extends BottomSheetFragment {
                 calendar_end.setTime(format.parse("2100-12-31"));
             }
 
-            if (!TextUtils.isEmpty(mData.mCurTime)) {
-                calendar_choose.setTime(format.parse(mData.mCurTime));
+            if (!TextUtils.isEmpty(mData.mCurDate)) {
+                calendar_choose.setTime(format.parse(mData.mCurDate));
             } else {
                 calendar_choose.setTime(new Date());
             }
@@ -131,6 +170,7 @@ public class BottomSheetView extends BottomSheetFragment {
 
         //年
         LoopView loop_view_1 = view.findViewById(R.id.loop_view_1);
+        loop_view_1.setUnit("年");
         setLoopData(loop_view_1, years, year_index);
         loop_view_1.setListener(index -> {
             mYear = Integer.parseInt(years.get(index));
@@ -139,6 +179,7 @@ public class BottomSheetView extends BottomSheetFragment {
 
         //月
         LoopView loop_view_2 = view.findViewById(R.id.loop_view_2);
+        loop_view_2.setUnit("月");
         setLoopData(loop_view_2, months, month);
         loop_view_2.setListener(index -> {
             mMonth = Integer.parseInt(months.get(index)) - 1;
@@ -147,6 +188,7 @@ public class BottomSheetView extends BottomSheetFragment {
 
         //日
         LoopView loop_view_3 = view.findViewById(R.id.loop_view_3);
+        loop_view_3.setUnit("日");
         mLoopDay = loop_view_3;
         setLoopData(loop_view_3, days, day_index);
         loop_view_3.setListener(index -> mDay = Integer.parseInt(mCurDays.get(index)));
@@ -155,6 +197,9 @@ public class BottomSheetView extends BottomSheetFragment {
             dismiss();
             if (mListener != null) {
                 String time = mYear + "-" + (mMonth + 1) + "-" + mDay;
+                if (mData.mHoursType == 2) {
+                    time = time + " " + mHours + ":" + mMin;
+                }
                 mListener.onConfirm(0, time);
             }
         });
@@ -183,6 +228,18 @@ public class BottomSheetView extends BottomSheetFragment {
         }
     }
 
+    private ArrayList<String> getRangeHasZero(int start, int end) {
+        ArrayList<String> data = new ArrayList<>();
+        for (int i = start; i <= end; i++) {
+            if (i < 10) {
+                data.add("0" + i);
+            } else {
+                data.add(String.valueOf(i));
+            }
+        }
+        return data;
+    }
+
     private ArrayList<String> getRange(int start, int end) {
         ArrayList<String> data = new ArrayList<>();
         for (int i = start; i <= end; i++) {
@@ -195,7 +252,7 @@ public class BottomSheetView extends BottomSheetFragment {
         view.setItems(items);
         view.setViewPadding(SizeUtils.dp2px(20), SizeUtils.dp2px(15), SizeUtils.dp2px(20), SizeUtils.dp2px(15));
         view.setNotLoop();
-        view.setTextSize(18);
+        view.setTextSize(17);
         view.setInitPosition(index);
     }
 
@@ -231,14 +288,14 @@ public class BottomSheetView extends BottomSheetFragment {
         private boolean mIsShowTime;//时间单选标识
 
         private long mMaxDate, mMinDate;
-        private String mCurTime;//当前时间
+        private String mCurDate;//当前日期
 
-        private boolean mHasHours;
+        private int mHoursType;//1:时间选择器
+        private String mCurHour;//当前时间
 
         public Builder() {
             //默认是时间选择器
             mIsShowTime = true;
-            mHasHours = false;
         }
 
         public Builder setTitle(String title) {
@@ -263,15 +320,20 @@ public class BottomSheetView extends BottomSheetFragment {
             return this;
         }
 
-        //是否有小时分钟时间
-        public Builder setShowTimeHasHours(boolean hasHours) {
+        //时间选器
+        public Builder setShowHours() {
             this.mIsShowTime = true;
-            this.mHasHours = hasHours;
+            this.mHoursType = 1;
+            return this;
+        }
+
+        public Builder setHours(String hours) {
+            this.mCurHour = hours;
             return this;
         }
 
         public Builder setCurrentTime(String currentTime) {
-            mCurTime = currentTime;
+            mCurDate = currentTime;
             return this;
         }
 
