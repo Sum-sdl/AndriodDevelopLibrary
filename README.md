@@ -15,7 +15,7 @@
 添加远程库依赖
 
 	dependencies {
-	        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:1.0.9'
+	        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:1.1.0'
 	}
 
 
@@ -33,7 +33,9 @@
 
 > **组件模块**
 >
-- 底部滑动出来的通用浮层
+- 底部滑动出来的通用浮层的[AbstractBottomSheetFragment](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/sheet/AbstractBottomSheetFragment.java)
+- 底部滑动通用浮层案例[BottomSheetView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/sheet/BottomSheetView.java)
+支持时间，日期选择，单选滚动功能
 
 > **结构模块**
 >
@@ -41,3 +43,8 @@
 - Fragment的管理类[FragmentCacheManager](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/framework/FragmentCacheManager.java)
 用来管理多个Fragment的切换操作（如App主页的底部按钮）
 - RecyclerView的通用适配器[RvAdapter](https://github.com/Sum-sdl/RvAdapter)
+
+> **部分功能图片**
+>
+![image](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/bottom_sheet.jpg)
+![image](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/dic.jpg)
