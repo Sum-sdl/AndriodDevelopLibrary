@@ -3,8 +3,14 @@
 
     <!--统一标题高度-->
     <dimen name="pub_title_height">48dp</dimen>
-
     <dimen name="pub_title_text_size">18sp</dimen>
+
+    <!--统一空文本大小-->
+    <dimen name="pub_empty_text_size">15sp</dimen>
+
+    <!--BottomSheetView 部分属性-->
+    <dimen name="bsv_title_height">45dp</dimen>
+    <dimen name="bsv_content_height">180dp</dimen>
 
 
 </resources>

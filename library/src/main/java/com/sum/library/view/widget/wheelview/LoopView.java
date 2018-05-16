@@ -28,6 +28,7 @@ public class LoopView extends View {
         // 点击，滑翔(滑到尽头)，拖拽事件
         CLICK, FLING, DAGGLE
     }
+
     Context context;
 
     Handler handler;
@@ -194,9 +195,9 @@ public class LoopView extends View {
 
     void smoothScroll(ACTION action) {
         cancelFuture();
-        if (action== ACTION.FLING||action== ACTION.DAGGLE) {
+        if (action == ACTION.FLING || action == ACTION.DAGGLE) {
             float itemHeight = lineSpacingMultiplier * maxTextHeight;
-            mOffset = (int) ((totalScrollY%itemHeight + itemHeight) % itemHeight);
+            mOffset = (int) ((totalScrollY % itemHeight + itemHeight) % itemHeight);
             if ((float) mOffset > itemHeight / 2.0F) {
                 mOffset = (int) (itemHeight - (float) mOffset);
             } else {
@@ -220,7 +221,7 @@ public class LoopView extends View {
     }
 
     public void cancelFuture() {
-        if (mFuture!=null&&!mFuture.isCancelled()) {
+        if (mFuture != null && !mFuture.isCancelled()) {
             mFuture.cancel(true);
             mFuture = null;
         }
@@ -259,10 +260,10 @@ public class LoopView extends View {
     }
 
     public final void setInitPosition(int initPosition) {
-        if (initPosition<0) {
+        if (initPosition < 0) {
             this.initPosition = 0;
         } else {
-            if (items!=null&&(items.size()-1)>=initPosition) {
+            if (items != null && (items.size() - 1) >= initPosition) {
                 this.initPosition = initPosition;
             }
         }
@@ -311,7 +312,7 @@ public class LoopView extends View {
     }
 
     public void setTotalScrollYPosition(int position) {
-        this.totalScrollY = (int) (position*(lineSpacingMultiplier * maxTextHeight));
+        this.totalScrollY = (int) (position * (lineSpacingMultiplier * maxTextHeight));
     }
 
     @Override

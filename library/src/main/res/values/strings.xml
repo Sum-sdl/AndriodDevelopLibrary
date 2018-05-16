@@ -8,6 +8,9 @@
 
     <string name="no_more">已经到底了</string>
 
+    <string name="pub_cancel">取消</string>
+    <string name="pub_confirm">确定</string>
+
     <string name="photo_finish">完成(%d)</string>
     <string name="photo_preview">预览(%d)</string>
 

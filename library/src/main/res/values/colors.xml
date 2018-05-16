@@ -15,8 +15,11 @@
     <color name="pub_title_text_right_color">#666666</color>
 
     <color name="pub_empty_text_color">#999999</color>
-    <dimen name="pub_empty_text_size">15sp</dimen>
 
-    <color name="gray_line">#e5e5e5</color>
+    <color name="pub_line_color">#e5e5e5</color>
+
+    <color name="bsv_title_cancel_color">#666666</color>
+    <color name="bsv_title_confirm_color">@color/colorPrimary</color>
+    <color name="bsv_title_title_color">@color/pub_title_text_color</color>
 
 </resources>
