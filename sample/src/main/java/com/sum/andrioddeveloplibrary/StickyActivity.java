@@ -1,6 +1,5 @@
 package com.sum.andrioddeveloplibrary;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,7 +37,7 @@ public class StickyActivity extends AppCompatActivity {
         for (StickyItemModel i : infos) {
             holders.add(new DataHolder(i));
         }
-        mAdapter = new StickAdapter(this, holders);
+        mAdapter = new StickAdapter(holders);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new StickyHeadDecoration(mAdapter));
@@ -77,12 +76,12 @@ public class StickyActivity extends AppCompatActivity {
 
     class StickAdapter extends StickRecyclerAdapter<StickyItemModel> {
 
-        public StickAdapter(Context context) {
+        public StickAdapter() {
             super();
         }
 
-        public StickAdapter(Context context, List<RecyclerDataHolder<StickyItemModel>> holders) {
-            super(context, holders);
+        public StickAdapter(List<RecyclerDataHolder<StickyItemModel>> holders) {
+            super(holders);
         }
 
         @Override

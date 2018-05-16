@@ -9,7 +9,6 @@ import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.DownloadManager
-import com.sum.library.ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
@@ -48,15 +47,6 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         b9.setOnClickListener {
             startActivity(UIActivity::class.java)
             overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit)
-        }
-
-        b10.setOnClickListener {
-            startActivity(WebViewActivity::class.java)
-        }
-
-        b11.setOnClickListener {
-            //            WebActivity.open(this, "自定义", "http://m.018929.com/index.php/phone/userReg", null, null)
-            WebActivity.open(this, "自定义", "http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12", null, null)
         }
 
         b12.setOnClickListener {

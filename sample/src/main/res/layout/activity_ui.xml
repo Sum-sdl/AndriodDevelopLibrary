@@ -62,4 +62,10 @@
         android:layout_height="wrap_content"
         android:text="循环任务" />
 
+    <Button
+        android:id="@+id/btn_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WebActivity" />
+
 </LinearLayout>

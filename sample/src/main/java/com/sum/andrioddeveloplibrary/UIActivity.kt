@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import com.sum.library.ui.image.AppImageUtils
-import com.sum.library.ui.image.preview.ImagePreviewActivity
+import com.sum.library.ui.web.WebActivity
 import com.sum.library.utils.AppUtils
 import kotlinx.android.synthetic.main.activity_ui.*
 import java.io.File
@@ -35,7 +35,7 @@ class UIActivity : AppCompatActivity() {
             list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAZ7LcAAM8wtR8X-E576.jpg")
             list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAcaZdAAMWXiLK-Nk224.jpg")
             list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mADsEOAALPYONdMdk748.jpg")
-            ImagePreviewActivity.open(this, list)
+            AppImageUtils.appImagePreview(this, list)
         }
 
         //系统相册
@@ -58,6 +58,10 @@ class UIActivity : AppCompatActivity() {
             for (i in 1..100) {
                 test.addOneMessage(i)
             }
+        }
+
+        btn_6.setOnClickListener {
+            WebActivity.open(this, "自定义的标题", "http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12", null, null)
         }
     }
 
