@@ -79,6 +79,9 @@ public class WebActivity extends BaseActivity {
         mWeb = findViewById(R.id.pub_web_view);
         mWeb.setSaveEnabled(true);
         mWeb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        mWeb.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mWeb.setVerticalFadingEdgeEnabled(false);
+        mWeb.setHorizontalFadingEdgeEnabled(false);
         mWeb.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {

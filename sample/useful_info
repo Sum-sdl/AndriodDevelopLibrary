@@ -1,3 +1,7 @@
 //给APK包签名
 jarsigner -verbose -keystore 签名文件.keystore -storepass （密钥） -signedjar 签名后的文件.apk -dig
 estalg SHA1 -sigalg MD5withRSA 要签名的文件.apk com.xhl
+
+
+//反编译apk 输出expand_data文件夹
+java -jar apktool.jar d -f app-debug.apk -o expand_data

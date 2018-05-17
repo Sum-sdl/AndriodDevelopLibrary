@@ -61,7 +61,7 @@ class UIActivity : AppCompatActivity() {
         }
 
         btn_6.setOnClickListener {
-            WebActivity.open(this, "自定义的标题", "http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12", null, null)
+            WebActivity.open(this, "", "https://aznapi.house365.com/Home/Information/lists", null, null)
         }
     }
 
