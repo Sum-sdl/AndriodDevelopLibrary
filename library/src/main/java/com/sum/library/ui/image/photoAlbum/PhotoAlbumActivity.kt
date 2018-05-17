@@ -287,7 +287,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             tv_album_preview.text = "预览"
         } else {
             mRightView.setTextColor(mAlbumInfo.choose_tint_sel)
-            mRightView.text = getString(R.string.photo_finish, size)
+            mRightView.text = getString(R.string.photo_finish, size, mMaxNum)
             tv_album_preview.text = getString(R.string.photo_preview, size)
         }
     }

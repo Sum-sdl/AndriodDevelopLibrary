@@ -12,7 +12,7 @@ android {
         minSdkVersion rootProject.ext.app.minSdkVersion
         targetSdkVersion rootProject.ext.app.targetSdkVersion
         versionCode 1
-        versionName "1.0.3"
+        versionName "1.0"
 
     }
 

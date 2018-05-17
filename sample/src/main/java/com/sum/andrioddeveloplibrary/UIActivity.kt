@@ -50,7 +50,7 @@ class UIActivity : AppCompatActivity() {
 
         //自定义相册
         btn_4.setOnClickListener {
-            AppImageUtils.appImageAlbum(this, 10, 2)
+            AppImageUtils.appImageAlbum(this, 10, 6)
         }
 
         btn_5.setOnClickListener {
@@ -91,10 +91,12 @@ class UIActivity : AppCompatActivity() {
             return
         if (requestCode == 1) {
             val uri = AppImageUtils.systemChooseImageIntentImagePath(data)
-            if (uri != null) {
-                tv_xc.append(uri)
+            if (!TextUtils.isEmpty(uri)) {
+                AppImageUtils.appImageCrop(this, uri, 11)
             }
+
             updateImageShow(uri)
+
         } else if (requestCode == 2) {
             updateImageShow(mPhoto?.path)
         } else if (requestCode == 10) {
@@ -107,15 +109,6 @@ class UIActivity : AppCompatActivity() {
             }
             tv_xc_2.text = text
 
-            if (!TextUtils.isEmpty(text)) {
-                /*val uri = Uri.fromFile(File(extra?.get(0)))
-                val target = Uri.parse("file://" + AppFileConfig.getImageDirectoryFile())
-                UCrop.of(uri, target)
-                        .withAspectRatio(16f, 9f)
-                        .start(this)*/
-//                AppImageUtils.appImageCrop(this, extra!![0], 11, 0f, null)
-                AppImageUtils.appImageCrop(this, extra[0], 11)
-            }
         } else if (requestCode == 11) {
             tv_xc_2.append("\n")
             tv_xc_2.append("剪裁图片地址：")
