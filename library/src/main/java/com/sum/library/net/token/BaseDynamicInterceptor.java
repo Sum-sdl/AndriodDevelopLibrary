@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -54,7 +56,7 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
         }
         Response response = chain.proceed(request);
         if (BuildConfig.DEBUG) {
-            Log.d("net", "rsp->" + getBodyString(response));
+            Log.d("net", "rsp->" + unicodeToString(getBodyString(response)));
         }
         return response;
     }
@@ -171,6 +173,20 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
             request = request.newBuilder().post(multipartBody).build();
         }
         return request;
+    }
+
+
+    private String unicodeToString(String str) {
+        Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
+        Matcher matcher = pattern.matcher(str);
+        char ch;
+        while (matcher.find()) {
+            String group = matcher.group(2);
+            ch = (char) Integer.parseInt(group, 16);
+            String group1 = matcher.group(1);
+            str = str.replace(group1, ch + "");
+        }
+        return str;
     }
 
     /**
