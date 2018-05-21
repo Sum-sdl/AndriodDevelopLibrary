@@ -11,12 +11,27 @@
         android:layout_height="wrap_content" />
 
     <View
+        android:id="@+id/title_line"
         android:layout_width="match_parent"
         android:layout_height="0.5dip"
         android:background="#999999" />
 
-    <WebView
-        android:id="@id/pub_web_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@id/pub_web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.sum.library.ui.web.SmoothProgressBar
+            android:id="@+id/web_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1.8dp"
+            android:max="100"
+            android:progressDrawable="@drawable/web_progress_bg"
+            android:visibility="gone" />
+    </FrameLayout>
 </LinearLayout>
