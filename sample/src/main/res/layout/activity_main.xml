@@ -17,19 +17,20 @@
             android:layout_height="48dp"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="RecyclerView 浮动头部" />
+            android:text="RecyclerView 浮动头部"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/b2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="网络请求" />
+            android:text="网络请求模块" />
 
         <Button
             android:id="@+id/b3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="侧滑删除" />
+            android:text="侧滑删除使用" />
 
         <Button
             android:id="@+id/b4"
@@ -41,31 +42,31 @@
             android:id="@+id/b5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dialog 测试" />
+            android:text="Dialog 功能测试" />
 
         <Button
             android:id="@+id/b6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="apk下载" />
+            android:text="apk快速下载" />
 
         <Button
             android:id="@+id/b7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="权限申请" />
+            android:text="权限申请功能测试" />
 
         <Button
             android:id="@+id/b8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="组件功能测试" />
+            android:text="通用功能组件测试" />
 
         <Button
             android:id="@+id/b9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="实用的功能界面" />
+            android:text="内置实用功能界面" />
 
         <Button
             android:id="@+id/b12"

@@ -102,7 +102,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     implementation project(':library')
-    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
+//    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
     // butterknife
 //    compile 'com.jakewharton:butterknife:8.8.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

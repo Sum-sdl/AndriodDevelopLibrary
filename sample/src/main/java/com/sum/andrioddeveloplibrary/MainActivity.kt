@@ -21,7 +21,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
     }
 
     override fun statusBarTranslate(): Boolean {
-        return true
+        return false
     }
 
     override fun initParams() {

@@ -19,10 +19,13 @@ class NetActivity : BaseAppActivity() {
         showLoading("加载中...")
         mRetrofit.create(Api::class.java)
                 .getExampleValue("getProRecommend")
-                .enqueue(object : RetCallBack<Respone>() {
-                    override fun onSuccess(response: Respone?) {
-                        text.text = response?.toString()
-                        text.postDelayed(({ hideLoading() }), 1000)
+                .enqueue(object : RetCallBack<Any>() {
+                    override fun onSuccess(response: Any) {
+//                        text.text = response
+                    }
+
+                    override fun onFinally() {
+                        hideLoading()
                     }
                 })
 

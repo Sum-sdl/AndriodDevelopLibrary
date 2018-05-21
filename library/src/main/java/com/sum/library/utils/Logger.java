@@ -6,7 +6,7 @@ public class Logger {
 
     private String tag = "com.logger";
 
-    private static boolean debug = true;
+    private static boolean mDebug = true;
 
     private static Logger instance = new Logger();
 
@@ -35,7 +35,7 @@ public class Logger {
     }
 
     public void info(String msg) {
-        if (debug) {
+        if (mDebug) {
             String message = createMessage(msg);
             Log.i(this.tag, message);
         }
@@ -50,7 +50,7 @@ public class Logger {
     }
 
     public void verbose(String msg) {
-        if (debug) {
+        if (mDebug) {
             String message = createMessage(msg);
             Log.v(this.tag, message);
         }
@@ -65,7 +65,7 @@ public class Logger {
     }
 
     public void debug(String msg) {
-        if (debug) {
+        if (mDebug) {
             String message = createMessage(msg);
             Log.d(this.tag, message);
         }
@@ -80,7 +80,7 @@ public class Logger {
     }
 
     public void error(String msg) {
-        if (debug) {
+        if (mDebug) {
             String message = createMessage(msg);
             Log.e(this.tag, message);
         }
@@ -91,7 +91,7 @@ public class Logger {
     }
 
     public void error(Exception e) {
-        if (debug) {
+        if (mDebug) {
             StringBuffer sb = new StringBuffer();
             String name = getFunctionName();
             StackTraceElement[] sts = e.getStackTrace();
@@ -118,7 +118,7 @@ public class Logger {
 
 
     public void warn(String msg) {
-        if (debug) {
+        if (mDebug) {
             String message = createMessage(msg);
             Log.w(this.tag, message);
         }
@@ -132,4 +132,7 @@ public class Logger {
         instance.warn(e != null ? e.toString() : "null");
     }
 
+    public static void setDebug(boolean isDebug) {
+        mDebug = isDebug;
+    }
 }

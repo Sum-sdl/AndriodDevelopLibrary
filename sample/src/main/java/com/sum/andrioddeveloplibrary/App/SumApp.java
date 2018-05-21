@@ -26,7 +26,7 @@ public class SumApp extends BaseApplication {
         super.onCreate();
         Retrofit2Helper instance = Retrofit2Helper.getInstance();
         OkHttpClient client = instance.buildDefaultOkHttpClient().addInterceptor(new TestToken()).build();
-        instance.initRetrofit("http://newfgjapi.seconddepartment.house365.com/", client);
+        instance.initRetrofit("https://www.baidu.com", client);
     }
 
     protected void attachBaseContext(Context base) {
