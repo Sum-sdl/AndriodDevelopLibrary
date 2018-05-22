@@ -22,6 +22,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp" />
 
+        <Button
+            android:id="@+id/xutils_net"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="xUtils" />
+
+        <Button
+            android:id="@+id/xutils_net_webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="web_view" />
 
     </LinearLayout>
 
