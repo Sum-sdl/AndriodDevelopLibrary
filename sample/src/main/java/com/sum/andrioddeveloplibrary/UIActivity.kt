@@ -4,25 +4,17 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.web.WebActivity
-import com.sum.library.utils.AppUtils
 import kotlinx.android.synthetic.main.activity_ui.*
 import java.io.File
 
 
-class UIActivity : AppCompatActivity() {
+class UIActivity : BaseAppActivity() {
 
-    private val mData: ArrayList<String> = arrayListOf()
-
-    private var mPhoto: File? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AppUtils.setDark(this)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ui)
+    override fun initParams() {
 
         btn_1.setOnClickListener {
             val list = arrayListOf<String>()
@@ -64,6 +56,12 @@ class UIActivity : AppCompatActivity() {
             WebActivity.open(this, "", "https://aznapi.house365.com/Home/Information/lists", null, null)
         }
     }
+
+    override fun getLayoutId(): Int = R.layout.activity_ui
+
+    private val mData: ArrayList<String> = arrayListOf()
+
+    private var mPhoto: File? = null
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)

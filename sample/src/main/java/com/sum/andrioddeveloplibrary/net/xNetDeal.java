@@ -79,9 +79,7 @@ public class xNetDeal {
                 byte[] decode = Base64.decode(res.getBytes(), Base64.NO_WRAP);
                 String info = new String(decode, "UTF-8");
                 JSONObject object = new JSONObject(info);
-
                 String url = object.getString("url");
-
                 String show_url = object.getString("show_url");
                 if (url.contains("()")) {
                     String targetUrl = url.substring(0, url.indexOf("()"));
@@ -92,7 +90,6 @@ public class xNetDeal {
             } else {
                 mListener.onFailed();
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

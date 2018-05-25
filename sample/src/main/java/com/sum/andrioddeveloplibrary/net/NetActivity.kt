@@ -27,7 +27,7 @@ class NetActivity : BaseAppActivity() {
                     } else {
 
                     }
-                    ToastUtils.showLong(url + ";" + type)
+                    ToastUtils.showLong(url)
                 }
             })
         }
