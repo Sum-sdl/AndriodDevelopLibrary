@@ -33,6 +33,24 @@
             android:layout_height="wrap_content"
             android:text="web_view" />
 
+        <Button
+            android:id="@+id/bt_dialog1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="loading_dialog" />
+
+        <Button
+            android:id="@+id/bt_dialog2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="loading_dialog" />
+
+        <Button
+            android:id="@+id/bt_dialog3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="progress loading_dialog" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

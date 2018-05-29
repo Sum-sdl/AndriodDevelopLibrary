@@ -50,10 +50,14 @@ public class DialogMaker {
 
 
     public static AlertDialog showLoadingDialog(Context context, String content) {
-        return showLoadingDialog(context, content, R.style.dialog_no_bg);
+        return showLoadingDialog(context, content, true);
     }
 
-    public static AlertDialog showLoadingDialog(Context context, String content, int style) {
+    public static AlertDialog showLoadingDialog(Context context, String content, boolean cancel) {
+        return showLoadingDialog(context, content, R.style.dialog_no_bg, cancel);
+    }
+
+    public static AlertDialog showLoadingDialog(Context context, String content, int style, boolean cancel) {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(context, style);
         View view = LayoutInflater.from(context).inflate(R.layout.pub_loading_view, null);
@@ -63,6 +67,7 @@ public class DialogMaker {
 
         TextView tv = view.findViewById(R.id.loading_hint);
         if (!TextUtils.isEmpty(content)) {
+            tv.setVisibility(View.VISIBLE);
             tv.setText(content);
         } else {
             tv.setVisibility(View.GONE);
@@ -72,8 +77,7 @@ public class DialogMaker {
         view.setLayoutParams(params);
 
         MaterialProgressDrawable drawable = new MaterialProgressDrawable(context, viewParent);
-        int color1 = ContextCompat.getColor(context, R.color.colorPrimary);
-//        int color2 = ContextCompat.getColor(context, R.color.colorPrimary);
+        int color1 = ContextCompat.getColor(context, R.color.pub_loading_bg_color);
         drawable.setColorSchemeColors(color1);
         imageView.setImageDrawable(drawable);
         drawable.setAlpha(255);
@@ -81,7 +85,7 @@ public class DialogMaker {
         dialog.setView(view);
 
         AlertDialog res = dialog.create();
-        res.setCancelable(true);
+        res.setCancelable(cancel);
         res.setCanceledOnTouchOutside(false);
 
         return res;

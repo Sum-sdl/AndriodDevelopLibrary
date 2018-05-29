@@ -22,6 +22,11 @@ public interface LoadingView {
     void showLoading(String msg, boolean cancelable);
 
     /**
+     * 未知进度展示
+     */
+    void showProgressLoading(String msg, boolean cancelable);
+
+    /**
      * 隐藏加载UI
      */
     void hideLoading();

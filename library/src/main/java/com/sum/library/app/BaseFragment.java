@@ -107,6 +107,11 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     }
 
     @Override
+    public void showProgressLoading(String msg, boolean cancelable) {
+        mPresent.loadingView.showProgressLoading(msg, cancelable);
+    }
+
+    @Override
     public void hideLoading() {
         mPresent.loadingView.hideLoading();
     }

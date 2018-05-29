@@ -36,6 +36,10 @@ class NetActivity : BaseAppActivity() {
             val url = ""
             WebActivity.open(this@NetActivity, url)
         }
+
+        bt_dialog1.setOnClickListener { showLoading() }
+        bt_dialog2.setOnClickListener { showLoading("Loading...") }
+        bt_dialog3.setOnClickListener { showProgressLoading("Progress Loading...", true) }
     }
 
     private fun net() {

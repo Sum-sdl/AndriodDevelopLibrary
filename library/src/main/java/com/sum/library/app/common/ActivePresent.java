@@ -34,7 +34,7 @@ public final class ActivePresent implements ContextView {
         if (type == BaseValue.TYPE_TOAST) {
             ToastUtils.showShort((String) obj);
         } else if (type == BaseValue.TYPE_DIALOG_PROGRESS_SHOW) {
-            loadingView.showLoading((String) obj);
+            loadingView.showProgressLoading((String) obj, true);
         } else if (type == BaseValue.TYPE_DIALOG_LOADING) {
             loadingView.showLoading();
         } else if (type == BaseValue.TYPE_DIALOG_HIDE) {

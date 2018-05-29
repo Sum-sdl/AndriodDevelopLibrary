@@ -2,31 +2,31 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:focusable="true"
-    android:clickable="true">
+    android:background="@color/translate"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:id="@+id/load_content"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="94dp"
+        android:layout_height="94dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_code_loading_bg"
         android:gravity="center"
         android:orientation="vertical">
 
 
         <ImageView
             android:id="@+id/loading"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
 
         <TextView
             android:id="@+id/loading_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="数据加载中..."
-            android:textColor="#b4b4b4"
-            android:visibility="gone" />
+            android:textColor="@color/pub_loading_text_color" />
 
     </LinearLayout>
 </FrameLayout>

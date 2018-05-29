@@ -24,12 +24,7 @@ public class LoadingViewImpl implements LoadingView {
 
     @Override
     public void showLoading() {
-        if (mLoadDialog == null) {
-            mLoadDialog = DialogMaker.showLoadingDialog(mContext, null);
-        }
-        if (!mLoadDialog.isShowing()) {
-            mLoadDialog.show();
-        }
+        showLoading("");
     }
 
     @Override
@@ -39,6 +34,14 @@ public class LoadingViewImpl implements LoadingView {
 
     @Override
     public void showLoading(String msg, boolean cancelable) {
+        mLoadDialog = DialogMaker.showLoadingDialog(mContext, msg,cancelable);
+        if (!mLoadDialog.isShowing()) {
+            mLoadDialog.show();
+        }
+    }
+
+    @Override
+    public void showProgressLoading(String msg, boolean cancelable) {
         mProgressDialog = DialogMaker.showProgress(mContext, "", msg, cancelable);
         if (mProgressDialog != null) {
             mProgressDialog.show();
