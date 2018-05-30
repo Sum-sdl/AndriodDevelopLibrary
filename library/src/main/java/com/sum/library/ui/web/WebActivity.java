@@ -123,6 +123,7 @@ public class WebActivity extends BaseActivity {
         }
         mWeb = findViewById(R.id.pub_web_view);
         mWeb.setSaveEnabled(true);
+        mWeb.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         mWeb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWeb.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mWeb.setVerticalFadingEdgeEnabled(false);
@@ -143,7 +144,7 @@ public class WebActivity extends BaseActivity {
                 }
             }
         });
-        mWeb.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+
         WebSettings settings = mWeb.getSettings();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -151,14 +152,20 @@ public class WebActivity extends BaseActivity {
             }
         }
 
+        //cache
+        String str = getCacheDir().getAbsolutePath();
+        settings.setDatabasePath(str);
+        settings.setAppCachePath(str);
+        settings.setAppCacheEnabled(true);
+
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setDisplayZoomControls(false);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setSupportZoom(true);
-        settings.setDomStorageEnabled(true);
         settings.setBlockNetworkImage(false);
         settings.setBlockNetworkLoads(false);
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setAppCacheEnabled(true);
         settings.setSaveFormData(true);
@@ -168,9 +175,9 @@ public class WebActivity extends BaseActivity {
         settings.setAllowFileAccess(true);
         settings.setNeedInitialFocus(true);
         settings.setAllowUniversalAccessFromFileURLs(true);
-        settings.setBuiltInZoomControls(false);
-
+        settings.setBuiltInZoomControls(true);
         settings.setJavaScriptEnabled(true);
+
         mJs = getIntent().getParcelableExtra("WebJavascriptInterface");
         if (mJs != null) {
             mJs.addContext(this);
