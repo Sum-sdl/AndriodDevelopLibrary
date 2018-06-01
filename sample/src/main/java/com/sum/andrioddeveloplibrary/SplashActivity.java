@@ -9,6 +9,7 @@ import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.app.BaseActivity;
+import com.sum.library.utils.AppUtils;
 
 import java.util.List;
 
@@ -27,7 +28,6 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initParams() {
 
-        per();
 
         findViewById(R.id.b7).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +41,17 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 PermissionUtils.launchAppDetailsSettings();
+            }
+        });
+
+
+        findViewById(R.id.b2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showLong("是否有通知权限：" + AppUtils.notificationIsOpen());
+                if (!AppUtils.notificationIsOpen()) {
+                    show();
+                }
             }
         });
     }

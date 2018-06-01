@@ -8,10 +8,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.blankj.utilcode.util.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -194,5 +197,14 @@ public class AppUtils {
                 }
             }
         }
+    }
+
+    /**
+     * 系统通知权限是否打开
+     *
+     * @return true ：允许通知 false:通知关闭
+     */
+    public static boolean notificationIsOpen() {
+        return NotificationManagerCompat.from(Utils.getApp()).areNotificationsEnabled();
     }
 }
