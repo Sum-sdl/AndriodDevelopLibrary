@@ -172,11 +172,13 @@ public class WebActivity extends BaseActivity {
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
         settings.setAllowContentAccess(true);
-        settings.setAllowFileAccess(true);
         settings.setNeedInitialFocus(true);
-        settings.setAllowUniversalAccessFromFileURLs(true);
         settings.setBuiltInZoomControls(true);
         settings.setJavaScriptEnabled(true);
+
+        settings.setAllowFileAccess(false);
+        settings.setAllowFileAccessFromFileURLs(false);
+        settings.setAllowUniversalAccessFromFileURLs(false);
 
         mJs = getIntent().getParcelableExtra("WebJavascriptInterface");
         if (mJs != null) {
