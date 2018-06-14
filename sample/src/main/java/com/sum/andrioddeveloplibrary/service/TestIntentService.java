@@ -37,13 +37,13 @@ public class TestIntentService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         print("onHandleIntent");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     private void print(String msg) {
-        Logger.e("JobIntentService:" + msg);
+        Logger.e("JobIntentService:" + msg + "；" + Integer.toHexString(hashCode()));
     }
 }

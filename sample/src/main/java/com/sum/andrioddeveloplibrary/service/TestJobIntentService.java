@@ -34,13 +34,13 @@ public class TestJobIntentService extends JobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
         print("onHandleWork");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     private void print(String msg) {
-        Logger.e("JobIntentService:" + msg);
+        Logger.e("JobIntentService:" + msg + "；" + Integer.toHexString(hashCode()));
     }
 }

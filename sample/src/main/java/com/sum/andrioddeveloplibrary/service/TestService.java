@@ -39,6 +39,6 @@ public class TestService extends Service {
 
 
     private void print(String msg) {
-        Logger.e("JobIntentService:" + msg);
+        Logger.e("JobIntentService:" + msg + "；" + Integer.toHexString(hashCode()));
     }
 }
