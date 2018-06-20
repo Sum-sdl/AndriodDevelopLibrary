@@ -11,14 +11,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
+import android.view.View;
 
 import com.sum.library.utils.Logger;
 
 /**
  * Created by Summer on 2016/9/6.
  */
-public class TestCustomViewGroup extends ViewGroup {
+public class TestCustomViewGroup extends View {
 
 
     // 1.创建一个画笔
@@ -58,6 +58,30 @@ public class TestCustomViewGroup extends ViewGroup {
     private int centerX, centerY;
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int size = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+
+        Logger.e("w:" + size + "wM:" + MeasureSpec.getMode(widthMeasureSpec) + ";h:" + height + "hM:" + MeasureSpec.getMode(heightMeasureSpec) + "----" + (Integer.MAX_VALUE >> 2));
+//自己创建大小信息给view计算，也可以直接手动设置view的大小，让布局里面的设置无效
+        //clipChildren 会影响view的大小
+//        int wi = View.MeasureSpec.makeMeasureSpec(300, View.MeasureSpec.AT_MOST);
+
+        //TODO 思考高度在设置很大的时候，父view是大小是怎么处理的（如FrameLayout高度的计算）
+        //TODO 阅读了解ViewGroup的大小计算流程
+        //TODO 思考RecyclerView的一次性view，类似LinearLayout
+
+        //TODO 测试结果：RecyclerView在NestedScrollView中的会一次性撑满问题，设置高度是wart_content会自动计算内容高度,每个item都是新创建
+        //TODO 但是在ScrollView中不会一次性撑满
+        //RecyclerView 的item中嵌套RecyclerView，嵌套的高度设置为wart_content时，内容会自动撑满布局高度
+//        int he = View.MeasureSpec.makeMeasureSpec(1910, View.MeasureSpec.AT_MOST);
+//        super.onMeasure(wi, he);
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mWidth = w;
@@ -90,6 +114,9 @@ public class TestCustomViewGroup extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        //l,t，r，b 表述了view相对于父view左上角定点的距离 getTop()等方法
+
         //动态的来设置子view的layout位置
         Logger.e(changed + " onLayout left:" + left + " top:" + top + " right:" + right + " bottom:" + bottom);
 
@@ -117,8 +144,8 @@ public class TestCustomViewGroup extends ViewGroup {
 
         //绘制辅助线
         mPaint.setStrokeWidth(5);
-        canvas.drawLine(start.x,start.y,control.x,control.y,mPaint);
-        canvas.drawLine(end.x,end.y,control.x,control.y,mPaint);
+        canvas.drawLine(start.x, start.y, control.x, control.y, mPaint);
+        canvas.drawLine(end.x, end.y, control.x, control.y, mPaint);
 
         //二阶曲线
         mPaint.setColor(Color.RED);
@@ -127,7 +154,7 @@ public class TestCustomViewGroup extends ViewGroup {
         path.moveTo(start.x, start.y);
 //        path.quadTo(control.x, control.y, end.x, end.y);
         //三阶曲线(2个控制点)
-        path.cubicTo(control.x, control.y, 0,0,end.x, end.y);
+        path.cubicTo(control.x, control.y, 0, 0, end.x, end.y);
         canvas.drawPath(path, mPaint);
     }
 

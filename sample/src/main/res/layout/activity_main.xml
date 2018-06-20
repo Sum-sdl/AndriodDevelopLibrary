@@ -73,6 +73,12 @@
             android:layout_height="wrap_content"
             android:text="Service 测试使用" />
 
+        <Button
+            android:id="@+id/b13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="数据加密" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

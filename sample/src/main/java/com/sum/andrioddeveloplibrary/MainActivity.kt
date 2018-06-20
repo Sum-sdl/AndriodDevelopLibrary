@@ -52,6 +52,9 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         b12.setOnClickListener {
             startActivity(ServiceTestActivity::class.java)
         }
+        b13.setOnClickListener {
+            startActivity(EncryptionActivity::class.java)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

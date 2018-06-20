@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal">
-
-        <com.sum.andrioddeveloplibrary.testview.TestCustomViewGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#9f9f81" />
-
-    </FrameLayout>
-
-    <com.sum.library.view.widget.ChooseView
-        android:id="@+id/choose_view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp" />
-
-    <Button
-        android:id="@+id/bt"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="修改参数" />
+        android:orientation="vertical">
 
-    <com.sum.andrioddeveloplibrary.testview.CustomBar
-        android:id="@+id/c_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <FrameLayout
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal">
 
-</LinearLayout>
+            <com.sum.andrioddeveloplibrary.testview.TestCustomViewGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#9f9f81" />
+
+        </FrameLayout>
+
+        <com.sum.andrioddeveloplibrary.testview.TestCustomView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp" />
+
+
+        <com.sum.library.view.widget.ChooseView
+            android:id="@+id/choose_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="50dp" />
+
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="修改参数" />
+
+        <com.sum.andrioddeveloplibrary.testview.CustomBar
+            android:id="@+id/c_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
