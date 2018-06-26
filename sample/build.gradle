@@ -101,6 +101,7 @@ configurations.all {
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
     implementation project(':library')
 //    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
     // butterknife

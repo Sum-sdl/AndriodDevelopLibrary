@@ -1,10 +1,18 @@
 package com.sum.andrioddeveloplibrary;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.sum.andrioddeveloplibrary.testActivity.holder.DemoDataHolder;
+import com.sum.lib.rvadapter.RecyclerAdapter;
+import com.sum.lib.rvadapter.RecyclerDataHolder;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
 
@@ -13,36 +21,35 @@ public class SwipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
 
-//        swipeLayout = (TestView) findViewById(R.id.swipe);
+        RecyclerAdapter adapter = new RecyclerAdapter();
+        SwipeMenuRecyclerView recyclerView = findViewById(R.id.sm_rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-      /*  final View b2 = findViewById(R.id.ttv);
-        //view的布局参数layoutParams在layoutInflate的时候就创建完成
-        Logger.e(b2.getWidth() + " " + b2.getMeasuredWidth() + " " + b2.getLayoutParams().width);
-        b2.post(new Runnable() {
-            @Override
-            public void run() {
-                //手动设置了view 的实际大小为100 但是xml中的参数为300,只会绘制300的宽界面
-                Logger.e("Runnable:" + b2.getWidth() + " " + b2.getMeasuredWidth() + " " + b2.getLayoutParams().width);
-            }
-        });*/
+        recyclerView.setLongPressDragEnabled(true);
+        recyclerView.setItemViewSwipeEnabled(true);
+        recyclerView.useDefaultLoadMore();
+
+        List<RecyclerDataHolder> holders = new ArrayList<>();
+        for (int i = 0; i <= 50; i++) {
+            holders.add(new DemoDataHolder(i + ""));
+        }
+        adapter.setDataHolders(holders);
+
+        recyclerView.setAdapter(adapter);
 
 
-        //测试addView 无layoutParams 会抛出异常
-//        swipeLayout.addView(new TestView(this),null);
+        recyclerView.setLoadMoreListener(() ->
 
+                {
+                    ToastUtils.showLong("LoadMore");
+                    recyclerView.loadMoreFinish(true, true);
+                }
 
-        findViewById(R.id.item_contact_delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.showShort("tab 2 delete");
-            }
-        });
-        findViewById(R.id.item_contact_title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.showShort("title click");
-            }
-        });
+        );
+    }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

@@ -65,8 +65,8 @@
         <service android:name=".service.TestService" />
         <service android:name=".service.TestJobIntentService" />
 
-        <activity android:name=".DialogTestActivity" />
-        <activity android:name=".EncryptionActivity"></activity>
+        <activity android:name=".DialogTestActivity" android:configChanges="keyboard|keyboardHidden|screenSize|orientation"/>
+        <activity android:name=".EncryptionActivity"/>
     </application>
 
 </manifest>

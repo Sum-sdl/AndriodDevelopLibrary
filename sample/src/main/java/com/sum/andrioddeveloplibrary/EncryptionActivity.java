@@ -31,7 +31,7 @@ public class EncryptionActivity extends BaseAppActivity {
 
     TextView tv_content, tv_content2;
 
-    String mData = "你好呀";
+    String mData = "HelloWorld";
     String mKey = "12345Sum";
     public static final String ALGORITHM_DES = "DES/CBC/PKCS5Padding";
     //DES/CBC/PKCS5Padding
