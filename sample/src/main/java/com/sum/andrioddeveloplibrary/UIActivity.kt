@@ -17,16 +17,18 @@ class UIActivity : BaseAppActivity() {
     override fun initParams() {
 
         btn_1.setOnClickListener {
+
             val list = arrayListOf<String>()
             list.addAll(mData)
-            list.add("http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5qAGnRYAAda-f68kug942.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5iAetrnAAGSIF0wiv0935.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5iAUIriAAJYXBzYogs778.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAJDA5AAMhtOOBMJA321.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAZ7LcAAM8wtR8X-E576.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAcaZdAAMWXiLK-Nk224.jpg")
-            list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mADsEOAALPYONdMdk748.jpg")
+            list.addAll(getAll())
+            list.addAll(getAll())
+            list.addAll(getAll())
+            list.addAll(getAll())
+            list.addAll(getAll())
+            list.addAll(getAll())
+            list.addAll(getAll())
+            list.addAll(getAll())
+            list.addAll(getAll())
             AppImageUtils.appImagePreview(this, list)
         }
 
@@ -55,6 +57,19 @@ class UIActivity : BaseAppActivity() {
         btn_6.setOnClickListener {
             WebActivity.open(this, "", "https://aznapi.house365.com/Home/Information/lists", null, null)
         }
+    }
+
+    private fun getAll(): ArrayList<String> {
+        val list = arrayListOf<String>()
+        list.add("http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg")
+        list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5qAGnRYAAda-f68kug942.jpg")
+        list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5iAetrnAAGSIF0wiv0935.jpg")
+        list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5iAUIriAAJYXBzYogs778.jpg")
+        list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAJDA5AAMhtOOBMJA321.jpg")
+        list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAZ7LcAAM8wtR8X-E576.jpg")
+        list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mAcaZdAAMWXiLK-Nk224.jpg")
+        list.add("http://img31.house365.com/M02/01/71/rBEBYFTTb5mADsEOAALPYONdMdk748.jpg")
+        return list
     }
 
     override fun getLayoutId(): Int = R.layout.activity_ui

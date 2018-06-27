@@ -1,10 +1,12 @@
 package com.sum.library.app;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ import java.lang.ref.WeakReference;
  * Created by Summer on 2016/9/9.
  */
 public abstract class BaseFragment extends Fragment implements ContextView, LoadingView {
+
+    protected boolean PRINT_LIFE = false;
 
     //缓存View对象
     private WeakReference<View> mWRView;
@@ -48,12 +52,13 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresent = new ActivePresent(this);
+        printFragmentLife("onCreate");
     }
 
     @Nullable
     @Override
     public View onCreateView(@Nullable LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        printFragmentLife("onCreateView");
         View cacheView = null;
         if (mWRView != null) {
             cacheView = getCacheView();
@@ -76,11 +81,48 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     @Override
     public void onViewCreated(@Nullable View view, @Nullable Bundle savedInstanceState) {
         if (mIsInflateView) {
+            printFragmentLife("onViewCreated-initParams");
             initParams(view);
             loadData();
         }
         mIsPrepared = true;
         onVisibleLoadData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        printFragmentLife("onResume");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        printFragmentLife("onStop");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        printFragmentLife("onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        printFragmentLife("onDestroy");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        printFragmentLife("onAttach");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        printFragmentLife("onDetach");
     }
 
     public View getCacheView() {
@@ -176,6 +218,15 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
             if (backStackEntryCount > 0) {
                 fragmentManager.popBackStackImmediate();
             }
+        }
+    }
+
+    protected void printFragmentLife(String fun) {
+        if (PRINT_LIFE) {
+
+            String ids = Integer.toHexString(System.identityHashCode(this));
+
+            Log.e("life", getClass().getSimpleName() + " " + ids + "->" + fun);
         }
     }
 }

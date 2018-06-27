@@ -3,7 +3,6 @@ package com.sum.library.ui.image.preview
 import android.graphics.drawable.Animatable
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 import com.facebook.drawee.backends.pipeline.Fresco
@@ -13,7 +12,6 @@ import com.facebook.imagepipeline.image.ImageInfo
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.sum.library.R
 import com.sum.library.app.BaseFragment
-import com.sum.library.view.SwipeRefresh.MaterialProgressDrawable
 import kotlinx.android.synthetic.main.ui_fragment_image_preview.*
 import me.relex.photodraweeview.OnPhotoTapListener
 
@@ -33,9 +31,12 @@ class ImagePreviewFragment : BaseFragment() {
         }
     }
 
-    private var mImageInfo: ImageInfo? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        PRINT_LIFE = true
+        super.onCreate(savedInstanceState)
+    }
 
-    private lateinit var mDrawable: MaterialProgressDrawable
+    private var mImageInfo: ImageInfo? = null
 
     override fun initParams(view: View?) {
         val url = arguments?.getString("url")
@@ -53,13 +54,9 @@ class ImagePreviewFragment : BaseFragment() {
                 }
                 mImageInfo = imageInfo
                 photo_view.update(imageInfo.width, imageInfo.height)
-                loading.visibility = View.GONE
-                mDrawable.stop()
             }
 
             override fun onFailure(id: String?, throwable: Throwable?) {
-                loading.visibility = View.GONE
-                mDrawable.stop()
             }
         }
         photo_view.controller = controller.build()
@@ -68,17 +65,6 @@ class ImagePreviewFragment : BaseFragment() {
                 activity?.finish()
             }
         }
-
-        val context = loading.context
-        loading.visibility = View.VISIBLE
-
-        val drawable = MaterialProgressDrawable(context, fl_content)
-        val color1 = ContextCompat.getColor(context, R.color.translate_50)
-        drawable.setColorSchemeColors(color1)
-        drawable.alpha = 255
-        loading.setImageDrawable(drawable)
-        mDrawable = drawable
-        mDrawable.start()
     }
 
     override fun onResume() {
