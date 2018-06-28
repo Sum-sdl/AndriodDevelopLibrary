@@ -32,7 +32,7 @@ class ImagePreviewFragment : BaseFragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        PRINT_LIFE = true
+//        PRINT_LIFE = true
         super.onCreate(savedInstanceState)
     }
 

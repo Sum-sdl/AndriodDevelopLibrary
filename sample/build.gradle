@@ -99,7 +99,7 @@ configurations.all {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
     implementation project(':library')

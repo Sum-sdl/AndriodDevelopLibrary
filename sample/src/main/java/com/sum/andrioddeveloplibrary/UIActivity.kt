@@ -1,10 +1,17 @@
 package com.sum.andrioddeveloplibrary
 
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.view.ViewCompat
 import android.text.TextUtils
+import android.transition.AutoTransition
+import android.transition.Transition
+import com.facebook.drawee.drawable.ScalingUtils
+import com.facebook.drawee.view.DraweeTransition
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.web.WebActivity
@@ -14,16 +21,69 @@ import java.io.File
 
 class UIActivity : BaseAppActivity() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        iv_2.setImageURI("http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg")
+//        iv_2.setLegacyVisibilityHandlingEnabled(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.sharedElementReenterTransition = AutoTransition()
+
+            window.sharedElementEnterTransition = DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP,
+                    ScalingUtils.ScaleType.CENTER_CROP) // 进入
+            window.sharedElementReturnTransition = DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP,
+                    ScalingUtils.ScaleType.CENTER_CROP) // 返回
+
+            postponeEnterTransition()
+            ViewCompat.setTransitionName(iv_2, "IMG_TRANSITION")
+            startPostponedEnterTransition()
+        }
+    }
+
+    override fun finishAfterTransition() {
+        val data = Intent()
+        data.putExtra("pos", 2)
+        data.putExtra("tag", "IMG_TRANSITION")
+        setResult(Activity.RESULT_OK, data)
+        super.finishAfterTransition()
+    }
+
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun addTransitionListener() {
+        val transition = window.sharedElementEnterTransition
+        transition?.addListener(object : Transition.TransitionListener {
+            override fun onTransitionResume(p0: Transition?) {
+            }
+
+            override fun onTransitionPause(p0: Transition?) {
+            }
+
+            override fun onTransitionCancel(p0: Transition?) {
+            }
+
+            override fun onTransitionStart(p0: Transition?) {
+
+            }
+
+            override fun onTransitionEnd(p0: Transition?) {
+//                loadVideoInfo()
+                transition?.removeListener(this)
+            }
+
+        })
+    }
+
+
     override fun initParams() {
 
         btn_1.setOnClickListener {
 
             val list = arrayListOf<String>()
             list.addAll(mData)
-            list.addAll(getAll())
-            list.addAll(getAll())
-            list.addAll(getAll())
-            list.addAll(getAll())
             list.addAll(getAll())
             list.addAll(getAll())
             list.addAll(getAll())
@@ -130,12 +190,9 @@ class UIActivity : BaseAppActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        supportFinishAfterTransition()
-    }
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.activity_close_enter, R.anim.activity_close_exit)
+//        overridePendingTransition(R.anim.activity_close_enter, R.anim.activity_close_exit)
     }
 }

@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/anim5"
-        android:transitionName="iv_2" />
+        android:src="@mipmap/anim5" />
 
     <Button
         android:id="@+id/btn_1"
