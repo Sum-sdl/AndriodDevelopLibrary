@@ -9,7 +9,6 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.SharedElementCallback
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.view.ViewTreeObserver
 import com.sum.andrioddeveloplibrary.activity.FragmentManagerActivity
 import com.sum.library.ui.web.WebActivity
 import com.sum.library.utils.Logger
@@ -90,14 +89,15 @@ class WidgetUseActivity : AppCompatActivity() {
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
         super.onActivityReenter(resultCode, data)
         reenterState = Bundle(data?.extras)
-        ActivityCompat.postponeEnterTransition(this)
-        iv_2.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+//        ActivityCompat.postponeEnterTransition(this)
+//        ActivityCompat.startPostponedEnterTransition(this@WidgetUseActivity)
+       /* iv_2.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
                 iv_2.viewTreeObserver.removeOnPreDrawListener(this)
                 ActivityCompat.startPostponedEnterTransition(this@WidgetUseActivity)
                 return true
             }
-        })
+        })*/
     }
 
 

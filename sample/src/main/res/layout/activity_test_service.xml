@@ -11,6 +11,7 @@
         android:text="一般Service测试" />
 
     <Button
+
         android:id="@+id/btn_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,5 +28,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thread start Service测试" />
+
+
+    <Button
+        android:id="@+id/btn_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="跨进程的RemoteService BindService启动" />
+
+    <Button
+        android:id="@+id/btn_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="跨进程的RemoteService发送数据" />
+
+    <Button
+        android:id="@+id/btn_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="AIDL 远处服务启动" />
+
+
+    <Button
+        android:id="@+id/btn_9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AIDL 从远处服务获取数据" />
+
+    <Button
+        android:id="@+id/btn_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AIDL 向远处服务传递数据" />
+
 
 </LinearLayout>

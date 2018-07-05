@@ -58,15 +58,25 @@
         <activity android:name=".WidgetUseActivity" />
         <activity android:name=".UIActivity" />
         <activity android:name=".activity.FragmentManagerActivity" />
-        <activity android:name=".WebViewActivity" />
         <activity android:name=".testActivity.ServiceTestActivity" />
 
         <service android:name=".service.TestIntentService" />
         <service android:name=".service.TestService" />
         <service android:name=".service.TestJobIntentService" />
 
-        <activity android:name=".DialogTestActivity" android:configChanges="keyboard|keyboardHidden|screenSize|orientation"/>
-        <activity android:name=".EncryptionActivity"/>
+        <service
+            android:name=".service.RemoteService"
+            android:exported="true"
+            android:process=":task" />
+        <service
+            android:name=".service.AidlService"
+            android:exported="true"
+            android:process=":aidl" />
+
+        <activity
+            android:name=".DialogTestActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation" />
+        <activity android:name=".EncryptionActivity" />
     </application>
 
 </manifest>
