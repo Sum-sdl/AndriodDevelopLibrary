@@ -49,6 +49,19 @@
             android:text="解密DES" />
 
 
+        <Button
+            android:id="@+id/btn_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="打开数据网络" />
+
+        <Button
+            android:id="@+id/btn_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="关闭数据网络" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -11,6 +11,7 @@ import com.sum.andrioddeveloplibrary.App.BaseAppActivity;
 import com.sum.andrioddeveloplibrary.encryption.DESUtils;
 import com.sum.andrioddeveloplibrary.encryption.Decryptor;
 import com.sum.andrioddeveloplibrary.encryption.Encryptor;
+import com.sum.andrioddeveloplibrary.test.ConnectivityUtil;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -125,6 +126,20 @@ public class EncryptionActivity extends BaseAppActivity {
                     }
                 }
 
+            }
+        });
+        ConnectivityUtil mUtils = new ConnectivityUtil(this);
+
+        findViewById(R.id.btn_5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUtils.setMobileDataEnabled(true);
+            }
+        });
+        findViewById(R.id.btn_6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUtils.setMobileDataEnabled(false);
             }
         });
 
