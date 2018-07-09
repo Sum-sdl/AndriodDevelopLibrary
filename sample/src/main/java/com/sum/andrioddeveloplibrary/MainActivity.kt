@@ -9,6 +9,7 @@ import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.DownloadManager
+import jetpack.demo.NewStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
@@ -54,6 +55,9 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
         b13.setOnClickListener {
             startActivity(EncryptionActivity::class.java)
+        }
+        b14.setOnClickListener {
+            startActivity(NewStartActivity::class.java)
         }
     }
 

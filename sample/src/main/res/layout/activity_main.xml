@@ -79,6 +79,13 @@
             android:layout_height="wrap_content"
             android:text="数据加密" />
 
+        <Button
+            android:id="@+id/b14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="最新框架测试" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
