@@ -63,3 +63,7 @@
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/img4.jpg" height="330" width="190" >
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/img5.jpg" height="330" width="190" >
 </div>
+
+> **JetPack框架结构**
+>
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/architecture.png">
