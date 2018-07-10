@@ -67,3 +67,8 @@
 > **JetPack框架结构**
 >
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/architecture.png">
+
+
+> **Demo测试Apk下载二维码**
+>
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
