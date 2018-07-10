@@ -55,6 +55,7 @@ class NewStartActivity : AppCompatActivity() {
         }
 
         b3.setOnClickListener {
+
             supportFragmentManager.beginTransaction().replace(R.id.fl_content, ShareFragment()).commit()
         }
 

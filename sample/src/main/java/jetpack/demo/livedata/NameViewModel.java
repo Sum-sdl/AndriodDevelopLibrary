@@ -24,12 +24,12 @@ public class NameViewModel extends ViewModel implements LifecycleObserver {
     public void onCreate() {
         Logger.e("NameViewModel onCreate");
 
-        getCurrentName().postValue("onCreate");
+        getCurrentName().setValue("onCreate");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
-        getCurrentName().postValue("onDestroy");
+        getCurrentName().setValue("onDestroy");
         Logger.e("NameViewModel onDestroy");
     }
 
