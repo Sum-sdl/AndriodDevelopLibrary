@@ -11,9 +11,11 @@ import android.view.View;
  * Created by Summer on 2018/6/15.
  */
 public class TestCustomView extends View {
-    private static final int LAYER_FLAGS = Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG
+    private static final int LAYER_FLAGS = 0;
+
+    /* Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG
             | Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.FULL_COLOR_LAYER_SAVE_FLAG
-            | Canvas.CLIP_TO_LAYER_SAVE_FLAG;
+            | Canvas.CLIP_TO_LAYER_SAVE_FLAG;*/
 
     // 1.创建一个画笔
     private Paint mPaint = new Paint();

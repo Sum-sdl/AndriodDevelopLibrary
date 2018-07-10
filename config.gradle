@@ -1,5 +1,5 @@
 ext {
-    compileSdkVersion = 26
+    compileSdkVersion = 28
 
     app = [
             applicationId   : "com.sum.andrioddeveloplibrary",

@@ -63,7 +63,6 @@
         <service android:name=".service.TestIntentService" />
         <service android:name=".service.TestService" />
         <service android:name=".service.TestJobIntentService" />
-
         <service
             android:name=".service.RemoteService"
             android:exported="true"
@@ -78,6 +77,7 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation" />
         <activity android:name=".EncryptionActivity" />
         <activity android:name="jetpack.demo.NewStartActivity" />
+        <activity android:name="jetpack.demo.LiveDataChangeActivity"></activity>
     </application>
 
 </manifest>

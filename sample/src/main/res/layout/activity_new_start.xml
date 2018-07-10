@@ -22,6 +22,24 @@
             android:layout_height="wrap_content"
             android:text="修改数据源" />
 
+        <Button
+            android:id="@+id/b3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="数据共享操作" />
+
+        <Button
+            android:id="@+id/b4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="其他界面修改数据来更新当前界面" />
+
+
+        <FrameLayout
+            android:id="@+id/fl_content"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
