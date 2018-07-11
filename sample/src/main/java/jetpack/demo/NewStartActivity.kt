@@ -10,6 +10,7 @@ import com.sum.library.utils.Logger
 import jetpack.demo.base.ViewModelOwner
 import jetpack.demo.lifecycle.MyObserver
 import jetpack.demo.livedata.NameViewModel
+import jetpack.demo.page.PageActivity
 import kotlinx.android.synthetic.main.activity_new_start.*
 
 /**
@@ -55,12 +56,15 @@ class NewStartActivity : AppCompatActivity() {
         }
 
         b3.setOnClickListener {
-
             supportFragmentManager.beginTransaction().replace(R.id.fl_content, ShareFragment()).commit()
         }
 
         b4.setOnClickListener {
             startActivity(Intent(this, LiveDataChangeActivity::class.java))
+        }
+
+        b5.setOnClickListener {
+            startActivity(Intent(this, PageActivity::class.java))
         }
     }
 

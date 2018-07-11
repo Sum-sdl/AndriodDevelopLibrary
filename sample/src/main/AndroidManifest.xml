@@ -77,7 +77,8 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation" />
         <activity android:name=".EncryptionActivity" />
         <activity android:name="jetpack.demo.NewStartActivity" />
-        <activity android:name="jetpack.demo.LiveDataChangeActivity"></activity>
+        <activity android:name="jetpack.demo.LiveDataChangeActivity" />
+        <activity android:name="jetpack.demo.page.PageActivity"></activity>
     </application>
 
 </manifest>

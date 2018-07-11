@@ -107,12 +107,15 @@ dependencies {
 //    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
     // butterknife
 //    compile 'com.jakewharton:butterknife:8.8.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     //最新框架
 //    implementation "android.arch.lifecycle:extensions:1.1.1"
     //androidx 统一框架开头
 //    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-beta01"
+
+    //多数据源分页库
+    api "android.arch.paging:runtime:1.0.1"
 }
 
 repositories {
