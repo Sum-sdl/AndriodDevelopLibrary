@@ -10,10 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.R;
 import com.sum.library.utils.Logger;
-
-import jetpack.demo.base.DownloadUtils;
 
 /**
  * Created by Sum on 15/11/22.
@@ -26,14 +25,14 @@ public class AppDownloadManager {
 
     private boolean isNeedShowView = true, isForceDownload;
 
-    private DownloadUtils mDownload;
+    private UpdateService mDownload;
 
     private String mLabel;
 
     private AlertDialog mDialog;
 
     public AppDownloadManager() {
-        mDownload = new DownloadUtils();
+        mDownload = new UpdateService();
     }
 
     public void start() {
@@ -111,6 +110,7 @@ public class AppDownloadManager {
             Logger.e("download url is null");
             return;
         }
+        ToastUtils.showLong("后台下载中...");
         mDownload.downloadStart(downloadUrl);
     }
 }

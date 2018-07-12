@@ -1,4 +1,4 @@
-package jetpack.demo.base
+package com.sum.library.framework
 
 import android.app.DownloadManager
 import android.content.Context
@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.Utils
 /**
  * Created by sdl on 2018/7/12.
  */
-class DownloadUtils {
+internal class UpdateService {
 
     private val mContext: Context = Utils.getApp()
 

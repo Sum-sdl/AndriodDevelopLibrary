@@ -1,6 +1,5 @@
 package com.sum.andrioddeveloplibrary.net
 
-import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.andrioddeveloplibrary.R
 import com.sum.library.net.callback.RetCallBack
@@ -13,23 +12,6 @@ class NetActivity : BaseAppActivity() {
     override fun initParams() {
         request_net.setOnClickListener {
             net()
-        }
-
-        xutils_net.setOnClickListener {
-            xNetDeal().start(object : xNetDeal.Listener {
-                override fun onFailed() {
-
-                }
-
-                override fun onSuccess(url: String?, type: String?) {
-                    if (type != "1") {
-                        WebActivity.open(this@NetActivity, url)
-                    } else {
-
-                    }
-                    ToastUtils.showLong(url)
-                }
-            })
         }
 
         xutils_net_webview.setOnClickListener {

@@ -78,7 +78,8 @@
         <activity android:name=".EncryptionActivity" />
         <activity android:name="jetpack.demo.NewStartActivity" />
         <activity android:name="jetpack.demo.LiveDataChangeActivity" />
-        <activity android:name="jetpack.demo.page.PageActivity"></activity>
+        <activity android:name="jetpack.demo.page.PageActivity" />
+
     </application>
 
 </manifest>

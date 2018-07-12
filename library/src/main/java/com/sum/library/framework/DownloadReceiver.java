@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+import com.blankj.utilcode.util.ToastUtils;
+
 /**
  * Created by sdl on 2018/7/12.
  */
@@ -17,6 +19,7 @@ public class DownloadReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
             long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             if (id != -1) {
+                ToastUtils.showLong("下载完成");
                 installApk(context, id);
             }
         } else if (intent.getAction().equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
@@ -35,12 +38,12 @@ public class DownloadReceiver extends BroadcastReceiver {
         Intent install = new Intent(Intent.ACTION_VIEW);
         Uri downloadFileUri = dManager.getUriForDownloadedFile(downloadApkId);
         if (downloadFileUri != null) {
-            Log.d("AppDownloadManager", downloadFileUri.toString());
+            Log.d("DownloadReceiver", downloadFileUri.toString());
             install.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
             install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(install);
         } else {
-            Log.e("AppDownloadManager", "download error");
+            Log.e("DownloadReceiver", "download error");
         }
     }
 }
