@@ -84,19 +84,6 @@
             android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/btn_to_back"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/download_back"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
-            android:visibility="gone" />
-
     </LinearLayout>
 
 </LinearLayout>

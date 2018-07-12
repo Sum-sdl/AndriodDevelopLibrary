@@ -3,7 +3,6 @@ package com.sum.library.adapter;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,6 +13,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,8 +57,11 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
     private onItemImageClick<T> mListener;
     private int mNetErrorImageRes = -1;
 
+    private ArrayList<SimpleDraweeView> mCachedViews;
+
     public ViewPagerImageViewAdapter(List<T> mData) {
         this.mData = mData;
+        mCachedViews = new ArrayList<>(1);
     }
 
     @Override
@@ -66,41 +69,45 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
         return mData == null ? 0 : mData.size();
     }
 
-
     @Override
     public View instantiateItem(@NonNull ViewGroup container, final int position) {
-        SimpleDraweeView view = new SimpleDraweeView(container.getContext());
-        view.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+        SimpleDraweeView view;
+        if (mCachedViews.size() > 0) {
+            view = mCachedViews.get(0);
+            mCachedViews.remove(0);
+        } else {
+            view = new SimpleDraweeView(container.getContext());
+            view.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+            view.getHierarchy().setPlaceholderImage(mNetErrorImageRes);
+            view.getHierarchy().setFailureImage(mNetErrorImageRes);
+            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+        }
+
         if (mData != null) {
             String url = mData.get(position).getImageUrl();
-            if (!TextUtils.isEmpty(url)) {
-                view.setOnClickListener(v -> {
-                    if (mListener != null) {
-                        mListener.onItemClick(mData.get(position), position);
-                    }
-                });
-                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
-                        .build();
-                DraweeController draweeController = Fresco.newDraweeControllerBuilder()
-                        .setImageRequest(request)
-                        .setOldController(view.getController())
-                        .setAutoPlayAnimations(true).build();
-                if (mNetErrorImageRes != -1) {
-                    view.getHierarchy().setFailureImage(mNetErrorImageRes);
-                    view.getHierarchy().setPlaceholderImage(mNetErrorImageRes);
+            view.setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onItemClick(mData.get(position), position);
                 }
-                view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+            });
+            if (url != null) {
+                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).build();
+                DraweeController draweeController = Fresco.newDraweeControllerBuilder()
+                        .setImageRequest(request).setAutoPlayAnimations(true).build();
                 view.setController(draweeController);
             }
         }
-
         container.addView(view);
         return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
+        SimpleDraweeView content = (SimpleDraweeView) object;
+        container.removeView(content);
+        if (!mCachedViews.contains(content)) {//只能支持单个相同item缓存
+            mCachedViews.add(content);
+        }
     }
 
     @Override

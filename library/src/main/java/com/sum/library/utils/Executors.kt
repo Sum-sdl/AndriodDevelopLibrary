@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sum.library.app
+package com.sum.library.utils
 
 import android.os.Handler
 import android.os.Looper

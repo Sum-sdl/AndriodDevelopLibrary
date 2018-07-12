@@ -43,7 +43,6 @@ dependencies {
     api 'com.github.Sum-sdl:RvAdapter:1.0.4'
     // 工具类
     api 'com.blankj:utilcode:1.14.2'
-    api 'org.xutils:xutils:3.5.0'
     // eventbus
     api 'org.greenrobot:eventbus:3.1.1'
     // fresco
