@@ -185,6 +185,7 @@ class UIActivity : BaseAppActivity() {
         } else if (requestCode == 11) {
             tv_xc_2.append("\n")
             tv_xc_2.append("剪裁图片地址：")
+
             tv_xc_2.append(AppImageUtils.appImageCropIntentPath(data))
             updateImageShow(AppImageUtils.appImageCropIntentPath(data))
         }

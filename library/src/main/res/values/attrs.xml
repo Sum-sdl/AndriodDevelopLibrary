@@ -62,6 +62,7 @@
         <attr name="pub_empty_layout" format="reference" />
         <attr name="pub_empty_text" format="string" />
         <attr name="pub_empty_img" format="reference" />
+        <attr name="pub_empty_bg_color" format="reference|color" />
     </declare-styleable>
 
 </resources>

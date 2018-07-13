@@ -42,6 +42,13 @@
             android:text="多数据源Page框架" />
 
 
+        <Button
+            android:id="@+id/b6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DataBind使用" />
+
+
         <FrameLayout
             android:id="@+id/fl_content"
             android:layout_width="match_parent"

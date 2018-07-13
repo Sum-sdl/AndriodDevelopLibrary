@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import com.sum.andrioddeveloplibrary.R
 import com.sum.library.utils.Logger
 import jetpack.demo.base.ViewModelOwner
+import jetpack.demo.databing.DataBindTestActivity
 import jetpack.demo.lifecycle.MyObserver
 import jetpack.demo.livedata.NameViewModel
 import jetpack.demo.page.PageActivity
@@ -65,6 +66,9 @@ class NewStartActivity : AppCompatActivity() {
 
         b5.setOnClickListener {
             startActivity(Intent(this, PageActivity::class.java))
+        }
+        b6.setOnClickListener {
+            startActivity(Intent(this, DataBindTestActivity::class.java))
         }
     }
 

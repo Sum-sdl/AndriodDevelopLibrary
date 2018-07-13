@@ -28,6 +28,7 @@ public class PubEmptyView extends View {
     private int mInflatedId;
     private String mEmptyText;
     private int mEmptyImageRes;
+    private int mBgColor;
 
     public PubEmptyView(Context context) {
         this(context, null, 0);
@@ -44,6 +45,7 @@ public class PubEmptyView extends View {
         mEmptyText = array.getString(R.styleable.PubEmptyView_pub_empty_text);
         mEmptyImageRes = array.getResourceId(R.styleable.PubEmptyView_pub_empty_img, -1);
         mInflatedId = array.getResourceId(R.styleable.PubEmptyView_pub_empty_layout, R.layout.pub_empty_view);
+        mBgColor = array.getColor(R.styleable.PubEmptyView_pub_empty_bg_color, -1);
 
         array.recycle();
         setVisibility(GONE);
@@ -125,14 +127,7 @@ public class PubEmptyView extends View {
         if (mInflatedViewRef != null) {
             View view = mInflatedViewRef.get();
             if (view != null) {
-                ImageView image = view.findViewById(R.id.pub_empty_img);
-                if (image != null && mEmptyImageRes != -1) {
-                    image.setImageResource(mEmptyImageRes);
-                }
-                TextView content = view.findViewById(R.id.pub_empty_text);
-                if (content != null && !TextUtils.isEmpty(mEmptyText)) {
-                    content.setText(mEmptyText);
-                }
+                updateUI(view);
             }
         }
     }
@@ -142,7 +137,11 @@ public class PubEmptyView extends View {
         if (mInflatedId != NO_ID) {
             view.setId(mInflatedId);
         }
+        updateUI(view);
+        return view;
+    }
 
+    private void updateUI(View view) {
         ImageView image = view.findViewById(R.id.pub_empty_img);
         if (image != null && mEmptyImageRes != -1) {
             image.setImageResource(mEmptyImageRes);
@@ -151,7 +150,9 @@ public class PubEmptyView extends View {
         if (content != null && !TextUtils.isEmpty(mEmptyText)) {
             content.setText(mEmptyText);
         }
-        return view;
+        if (mBgColor != -1) {
+            view.setBackgroundColor(mBgColor);
+        }
     }
 
     private void replaceSelfWithView(View view, ViewGroup parent) {

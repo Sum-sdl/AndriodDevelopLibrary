@@ -1,7 +1,6 @@
 package com.sum.library.utils;
 
 import android.app.Activity;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -81,9 +80,7 @@ public class KeyboardChangeListener implements ViewTreeObserver.OnGlobalLayoutLi
 
     public void destroy() {
         if (mContentView != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                mContentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
+            mContentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         }
     }
 }
