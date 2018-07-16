@@ -1,7 +1,7 @@
 
 #### 个人开发库 [https://jitpack.io]
 
-- 1 [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) --> [Demo Apk下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
+- 1 [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) --> [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
 - 2 [RecyclerView通用适配器库][1]
 
 [1]: https://github.com/Sum-sdl/RvAdapter  "RecyclerView通用适配器库" 
