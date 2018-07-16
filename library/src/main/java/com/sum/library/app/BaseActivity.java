@@ -35,6 +35,11 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
 
     }
 
+    @Override
+    public <T extends BaseViewModel> T getViewModel() {
+        return null;
+    }
+
     //状态栏背景透明
     protected boolean statusBarTranslate() {
         return false;

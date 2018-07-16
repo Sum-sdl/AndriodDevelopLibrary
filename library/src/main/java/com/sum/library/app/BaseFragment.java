@@ -50,6 +50,11 @@ public abstract class BaseFragment extends Fragment implements LoadingView, UiVi
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
 
     @Override
+    public <T extends BaseViewModel> T getViewModel() {
+        return null;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresent = new ActivePresent(this);
