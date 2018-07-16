@@ -50,8 +50,13 @@ public abstract class BaseFragment extends Fragment implements LoadingView, UiVi
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
 
     @Override
-    public <T extends BaseViewModel> T getViewModel() {
+    public BaseViewModel getViewModel() {
         return null;
+    }
+
+    @Override
+    public void expandActionDeal(ActionState state) {
+
     }
 
     @Override
@@ -65,6 +70,7 @@ public abstract class BaseFragment extends Fragment implements LoadingView, UiVi
                     actionState -> {
                         if (actionState != null) {
                             mPresent.dealActionState((ActionState) actionState);
+                            expandActionDeal((ActionState) actionState);
                         }
                     });
         }

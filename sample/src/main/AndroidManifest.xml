@@ -79,7 +79,8 @@
         <activity android:name="jetpack.demo.NewStartActivity" />
         <activity android:name="jetpack.demo.LiveDataChangeActivity" />
         <activity android:name="jetpack.demo.page.PageActivity" />
-        <activity android:name="jetpack.demo.databing.DataBindTestActivity"></activity>
+        <activity android:name="jetpack.demo.databing.DataBindTestActivity" />
+        <activity android:name="jetpack.demo.framework.HouseInfoTestActivity"></activity>
     </application>
 
 </manifest>

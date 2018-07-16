@@ -14,17 +14,17 @@ public class MyObserver implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {
-        Logger.e("observer onCreate");
+        Logger.e("MyObserver onCreate");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void onPause() {
-        Logger.e("observer onPause");
+        Logger.e("MyObserver onPause");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
-        Logger.e("observer onDestroy");
+        Logger.e("MyObserver onDestroy");
     }
 
 }

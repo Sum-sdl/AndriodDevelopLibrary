@@ -12,10 +12,10 @@ import com.sum.library.domain.BaseViewModel
 /**
  * Created by sdl on 2018/7/13.
  */
-class UserViewModel : BaseViewModel<Respotry>() {
+class UserViewModel : BaseViewModel<UserRepository>() {
 
-    override fun getRepository(): Respotry {
-        return Respotry()
+    override fun getRepository(): UserRepository {
+        return UserRepository()
     }
 
     var name = ObservableField("Hello world")
@@ -26,8 +26,10 @@ class UserViewModel : BaseViewModel<Respotry>() {
         MutableLiveData<String>()
     }
 
-    val mRespotryData: LiveData<Respotry.Info> =
+    val mRespotryData: LiveData<UserRepository.Info> =
             Transformations.switchMap(mInfoLiveData) { mRepository.getData(it) }
+
+
 
     fun textClick(view: View) {
         ToastUtils.showLong("Click")

@@ -36,8 +36,13 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
     }
 
     @Override
-    public <T extends BaseViewModel> T getViewModel() {
+    public BaseViewModel getViewModel() {
         return null;
+    }
+
+    @Override
+    public void expandActionDeal(ActionState state) {
+
     }
 
     //状态栏背景透明
@@ -72,6 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
                     actionState -> {
                         if (actionState != null) {
                             mPresent.dealActionState((ActionState) actionState);
+                            expandActionDeal((ActionState) actionState);
                         }
                     });
         }

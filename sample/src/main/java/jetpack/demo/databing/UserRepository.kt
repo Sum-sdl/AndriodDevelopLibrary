@@ -2,15 +2,15 @@ package jetpack.demo.databing
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import com.sum.library.utils.Logger
-import com.sum.library.utils.ioThread
 import com.sum.library.domain.ActionState
 import com.sum.library.domain.BaseRepository
+import com.sum.library.utils.Logger
+import com.sum.library.utils.ioThread
 
 /**
  * Created by sdl on 2018/7/13.
  */
-class Respotry : BaseRepository() {
+class UserRepository : BaseRepository() {
 
     private val mInfoLiveData = MutableLiveData<Info>()
 
@@ -21,7 +21,7 @@ class Respotry : BaseRepository() {
 
     fun getData(input: String): LiveData<Info> {
 
-        Logger.e("Respotry getData ->$input")
+        Logger.e("UserRepository getData ->$input")
 
         ioThread {
             Logger.e("Thread load data start")

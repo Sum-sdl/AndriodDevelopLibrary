@@ -3,21 +3,26 @@ package com.sum.library.domain
 /**
  * Created by sdl on 2018/7/13.
  */
-class ActionState(var state: Int) {
+class ActionState(var state: Int) : Cloneable {
 
     var msg: String? = null
 
     var other: Any? = null
+
+    override fun clone(): ActionState {
+        return super.clone() as ActionState
+    }
 
     companion object {
 
         private val sPool = ActionState(0)
 
         fun obtain(state: Int): ActionState {
-            sPool.msg = null
-            sPool.other = null
-            sPool.state = state
-            return sPool
+            val action = sPool.clone()
+            action.msg = null
+            action.other = null
+            action.state = state
+            return action
         }
 
         //REGISTER:首次注册界面观察者发送

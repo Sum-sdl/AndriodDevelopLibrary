@@ -24,20 +24,35 @@ public final class ActivePresent {
         this.loadingView = new LoadingViewImpl(fragment.getContext());
     }
 
+    public void setLoadingView(LoadingView loadingView) {
+        if (loadingView != null) {
+            this.loadingView = loadingView;
+        }
+    }
+
     public void dealActionState(ActionState state) {
         int action = state.getState();
-        if (action == ActionState.TOAST) {
-            if (!TextUtils.isEmpty(state.getMsg())) {
-                ToastUtils.showShort(state.getMsg());
-            }
-        } else if (action == ActionState.DIALOG_HIDE) {
-            loadingView.hideLoading();
-        } else if (action == ActionState.DIALOG_LOADING) {
-            loadingView.showLoading();
-        } else if (action == ActionState.DIALOG_PROGRESS_SHOW) {
-            if (!TextUtils.isEmpty(state.getMsg())) {
-                loadingView.showProgressLoading(state.getMsg(), true);
-            }
+        switch (action) {
+            case ActionState.TOAST:
+                if (!TextUtils.isEmpty(state.getMsg())) {
+                    ToastUtils.showShort(state.getMsg());
+                }
+                break;
+            case ActionState.DIALOG_HIDE:
+                loadingView.hideLoading();
+                break;
+            case ActionState.DIALOG_LOADING:
+                if (!TextUtils.isEmpty(state.getMsg())) {
+                    loadingView.showLoading(state.getMsg());
+                } else {
+                    loadingView.showLoading();
+                }
+                break;
+            case ActionState.DIALOG_PROGRESS_SHOW:
+                if (!TextUtils.isEmpty(state.getMsg())) {
+                    loadingView.showProgressLoading(state.getMsg(), true);
+                }
+                break;
         }
     }
 }

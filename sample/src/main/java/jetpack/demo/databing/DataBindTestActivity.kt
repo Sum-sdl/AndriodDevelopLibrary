@@ -2,11 +2,14 @@ package jetpack.demo.databing
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.blankj.utilcode.util.ToastUtils
-import com.sum.library.utils.Logger
+import com.sum.andrioddeveloplibrary.R
+import com.sum.andrioddeveloplibrary.databinding.ActivityDataBindTestBinding
 import com.sum.library.domain.ActionState
+import com.sum.library.utils.Logger
 import kotlinx.android.synthetic.main.activity_data_bind_test.*
 
 class DataBindTestActivity : AppCompatActivity() {
@@ -16,9 +19,8 @@ class DataBindTestActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
-//        val binding = DataBindingUtil.setContentView<ActivityDataBindTestBinding>(this, R.layout.activity_data_bind_test)
-//
-//        binding.viewModel = viewModel
+        val binding = DataBindingUtil.setContentView<ActivityDataBindTestBinding>(this, R.layout.activity_data_bind_test)
+        binding.viewModel = viewModel
 
 //        setContentView(R.id.activity_data_bind_test)
 

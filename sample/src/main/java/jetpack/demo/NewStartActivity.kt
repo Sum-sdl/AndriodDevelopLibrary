@@ -9,6 +9,7 @@ import com.sum.andrioddeveloplibrary.R
 import com.sum.library.utils.Logger
 import jetpack.demo.base.ViewModelOwner
 import jetpack.demo.databing.DataBindTestActivity
+import jetpack.demo.framework.HouseInfoTestActivity
 import jetpack.demo.lifecycle.MyObserver
 import jetpack.demo.livedata.NameViewModel
 import jetpack.demo.page.PageActivity
@@ -69,6 +70,9 @@ class NewStartActivity : AppCompatActivity() {
         }
         b6.setOnClickListener {
             startActivity(Intent(this, DataBindTestActivity::class.java))
+        }
+        b7.setOnClickListener {
+            startActivity(Intent(this, HouseInfoTestActivity::class.java))
         }
     }
 

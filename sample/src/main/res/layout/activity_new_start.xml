@@ -48,6 +48,12 @@
             android:layout_height="wrap_content"
             android:text="DataBind使用" />
 
+        <Button
+            android:id="@+id/b7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="框架测试使用" />
+
 
         <FrameLayout
             android:id="@+id/fl_content"
