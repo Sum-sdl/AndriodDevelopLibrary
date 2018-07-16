@@ -2,7 +2,6 @@ package com.sum.library.app;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +13,9 @@ import android.view.ViewParent;
 
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
-import com.sum.library.domain.ContextView;
+import com.sum.library.domain.ActionState;
+import com.sum.library.domain.BaseViewModel;
+import com.sum.library.domain.UiViewModel;
 import com.sum.library.utils.Logger;
 
 import java.lang.ref.WeakReference;
@@ -22,9 +23,9 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseFragment extends Fragment implements ContextView, LoadingView {
+public abstract class BaseFragment extends Fragment implements LoadingView, UiViewModel {
 
-    protected boolean PRINT_LIFE = false;
+    public static boolean PRINT_LIFE = false;
 
     //缓存View对象
     private WeakReference<View> mWRView;
@@ -52,6 +53,17 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresent = new ActivePresent(this);
+
+        BaseViewModel viewModel = getViewModel();
+        if (viewModel != null) {
+            viewModel.registerActionState(this,
+                    actionState -> {
+                        if (actionState != null) {
+                            mPresent.dealActionState((ActionState) actionState);
+                        }
+                    });
+        }
+
         printFragmentLife("onCreate");
     }
 
@@ -158,31 +170,6 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
         mPresent.loadingView.hideLoading();
     }
 
-    @Override
-    public Object getValue(int type) {
-        return mPresent.getValue(type);
-    }
-
-    @Override
-    public void showValue(int type, Object obj) {
-        mPresent.showValue(type, obj);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -216,7 +203,7 @@ public abstract class BaseFragment extends Fragment implements ContextView, Load
         if (fragmentManager != null) {
             int backStackEntryCount = fragmentManager.getBackStackEntryCount();
             if (backStackEntryCount > 0) {
-                fragmentManager.popBackStackImmediate();
+                fragmentManager.popBackStack();
             }
         }
     }

@@ -13,7 +13,6 @@ import com.blankj.utilcode.util.Utils;
  */
 public class ViewModelOwner implements ViewModelStoreOwner {
 
-
     private ViewModelStore store = new ViewModelStore();
 
     private static ViewModelOwner instance;

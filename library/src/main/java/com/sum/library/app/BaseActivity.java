@@ -11,22 +11,18 @@ import android.support.v7.app.AppCompatActivity;
 import com.blankj.utilcode.util.BarUtils;
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.app.common.LoadingView;
-import com.sum.library.domain.ContextView;
-import com.sum.library.net.Retrofit2Helper;
+import com.sum.library.domain.ActionState;
+import com.sum.library.domain.BaseViewModel;
+import com.sum.library.domain.UiViewModel;
 import com.sum.library.utils.AppUtils;
-
-import retrofit2.Retrofit;
 
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseActivity extends AppCompatActivity implements ContextView, LoadingView {
+public abstract class BaseActivity extends AppCompatActivity implements LoadingView, UiViewModel {
 
     //活动数据处理
     private ActivePresent mPresent;
-
-    //统一网络请求
-    protected Retrofit mRetrofit;
 
     //布局id
     protected abstract int getLayoutId();
@@ -63,8 +59,18 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
             }
         }
 
-        mRetrofit = Retrofit2Helper.getRetrofit();
         mPresent = new ActivePresent(this);
+
+        BaseViewModel viewModel = getViewModel();
+        if (viewModel != null) {
+            viewModel.registerActionState(this,
+                    actionState -> {
+                        if (actionState != null) {
+                            mPresent.dealActionState((ActionState) actionState);
+                        }
+                    });
+        }
+
         initParams();
         loadData();
     }
@@ -94,16 +100,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ContextV
         mPresent.loadingView.hideLoading();
     }
 
-
-    @Override
-    public Object getValue(int type) {
-        return mPresent.getValue(type);
-    }
-
-    @Override
-    public void showValue(int type, Object obj) {
-        mPresent.showValue(type, obj);
-    }
 
     //useful
     public void updateDrawableTint(Drawable drawable, int colorRes) {

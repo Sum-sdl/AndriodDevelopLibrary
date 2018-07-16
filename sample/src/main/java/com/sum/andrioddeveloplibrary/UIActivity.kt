@@ -71,7 +71,7 @@ class UIActivity : BaseAppActivity() {
 
             override fun onTransitionEnd(p0: Transition?) {
 //                loadVideoInfo()
-                transition?.removeListener(this)
+                transition.removeListener(this)
             }
 
         })
