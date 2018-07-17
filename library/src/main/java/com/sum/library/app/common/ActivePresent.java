@@ -10,7 +10,7 @@ import com.sum.library.domain.ActionState;
 
 /**
  * Created by Sum on 16/6/23.
- * 实现常用数据代理处理
+ * 统一UI通用处理
  */
 public final class ActivePresent {
 
@@ -38,9 +38,15 @@ public final class ActivePresent {
                     ToastUtils.showShort(state.getMsg());
                 }
                 break;
+
             case ActionState.DIALOG_HIDE:
                 loadingView.hideLoading();
                 break;
+
+            case ActionState.NET_ERROR:
+                loadingView.hideLoading();
+                break;
+
             case ActionState.DIALOG_LOADING:
                 if (!TextUtils.isEmpty(state.getMsg())) {
                     loadingView.showLoading(state.getMsg());
@@ -48,6 +54,7 @@ public final class ActivePresent {
                     loadingView.showLoading();
                 }
                 break;
+
             case ActionState.DIALOG_PROGRESS_SHOW:
                 if (!TextUtils.isEmpty(state.getMsg())) {
                     loadingView.showProgressLoading(state.getMsg(), true);

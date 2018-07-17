@@ -16,7 +16,7 @@
 	}
 	
 	dependencies {
-       implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.0'
+       implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.1'
     }
 
 

@@ -94,6 +94,12 @@ public class BottomSheetView extends AbstractBottomSheetFragment {
             Calendar instance = Calendar.getInstance();
             h = instance.get(Calendar.HOUR_OF_DAY) + "";
             m = instance.get(Calendar.MINUTE) + "";
+            if (h.length() == 1) {
+                h = "0" + h;
+            }
+            if (m.length() == 1) {
+                m = "0" + m;
+            }
         }
 
         //时

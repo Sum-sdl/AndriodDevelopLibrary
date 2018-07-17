@@ -9,6 +9,8 @@ class ActionState(var state: Int) : Cloneable {
 
     var other: Any? = null
 
+    var error: Throwable? = null
+
     override fun clone(): ActionState {
         return super.clone() as ActionState
     }
@@ -19,8 +21,6 @@ class ActionState(var state: Int) : Cloneable {
 
         fun obtain(state: Int): ActionState {
             val action = sPool.clone()
-            action.msg = null
-            action.other = null
             action.state = state
             return action
         }
@@ -42,5 +42,7 @@ class ActionState(var state: Int) : Cloneable {
         const val NET_START = 5
         //网络请求结束
         const val NET_FINISH = 6
+        //网络请求异常
+        const val NET_ERROR = 7
     }
 }

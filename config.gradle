@@ -4,9 +4,9 @@ ext {
     app = [
             applicationId   : "com.sum.andrioddeveloplibrary",
             minSdkVersion   : 19,
-            targetSdkVersion: 26,
-            versionCode     : 3,
-            versionName     : "1.0.1"
+            targetSdkVersion: 27,
+            versionCode     : 4,
+            versionName     : "1.1.0"
     ]
 
     dependencies = [
