@@ -21,7 +21,13 @@ open class BaseRepository {
 
     //发送界面操作状态
     fun sendActionState(state: Int) {
-        mActionLiveData.postValue(ActionState.obtain(state))
+        sendActionState(ActionState.obtain(state))
+    }
+
+    fun sendActionState(state: Int, msg: String) {
+        val action = ActionState.obtain(state)
+        action.msg = msg
+        sendActionState(action)
     }
 
     fun sendActionState(state: ActionState) {
