@@ -7,18 +7,28 @@
 [1]: https://github.com/Sum-sdl/RvAdapter  "RecyclerView通用适配器库" 
 
 
- 添加远程库地址和远程库依赖
- 
-	allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
-	}
-	
-	dependencies {
-       implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.1'
-    }
 
+[![](https://jitpack.io/v/Sum-sdl/AndriodDevelopLibrary.svg)](https://jitpack.io/#Sum-sdl/AndriodDevelopLibrary)
+
+ ## Dependency
+ 
+ Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
+ 
+ ```gradle
+ allprojects {
+ 	repositories {
+         maven { url "https://jitpack.io" }
+     }
+ }
+ ```
+ 
+ Then, add the library to your module `build.gradle`
+ ```gradle
+ dependencies {
+     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.1'
+ }
+ ```
+ 
 
 #### 1. 基础的功能
 

@@ -43,7 +43,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
     }
 
     @MainThread
-    fun sendActionState(state: Int, msg: String) {
+    internal fun sendActionState(state: Int, msg: String) {
         val action = ActionState.obtain(state)
         action.msg = msg
         sendActionState(action)
