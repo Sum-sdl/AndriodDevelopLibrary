@@ -54,7 +54,7 @@ class DataBindTestActivity : AppCompatActivity() {
         btn_3.setOnClickListener {
             val list = arrayListOf<RecyclerDataHolder<*>>()
 
-            for (i in 1..40) {
+            for (i in 1..60) {
                 val info = InfoModel()
                 info.name = "name->$i"
                 info.age = (i + 1).toString()

@@ -34,24 +34,21 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
 
         mStateLiveData.observe(lifecycleOwner, observer)
         //首次注册后，必须通过mState发送一次状态，mRepository才能将仓库中的状态发送给界面的observer
-        sendActionState(ActionState.REGISTER)
+        mState.value = ActionState.obtain(ActionState.REGISTER)
     }
 
-    @MainThread
     fun sendActionState(state: Int) {
-        sendActionState(ActionState.obtain(state))
+        mState.postValue(ActionState.obtain(state))
     }
 
-    @MainThread
     internal fun sendActionState(state: Int, msg: String) {
         val action = ActionState.obtain(state)
         action.msg = msg
-        sendActionState(action)
+        mState.postValue(action)
     }
 
-    @MainThread
     fun sendActionState(state: ActionState) {
-        mState.value = state
+        mState.postValue(state)
     }
 
 

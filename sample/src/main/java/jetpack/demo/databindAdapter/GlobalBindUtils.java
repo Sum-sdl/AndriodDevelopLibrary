@@ -6,7 +6,7 @@ import android.widget.TextView;
 /**
  * Created by sdl on 2018/7/19.
  */
-public final class GolbalBindUtils {
+public final class GlobalBindUtils {
 
     //自定义DataBinding处理操作
     @BindingAdapter("bind:addTab")
@@ -14,8 +14,8 @@ public final class GolbalBindUtils {
         view.setText(text + "[---]" + text);
     }
 
-    @BindingAdapter("bind:studentName")
+    @BindingAdapter({"bind:studentName"})
     public static void addStudentName(TextView view, CharSequence text) {
-        view.setText(text + "[addStudentName]" + text);
+        view.setText("[自定义的属性]->" + text);
     }
 }

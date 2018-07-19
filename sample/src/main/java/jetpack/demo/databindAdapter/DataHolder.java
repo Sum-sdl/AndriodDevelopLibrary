@@ -12,9 +12,9 @@ import com.sum.lib.rvadapter.RecyclerViewHolder;
 /**
  * Created by sdl on 2018/7/18.
  */
-public abstract class DataHolder extends RecyclerDataHolder<Object> {
+public abstract class DataHolder<T> extends RecyclerDataHolder<T> {
 
-    public DataHolder(Object data) {
+    public DataHolder(T data) {
         super(data);
     }
 
@@ -29,7 +29,7 @@ public abstract class DataHolder extends RecyclerDataHolder<Object> {
     }
 
     @Override
-    public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, Object o) {
+    public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, T o) {
         if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;
             holder.setBindData(BR.viewModel, o);

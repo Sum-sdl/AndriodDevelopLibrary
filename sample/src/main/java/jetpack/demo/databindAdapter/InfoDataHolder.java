@@ -9,7 +9,6 @@ import com.sum.andrioddeveloplibrary.BR;
 import com.sum.andrioddeveloplibrary.R;
 import com.sum.lib.rvadapter.RecyclerDataHolder;
 import com.sum.lib.rvadapter.RecyclerViewHolder;
-import com.sum.library.utils.Logger;
 
 /**
  * Created by sdl on 2018/7/18.
@@ -29,7 +28,6 @@ public class InfoDataHolder extends RecyclerDataHolder<Object> {
     public RecyclerView.ViewHolder onCreateViewHolder(View view, int i) {
         ViewDataBinding bind = DataBindingUtil.bind(view);
         if (bind != null) {
-            Logger.e("create->" + i + "," + bind.toString());
             return new ViewHolder(bind);
         } else {
             return new RecyclerViewHolder(view);
@@ -40,7 +38,6 @@ public class InfoDataHolder extends RecyclerDataHolder<Object> {
     @Override
     public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, Object o) {
         if (viewHolder instanceof ViewHolder) {
-            Logger.e("onBindViewHolder->" + i);
             ViewHolder holder = (ViewHolder) viewHolder;
             holder.setBindData(BR.viewModel, o);
         }
