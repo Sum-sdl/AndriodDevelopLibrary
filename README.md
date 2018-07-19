@@ -7,11 +7,9 @@
 [1]: https://github.com/Sum-sdl/RvAdapter  "RecyclerView通用适配器库" 
 
 
-
+ ## Dependency
 [![](https://jitpack.io/v/Sum-sdl/AndriodDevelopLibrary.svg)](https://jitpack.io/#Sum-sdl/AndriodDevelopLibrary)
 
- ## Dependency
- 
  Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
  
  ```gradle

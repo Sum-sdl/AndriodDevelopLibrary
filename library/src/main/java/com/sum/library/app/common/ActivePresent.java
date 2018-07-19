@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.domain.ActionState;
+import com.sum.library.domain.UiViewModel;
 
 
 /**
@@ -30,7 +31,7 @@ public final class ActivePresent {
         }
     }
 
-    public void dealActionState(ActionState state) {
+    public void dealActionState(ActionState state, UiViewModel viewModel) {
         int action = state.getState();
         switch (action) {
             case ActionState.TOAST:
@@ -41,6 +42,9 @@ public final class ActivePresent {
 
             case ActionState.DIALOG_HIDE:
                 loadingView.hideLoading();
+                if (!TextUtils.isEmpty(state.getMsg())) {
+                    ToastUtils.showShort(state.getMsg());
+                }
                 break;
 
             case ActionState.NET_ERROR:
@@ -61,5 +65,8 @@ public final class ActivePresent {
                 }
                 break;
         }
+        viewModel.expandActionDeal(state);
+        //添加对象缓存
+        ActionState.Companion.release(state);
     }
 }

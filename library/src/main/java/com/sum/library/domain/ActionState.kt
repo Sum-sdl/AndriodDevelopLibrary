@@ -1,5 +1,7 @@
 package com.sum.library.domain
 
+import android.support.v4.util.Pools
+
 /**
  * Created by sdl on 2018/7/13.
  */
@@ -17,12 +19,25 @@ class ActionState(var state: Int) : Cloneable {
 
     companion object {
 
+        private val pools = Pools.SynchronizedPool<ActionState>(10)
+
         private val sPool = ActionState(0)
 
         fun obtain(state: Int): ActionState {
-            val action = sPool.clone()
-            action.state = state
-            return action
+            var acquire = pools.acquire()
+
+            if (acquire == null) {
+                acquire = sPool.clone()
+            }
+            acquire.state = state
+            acquire.msg = null
+            acquire.error = null
+
+            return acquire
+        }
+
+        fun release(state: ActionState) {
+            pools.release(state)
         }
 
         //REGISTER:首次注册界面观察者发送

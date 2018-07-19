@@ -76,8 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
             viewModel.registerActionState(this,
                     actionState -> {
                         if (actionState != null) {
-                            mPresent.dealActionState((ActionState) actionState);
-                            expandActionDeal((ActionState) actionState);
+                            mPresent.dealActionState((ActionState) actionState,this);
                         }
                     });
         }

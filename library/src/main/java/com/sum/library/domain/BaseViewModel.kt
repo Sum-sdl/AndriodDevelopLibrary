@@ -33,7 +33,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
         mHasRegisterAction = true
 
         mStateLiveData.observe(lifecycleOwner, observer)
-        //首次注册后，必须通过mState发送一次状态，后面才能将仓库中的状态发送给界面的observer
+        //首次注册后，必须通过mState发送一次状态，mRepository才能将仓库中的状态发送给界面的observer
         sendActionState(ActionState.REGISTER)
     }
 
