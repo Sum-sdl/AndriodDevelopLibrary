@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -23,19 +24,14 @@
             android:layout_height="wrap_content"
             android:text="@{viewModel.name}"
             android:textColor="@color/colorAccent"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:addTab="@{viewModel.name}" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{()->viewModel.textClickData(viewModel.name)}"
             android:text="点击参数传递" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SHOW/hide"
-            android:visibility="@{viewModel.show ? View.VISIBLE : View.GONE}" />
 
         <Button
             android:id="@+id/btn_1"
@@ -48,6 +44,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="State 操作" />
+
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="State 操作2" />
+
+
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="更新列表操作" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </layout>
