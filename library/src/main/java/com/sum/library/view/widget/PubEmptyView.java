@@ -1,5 +1,6 @@
 package com.sum.library.view.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -21,7 +22,7 @@ import java.lang.ref.WeakReference;
  * Created by sdl on 2018/5/8.
  * ViewStub 扩展
  */
-public class PubEmptyView extends View {
+public class PubEmptyView extends View implements View.OnClickListener {
 
     private WeakReference<View> mInflatedViewRef;
     private Context mContext;
@@ -29,6 +30,8 @@ public class PubEmptyView extends View {
     private String mEmptyText;
     private int mEmptyImageRes;
     private int mBgColor;
+
+    private OnEmptyViewClickListener mEmptyViewClick;
 
     public PubEmptyView(Context context) {
         this(context, null, 0);
@@ -57,9 +60,10 @@ public class PubEmptyView extends View {
         setMeasuredDimension(0, 0);
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
+//        super.draw(canvas);
     }
 
     @Override
@@ -138,6 +142,7 @@ public class PubEmptyView extends View {
             view.setId(mInflatedId);
         }
         updateUI(view);
+        view.setOnClickListener(this);
         return view;
     }
 
@@ -166,5 +171,19 @@ public class PubEmptyView extends View {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        if (mEmptyViewClick != null) {
+            mEmptyViewClick.onEmptyViewClick();
+        }
+    }
+
+    public void setEmptyViewClickListener(OnEmptyViewClickListener emptyViewClick) {
+        this.mEmptyViewClick = emptyViewClick;
+    }
+
+    public interface OnEmptyViewClickListener {
+        void onEmptyViewClick();
+    }
 
 }

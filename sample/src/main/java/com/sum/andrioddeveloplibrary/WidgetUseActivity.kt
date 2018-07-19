@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.SharedElementCallback
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.activity.FragmentManagerActivity
 import com.sum.library.ui.web.WebActivity
 import com.sum.library.utils.Logger
@@ -51,6 +52,8 @@ class WidgetUseActivity : AppCompatActivity() {
             }
         }
 
+        pub_empty_view.setEmptyViewClickListener { ToastUtils.showLong("EmptyView Click") }
+
 
         iv_1.setOnClickListener {
 
@@ -91,13 +94,13 @@ class WidgetUseActivity : AppCompatActivity() {
         reenterState = Bundle(data?.extras)
 //        ActivityCompat.postponeEnterTransition(this)
 //        ActivityCompat.startPostponedEnterTransition(this@WidgetUseActivity)
-       /* iv_2.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                iv_2.viewTreeObserver.removeOnPreDrawListener(this)
-                ActivityCompat.startPostponedEnterTransition(this@WidgetUseActivity)
-                return true
-            }
-        })*/
+        /* iv_2.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+             override fun onPreDraw(): Boolean {
+                 iv_2.viewTreeObserver.removeOnPreDrawListener(this)
+                 ActivityCompat.startPostponedEnterTransition(this@WidgetUseActivity)
+                 return true
+             }
+         })*/
     }
 
 
