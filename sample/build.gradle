@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-kapt'
+
 android {
     signingConfigs {
         config {
@@ -97,10 +97,19 @@ kapt {
     generateStubs = true
 }
 
-//强制相同的库使用统一的版本
+configurations {
+    //编译期排除utilcode框架
+//    compile.exclude module: 'utilcode'
+    //在整个构建过程中排除框架
+//    all*.exclude group: 'com.blankj', module: 'utilcode'
+}
+
 configurations.all {
     resolutionStrategy {
-//        force "com.android.support:appcompat-v7:27.1.1"
+        //force冲突时，强制相同的库使用统一的版本
+        force "com.android.support:appcompat-v7:27.1.1"
+        //utilCode 最后编译的版本,(lib中用的是1.14.2版本)
+        force 'com.blankj:utilcode:1.13.11'
     }
 }
 
@@ -111,13 +120,9 @@ dependencies {
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
     implementation project(':library')
 
-    implementation ('com.blankj:utilcode:1.13.11') {
-        exclude group: 'com.blankj', module: 'utilcode'
-    }
-
 //    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
     // butterknife
-//    compile 'com.jakewharton:butterknife:8.8.1'
+//    annotationProcessor 'com.jakewharton:butterknife:8.8.1'
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 //    implementation 'com.blankj:utilcode:1.13.11'
     //最新框架lifecycle扩展
