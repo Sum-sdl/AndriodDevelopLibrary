@@ -109,7 +109,7 @@ configurations.all {
         //force冲突时，强制相同的库使用统一的版本
         force "com.android.support:appcompat-v7:27.1.1"
         //utilCode 最后编译的版本,(lib中用的是1.14.2版本)
-        force 'com.blankj:utilcode:1.13.11'
+//        force 'com.blankj:utilcode:1.13.11'
     }
 }
 
@@ -118,6 +118,8 @@ dependencies {
 //    implementation 'com.android.support:support-v4:28.0.0-alpha3'
     testImplementation 'junit:junit:4.12'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     implementation project(':library')
 
 //    implementation "io.reactivex.rxjava2:rxjava:2.1.7"

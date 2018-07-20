@@ -25,6 +25,10 @@ public class SumApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//        LeakCanary.install(this);
         Logger.e("SumApp onCreate");
         Retrofit2Helper instance = Retrofit2Helper.getInstance();
         OkHttpClient client = instance.buildDefaultOkHttpClient().addInterceptor(new TestToken()).build();
