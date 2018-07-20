@@ -18,4 +18,8 @@ public final class GlobalBindUtils {
     public static void addStudentName(TextView view, CharSequence text) {
         view.setText("[自定义的属性]->" + text);
     }
+    @BindingAdapter({"bind:customText"})
+    public static void addCustomText(TextView view, CharSequence text) {
+        view.setText("[内容]->" + text);
+    }
 }

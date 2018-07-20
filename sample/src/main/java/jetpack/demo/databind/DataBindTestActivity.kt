@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.R
-import com.sum.andrioddeveloplibrary.databinding.ActivityDataBindTestBinding
+import com.sum.andrioddeveloplibrary.databinding.ActivityDb2Binding
 import com.sum.lib.rvadapter.RecyclerAdapter
 import com.sum.lib.rvadapter.RecyclerDataHolder
 import com.sum.library.domain.ActionState
@@ -28,7 +28,8 @@ class DataBindTestActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
-        val binding = DataBindingUtil.setContentView<ActivityDataBindTestBinding>(this, R.layout.activity_data_bind_test)
+//        val binding = DataBindingUtil.setContentView<ActivityDataBindTestBinding>(this, R.layout.activity_data_bind_test)
+        val binding = DataBindingUtil.setContentView<ActivityDb2Binding>(this, R.layout.activity_db_2)
 
         binding.viewModel = viewModel
 
