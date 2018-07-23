@@ -13,7 +13,6 @@ import com.sum.lib.rvadapter.RecyclerAdapter
 import com.sum.lib.rvadapter.RecyclerDataHolder
 import com.sum.library.domain.ActionState
 import com.sum.library.utils.Logger
-import jetpack.demo.databindAdapter.Info2DataHolder
 import jetpack.demo.databindAdapter.InfoDataHolder
 import jetpack.demo.databindAdapter.InfoModel
 import kotlinx.android.synthetic.main.activity_data_bind_test.*
@@ -47,9 +46,11 @@ class DataBindTestActivity : AppCompatActivity() {
 
         btn_4.setOnClickListener {
 
-            val state = ActionState(Random().nextInt())
-
-            viewModel.sendActionState(state)
+            //            val state = ActionState(Random().nextInt())
+//            viewModel.sendActionState(state)
+            mAdapter.notifyDataSetChanged()
+        }
+        btn_5.setOnClickListener {
         }
 
         btn_3.setOnClickListener {
@@ -59,15 +60,12 @@ class DataBindTestActivity : AppCompatActivity() {
                 val info = InfoModel()
                 info.name = "name->$i"
                 info.age = (i + 1).toString()
-                if (i % 3 == 0) {
-                    list.add(Info2DataHolder(info))
-                } else {
-                    list.add(InfoDataHolder(info))
-                }
+                list.add(InfoDataHolder(info))
             }
-
             mAdapter.setDataHolders(list)
         }
+
+
         mAdapter = RecyclerAdapter()
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = mAdapter

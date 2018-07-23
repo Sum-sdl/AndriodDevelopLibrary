@@ -42,7 +42,7 @@ dependencies {
     //最新框架lifecycle扩展
     api "android.arch.lifecycle:extensions:1.1.1"
 
-    api ('com.github.Sum-sdl:RvAdapter:1.0.7'){
+    api ('com.github.Sum-sdl:RvAdapter:1.1.0'){
         transitive = true
     }
     // 工具类
