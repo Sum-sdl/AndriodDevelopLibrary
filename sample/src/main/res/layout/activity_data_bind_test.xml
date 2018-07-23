@@ -45,25 +45,24 @@
             android:layout_height="wrap_content"
             android:text="State 操作" />
 
-        <Button
-            android:id="@+id/btn_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="State 操作2" />
-
 
         <Button
             android:id="@+id/btn_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="更新列表操作" />
+            android:text="首次创建列表" />
 
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="列表直接刷新，View首次会创建" />
 
         <Button
             android:id="@+id/btn_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="列表数据源改变操作" />
+            android:text="数据源变更，View不重新创建" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

@@ -36,11 +36,6 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
     }
 
     @Override
-    public int getType() {
-        return 1;
-    }
-
-    @Override
     public int getItemViewLayoutId() {
         return R.layout.vh_image_item;
     }

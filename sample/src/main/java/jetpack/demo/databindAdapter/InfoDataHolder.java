@@ -21,12 +21,12 @@ public class InfoDataHolder extends RecyclerDataHolder<Object> {
     }
 
     @Override
-    public int getItemViewLayoutId() {
+    protected int getItemViewLayoutId() {
         return R.layout.db_item_info_data_holder;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(View view, int i) {
+    protected RecyclerView.ViewHolder onCreateViewHolder(View view, int i) {
         ViewDataBinding bind = DataBindingUtil.bind(view);
         Logger.e("onCreateViewHolder->"+i);
         if (bind != null) {
@@ -38,7 +38,7 @@ public class InfoDataHolder extends RecyclerDataHolder<Object> {
 
     //TODO BR.viewModel 每一个layout中variable的name属性必须为viewModel
     @Override
-    public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, Object o) {
+    protected void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, Object o) {
         Logger.e("onBindViewHolder->"+i);
         if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;

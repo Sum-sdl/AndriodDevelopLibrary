@@ -12,7 +12,7 @@ public class Info2DataHolder extends DataHolder {
     }
 
     @Override
-    public int getItemViewLayoutId() {
+    protected int getItemViewLayoutId() {
         return R.layout.db_item_info2_data_holder;
     }
 }

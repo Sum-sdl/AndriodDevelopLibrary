@@ -32,14 +32,6 @@ public class Demo2DataHolder extends RecyclerDataHolder<String> {
 
     }
 
-    //要实现RecyclerView中Item的View不一致
-    //必须确保getType返回的值不一样
-    //例如常见的首页不同楼层的排版不一致
-    @Override
-    public int getType() {
-        return 2;
-    }
-
     //类似于ListView 里面的ViewHolder
     private class DemoViewHolder extends RecyclerViewHolder {
 

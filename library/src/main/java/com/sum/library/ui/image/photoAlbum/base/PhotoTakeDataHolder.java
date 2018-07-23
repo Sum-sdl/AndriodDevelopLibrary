@@ -29,11 +29,6 @@ public class PhotoTakeDataHolder extends RecyclerDataHolder<Photo> {
     }
 
     @Override
-    public int getType() {
-        return 0;
-    }
-
-    @Override
     public int getItemViewLayoutId() {
         return R.layout.vh_image_take_item;
     }

@@ -19,7 +19,7 @@ public abstract class DataHolder<T> extends RecyclerDataHolder<T> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(View view, int i) {
+    protected RecyclerView.ViewHolder onCreateViewHolder(View view, int i) {
         ViewDataBinding bind = DataBindingUtil.bind(view);
         if (bind != null) {
             return new ViewHolder(bind);
@@ -29,7 +29,7 @@ public abstract class DataHolder<T> extends RecyclerDataHolder<T> {
     }
 
     @Override
-    public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, T o) {
+    protected void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, T o) {
         if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;
             holder.setBindData(BR.viewModel, o);

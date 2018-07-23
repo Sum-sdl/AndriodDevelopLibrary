@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.R
-import com.sum.andrioddeveloplibrary.databinding.ActivityDb2Binding
+import com.sum.andrioddeveloplibrary.databinding.ActivityDataBindTestBinding
 import com.sum.lib.rvadapter.RecyclerAdapter
 import com.sum.lib.rvadapter.RecyclerDataHolder
 import com.sum.library.domain.ActionState
@@ -20,15 +20,15 @@ import java.util.*
 
 class DataBindTestActivity : AppCompatActivity() {
 
-    private lateinit var mAdapter: RecyclerAdapter<RecyclerDataHolder<*>>
+    private lateinit var mAdapter: RecyclerAdapter<RecyclerDataHolder<Any>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
-//        val binding = DataBindingUtil.setContentView<ActivityDataBindTestBinding>(this, R.layout.activity_data_bind_test)
-        val binding = DataBindingUtil.setContentView<ActivityDb2Binding>(this, R.layout.activity_db_2)
+        val binding = DataBindingUtil.setContentView<ActivityDataBindTestBinding>(this, R.layout.activity_data_bind_test)
+//        val binding = DataBindingUtil.setContentView<ActivityDb2Binding>(this, R.layout.activity_db_2)
 
         binding.viewModel = viewModel
 
@@ -51,10 +51,19 @@ class DataBindTestActivity : AppCompatActivity() {
             mAdapter.notifyDataSetChanged()
         }
         btn_5.setOnClickListener {
+
+            mAdapter.dataHoders.forEachIndexed { index, item ->
+                val info = InfoModel()
+                info.name = "index->$index"
+                item.updateData(info)
+            }
+
+            mAdapter.notifyDataSetChanged()
+
         }
 
         btn_3.setOnClickListener {
-            val list = arrayListOf<RecyclerDataHolder<*>>()
+            val list = arrayListOf<RecyclerDataHolder<Any>>()
 
             for (i in 1..60) {
                 val info = InfoModel()
