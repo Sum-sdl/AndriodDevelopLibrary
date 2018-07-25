@@ -1,12 +1,13 @@
 
 #### 个人开发库 [https://jitpack.io]
 
--  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) --> [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
--  [RecyclerView通用适配器库][1]
--  测试Apk下载二维码
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
+-  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary)
+-  [RecyclerView通用适配器库](https://github.com/Sum-sdl/RvAdapter)
 
-[1]: https://github.com/Sum-sdl/RvAdapter  "RecyclerView通用适配器库" 
+[Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
+ 
+测试Apk下载二维码
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
 
 
  ## Dependency
