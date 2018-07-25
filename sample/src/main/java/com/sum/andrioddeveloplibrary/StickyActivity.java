@@ -11,7 +11,6 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sum.andrioddeveloplibrary.model.StickyItemModel;
 import com.sum.lib.rvadapter.RecyclerDataHolder;
 import com.sum.lib.rvadapter.RecyclerViewHolder;
-import com.sum.lib.rvadapter.line.DividerItemDecoration;
 import com.sum.lib.rvadapter.sticky.StickRecyclerAdapter;
 import com.sum.lib.rvadapter.sticky.StickyHeadDecoration;
 
@@ -41,7 +40,6 @@ public class StickyActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new StickyHeadDecoration(mAdapter));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }

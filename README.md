@@ -1,8 +1,10 @@
 
 #### 个人开发库 [https://jitpack.io]
 
-- 1 [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) --> [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
-- 2 [RecyclerView通用适配器库][1]
+-  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) --> [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
+-  [RecyclerView通用适配器库][1]
+-  测试Apk下载二维码
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
 
 [1]: https://github.com/Sum-sdl/RvAdapter  "RecyclerView通用适配器库" 
 
@@ -23,7 +25,7 @@
  Then, add the library to your module `build.gradle`
  ```gradle
  dependencies {
-     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.3'
+     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.4'
  }
  ```
  
@@ -74,8 +76,3 @@
 > **JetPack框架结构**
 >
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/architecture.png">
-
-
-> **Demo测试Apk下载二维码**
->
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">

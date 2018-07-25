@@ -52,7 +52,7 @@ class DataBindTestActivity : AppCompatActivity() {
         }
         btn_5.setOnClickListener {
 
-            mAdapter.dataHoders.forEachIndexed { index, item ->
+            mAdapter.dataHolders.forEachIndexed { index, item ->
                 val info = InfoModel()
                 info.name = "index->$index"
                 item.updateData(info)

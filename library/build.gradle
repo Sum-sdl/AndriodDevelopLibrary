@@ -42,7 +42,7 @@ dependencies {
     //最新框架lifecycle扩展
     api "android.arch.lifecycle:extensions:1.1.1"
 
-    api ('com.github.Sum-sdl:RvAdapter:1.1.0'){
+    api('com.github.Sum-sdl:RvAdapter:1.1.1') {
         transitive = true
     }
     // 工具类
@@ -72,6 +72,8 @@ dependencies {
     api 'me.relex:circleindicator:1.2.2@aar'
     api 'com.github.yalantis:ucrop:2.2.2'
     api 'top.zibin:Luban:1.1.3'
+
+    //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //超大图
     //compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.9.0'
