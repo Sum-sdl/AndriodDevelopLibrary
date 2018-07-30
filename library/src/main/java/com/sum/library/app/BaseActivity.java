@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.sum.library.app.common.ActivePresent;
-import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.BaseViewModel;
 import com.sum.library.domain.UiViewModel;
@@ -19,7 +18,7 @@ import com.sum.library.utils.AppUtils;
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseActivity extends AppCompatActivity implements LoadingView, UiViewModel {
+public abstract class BaseActivity extends AppCompatActivity implements UiViewModel {
 
     //活动数据处理
     private ActivePresent mPresent;
@@ -76,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
             viewModel.registerActionState(this,
                     actionState -> {
                         if (actionState != null) {
-                            mPresent.dealActionState((ActionState) actionState,this);
+                            mPresent.dealActionState((ActionState) actionState, this);
                         }
                     });
         }
@@ -84,32 +83,6 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
         initParams();
         loadData();
     }
-
-    @Override
-    public void showLoading() {
-        mPresent.loadingView.showLoading();
-    }
-
-    @Override
-    public void showLoading(String msg) {
-        mPresent.loadingView.showLoading(msg);
-    }
-
-    @Override
-    public void showLoading(String msg, boolean cancelable) {
-        mPresent.loadingView.showLoading(msg, cancelable);
-    }
-
-    @Override
-    public void showProgressLoading(String msg, boolean cancelable) {
-        mPresent.loadingView.showProgressLoading(msg, cancelable);
-    }
-
-    @Override
-    public void hideLoading() {
-        mPresent.loadingView.hideLoading();
-    }
-
 
     //useful
     public void updateDrawableTint(Drawable drawable, int colorRes) {

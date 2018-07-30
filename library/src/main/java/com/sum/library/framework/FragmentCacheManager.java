@@ -211,7 +211,7 @@ public class FragmentCacheManager {
                 }
             }
             mCurrentFragment = fragment;
-            ts.commitAllowingStateLoss();
+            ts.commitNow();
             return fragment;
         } catch (Exception e) {
             e.printStackTrace();

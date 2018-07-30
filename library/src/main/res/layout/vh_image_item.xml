@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/vh_album_image"
         android:layout_width="match_parent"
         android:layout_height="115dip"
-        fresco:failureImage="@drawable/shape_image_bg"
-        fresco:failureImageScaleType="centerCrop"
-        fresco:placeholderImage="@drawable/shape_image_bg"
-        fresco:placeholderImageScaleType="centerCrop"
-        fresco:retryImage="@drawable/shape_image_bg"
-        fresco:retryImageScaleType="centerCrop" />
+        android:background="@drawable/shape_image_bg" />
 
     <View
         android:id="@+id/view_bg"

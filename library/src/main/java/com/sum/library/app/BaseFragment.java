@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.sum.library.app.common.ActivePresent;
-import com.sum.library.app.common.LoadingView;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.BaseViewModel;
 import com.sum.library.domain.UiViewModel;
@@ -23,7 +22,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseFragment extends Fragment implements LoadingView, UiViewModel {
+public abstract class BaseFragment extends Fragment implements UiViewModel {
 
     public static boolean PRINT_LIFE = false;
 
@@ -43,11 +42,9 @@ public abstract class BaseFragment extends Fragment implements LoadingView, UiVi
 
     private ActivePresent mPresent;
 
-    private boolean mIsNeedLoadData = false;//view创建完成后，状态是当前可见的
-
-    private boolean mIsPrepared = false;//view是否已经创建完成，可以加载数据
-
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
+
+    private boolean mIsMulti = false;
 
     @Override
     public BaseViewModel getViewModel() {
@@ -107,20 +104,23 @@ public abstract class BaseFragment extends Fragment implements LoadingView, UiVi
             initParams(view);
             loadData();
         }
-        mIsPrepared = true;
-        onVisibleLoadData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if (getUserVisibleHint() && mIsMulti) {
+            onUserVisible();
+        }
         printFragmentLife("onResume");
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        printFragmentLife("onStop");
+    public void onPause() {
+        super.onPause();
+        if (getUserVisibleHint()) {
+            onUserInvisible();
+        }
     }
 
     @Override
@@ -151,51 +151,31 @@ public abstract class BaseFragment extends Fragment implements LoadingView, UiVi
         return mWRView.get();
     }
 
-    public <T extends View> T _findViewById(int id) {
+    public <T extends View> T findViewById(int id) {
         return getCacheView().findViewById(id);
     }
 
-    @Override
-    public void showLoading() {
-        mPresent.loadingView.showLoading();
-    }
 
     @Override
-    public void showLoading(String msg) {
-        mPresent.loadingView.showLoading(msg);
-    }
-
-    @Override
-    public void showLoading(String msg, boolean cancelable) {
-        mPresent.loadingView.showLoading(msg, cancelable);
-    }
-
-    @Override
-    public void showProgressLoading(String msg, boolean cancelable) {
-        mPresent.loadingView.showProgressLoading(msg, cancelable);
-    }
-
-    @Override
-    public void hideLoading() {
-        mPresent.loadingView.hideLoading();
-    }
-
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {//获取fragment的可见状态
-            mIsNeedLoadData = true;
-            onVisibleLoadData();
-        } else {
-            mIsNeedLoadData = false;
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getUserVisibleHint() && mWRView.get() != null && !mIsMulti) {
+            mIsMulti = true;
+            onFirstUserVisible();
         }
     }
 
-    //首次加载和viewpager中可见加载
-    private void onVisibleLoadData() {
-        if (mIsNeedLoadData && mIsPrepared) {
-            onFragmentVisibleLoadData();
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser && mWRView.get() != null && !mIsMulti) {
+            mIsMulti = true;
+            onFirstUserVisible();
+        } else if (isVisibleToUser && mWRView.get() != null && mIsMulti) {
+            onUserVisible();
+        } else if (!isVisibleToUser && mWRView.get() != null && mIsMulti) {
+            onUserInvisible();
+        } else {
+            super.setUserVisibleHint(isVisibleToUser);
         }
     }
 
@@ -203,7 +183,22 @@ public abstract class BaseFragment extends Fragment implements LoadingView, UiVi
      * 方法在Fragment可见的时候加载数据
      * 子类可根据需要判断使用已经加载完成过一次
      */
-    protected void onFragmentVisibleLoadData() {
+    public void onFirstUserVisible() {
+        printFragmentLife("onFirstUserVisible");
+    }
+
+    /**
+     * fragment可见（切换回来或者onResume）
+     */
+    public void onUserVisible() {
+        printFragmentLife("onUserVisible");
+    }
+
+    /**
+     * fragment不可见（切换掉或者onPause）
+     */
+    public void onUserInvisible() {
+        printFragmentLife("onUserVisible");
     }
 
 
@@ -220,9 +215,7 @@ public abstract class BaseFragment extends Fragment implements LoadingView, UiVi
 
     protected void printFragmentLife(String fun) {
         if (PRINT_LIFE) {
-
             String ids = Integer.toHexString(System.identityHashCode(this));
-
             Log.e("life", getClass().getSimpleName() + " " + ids + "->" + fun);
         }
     }

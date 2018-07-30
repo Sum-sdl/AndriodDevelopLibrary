@@ -4,19 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="90dp">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/adapter_dict_cover"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_centerVertical="true"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        fresco:failureImage="@drawable/shape_image_bg"
-        fresco:failureImageScaleType="focusCrop"
-        fresco:placeholderImage="@drawable/shape_image_bg"
-        fresco:placeholderImageScaleType="centerCrop"
-        fresco:retryImage="@drawable/shape_image_bg"
-        fresco:retryImageScaleType="focusCrop" />
+        android:background="@drawable/shape_image_bg" />
 
     <LinearLayout
         android:layout_width="match_parent"

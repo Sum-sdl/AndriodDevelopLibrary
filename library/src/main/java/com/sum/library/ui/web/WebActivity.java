@@ -123,9 +123,7 @@ public class WebActivity extends BaseActivity {
         }
         mWeb = findViewById(R.id.pub_web_view);
         mWeb.setSaveEnabled(true);
-        mWeb.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         mWeb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mWeb.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mWeb.setVerticalFadingEdgeEnabled(false);
         mWeb.setHorizontalFadingEdgeEnabled(false);
 
@@ -151,30 +149,17 @@ public class WebActivity extends BaseActivity {
                 settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
             }
         }
-
-        //cache
-        String str = getCacheDir().getAbsolutePath();
-        settings.setDatabasePath(str);
-        settings.setAppCachePath(str);
-        settings.setAppCacheEnabled(true);
-
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
-        settings.setDisplayZoomControls(false);
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setSupportZoom(true);
-        settings.setBlockNetworkImage(false);
-        settings.setBlockNetworkLoads(false);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setAppCacheEnabled(true);
-        settings.setSaveFormData(true);
+//        settings.setTextZoom();字体大小
+        settings.setSaveFormData(false);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        settings.setAllowContentAccess(true);
-        settings.setNeedInitialFocus(true);
-        settings.setBuiltInZoomControls(true);
         settings.setJavaScriptEnabled(true);
+        settings.setAllowContentAccess(true);
+        settings.setAllowFileAccess(true);
+        settings.setBuiltInZoomControls(false);
 
         settings.setAllowFileAccess(false);
         settings.setAllowFileAccessFromFileURLs(false);
