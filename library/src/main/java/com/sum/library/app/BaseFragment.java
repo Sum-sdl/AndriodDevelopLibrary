@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,8 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
 
     private boolean mIsMulti = false;
+
+    protected Context mContext;
 
     @Override
     public BaseViewModel getViewModel() {
@@ -138,6 +141,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mContext = context;
         printFragmentLife("onAttach");
     }
 
@@ -211,6 +215,10 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
                 fragmentManager.popBackStack();
             }
         }
+    }
+
+    public int getColorRes(int colorRes) {
+        return ContextCompat.getColor(mContext, colorRes);
     }
 
     protected void printFragmentLife(String fun) {

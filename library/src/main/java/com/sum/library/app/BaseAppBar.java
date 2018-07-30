@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,10 @@ public abstract class BaseAppBar extends FrameLayout {
     public void startActivityForResult(Class activity, int reqCode) {
         Intent data = new Intent(getContext(), activity);
         ((Activity) getContext()).startActivityForResult(data, reqCode);
+    }
+
+    public int getColor(int colorRes) {
+        return ContextCompat.getColor(mContext, colorRes);
     }
 
 }
