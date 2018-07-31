@@ -1,6 +1,5 @@
 package com.sum.library.ui.image.photoAlbum.base;
 
-import android.net.Uri;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,17 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ScreenUtils;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.sum.lib.rvadapter.RecyclerDataHolder;
 import com.sum.lib.rvadapter.RecyclerViewHolder;
 import com.sum.library.R;
 import com.sum.library.ui.image.photoAlbum.AlbumInfo;
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumListener;
+
+import java.io.File;
 
 /**
  * Created by sdl on 2018/1/12.
@@ -52,7 +49,7 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
     }
 
     class ViewHolder extends RecyclerViewHolder implements View.OnClickListener {
-        SimpleDraweeView mDView;
+        ImageView mDView;
         ImageView mState;
         View mBgView;
         Photo mData;
@@ -86,18 +83,9 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
                 updateUI();
                 return;
             }
-
             mData = photo;
             String path = photo.getPath();
-            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse("file://" + path))
-                    .setResizeOptions(new ResizeOptions(mSize, mSize))
-                    .build();
-            DraweeController draweeController = Fresco.newDraweeControllerBuilder()
-                    .setImageRequest(request)
-                    .setOldController(mDView.getController())
-                    .setAutoPlayAnimations(true).build();
-            mDView.setController(draweeController);
-
+            Glide.with(mContext).asDrawable().load(new File(path)).transition(new DrawableTransitionOptions().crossFade()).into(mDView);
             updateUI();
         }
 
@@ -125,7 +113,6 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
         public void onClick(View v) {
             if (v.getId() == R.id.vh_album_image) {
                 mListener.onImageClick(mData, getAdapterPosition());
-//                mListener.onChooseClick(mData, getAdapterPosition());
             } else if (v.getId() == R.id.vh_album_selected) {
                 mListener.onChooseClick(mData, getAdapterPosition());
             }
