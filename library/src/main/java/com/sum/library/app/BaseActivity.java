@@ -21,7 +21,7 @@ import com.sum.library.utils.AppUtils;
 public abstract class BaseActivity extends AppCompatActivity implements UiViewModel {
 
     //活动数据处理
-    private ActivePresent mPresent;
+    protected ActivePresent mPresent;
 
     //布局id
     protected abstract int getLayoutId();
@@ -49,8 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity implements UiViewMo
         return false;
     }
 
-    //状态栏背景
-    // 颜色
+    //状态栏背景 颜色
     protected int statusBarColor() {
         return 0;
     }

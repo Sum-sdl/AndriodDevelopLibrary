@@ -65,7 +65,7 @@ public abstract class BaseAppBar extends FrameLayout {
         ((Activity) getContext()).startActivityForResult(data, reqCode);
     }
 
-    public int getColor(int colorRes) {
+    public int getColorRes(int colorRes) {
         return ContextCompat.getColor(mContext, colorRes);
     }
 

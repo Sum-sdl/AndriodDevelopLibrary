@@ -3,18 +3,16 @@ package com.sum.andrioddeveloplibrary
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.text.TextUtils
 import android.transition.AutoTransition
 import android.transition.Transition
-import com.facebook.drawee.drawable.ScalingUtils
-import com.facebook.drawee.view.DraweeTransition
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.web.WebActivity
+import com.sum.library.utils.ImageLoader
 import kotlinx.android.synthetic.main.activity_ui.*
 import java.io.File
 
@@ -23,17 +21,10 @@ class UIActivity : BaseAppActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        iv_2.setImageURI("http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg")
-//        iv_2.setLegacyVisibilityHandlingEnabled(true)
+        ImageLoader.loadImage(iv_2, "http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.sharedElementReenterTransition = AutoTransition()
-
-            window.sharedElementEnterTransition = DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP,
-                    ScalingUtils.ScaleType.CENTER_CROP) // 进入
-            window.sharedElementReturnTransition = DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP,
-                    ScalingUtils.ScaleType.CENTER_CROP) // 返回
-
             postponeEnterTransition()
             ViewCompat.setTransitionName(iv_2, "IMG_TRANSITION")
             startPostponedEnterTransition()
@@ -146,13 +137,13 @@ class UIActivity : BaseAppActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putSerializable("file", mPhoto)
-
     }
 
     private fun updateImageShow(file: String?) {
         if (file != null) {
             iv_2.post {
-                iv_2.setImageURI(Uri.fromFile(File(file)), null)
+                ImageLoader.loadImage(iv_2, file)
+
             }
         }
     }

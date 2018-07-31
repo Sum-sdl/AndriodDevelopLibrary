@@ -1,115 +1,50 @@
 package com.sum.library.utils;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.sum.library.R;
 
 /**
  * Created by sdl on 2018/7/27.
  */
 public class ImageLoader {
 
-    private ImageLoader() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
+    public static int mPlaceResId = R.drawable.pub_imageload_bg;
+    public static int mErrorResId = R.drawable.pub_imageload_bg;
+
+    public static void loadImage(ImageView imageView, String url) {
+        if (!TextUtils.isEmpty(url)) {
+            loadImage(imageView, url, false, mPlaceResId, mErrorResId);
+        }
     }
 
-    public static class Builder {
-        private ImageView imageView;
-        private String imageUrl;
-        private int placeholderResId;
-        private int errorResId;
-        private boolean hasCrossFade = true;
-        private int duration = 400;
-        private boolean isCircle = false;
-        private RequestListener<Drawable> listener;
+    public static void loadImage(ImageView imageView, String url, boolean isCircle, int placeholderResId, int errorResId) {
 
-        public Builder into(ImageView imageView) {
-            this.imageView = imageView;
-            return this;
+        RequestOptions options;
+        if (isCircle) {
+            options = RequestOptions.circleCropTransform();
+        } else {
+            options = RequestOptions.centerCropTransform();
         }
 
-        public Builder setUrl(String imageUrl) {
-            this.imageUrl = imageUrl;
-            return this;
-        }
+        RequestOptions format = options
+                .placeholder(placeholderResId)
+                .error(errorResId)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .format(DecodeFormat.PREFER_RGB_565);
 
-        public Builder placeholder(int placeholderResId) {
-            this.placeholderResId = placeholderResId;
-            return this;
-        }
-
-        public Builder error(int errorResId) {
-            this.errorResId = errorResId;
-            return this;
-        }
-
-        public Builder hasCrossFade(boolean hasCrossFade) {
-            this.hasCrossFade = hasCrossFade;
-            return this;
-        }
-
-        public Builder duration(int duration) {
-            this.duration = duration;
-            return this;
-        }
-
-        public Builder isCircle(boolean isCircle) {
-            this.isCircle = isCircle;
-            return this;
-        }
-
-        public Builder listener(RequestListener<Drawable> listener) {
-            this.listener = listener;
-            return this;
-        }
-
-        public void load() {
-            if (imageView != null && imageUrl != null && !"".equals(imageUrl)) {
-                RequestOptions ro = new RequestOptions();
-                if (placeholderResId != 0) ro.placeholder(placeholderResId);
-                if (errorResId != 0) ro.error(errorResId);
-                if (isCircle) ro.circleCrop();
-                else ro.centerCrop();
-                ro.diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-                if (hasCrossFade) {
-                    if (listener != null) {
-                        Glide.with(imageView.getContext())
-                                .load(imageUrl)
-                                .apply(ro)
-                                .transition(new DrawableTransitionOptions().crossFade(duration))
-                                .listener(listener)
-                                .into(imageView);
-                    } else {
-                        Glide.with(imageView.getContext())
-                                .load(imageUrl)
-                                .apply(ro)
-                                .transition(new DrawableTransitionOptions().crossFade(duration))
-                                .into(imageView);
-                    }
-                } else {
-                    if (listener != null) {
-                        Glide.with(imageView.getContext())
-                                .load(imageUrl)
-                                .apply(ro)
-                                .transition(new DrawableTransitionOptions().dontTransition())
-                                .listener(listener)
-                                .into(imageView);
-                    } else {
-                        Glide.with(imageView.getContext())
-                                .load(imageUrl)
-                                .apply(ro)
-                                .transition(new DrawableTransitionOptions().dontTransition())
-                                .into(imageView);
-                    }
-                }
-            }
-        }
+        Glide.with(imageView.getContext())
+                .load(url)// A file path, or a uri or url handled by
+                .apply(format)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .into(imageView);
     }
 
     /**

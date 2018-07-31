@@ -19,13 +19,13 @@ class NetActivity : BaseAppActivity() {
             WebActivity.open(this@NetActivity, url)
         }
 
-        bt_dialog1.setOnClickListener { showLoading() }
-        bt_dialog2.setOnClickListener { showLoading("Loading...") }
-        bt_dialog3.setOnClickListener { showProgressLoading("Progress Loading...", true) }
+        bt_dialog1.setOnClickListener { mPresent.loadingView.showLoading() }
+        bt_dialog2.setOnClickListener { mPresent.loadingView.showLoading("Loading...") }
+        bt_dialog3.setOnClickListener { mPresent.loadingView.showProgressLoading("Progress Loading...", true) }
     }
 
     private fun net() {
-        showLoading("加载中...")
+        mPresent.loadingView.showLoading("加载中...")
         mRetrofit.create(Api::class.java)
                 .getExampleValue("getProRecommend")
                 .enqueue(object : RetCallBack<Any>() {
@@ -34,7 +34,7 @@ class NetActivity : BaseAppActivity() {
                     }
 
                     override fun onFinally() {
-                        hideLoading()
+                        mPresent.loadingView.hideLoading()
                     }
                 })
     }

@@ -1,17 +1,13 @@
 package com.sum.library.adapter;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.drawable.ScalingUtils;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +53,7 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
     private onItemImageClick<T> mListener;
     private int mNetErrorImageRes = -1;
 
-    private ArrayList<SimpleDraweeView> mCachedViews;
+    private ArrayList<ImageView> mCachedViews;
 
     public ViewPagerImageViewAdapter(List<T> mData) {
         this.mData = mData;
@@ -69,18 +65,16 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
         return mData == null ? 0 : mData.size();
     }
 
+    @NonNull
     @Override
     public View instantiateItem(@NonNull ViewGroup container, final int position) {
-        SimpleDraweeView view;
+        ImageView view;
         if (mCachedViews.size() > 0) {
             view = mCachedViews.get(0);
             mCachedViews.remove(0);
         } else {
-            view = new SimpleDraweeView(container.getContext());
+            view = new ImageView(container.getContext());
             view.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
-            view.getHierarchy().setPlaceholderImage(mNetErrorImageRes);
-            view.getHierarchy().setFailureImage(mNetErrorImageRes);
-            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         }
 
         if (mData != null) {
@@ -91,10 +85,8 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
                 }
             });
             if (url != null) {
-                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).build();
-                DraweeController draweeController = Fresco.newDraweeControllerBuilder()
-                        .setImageRequest(request).setAutoPlayAnimations(true).build();
-                view.setController(draweeController);
+                RequestOptions error = RequestOptions.fitCenterTransform().error(mNetErrorImageRes);
+                Glide.with(view.getContext()).asDrawable().load(url).apply(error).into(view);
             }
         }
         container.addView(view);
@@ -103,9 +95,9 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        SimpleDraweeView content = (SimpleDraweeView) object;
+        ImageView content = (ImageView) object;
         container.removeView(content);
-        if (!mCachedViews.contains(content)) {//只能支持单个相同item缓存
+        if (!mCachedViews.contains(content) && mCachedViews.size() < 1) {//只能支持单个相同item缓存
             mCachedViews.add(content);
         }
     }

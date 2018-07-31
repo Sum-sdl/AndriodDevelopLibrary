@@ -41,7 +41,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     //初始化布局
     protected abstract int getLayoutId();
 
-    private ActivePresent mPresent;
+    protected ActivePresent mPresent;
 
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
 
