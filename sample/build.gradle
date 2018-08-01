@@ -143,6 +143,10 @@ dependencies {
     //databinding构建加载
     annotationProcessor "com.android.databinding:compiler:3.1.3"
 
+    //常用库
+    //图片android.support.v4.widget.CircleImageView
+//    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
 }
 
 repositories {

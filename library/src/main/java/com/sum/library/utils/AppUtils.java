@@ -1,5 +1,6 @@
 package com.sum.library.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,12 +22,39 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.UUID;
 
 /**
  * Created by sdl on 2017/12/27.
  */
 
 public class AppUtils {
+
+    @SuppressLint("MissingPermission")
+    public static String getAppUniqueUUID() {
+        String serial = null;
+        String m_szDevIDShort = "35" +
+                Build.BOARD.length() % 10 + Build.BRAND.length() % 10 +
+                Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10 +
+                Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 +
+                Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10 +
+                Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 +
+                Build.TAGS.length() % 10 + Build.TYPE.length() % 10 +
+                Build.USER.length() % 10; //13 位
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                serial = Build.getSerial();
+            } else {
+                serial = Build.SERIAL;
+            }
+            return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+        } catch (Exception exception) {
+            //serial需要一个初始化
+            serial = "serial_init";
+        }
+        //使用硬件信息拼凑出来的15位号码
+        return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+    }
 
     /**
      * 通知到系统上下文中
@@ -125,7 +153,7 @@ public class AppUtils {
                 setMIStatusBarDarkMode(true, activity);
             }
         } else if (brand.indexOf("Meizu") != -1) {
-           setStatusBarDarkIcon(activity, true);
+            setStatusBarDarkIcon(activity, true);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             setMstatusBarDarkMode(activity);
         }
@@ -202,6 +230,7 @@ public class AppUtils {
 
     /**
      * 系统通知权限是否打开
+     *
      * @return true ：允许通知 false:通知关闭
      */
     public static boolean notificationIsOpen() {

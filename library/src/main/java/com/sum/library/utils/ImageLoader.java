@@ -1,9 +1,9 @@
 package com.sum.library.utils;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,7 +37,7 @@ public class ImageLoader {
         RequestOptions format = options
                 .placeholder(placeholderResId)
                 .error(errorResId)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .format(DecodeFormat.PREFER_RGB_565);
 
         Glide.with(imageView.getContext())
@@ -49,19 +49,16 @@ public class ImageLoader {
 
     /**
      * 清除glide内存缓存，必须运行在主线程
-     *
-     * @param context 当前上下文
      */
-    public static void clearMemoryCache(Context context) {
-        Glide.get(context).clearMemory();
+    public static void clearMemoryCache() {
+        Glide.get(Utils.getApp()).clearMemory();
     }
 
     /**
      * 清除glide磁盘缓存，必须运行在子线程
      *
-     * @param context 当前上下文
      */
-    public static void clearDiskCache(Context context) {
-        Glide.get(context).clearDiskCache();
+    public static void clearDiskCache() {
+        Glide.get(Utils.getApp()).clearDiskCache();
     }
 }
