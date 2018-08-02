@@ -10,6 +10,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -17,8 +18,11 @@ import android.view.WindowManager;
 
 import com.blankj.utilcode.util.Utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,10 +34,11 @@ import java.util.UUID;
 
 public class AppUtils {
 
-    @SuppressLint("MissingPermission")
+    //获取唯一id，可以不用权限
+    @SuppressLint({"MissingPermission", "HardwareIds"})
     public static String getAppUniqueUUID() {
         String serial = null;
-        String m_szDevIDShort = "35" +
+        String devId = "35" +
                 Build.BOARD.length() % 10 + Build.BRAND.length() % 10 +
                 Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10 +
                 Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 +
@@ -47,13 +52,43 @@ public class AppUtils {
             } else {
                 serial = Build.SERIAL;
             }
-            return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+            return new UUID(devId.hashCode(), serial.hashCode()).toString();
         } catch (Exception exception) {
             //serial需要一个初始化
             serial = "serial_init";
         }
         //使用硬件信息拼凑出来的15位号码
-        return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+        return new UUID(devId.hashCode(), serial.hashCode()).toString();
+    }
+
+
+    /**
+     * 获取进程号对应的进程名
+     *
+     * @param pid 进程号
+     * @return 进程名
+     */
+    public static String getProcessName(int pid) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+            String processName = reader.readLine();
+            if (!TextUtils.isEmpty(processName)) {
+                processName = processName.trim();
+            }
+            return processName;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+        return null;
     }
 
     /**

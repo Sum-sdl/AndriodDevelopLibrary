@@ -1,4 +1,4 @@
-package com.sum.library.utils;
+package add_class.utils;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.sum.library.utils;
+package add_class.utils;
 
 public class CharacterParserUtils {
 
