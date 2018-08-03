@@ -5,10 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.sum.library.view.widget.ChooseView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import add_class.other_view.ChooseView;
 
 public class CustomViewActivity extends AppCompatActivity {
 
