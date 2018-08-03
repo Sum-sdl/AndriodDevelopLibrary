@@ -1,4 +1,4 @@
-package com.sum.library.view.widget;
+package add_class.other_view;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -15,6 +15,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.sum.library.R;
+import com.sum.library.view.widget.BaseView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.sum.library.view.widget;
+package add_class.other_view;
 
 import android.content.Context;
 import android.text.TextUtils;
