@@ -21,6 +21,7 @@
     <color name="pub_loading_bg_color">#e5e5e5</color>
     <color name="pub_loading_text_color">#e5e5e5</color>
 
+    <!--底部弹框-->
     <color name="bsv_title_cancel_color">#666666</color>
     <color name="bsv_title_confirm_color">@color/colorPrimary</color>
     <color name="bsv_title_title_color">@color/pub_title_text_color</color>

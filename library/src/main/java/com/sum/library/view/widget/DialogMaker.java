@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sum.library.R;
-import com.sum.library.view.SwipeRefresh.MaterialProgressDrawable;
+import com.sum.library.view.widget.view.MaterialProgressDrawable;
 
 
 /**
@@ -57,7 +57,7 @@ public class DialogMaker {
         return showLoadingDialog(context, content, R.style.dialog_no_bg, cancel);
     }
 
-    public static AlertDialog showLoadingDialog(Context context, String content, int style, boolean cancel) {
+    private static AlertDialog showLoadingDialog(Context context, String content, int style, boolean cancel) {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(context, style);
         View view = LayoutInflater.from(context).inflate(R.layout.pub_loading_view, null);

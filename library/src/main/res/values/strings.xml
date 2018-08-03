@@ -13,5 +13,6 @@
 
     <string name="photo_finish">完成(%d/%d)</string>
     <string name="photo_preview">预览(%d)</string>
+    <string name="loading">加载中…</string>
 
 </resources>
