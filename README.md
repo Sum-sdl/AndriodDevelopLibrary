@@ -49,8 +49,9 @@
 
 > **集成模块**
 >
--  集成Retrofit网络请求框架（未添加RxJava）[BaseDynamicInterceptor](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/net/token/BaseDynamicInterceptor.java)公共参数添加
--  集成[Fresco](https://www.fresco-cn.org/docs/scaling.html#_)图片框架
+-  集成[Retrofit2](http://square.github.io/retrofit/)网络框架（未添加RxJava）[BaseDynamicInterceptor](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/net/token/BaseDynamicInterceptor.java)请求公共参数添加
+-  集成[Glide](https://github.com/bumptech/glide)图片框架
+-  集成[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout/blob/master/art/md_property.md)下拉刷新框架
 
 > **基础功能模块**
 >
