@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
+import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -12,7 +13,6 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.sum.andrioddeveloplibrary.R;
 import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.AppFileConfig;
@@ -38,7 +38,7 @@ public class SumApp extends BaseApplication {
             public void initialize(@NonNull Context context, @NonNull RefreshLayout layout) {
                 //开始设置全局的基本参数（可以被下面的DefaultRefreshHeaderCreator覆盖）
                 layout.setEnableOverScrollDrag(false);//越界拖动
-                layout.setPrimaryColorsId(R.color.colorPrimary, R.color.colorAccent);
+                layout.setPrimaryColorsId(R.color.colorAccent);
             }
         });
 
@@ -47,10 +47,12 @@ public class SumApp extends BaseApplication {
             @NonNull
             @Override
             public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
-//                return new MaterialHeader(context);
-                return new ClassicsHeader(context);
+                layout.setHeaderMaxDragRate(3.5f);
+                layout.setEnableHeaderTranslationContent(false);
+                return new MaterialHeader(context).setColorSchemeResources(R.color.colorAccent);
             }
         });
+
         //全局设置默认的 Footer
         SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
             @NonNull

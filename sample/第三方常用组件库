@@ -3,8 +3,17 @@
 常用库
 
 //图片android.support.v4.widget.CircleImageView
-
 implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+//超大图
+compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.9.0'
+
+// eventbus
+ api 'org.greenrobot:eventbus:3.1.1'
+
+// fresco
+api 'com.facebook.fresco:fresco:1.9.0'
+api 'com.facebook.fresco:animated-gif:1.9.0'
 
 //md下拉刷新
 implementation 'com.github.orangegangsters:swipy:1.2.3@aar'
@@ -12,6 +21,12 @@ implementation 'com.github.orangegangsters:swipy:1.2.3@aar'
 //侧滑删除
 implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 
+//retrofit2 http 内容查看
+debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
+// MarqueeViewLibrary跑马灯效果
+api 'com.gongwen:marqueelibrary:1.1.2'
 
 常用工具类
 implementation 'com.blankj:utilcode::1.14.2'
@@ -21,3 +36,6 @@ https://github.com/Blankj/AndroidUtilCode
 刷新组件
 implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
 https://github.com/scwang90/SmartRefreshLayout/blob/master/art/md_property.md
+
+//视频播放组件
+implementation cn.jzvd:jiaozivideoplayer:6.0.1

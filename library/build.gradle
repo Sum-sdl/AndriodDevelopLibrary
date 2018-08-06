@@ -47,11 +47,6 @@ dependencies {
     }
     // 工具类
     api 'com.blankj:utilcode:1.14.2'
-    // eventbus
-//    api 'org.greenrobot:eventbus:3.1.1'
-    // fresco
-//    api 'com.facebook.fresco:fresco:1.9.0'
-//    api 'com.facebook.fresco:animated-gif:1.9.0'
 
     api 'com.github.bumptech.glide:glide:4.7.1'
 
@@ -59,13 +54,6 @@ dependencies {
     api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.retrofit2:converter-gson:2.4.0'
 //    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-
-    //retrofit2 http 内容查看
-//    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
-//    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-
-    // MarqueeViewLibrary跑马灯效果
-    //api 'com.gongwen:marqueelibrary:1.1.2'
 
     //https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md
     api 'com.tencent.sonic:sdk:3.0.0'
@@ -79,8 +67,6 @@ dependencies {
 
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //超大图
-    //compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.9.0'
 
     //刷新控件
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
