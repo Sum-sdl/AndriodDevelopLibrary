@@ -1,8 +1,19 @@
 package com.sum.andrioddeveloplibrary.App;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshInitializer;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.sum.andrioddeveloplibrary.R;
 import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.AppFileConfig;
 import com.sum.library.app.BaseApplication;
@@ -20,6 +31,34 @@ public class SumApp extends BaseApplication {
     static {
         AppFileConfig.FOLDER_FILE = "AA_files";
         AppFileConfig.FOLDER_NAME = "AA_Sum";
+
+        //设置全局默认配置（优先级最低，会被其他设置覆盖）
+        SmartRefreshLayout.setDefaultRefreshInitializer(new DefaultRefreshInitializer() {
+            @Override
+            public void initialize(@NonNull Context context, @NonNull RefreshLayout layout) {
+                //开始设置全局的基本参数（可以被下面的DefaultRefreshHeaderCreator覆盖）
+                layout.setEnableOverScrollDrag(false);//越界拖动
+                layout.setPrimaryColorsId(R.color.colorPrimary, R.color.colorAccent);
+            }
+        });
+
+        //全局设置默认的 Header
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+            @NonNull
+            @Override
+            public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
+//                return new MaterialHeader(context);
+                return new ClassicsHeader(context);
+            }
+        });
+        //全局设置默认的 Footer
+        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
+            @NonNull
+            @Override
+            public RefreshFooter createRefreshFooter(@NonNull Context context, @NonNull RefreshLayout layout) {
+                return new ClassicsFooter(context);
+            }
+        });
     }
 
     @Override

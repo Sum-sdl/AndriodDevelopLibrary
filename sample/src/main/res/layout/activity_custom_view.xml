@@ -32,7 +32,7 @@
             android:layout_marginTop="10dp" />
 
 
-        <com.sum.library.view.widget.ChooseView
+        <add_class.other_view.ChooseView
             android:id="@+id/choose_view"
             android:layout_width="match_parent"
             android:layout_height="100dp"

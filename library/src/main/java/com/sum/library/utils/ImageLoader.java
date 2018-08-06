@@ -37,7 +37,7 @@ public class ImageLoader {
         RequestOptions format = options
                 .placeholder(placeholderResId)
                 .error(errorResId)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .format(DecodeFormat.PREFER_RGB_565);
 
         Glide.with(imageView.getContext())
@@ -56,7 +56,6 @@ public class ImageLoader {
 
     /**
      * 清除glide磁盘缓存，必须运行在子线程
-     *
      */
     public static void clearDiskCache() {
         Glide.get(Utils.getApp()).clearDiskCache();

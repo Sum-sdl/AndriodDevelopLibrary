@@ -6,8 +6,18 @@
 
 implementation 'de.hdodenhof:circleimageview:2.2.0'
 
-//下拉刷新
+//md下拉刷新
 implementation 'com.github.orangegangsters:swipy:1.2.3@aar'
 
-//常用工具类
+//侧滑删除
+implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+
+
+常用工具类
 implementation 'com.blankj:utilcode::1.14.2'
+https://github.com/Blankj/AndroidUtilCode
+
+
+刷新组件
+implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+https://github.com/scwang90/SmartRefreshLayout/blob/master/art/md_property.md
