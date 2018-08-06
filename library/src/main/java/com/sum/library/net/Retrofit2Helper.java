@@ -31,16 +31,17 @@ public class Retrofit2Helper {
     private Retrofit mRetrofit;
     private Retrofit.Builder mBuilder;
 
+    private Retrofit mUploadFileRetrofit;
+
     private Retrofit2Helper() {
-        mBuilder = new Retrofit.Builder();
         //自动将ResponseBody转成对象
+        mBuilder = new Retrofit.Builder();
         mBuilder.addConverterFactory(GsonConverterFactory.create());
     }
 
     //自己添加添加公共参数Interceptor
     public OkHttpClient.Builder buildDefaultOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        //ChuckInterceptor 广播调试请求参数
         builder.readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .connectTimeout(15, TimeUnit.SECONDS);
@@ -52,6 +53,24 @@ public class Retrofit2Helper {
         mBuilder.baseUrl(baseUrl);
         mBuilder.client(client);
         mRetrofit = mBuilder.build();
+    }
+
+    public Retrofit createUploadFile(String uploadUrl, int seconds) {
+        if (mUploadFileRetrofit != null) {
+            return mUploadFileRetrofit;
+        }
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(seconds, TimeUnit.SECONDS)
+                .writeTimeout(seconds, TimeUnit.SECONDS)
+                .readTimeout(seconds, TimeUnit.SECONDS)
+                .build();
+
+        mUploadFileRetrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(uploadUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return mUploadFileRetrofit;
     }
 
     public static Retrofit getRetrofit() {

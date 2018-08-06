@@ -29,7 +29,7 @@ releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 api 'com.gongwen:marqueelibrary:1.1.2'
 
 常用工具类
-implementation 'com.blankj:utilcode::1.14.2'
+implementation 'com.blankj:utilcode::1.18.1'
 https://github.com/Blankj/AndroidUtilCode
 
 

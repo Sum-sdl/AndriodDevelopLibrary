@@ -2,9 +2,11 @@ package com.sum.andrioddeveloplibrary.net
 
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.andrioddeveloplibrary.R
-import com.sum.library.net.callback.RetCallBack
 import com.sum.library.ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_net.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NetActivity : BaseAppActivity() {
     override fun getLayoutId(): Int = R.layout.activity_net
@@ -28,13 +30,13 @@ class NetActivity : BaseAppActivity() {
         mPresent.loadingView.showLoading("加载中...")
         mRetrofit.create(Api::class.java)
                 .getExampleValue("getProRecommend")
-                .enqueue(object : RetCallBack<Any>() {
-                    override fun onSuccess(response: Any) {
-//                        text.text = response
+                .enqueue(object : Callback<Any>{
+                    override fun onFailure(call: Call<Any>?, t: Throwable?) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
 
-                    override fun onFinally() {
-                        mPresent.loadingView.hideLoading()
+                    override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
                 })
     }
