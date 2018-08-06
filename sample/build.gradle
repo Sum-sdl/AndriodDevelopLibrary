@@ -87,16 +87,6 @@ android {
     }*/
 }
 
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
-kapt {
-    generateStubs = true
-}
-
 configurations {
     //编译期排除utilcode框架
 //    compile.exclude module: 'utilcode'

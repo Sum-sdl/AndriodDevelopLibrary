@@ -2,8 +2,11 @@ package com.sum.andrioddeveloplibrary
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
+import com.sum.library.app.BaseDialogFragment
 import com.sum.library.view.sheet.BottomSheetView
 import com.sum.library.view.sheet.DialogChooseView
 import kotlinx.android.synthetic.main.activity_dialog_test.*
@@ -17,7 +20,10 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialog_test)
 
-        bt1.setOnClickListener { ItemListDialogFragment.newInstance(3).show(supportFragmentManager, "3") }
+        bt1.setOnClickListener {
+            ItemListDialogFragment.newInstance(3)
+                    .show(supportFragmentManager, "3")
+        }
         bt2.setOnClickListener {
             var time = ""
             if (it.tag is String) {
@@ -48,7 +54,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
         }
         bt3.setOnClickListener {
             DialogChooseView().setMessage("message").setTitle("Test Title")
-                    .setPos("OK").setCancel(false)
+                    .setPos("Next").setCancel(true).setNeg("Cancel")
                     .setPosListener { ToastUtils.showLong("Next") }
                     .setNegListener { ToastUtils.showLong("Cancel") }
                     .show(supportFragmentManager, "show")
@@ -65,6 +71,22 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                 it.tag = pos
                 ToastUtils.showLong("pos=$pos,content$content")
             }.show(this)
+        }
+
+        bt6.setOnClickListener {
+            DialogF().show(supportFragmentManager, "test")
+        }
+    }
+
+
+    class DialogF : BaseDialogFragment() {
+        override fun getLayoutId(): Int = R.layout.cus_dialog_choice
+
+        override fun initParams(view: View) {
+            val textV: TextView = view.findViewById(R.id.choice_container_content)
+            val textItle: TextView = view.findViewById(R.id.choice_container_title)
+            textV.text = "Dialog Content"
+            textItle.text = "Dialog Title"
         }
     }
 }

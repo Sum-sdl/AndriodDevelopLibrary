@@ -1,25 +1,18 @@
 package com.sum.library.view.sheet;
 
-import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatDialogFragment;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.sum.library.R;
+import com.sum.library.app.BaseDialogFragment;
 
 /**
  * Created by sdl on 2018/5/14.
  * 对话框操作界面
  */
-public class DialogChooseView extends AppCompatDialogFragment {
+public class DialogChooseView extends BaseDialogFragment {
 
     private String mTitle, mContent;
     private String mPos, mNeg;
@@ -62,27 +55,18 @@ public class DialogChooseView extends AppCompatDialogFragment {
         return this;
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        Window window = getDialog().getWindow();
-        if (window != null) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            }
-            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        }
-
-        return inflater.inflate(R.layout.cus_dialog_choice, container);
+    protected int getDialogShowAnimation() {
+        return 0;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.cus_dialog_choice;
+    }
+
+    @Override
+    protected void initParams(View view) {
         initView(view);
     }
 
