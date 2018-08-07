@@ -1,6 +1,7 @@
 package com.sum.library.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -205,7 +206,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
      * fragment不可见（切换掉或者onPause）
      */
     public void onUserInvisible() {
-        printFragmentLife("onUserVisible");
+        printFragmentLife("onUserInvisible");
     }
 
 
@@ -222,6 +223,11 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
 
     public int getColorRes(int colorRes) {
         return ContextCompat.getColor(mContext, colorRes);
+    }
+
+    //base
+    public void startActivity(Class<?> clazz) {
+        startActivity(new Intent(getContext(), clazz));
     }
 
     protected void printFragmentLife(String fun) {
