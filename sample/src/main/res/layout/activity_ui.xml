@@ -1,71 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.sum.andrioddeveloplibrary.UIActivity">
 
-    <ImageView
-        android:id="@+id/iv_2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/anim5" />
-
-    <Button
-        android:id="@+id/btn_1"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="图片预览" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_xc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
+        <ImageView
+            android:id="@+id/iv_2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/anim5" />
 
-    <Button
-        android:id="@+id/btn_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="系统相册->剪裁" />
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="图片预览" />
 
-    <TextView
-        android:id="@+id/tv_pz"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
+        <Button
+            android:id="@+id/btn_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="系统相册--->快速剪裁" />
 
-    <Button
-        android:id="@+id/btn_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="系统拍照" />
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="系统拍照" />
 
-    <TextView
-        android:id="@+id/tv_xc_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
+        <TextView
+            android:id="@+id/tv_xc_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorAccent" />
 
-    <Button
-        android:id="@+id/btn_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="我的相册" />
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的相册" />
 
-    <Button
-        android:id="@+id/btn_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="循环任务" />
 
-    <Button
-        android:id="@+id/btn_6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="WebActivity测试" />
+        <TextView
+            android:id="@+id/tv_img_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorAccent" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="图片压缩" />
+
+        <Button
+            android:id="@+id/btn_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="WebActivity测试" />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

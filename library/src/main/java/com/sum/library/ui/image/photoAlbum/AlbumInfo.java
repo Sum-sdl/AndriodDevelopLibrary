@@ -15,8 +15,10 @@ import java.io.Serializable;
 
 public class AlbumInfo implements Serializable {
 
-    public int request_code = 10;//请求码
+    public static final int Request_choose_photo = 10;
+
     public boolean take_photo_open = true;//拍照开关
+    public int request_code = Request_choose_photo;//请求码
     public int max_count = 9;//最大勾选数量
 
     public int default_space = SizeUtils.dp2px(2);//行间距

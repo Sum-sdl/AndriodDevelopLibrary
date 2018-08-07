@@ -29,8 +29,7 @@ import okhttp3.OkHttpClient;
 public class SumApp extends BaseApplication {
 
     static {
-        AppFileConfig.FOLDER_FILE = "AA_files";
-        AppFileConfig.FOLDER_NAME = "AA_Sum";
+        AppFileConfig.App_External_Directory_Name = "AA_Sum";
 
         //设置全局默认配置（优先级最低，会被其他设置覆盖）
         SmartRefreshLayout.setDefaultRefreshInitializer(new DefaultRefreshInitializer() {

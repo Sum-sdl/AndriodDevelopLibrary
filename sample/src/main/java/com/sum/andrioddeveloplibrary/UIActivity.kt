@@ -9,11 +9,14 @@ import android.support.v4.view.ViewCompat
 import android.text.TextUtils
 import android.transition.AutoTransition
 import android.transition.Transition
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.web.WebActivity
 import com.sum.library.utils.ImageLoader
 import kotlinx.android.synthetic.main.activity_ui.*
+import top.zibin.luban.OnCompressListener
 import java.io.File
 
 
@@ -39,9 +42,6 @@ class UIActivity : BaseAppActivity() {
         super.finishAfterTransition()
     }
 
-    override fun onBackPressed() {
-        supportFinishAfterTransition()
-    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun addTransitionListener() {
@@ -61,7 +61,6 @@ class UIActivity : BaseAppActivity() {
             }
 
             override fun onTransitionEnd(p0: Transition?) {
-//                loadVideoInfo()
                 transition.removeListener(this)
             }
 
@@ -72,13 +71,8 @@ class UIActivity : BaseAppActivity() {
     override fun initParams() {
 
         btn_1.setOnClickListener {
-
             val list = arrayListOf<String>()
             list.addAll(mData)
-            list.addAll(getAll())
-            list.addAll(getAll())
-            list.addAll(getAll())
-            list.addAll(getAll())
             list.addAll(getAll())
             AppImageUtils.appImagePreview(this, list)
         }
@@ -95,18 +89,35 @@ class UIActivity : BaseAppActivity() {
 
         //自定义相册
         btn_4.setOnClickListener {
-            AppImageUtils.appImageAlbum(this, 10, 6)
+            AppImageUtils.appImageAlbum(this, 1)
         }
 
+        //压缩
         btn_5.setOnClickListener {
-            val test = com.sum.andrioddeveloplibrary.testview.BasePushMessage()
-            for (i in 1..100) {
-                test.addOneMessage(i)
+            if (mData.size > 0) {
+                AppImageUtils.LuImageCompress(this, mData[0], object : OnCompressListener {
+                    override fun onSuccess(file: File?) {
+                        mPresent.loadingView.hideLoading()
+                        val dirSize = FileUtils.getFileSize(file)
+                        tv_img_size.append(",新图片大小->$dirSize")
+                        tv_img_size.append("\n新图片位置->${file?.path}")
+                        ToastUtils.showShort("压缩成功")
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        mPresent.loadingView.hideLoading()
+                        e?.printStackTrace()
+                    }
+
+                    override fun onStart() {
+                        mPresent.loadingView.showLoading("开始压缩")
+                    }
+                })
             }
         }
 
         btn_6.setOnClickListener {
-            WebActivity.open(this, "", "https://aznapi.house365.com/Home/Information/lists", null, null)
+            WebActivity.open(this, "https://aznapi.house365.com/Home/Information/lists")
         }
     }
 
@@ -143,7 +154,6 @@ class UIActivity : BaseAppActivity() {
         if (file != null) {
             iv_2.post {
                 ImageLoader.loadImage(iv_2, file)
-
             }
         }
     }
@@ -158,13 +168,12 @@ class UIActivity : BaseAppActivity() {
             if (!TextUtils.isEmpty(uri)) {
                 AppImageUtils.appImageCrop(this, uri, 11)
             }
-
             updateImageShow(uri)
-
         } else if (requestCode == 2) {
             updateImageShow(mPhoto?.path)
         } else if (requestCode == 10) {
             val extra = data?.getStringArrayListExtra("images")
+            mData.clear()
             mData.addAll(extra!!)
 
             val text = StringBuilder()
@@ -173,18 +182,17 @@ class UIActivity : BaseAppActivity() {
             }
             tv_xc_2.text = text
 
+            //update size
+            if (mData.isNotEmpty()) {
+                val dirSize = FileUtils.getFileSize(mData[0])
+                tv_img_size.text = "原图大小->$dirSize"
+            }
+
         } else if (requestCode == 11) {
             tv_xc_2.append("\n")
             tv_xc_2.append("剪裁图片地址：")
-
             tv_xc_2.append(AppImageUtils.appImageCropIntentPath(data))
             updateImageShow(AppImageUtils.appImageCropIntentPath(data))
         }
-    }
-
-
-    override fun finish() {
-        super.finish()
-//        overridePendingTransition(R.anim.activity_close_enter, R.anim.activity_close_exit)
     }
 }

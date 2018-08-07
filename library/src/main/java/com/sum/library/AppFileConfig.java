@@ -17,15 +17,8 @@ import java.io.File;
  */
 public class AppFileConfig {
 
-    //根文件夹名称
-    public static String FOLDER_NAME = "A_File";
-
-    //配置文件夹名称
-    public static String FOLDER_FILE = "file";
-
-    public static String FOLDER_IMAGE = "image";
-
-    public static String FOLDER_LOGS = "logs";
+    //外部根文件夹名称
+    public static String App_External_Directory_Name = "A_SumApp_File";
 
     //FileProvider使用的Uri文件
     public static String FOLDER_PROVIDER = ".fileProvider";
@@ -39,18 +32,24 @@ public class AppFileConfig {
         }
     }
 
-    public static File getDownloadDirectoryFile() {
-        return getDir(FOLDER_FILE);
+    public static File getFileDirectory() {
+        return getDir("file");
     }
 
-    public static File getLogDirectoryFile() {
-        return getDir(FOLDER_LOGS);
+    public static File getFileImageDirectory() {
+        return getDir("images");
     }
 
-    public static File getImageDirectoryFile() {
-        return getDir(FOLDER_IMAGE);
+    public static File getFileDirectoryCompress() {
+        File result = new File(getFileDirectory() + File.separator + "compress");
+        if (result.exists() || result.mkdirs()) {
+            return result;
+        } else {
+            return result;
+        }
     }
 
+    //任意临时缓存文件夹
     public static File getCacheDirectoryFile() {
         return getDir("cache", true);
     }
@@ -60,8 +59,8 @@ public class AppFileConfig {
     }
 
     //创建项目目录下的文件夹
-    public static File getDir(String dirName, boolean isCacheFile) {
-        File baseDir = getBaseDir(isCacheFile);
+    public static File getDir(String dirName, boolean isAppCacheFile) {
+        File baseDir = getBaseDir(isAppCacheFile);
         if (baseDir == null) {
             return null;
         }
@@ -84,7 +83,7 @@ public class AppFileConfig {
                 }
             }
             if (TextUtils.isEmpty(cacheDir)) {
-                cacheDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + FOLDER_NAME;
+                cacheDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + App_External_Directory_Name;
             }
             result = new File(cacheDir);
         } else {

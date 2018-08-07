@@ -261,7 +261,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             item.albumInfo = mAlbumInfo
             holders.add(item)
         }
-        mAdapter.setDataHolders(holders)
+        mAdapter.dataHolders = holders
     }
 
     //完成按钮点击

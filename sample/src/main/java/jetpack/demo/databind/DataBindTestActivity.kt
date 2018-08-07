@@ -57,7 +57,6 @@ class DataBindTestActivity : AppCompatActivity() {
                 info.name = "index->$index"
                 item.updateData(info)
             }
-
             mAdapter.notifyDataSetChanged()
 
         }

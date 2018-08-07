@@ -23,8 +23,7 @@
             android:layout_height="wrap_content"
             android:text="@{viewModel.name}"
             android:textColor="#f00"
-            android:textSize="18sp"
-            app:customText="@{viewModel.name}" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_1"

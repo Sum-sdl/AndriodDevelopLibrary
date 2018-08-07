@@ -152,6 +152,9 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     }
 
     public View getCacheView() {
+        if (mWRView == null) {
+            return null;
+        }
         return mWRView.get();
     }
 
@@ -163,7 +166,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (getUserVisibleHint() && mWRView.get() != null && !mIsMulti) {
+        if (getUserVisibleHint() && getCacheView() != null && !mIsMulti) {
             mIsMulti = true;
             onFirstUserVisible();
         }
@@ -171,12 +174,12 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && mWRView.get() != null && !mIsMulti) {
+        if (isVisibleToUser && getCacheView() != null && !mIsMulti) {
             mIsMulti = true;
             onFirstUserVisible();
-        } else if (isVisibleToUser && mWRView.get() != null && mIsMulti) {
+        } else if (isVisibleToUser && getCacheView() != null && mIsMulti) {
             onUserVisible();
-        } else if (!isVisibleToUser && mWRView.get() != null && mIsMulti) {
+        } else if (!isVisibleToUser && getCacheView() != null && mIsMulti) {
             onUserInvisible();
         } else {
             super.setUserVisibleHint(isVisibleToUser);

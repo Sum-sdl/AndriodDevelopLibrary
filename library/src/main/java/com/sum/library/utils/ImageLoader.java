@@ -25,6 +25,12 @@ public class ImageLoader {
         }
     }
 
+    public static void loadImage(ImageView imageView, String url, boolean isCircle) {
+        if (!TextUtils.isEmpty(url)) {
+            loadImage(imageView, url, isCircle, mPlaceResId, mErrorResId);
+        }
+    }
+
     public static void loadImage(ImageView imageView, String url, boolean isCircle, int placeholderResId, int errorResId) {
 
         RequestOptions options;

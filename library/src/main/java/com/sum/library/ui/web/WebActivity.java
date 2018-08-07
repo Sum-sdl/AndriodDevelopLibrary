@@ -152,7 +152,6 @@ public class WebActivity extends BaseActivity {
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setDatabaseEnabled(true);
         settings.setAppCacheEnabled(true);
-//        settings.setTextZoom();字体大小
         settings.setSaveFormData(false);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
@@ -160,6 +159,7 @@ public class WebActivity extends BaseActivity {
         settings.setAllowContentAccess(true);
         settings.setAllowFileAccess(true);
         settings.setBuiltInZoomControls(false);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         settings.setAllowFileAccess(false);
         settings.setAllowFileAccessFromFileURLs(false);
