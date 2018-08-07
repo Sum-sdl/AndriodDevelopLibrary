@@ -1,17 +1,20 @@
 
-#### 个人开发库 [https://jitpack.io]
+## 个人开发库
 
--  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) --> [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
+-  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) === [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
  
 -  [RecyclerView通用适配器库](https://github.com/Sum-sdl/RvAdapter)
 
--  [常用库链接](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
+-  [常用开源库总结](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
 
-##### 测试Apk下载二维码
+#### 测试Apk扫码下载
+
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
 
+---
 
- ## Dependency
+##### Dependency
+
 [![](https://jitpack.io/v/Sum-sdl/AndriodDevelopLibrary.svg)](https://jitpack.io/#Sum-sdl/AndriodDevelopLibrary)
 
  Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
