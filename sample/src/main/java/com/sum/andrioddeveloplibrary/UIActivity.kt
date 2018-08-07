@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.library.ui.image.AppImageUtils
+import com.sum.library.ui.image.photoAlbum.AlbumInfo
 import com.sum.library.ui.web.WebActivity
 import com.sum.library.utils.ImageLoader
 import kotlinx.android.synthetic.main.activity_ui.*
@@ -92,16 +93,25 @@ class UIActivity : BaseAppActivity() {
             AppImageUtils.appImageAlbum(this, 1)
         }
 
-        //压缩
+        //自定义相册
+        btn_7.setOnClickListener {
+            val info = AlbumInfo()
+            info.max_count = 12
+            info.take_photo_open = false
+            info.span_count = 3
+            AppImageUtils.appImageAlbum(this, info)
+        }
+
+        //压缩  多张图片，onSuccess 会调用多次
         btn_5.setOnClickListener {
             if (mData.size > 0) {
-                AppImageUtils.LuImageCompress(this, mData[0], object : OnCompressListener {
+                AppImageUtils.LuImageCompress(this, mData, object : OnCompressListener {
                     override fun onSuccess(file: File?) {
                         mPresent.loadingView.hideLoading()
                         val dirSize = FileUtils.getFileSize(file)
-                        tv_img_size.append(",新图片大小->$dirSize")
-                        tv_img_size.append("\n新图片位置->${file?.path}")
-                        ToastUtils.showShort("压缩成功")
+                        tv_img_size.append(",新图大小->$dirSize")
+                        tv_img_size.append("\n新图位置->${file?.path}")
+                        ToastUtils.showLong("压缩成功")
                     }
 
                     override fun onError(e: Throwable?) {

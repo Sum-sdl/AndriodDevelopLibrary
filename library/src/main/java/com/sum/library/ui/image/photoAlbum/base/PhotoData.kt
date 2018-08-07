@@ -1,11 +1,13 @@
 package com.sum.library.ui.image.photoAlbum.base
 
+import java.io.Serializable
+
 /**
  * Created by sdl on 2018/1/12.
  */
-data class Photo(var id: Int?, var path: String, var selected: Boolean)
+data class Photo(var id: Int?, var path: String, var selected: Boolean) : Serializable
 
-data class PhotoDirectory(var id: String, var name: String, var coverPath: String?, var date: Long?) {
+data class PhotoDirectory(var id: String, var name: String, var coverPath: String?, var date: Long?) : Serializable {
 
     private val photos: ArrayList<Photo> by lazy {
         arrayListOf<Photo>()

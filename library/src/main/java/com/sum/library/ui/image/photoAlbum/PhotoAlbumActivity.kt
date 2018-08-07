@@ -8,7 +8,6 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.LoaderManager
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.Loader
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.ListPopupWindow
@@ -53,7 +52,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
 
     private lateinit var mTitle: PubTitleView
 
-    private var mAllFile: LinkedHashMap<String, PhotoDirectory>? = null
+    private var mAllFile: HashMap<String, PhotoDirectory>? = null
 
     private var mMaxNum = 9
 
@@ -75,6 +74,27 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     private var TAG_ALL: String = "所有图片"
 
     private lateinit var mAdapter: RecyclerAdapter<RecyclerDataHolder<*>>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        mHasLoadFinish = false
+        if (savedInstanceState != null) {
+            try {
+                mHasLoadFinish = savedInstanceState.getBoolean("load_finish", false)
+                mAllFile = savedInstanceState.getSerializable("all_image") as HashMap<String, PhotoDirectory>?
+                mChoosePhoto = savedInstanceState.getSerializable("choose_image") as ArrayList<Photo>
+            } catch (e: Exception) {
+            }
+        }
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putBoolean("load_finish", mHasLoadFinish)
+        outState?.putSerializable("choose_image", mChoosePhoto)
+        outState?.putSerializable("all_image", mAllFile)
+    }
+
 
     override fun initParams() {
         mChoosePhoto = arrayListOf()
@@ -147,6 +167,8 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 ImagePreviewActivity.open(this, list)
             }
         }
+
+        updateBtn()
     }
 
     private var mHasLoadFinish = false
@@ -166,7 +188,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 mHasLoadFinish = true
                 val hashMap = LinkedHashMap<String, PhotoDirectory>()
                 val photoAll = PhotoDirectory(TAG_ALL, TAG_ALL, null, null)
-                hashMap.put(photoAll.id, photoAll)
+                hashMap[photoAll.id] = photoAll
                 mAllFile = hashMap
 
                 //add
@@ -282,13 +304,23 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     private fun updateBtn() {
         val size = mChoosePhoto.size
         if (size == 0) {
-            mRightView.setTextColor(ContextCompat.getColor(this, R.color.pub_title_text_right_color))
-            mRightView.text = "完成"
-            tv_album_preview.text = "预览"
+            mRightView.setTextColor(getColorByResId(R.color.pub_title_text_right_color))
+            if (mAlbumInfo.max_count == 1) {
+                mRightView.text = ""
+                tv_album_preview.text = ""
+            } else {
+                mRightView.text = "完成"
+                tv_album_preview.text = "预览"
+            }
         } else {
             mRightView.setTextColor(mAlbumInfo.choose_tint_sel)
-            mRightView.text = getString(R.string.photo_finish, size, mMaxNum)
-            tv_album_preview.text = getString(R.string.photo_preview, size)
+            if (mAlbumInfo.max_count == 1) {
+                mRightView.text = "确定"
+                tv_album_preview.text = "点击预览"
+            } else {
+                mRightView.text = getString(R.string.photo_finish, size, mMaxNum)
+                tv_album_preview.text = getString(R.string.photo_preview, size)
+            }
         }
     }
 
@@ -299,7 +331,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 mChoosePhoto.add(photo)
                 mAdapter.notifyItemChanged(position)
             } else {
-                ToastUtils.showShort("最多可选 $mMaxNum 个")
+                ToastUtils.showShort("最多可选 $mMaxNum 张图片")
             }
         } else {
             mChoosePhoto.remove(photo)
@@ -309,8 +341,12 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         updateBtn()
     }
 
-    override fun onImageClick(photo: Photo?, position: Int) {
-        AppImageUtils.appImagePreview(this, photo?.path)
+    override fun onImageClick(photo: Photo, position: Int) {
+        if (mAlbumInfo.need_item_fast_preview) {
+            AppImageUtils.appImagePreview(this, photo.path)
+        } else {
+            onChooseClick(photo, position)
+        }
     }
 
     override fun onTakePhotoClick() {//系统拍照

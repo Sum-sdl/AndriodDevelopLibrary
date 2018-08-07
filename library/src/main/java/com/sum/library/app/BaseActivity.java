@@ -96,8 +96,8 @@ public abstract class BaseActivity extends AppCompatActivity implements UiViewMo
         return drawable;
     }
 
-    public int getColorRes(int colorRes) {
-        return ContextCompat.getColor(this, colorRes);
+    public int getColorByResId(int colorResId) {
+        return ContextCompat.getColor(this, colorResId);
     }
 
     public Drawable getTintDrawable(int drawableRes) {

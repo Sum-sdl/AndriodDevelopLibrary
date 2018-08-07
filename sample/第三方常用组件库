@@ -46,5 +46,6 @@ https://github.com/Blankj/AndroidUtilCode
 
 刷新组件
 implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
 https://github.com/scwang90/SmartRefreshLayout/blob/master/art/md_property.md
 

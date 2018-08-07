@@ -110,7 +110,11 @@ dependencies {
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
     implementation project(':library')
+    //刷新控件
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
 
     implementation 'com.github.orangegangsters:swipy:1.2.3@aar'
 

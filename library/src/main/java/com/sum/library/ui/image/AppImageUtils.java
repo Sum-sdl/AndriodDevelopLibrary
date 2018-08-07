@@ -22,6 +22,7 @@ import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
@@ -207,6 +208,14 @@ public class AppImageUtils {
      * @param compressListener 压缩回调
      */
     public static void LuImageCompress(Context context, String target, OnCompressListener compressListener) {
+        Luban.with(context)
+                .load(target)
+                .ignoreBy(100)
+                .setTargetDir(AppFileConfig.getFileDirectoryCompress().getPath())
+                .setCompressListener(compressListener).launch();
+    }
+
+    public static void LuImageCompress(Context context, List<String> target, OnCompressListener compressListener) {
         Luban.with(context)
                 .load(target)
                 .ignoreBy(100)

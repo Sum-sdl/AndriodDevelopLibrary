@@ -221,8 +221,8 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
         }
     }
 
-    public int getColorRes(int colorRes) {
-        return ContextCompat.getColor(mContext, colorRes);
+    public int getColorByResId(int colorResId) {
+        return ContextCompat.getColor(mContext, colorResId);
     }
 
     //base

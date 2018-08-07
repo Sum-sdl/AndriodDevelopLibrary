@@ -43,14 +43,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="选择图片地址:"
             android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/btn_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="我的相册" />
+            android:text="单选相册" />
 
+        <Button
+            android:id="@+id/btn_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义多选相册" />
 
         <TextView
             android:id="@+id/tv_img_size"
