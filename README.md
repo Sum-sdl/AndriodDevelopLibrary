@@ -5,6 +5,8 @@
  
 -  [RecyclerView通用适配器库](https://github.com/Sum-sdl/RvAdapter)
 
+-  [常用库链接](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
+
 ##### 测试Apk下载二维码
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
 
@@ -30,7 +32,7 @@
  ```
  
 
-c1. 基础的功能
+#### 基础的功能
 
 > **结构模块**
 >
