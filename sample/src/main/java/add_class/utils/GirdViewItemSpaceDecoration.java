@@ -5,15 +5,19 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.SizeUtils;
+
 /**
  * Created by Sum on 18/7/30.
+ * item展示的时候，注意Item完全铺满
  */
 
 public class GirdViewItemSpaceDecoration extends RecyclerView.ItemDecoration {
 
-    private int mSpace = 10;
+    private int mSpace;
 
     public GirdViewItemSpaceDecoration() {
+        mSpace = SizeUtils.dp2px(6);
     }
 
     public GirdViewItemSpaceDecoration(int space) {
@@ -31,7 +35,6 @@ public class GirdViewItemSpaceDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-
         int childCount = parent.getAdapter().getItemCount();
         int itemPosition = parent.getChildAdapterPosition(view);
         int spanCount = getSpanCount(parent);
@@ -48,17 +51,15 @@ public class GirdViewItemSpaceDecoration extends RecyclerView.ItemDecoration {
             return;
         }
 
-        int right = mSpace;
+        int left = mSpace;
         int bottom = mSpace;
-        //最后一列
-        if ((itemPosition + 1) % spanCount == 0) {// 如果是最后一列，则不需要绘制右边
-            right = 0;
+        if (itemPosition % spanCount == 0) {
+            left = 0;
         }
-        //最后一行
         int lastRawStartIndex = childCount - (childCount % spanCount == 0 ? 3 : childCount % spanCount);
         if (itemPosition >= lastRawStartIndex) {// 如果是最后一行，则不需要绘制底部
             bottom = 0;
         }
-        outRect.set(0, 0, right, bottom);
+        outRect.set(left, 0, 0, bottom);
     }
 }

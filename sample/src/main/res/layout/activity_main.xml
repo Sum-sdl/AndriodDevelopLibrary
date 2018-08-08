@@ -59,13 +59,13 @@
             android:id="@+id/b8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="通用功能组件测试" />
+            android:text="Lib包中通用组件测试" />
 
         <Button
             android:id="@+id/b9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="内置实用功能界面" />
+            android:text="Lib包中实用功能界面" />
 
         <Button
             android:id="@+id/b12"

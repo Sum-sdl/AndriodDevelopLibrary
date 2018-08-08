@@ -16,13 +16,13 @@ import com.sum.library.utils.Logger
 import com.sum.library.view.widget.PubTitleView
 import kotlinx.android.synthetic.main.activity_widget_use.*
 
-class WidgetUseActivity : AppCompatActivity() {
+class LibWidgetUseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_widget_use)
         ActivityCompat.setExitSharedElementCallback(this, exitElementCallback)
-        Logger.e("WidgetUseActivity onCreate")
+        Logger.e("LibWidgetUseActivity onCreate")
 
         val view: PubTitleView = pub_view
 
@@ -57,8 +57,8 @@ class WidgetUseActivity : AppCompatActivity() {
 
         iv_1.setOnClickListener {
 
-            val activity = this@WidgetUseActivity
-            val intent = Intent(this, UIActivity::class.java)
+            val activity = this@LibWidgetUseActivity
+            val intent = Intent(this, LibUIActivity::class.java)
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 val activityOptions =
                         ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -93,11 +93,11 @@ class WidgetUseActivity : AppCompatActivity() {
         super.onActivityReenter(resultCode, data)
         reenterState = Bundle(data?.extras)
 //        ActivityCompat.postponeEnterTransition(this)
-//        ActivityCompat.startPostponedEnterTransition(this@WidgetUseActivity)
+//        ActivityCompat.startPostponedEnterTransition(this@LibWidgetUseActivity)
         /* iv_2.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
              override fun onPreDraw(): Boolean {
                  iv_2.viewTreeObserver.removeOnPreDrawListener(this)
-                 ActivityCompat.startPostponedEnterTransition(this@WidgetUseActivity)
+                 ActivityCompat.startPostponedEnterTransition(this@LibWidgetUseActivity)
                  return true
              }
          })*/
@@ -112,7 +112,7 @@ class WidgetUseActivity : AppCompatActivity() {
         } else {
             null
         }
-        val intent = Intent(this, UIActivity::class.java)
+        val intent = Intent(this, LibUIActivity::class.java)
         intent.putExtra("url", 1)
         startActivity(intent, options?.toBundle())
     }

@@ -62,6 +62,9 @@ public class SumApp extends BaseApplication {
         });
     }
 
+    //TODO 以/结尾
+    public static String BASE_URL = "http://apps.meitoutiao.net/";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -72,7 +75,7 @@ public class SumApp extends BaseApplication {
         Logger.e("SumApp onCreate");
         Retrofit2Helper instance = Retrofit2Helper.getInstance();
         OkHttpClient client = instance.buildDefaultOkHttpClient().addInterceptor(new TestToken()).build();
-        instance.initRetrofit("https://www.baidu.com", client);
+        instance.initRetrofit(BASE_URL, client);
     }
 
     protected void attachBaseContext(Context base) {

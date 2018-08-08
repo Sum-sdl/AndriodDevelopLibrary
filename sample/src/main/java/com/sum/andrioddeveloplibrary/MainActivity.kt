@@ -45,10 +45,10 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
             startActivity(SplashActivity::class.java)
         }
         b8.setOnClickListener {
-            startActivity(WidgetUseActivity::class.java)
+            startActivity(LibWidgetUseActivity::class.java)
         }
         b9.setOnClickListener {
-            startActivity(UIActivity::class.java)
+            startActivity(LibUIActivity::class.java)
             overridePendingTransition(R.anim.activity_open_enter, R.anim.activity_open_exit)
         }
 

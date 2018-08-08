@@ -21,7 +21,7 @@ import top.zibin.luban.OnCompressListener
 import java.io.File
 
 
-class UIActivity : BaseAppActivity() {
+class LibUIActivity : BaseAppActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
