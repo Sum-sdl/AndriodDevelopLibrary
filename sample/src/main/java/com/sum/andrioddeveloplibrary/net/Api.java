@@ -1,6 +1,5 @@
 package com.sum.andrioddeveloplibrary.net;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -96,32 +95,23 @@ public interface Api {
      * 接口测试
      * */
 
-    // {"head":{"token":"4d40d6b05d67086ef1ac0c4c093155261b4db650e455e7a2",
-    // "client":"HongKongFocus","version":"V1.2"},
-    // "message":
-    // {"userId":"ffffffff-8650-ca15-ffff-ffffd8967aa8","userName":"我是一个农民",
-    // "userTag":"",
-    // "headUrl":"http:\/\/thirdqq.qlogo.cn\/qqapp\/1106296314\/0182677DB9A9A4B450F70443EF9D9F66\/100",
-    // "codeName":"美搭","pageNo":"1","pageSize":"15",
-    // "titleLength":"50","order":"desc","fieldName":"pubTime"}
-    // }
-    @POST("search")
-    @FormUrlEncoded
-    Call<String> apiPost_Search(@Body RequestBody requestBody);
+    @POST("topic/search")
+    Call<Object> apiPost_Search(@Body RequestBody requestBody);
 
-    @POST("search")
-    @FormUrlEncoded
-    Call<String> apiPost_Search(@Body HashMap<String, String> requestBody);
+    @POST("topic/search ")
+    Call<Object> apiPost_Search(@Body Object requestBody);
+
+    //添加过.addConverterFactory(GsonConverterFactory.create())方案
+    //被@Body注解的的对象将会被Gson转换成RequestBody发送到服务器。
+
+
+
 
     /**
      * @param url 会重新调用全路劲的，（search接口不会调用）
      */
     @POST("search")
-    @FormUrlEncoded
     Call<String> newUrlRequest(@Url String url, @Body RequestBody requestBody);
 
-
-    //添加过.addConverterFactory(GsonConverterFactory.create())方案
-    //被@Body注解的的对象将会被Gson转换成RequestBody发送到服务器。
 
 }

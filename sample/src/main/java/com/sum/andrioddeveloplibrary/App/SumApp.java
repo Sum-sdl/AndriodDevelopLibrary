@@ -20,8 +20,6 @@ import com.sum.library.app.BaseApplication;
 import com.sum.library.net.Retrofit2Helper;
 import com.sum.library.utils.Logger;
 
-import okhttp3.OkHttpClient;
-
 /**
  * Created by sdl on 2017/12/27.
  */
@@ -73,9 +71,7 @@ public class SumApp extends BaseApplication {
 //        }
 //        LeakCanary.install(this);
         Logger.e("SumApp onCreate");
-        Retrofit2Helper instance = Retrofit2Helper.getInstance();
-        OkHttpClient client = instance.buildDefaultOkHttpClient().addInterceptor(new TestToken()).build();
-        instance.initRetrofit(BASE_URL, client);
+        Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new TestToken());
     }
 
     protected void attachBaseContext(Context base) {

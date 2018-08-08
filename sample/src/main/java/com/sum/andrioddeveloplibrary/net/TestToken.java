@@ -11,6 +11,11 @@ import java.util.TreeMap;
 
 public class TestToken extends BaseDynamicInterceptor {
 
+    @Override
+    protected boolean needLog() {
+        return true;
+    }
+
     private HashMap<String, String> mHeaders;
 
     @Override

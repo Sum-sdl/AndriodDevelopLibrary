@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class Logger {
 
-    private String tag = "com.logger";
+    public static String tag = "com.logger";
 
     private static boolean mDebug = true;
 
@@ -30,14 +30,13 @@ public class Logger {
 
     private String createMessage(String msg) {
         String functionName = getFunctionName();
-        String message = functionName + " - " + msg;
-        return message;
+        return functionName + " - " + msg;
     }
 
-    public void info(String msg) {
+    private void info(String msg) {
         if (mDebug) {
             String message = createMessage(msg);
-            Log.i(this.tag, message);
+            Log.i(tag, message);
         }
     }
 
@@ -49,10 +48,10 @@ public class Logger {
         instance.info(e != null ? e.toString() : "null");
     }
 
-    public void verbose(String msg) {
+    private void verbose(String msg) {
         if (mDebug) {
             String message = createMessage(msg);
-            Log.v(this.tag, message);
+            Log.v(tag, message);
         }
     }
 
@@ -67,7 +66,7 @@ public class Logger {
     public void debug(String msg) {
         if (mDebug) {
             String message = createMessage(msg);
-            Log.d(this.tag, message);
+            Log.d(tag, message);
         }
     }
 
@@ -82,7 +81,7 @@ public class Logger {
     public void error(String msg) {
         if (mDebug) {
             String message = createMessage(msg);
-            Log.e(this.tag, message);
+            Log.e(tag, message);
         }
     }
 
@@ -92,23 +91,23 @@ public class Logger {
 
     public void error(Exception e) {
         if (mDebug) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             String name = getFunctionName();
             StackTraceElement[] sts = e.getStackTrace();
 
             if (name != null)
-                sb.append(name + " - " + e + "\r\n");
+                sb.append(name).append(" - ").append(e).append("\r\n");
             else {
-                sb.append(e + "\r\n");
+                sb.append(e).append("\r\n");
             }
             if ((sts != null) && (sts.length > 0)) {
                 for (StackTraceElement st : sts) {
                     if (st != null) {
-                        sb.append("[ " + st.getFileName() + ":" + st.getLineNumber() + " ]\r\n");
+                        sb.append("[ ").append(st.getFileName()).append(":").append(st.getLineNumber()).append(" ]\r\n");
                     }
                 }
             }
-            Log.e(this.tag, sb.toString());
+            Log.e(tag, sb.toString());
         }
     }
 
@@ -117,10 +116,10 @@ public class Logger {
     }
 
 
-    public void warn(String msg) {
+    private void warn(String msg) {
         if (mDebug) {
             String message = createMessage(msg);
-            Log.w(this.tag, message);
+            Log.w(tag, message);
         }
     }
 
