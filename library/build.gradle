@@ -50,7 +50,6 @@ dependencies {
     // retrofit2
     api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.retrofit2:converter-gson:2.4.0'
-//    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
     //https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md
     api 'com.tencent.sonic:sdk:3.0.0'

@@ -5,7 +5,7 @@
  
 -  [RecyclerView通用适配器库](https://github.com/Sum-sdl/RvAdapter)
 
--  [常用开源库总结](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
+-  [常用开源库总结连接](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
 
 #### 测试Apk扫码下载
 
@@ -30,7 +30,7 @@
  Then, add the library to your module `build.gradle`
  ```gradle
  dependencies {
-     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.6'
+     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.7'
  }
  ```
  
