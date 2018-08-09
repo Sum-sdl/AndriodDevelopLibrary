@@ -55,7 +55,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".LibWidgetUseActivity" />
+        <activity
+            android:name=".LibWidgetUseActivity"
+            android:windowSoftInputMode="adjustPan" />
+
         <activity android:name=".LibUIActivity" />
         <activity android:name=".activity.FragmentManagerActivity" />
         <activity android:name=".testActivity.ServiceTestActivity" />
