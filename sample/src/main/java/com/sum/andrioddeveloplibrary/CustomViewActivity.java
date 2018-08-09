@@ -1,10 +1,13 @@
 package com.sum.andrioddeveloplibrary;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.sum.library.view.widget.CircleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,6 @@ public class CustomViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_custom_view);
 
         final ChooseView chooseView = (ChooseView) findViewById(R.id.choose_view);
-//        chooseView.setBitmapResId(R.mipmap.ic_work_type_bike_big);
         findViewById(R.id.bt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,5 +42,28 @@ public class CustomViewActivity extends AppCompatActivity {
             }
         });
 
+
+        CircleView pcv_splash_jump = findViewById(R.id.pcv_splash_jump);
+        CircleView pcv_splash_jump2 = findViewById(R.id.pcv_splash_jump2);
+        CircleView pcv_splash_jump3 = findViewById(R.id.pcv_splash_jump3);
+        pcv_splash_jump3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showShort("Jump");
+            }
+        });
+        findViewById(R.id.bt2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pcv_splash_jump2.fastStart();
+                pcv_splash_jump3.fastStart();
+                pcv_splash_jump.fastStart(3000, new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        ToastUtils.showShort("Anim Finish");
+                    }
+                });
+            }
+        });
     }
 }

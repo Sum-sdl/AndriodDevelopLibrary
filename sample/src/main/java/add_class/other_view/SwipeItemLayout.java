@@ -18,7 +18,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 
-import com.sum.library.R;
+import com.sum.andrioddeveloplibrary.R;
 
 import java.lang.reflect.Method;
 

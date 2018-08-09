@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
@@ -9,6 +10,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="开始" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+
+            <com.sum.library.view.widget.CircleView
+                android:id="@+id/pcv_splash_jump"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                app:background_color="#000000"
+                app:direction="right"
+                app:foreground_color="@android:color/holo_red_dark"
+                app:stoke_width="2dip"
+                app:text="跳过"
+                app:text_color="@android:color/white"
+                app:text_size="10sp" />
+
+            <com.sum.library.view.widget.CircleView
+                android:id="@+id/pcv_splash_jump2"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_marginStart="20dp"
+                app:background_color="#000000"
+                app:foreground_color="@android:color/holo_red_dark"
+                app:progress="80"
+                app:start_direction="right"
+                app:stoke_width="2dip"
+                app:text="跳过"
+                app:text_color="@android:color/white"
+                app:text_size="10sp" />
+
+            <com.sum.library.view.widget.CircleView
+                android:id="@+id/pcv_splash_jump3"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_marginStart="20dp"
+                app:foreground_color="@android:color/holo_red_dark"
+                app:foreground_bg_color="@color/colorAccent"
+                app:start_direction="bottom"
+                app:stoke_width="2dip"
+                app:text="跳过"
+                app:text_color="@android:color/holo_blue_bright"
+                app:text_size="10sp" />
+
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="300dp"
@@ -25,20 +82,12 @@
 
         </FrameLayout>
 
-        <com.sum.andrioddeveloplibrary.testview.TestCustomView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="10dp" />
-
-
         <add_class.other_view.ChooseView
             android:id="@+id/choose_view"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="50dp" />
+            android:layout_marginRight="20dp" />
 
         <Button
             android:id="@+id/bt"
@@ -50,5 +99,7 @@
             android:id="@+id/c_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
