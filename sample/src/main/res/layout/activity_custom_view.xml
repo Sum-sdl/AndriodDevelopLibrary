@@ -46,7 +46,7 @@
                 app:background_color="#000000"
                 app:foreground_color="@android:color/holo_red_dark"
                 app:progress="80"
-                app:start_direction="right"
+                app:start_direction="left"
                 app:stoke_width="2dip"
                 app:text="跳过"
                 app:text_color="@android:color/white"
