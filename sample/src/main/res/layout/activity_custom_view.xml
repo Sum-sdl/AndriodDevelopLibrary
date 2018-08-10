@@ -67,8 +67,8 @@
 
             <com.sum.library.view.widget.CircleView
                 android:id="@+id/pcv_splash_jump4"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
                 android:layout_marginStart="20dp" />
 
         </LinearLayout>
