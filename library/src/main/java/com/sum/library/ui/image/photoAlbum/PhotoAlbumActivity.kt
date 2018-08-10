@@ -18,8 +18,8 @@ import android.view.View
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.sum.lib.rvadapter.RecyclerAdapter
-import com.sum.lib.rvadapter.RecyclerDataHolder
+import com.sum.adapter.RecyclerAdapter
+import com.sum.adapter.RecyclerDataHolder
 import com.sum.library.R
 import com.sum.library.app.BaseActivity
 import com.sum.library.ui.image.AppImageUtils

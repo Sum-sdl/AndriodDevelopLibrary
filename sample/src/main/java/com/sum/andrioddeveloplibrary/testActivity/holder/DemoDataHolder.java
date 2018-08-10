@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.sum.adapter.RecyclerDataHolder;
+import com.sum.adapter.RecyclerViewHolder;
 import com.sum.andrioddeveloplibrary.R;
-import com.sum.lib.rvadapter.RecyclerDataHolder;
-import com.sum.lib.rvadapter.RecyclerViewHolder;
 
 /**
  * Created by 365 on 2017/3/2.

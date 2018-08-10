@@ -46,6 +46,7 @@ public class CustomViewActivity extends AppCompatActivity {
         CircleView pcv_splash_jump = findViewById(R.id.pcv_splash_jump);
         CircleView pcv_splash_jump2 = findViewById(R.id.pcv_splash_jump2);
         CircleView pcv_splash_jump3 = findViewById(R.id.pcv_splash_jump3);
+        CircleView pcv_splash_jump4 = findViewById(R.id.pcv_splash_jump4);
         pcv_splash_jump3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +57,7 @@ public class CustomViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pcv_splash_jump2.fastStart();
+                pcv_splash_jump4.fastStart();
                 pcv_splash_jump3.fastStart();
                 pcv_splash_jump.fastStart(3000, new AnimatorListenerAdapter() {
                     @Override

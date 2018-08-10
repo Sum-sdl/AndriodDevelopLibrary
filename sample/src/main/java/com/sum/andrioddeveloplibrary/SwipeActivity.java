@@ -10,9 +10,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.sum.adapter.RecyclerAdapter;
+import com.sum.adapter.RecyclerDataHolder;
 import com.sum.andrioddeveloplibrary.testActivity.holder.DemoDataHolder;
-import com.sum.lib.rvadapter.RecyclerAdapter;
-import com.sum.lib.rvadapter.RecyclerDataHolder;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;

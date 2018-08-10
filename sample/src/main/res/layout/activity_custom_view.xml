@@ -57,13 +57,19 @@
                 android:layout_width="40dip"
                 android:layout_height="40dip"
                 android:layout_marginStart="20dp"
-                app:foreground_color="@android:color/holo_red_dark"
                 app:foreground_bg_color="@color/colorAccent"
+                app:foreground_color="@android:color/holo_red_dark"
                 app:start_direction="bottom"
                 app:stoke_width="2dip"
                 app:text="跳过"
                 app:text_color="@android:color/holo_blue_bright"
                 app:text_size="10sp" />
+
+            <com.sum.library.view.widget.CircleView
+                android:id="@+id/pcv_splash_jump4"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="20dp" />
 
         </LinearLayout>
 

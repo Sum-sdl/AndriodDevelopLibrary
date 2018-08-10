@@ -8,10 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.sum.library.R;
 
 /**
@@ -22,7 +24,7 @@ public class CircleView extends View {
     private int progress;
     private int stoke_width;
 
-    private String text = "";
+    private String text;
     private int pDirection;
     private int start_direction;
 
@@ -44,19 +46,22 @@ public class CircleView extends View {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleView);
         int background_color = array.getColor(R.styleable.CircleView_background_color, Color.parseColor("#000000"));
         int second_color = array.getColor(R.styleable.CircleView_foreground_bg_color, Color.parseColor("#000000"));
-        int foreground_color = array.getColor(R.styleable.CircleView_foreground_color, ContextCompat.getColor(context, R.color.colorAccent));
+        int foreground_color = array.getColor(R.styleable.CircleView_foreground_color, Color.parseColor("#ffffff"));
 
         progress = array.getInt(R.styleable.CircleView_progress, 0);
 
-        stoke_width = array.getDimensionPixelSize(R.styleable.CircleView_stoke_width, 10);
+        pDirection = array.getInt(R.styleable.CircleView_direction, 2);
 
-        pDirection = array.getInt(R.styleable.CircleView_direction, 1);
+        stoke_width = array.getDimensionPixelSize(R.styleable.CircleView_stoke_width, SizeUtils.dp2px(context, 2.4f));
+        int text_size = array.getDimensionPixelSize(R.styleable.CircleView_text_size, SizeUtils.dp2px(context, 11));
 
-        int text_size = array.getDimensionPixelSize(R.styleable.CircleView_text_size, 10);
         int text_color = array.getColor(R.styleable.CircleView_text_color, foreground_color);
         text = array.getString(R.styleable.CircleView_text);
+        if (TextUtils.isEmpty(text)) {
+            text = "跳过";
+        }
 
-        start_direction = array.getInt(R.styleable.CircleView_start_direction, 2);
+        start_direction = array.getInt(R.styleable.CircleView_start_direction, 3);
         array.recycle();
 
         paint_background = new Paint();
@@ -123,6 +128,7 @@ public class CircleView extends View {
         }
         valueAnimator = ValueAnimator.ofInt(100, 0);
         valueAnimator.setDuration(duration);
+        valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         valueAnimator.addUpdateListener(animation ->
                 setText("跳过", (int) (100 - animation.getAnimatedFraction() * 100))
         );

@@ -5,10 +5,10 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.sum.adapter.RecyclerDataHolder;
+import com.sum.adapter.RecyclerViewHolder;
 import com.sum.andrioddeveloplibrary.BR;
 import com.sum.andrioddeveloplibrary.R;
-import com.sum.lib.rvadapter.RecyclerDataHolder;
-import com.sum.lib.rvadapter.RecyclerViewHolder;
 import com.sum.library.utils.Logger;
 
 /**
