@@ -46,7 +46,7 @@ dependencies {
         transitive = true
     }
     // 工具类 https://github.com/Blankj/AndroidUtilCode
-    api 'com.blankj:utilcode:1.18.1'
+    api 'com.blankj:utilcode:1.19.0'
     // retrofit2
     api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.retrofit2:converter-gson:2.4.0'

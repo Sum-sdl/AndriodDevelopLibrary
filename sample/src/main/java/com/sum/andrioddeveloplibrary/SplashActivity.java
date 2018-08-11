@@ -3,13 +3,16 @@ package com.sum.andrioddeveloplibrary;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.app.BaseActivity;
 import com.sum.library.utils.AppUtils;
+import com.sum.library.utils.Logger;
 
 import java.util.List;
 
@@ -26,9 +29,27 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        //TODO 最简单的屏幕适配
+//        if (ScreenUtils.isPortrait()) {
+//            ScreenUtils.adaptScreen4VerticalSlide(this, 360);
+//        } else {
+//            ScreenUtils.adaptScreen4HorizontalSlide(this, 360);
+//        }
+        super.onCreate(savedInstanceState);
+        Logger.e("ScreenUtils.isAdaptScreen()->" + ScreenUtils.isAdaptScreen());
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (ScreenUtils.isAdaptScreen()) {
+            ScreenUtils.cancelAdaptScreen(this);
+        }
+        super.onDestroy();
+    }
+
+    @Override
     protected void initParams() {
-
-
         findViewById(R.id.b7).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

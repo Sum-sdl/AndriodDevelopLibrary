@@ -28,12 +28,6 @@
             android:layout_height="wrap_content"
             android:text="数据共享操作" />
 
-        <Button
-            android:id="@+id/b4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="其他界面修改数据来更新当前界面" />
-
 
         <Button
             android:id="@+id/b5"
@@ -54,6 +48,45 @@
             android:layout_height="wrap_content"
             android:text="框架测试使用" />
 
+
+        <Button
+            android:id="@+id/b4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="其他界面操作数据来影响当前界面数据" />
+
+        <Button
+            android:id="@+id/b8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="发送普通“change”事件" />
+
+        <TextView
+            android:id="@+id/tv_nor_live_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff0" />
+
+        <Button
+            android:id="@+id/b9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="注册Forever监听“change_forever”" />
+
+        <TextView
+            android:id="@+id/tv_forever_live_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#f00" />
+
+        <Button
+            android:id="@+id/b10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发送一直活动的“change_forever”事件" />
 
         <FrameLayout
             android:id="@+id/fl_content"

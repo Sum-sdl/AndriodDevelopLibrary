@@ -52,8 +52,8 @@ public class CircleView extends View {
 
         pDirection = array.getInt(R.styleable.CircleView_direction, 1);
 
-        stoke_width = array.getDimensionPixelSize(R.styleable.CircleView_stoke_width, SizeUtils.dp2px(context, 2.4f));
-        int text_size = array.getDimensionPixelSize(R.styleable.CircleView_text_size, SizeUtils.dp2px(context, 10.4f));
+        stoke_width = array.getDimensionPixelSize(R.styleable.CircleView_stoke_width, SizeUtils.dp2px(2.4f));
+        int text_size = array.getDimensionPixelSize(R.styleable.CircleView_text_size, SizeUtils.dp2px(10.4f));
 
         int text_color = array.getColor(R.styleable.CircleView_text_color, foreground_color);
         text = array.getString(R.styleable.CircleView_text);

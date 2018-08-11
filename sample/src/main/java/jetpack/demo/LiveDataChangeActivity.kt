@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.sum.andrioddeveloplibrary.R
+import com.sum.library.utils.LiveDataEventBus
 import com.sum.library.utils.Logger
 import jetpack.demo.base.ViewModelOwner
 import jetpack.demo.livedata.NameViewModel
@@ -33,6 +34,23 @@ class LiveDataChangeActivity : AppCompatActivity() {
         var index = 1
         bt1.setOnClickListener {
             mViewModel.currentName.value = "LiveDataChangeActivity click->" + (++index)
+        }
+
+        bt2.setOnClickListener {
+            LiveDataEventBus.with("change").value = ("second activity index->" + (++index))
+        }
+
+
+        LiveDataEventBus.with("change", String::class.java)
+                .observe(this, Observer {
+                    Logger.e("second activity change->$it")
+                    bt2.text = it
+                })
+
+
+        bt3.setOnClickListener {
+            bt3.text = ("second activity change_Forever" + (++index))
+            LiveDataEventBus.with("change_forever").value = bt3.text
         }
     }
 
