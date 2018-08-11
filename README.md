@@ -30,8 +30,7 @@
  Then, add the library to your module `build.gradle`
  ```gradle
  dependencies {
-     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.9'
- }
+     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.1.0}
  ```
  
 
@@ -43,6 +42,7 @@
 - Fragment的管理类[FragmentCacheManager](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/framework/FragmentCacheManager.java)
 用来管理多个Fragment的切换操作（如App主页的底部按钮）
 - RecyclerView的通用适配器[RvAdapter](https://github.com/Sum-sdl/RvAdapter)
+- [LiveDataEventBus]()->[测试代码]()基于LiveData搞定EventBus全部功能。支持Observer可见刷新和ObserverForever一直监听
 
 > **UI组件模块**
 >
