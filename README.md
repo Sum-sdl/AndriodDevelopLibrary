@@ -42,7 +42,7 @@
 - Fragment的管理类[FragmentCacheManager](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/framework/FragmentCacheManager.java)
 用来管理多个Fragment的切换操作（如App主页的底部按钮）
 - RecyclerView的通用适配器[RvAdapter](https://github.com/Sum-sdl/RvAdapter)
-- [LiveDataEventBus]()->[测试代码]()基于LiveData搞定EventBus全部功能。支持Observer可见刷新和ObserverForever一直监听
+- [LiveDataEventBus](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/utils/LiveDataEventBus.java)->[测试代码](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/src/main/java/jetpack/demo/NewStartActivity.kt)基于LiveData搞定EventBus全部功能。支持Observer可见刷新和ObserverForever一直监听
 
 > **UI组件模块**
 >
