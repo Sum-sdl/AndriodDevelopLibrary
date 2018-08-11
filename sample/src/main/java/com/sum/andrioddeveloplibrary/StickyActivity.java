@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.sum.adapter.RecyclerDataHolder;
+import com.sum.adapter.RecyclerViewHolder;
+import com.sum.adapter.sticky.StickRecyclerAdapter;
+import com.sum.adapter.sticky.StickyHeadDecoration;
 import com.sum.andrioddeveloplibrary.model.StickyItemModel;
-import com.sum.lib.rvadapter.RecyclerDataHolder;
-import com.sum.lib.rvadapter.RecyclerViewHolder;
-import com.sum.lib.rvadapter.sticky.StickRecyclerAdapter;
-import com.sum.lib.rvadapter.sticky.StickyHeadDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

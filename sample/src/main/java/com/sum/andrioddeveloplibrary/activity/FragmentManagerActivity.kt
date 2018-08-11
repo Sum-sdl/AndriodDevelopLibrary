@@ -70,7 +70,6 @@ class FragmentManagerActivity : BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         Logger.e("onSaveInstanceState:" + ",b:" + outState?.toString())
-//        Logger.e("onSaveInstanceState fragment:" + mManager.cacheFragment.toString())
         outState?.putInt("index", mCurIndex)
     }
 

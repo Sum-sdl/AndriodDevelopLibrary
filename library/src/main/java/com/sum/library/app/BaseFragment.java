@@ -1,6 +1,7 @@
 package com.sum.library.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -152,6 +153,9 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     }
 
     public View getCacheView() {
+        if (mWRView == null) {
+            return null;
+        }
         return mWRView.get();
     }
 
@@ -163,7 +167,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (getUserVisibleHint() && mWRView.get() != null && !mIsMulti) {
+        if (getUserVisibleHint() && getCacheView() != null && !mIsMulti) {
             mIsMulti = true;
             onFirstUserVisible();
         }
@@ -171,12 +175,12 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser && mWRView.get() != null && !mIsMulti) {
+        if (isVisibleToUser && getCacheView() != null && !mIsMulti) {
             mIsMulti = true;
             onFirstUserVisible();
-        } else if (isVisibleToUser && mWRView.get() != null && mIsMulti) {
+        } else if (isVisibleToUser && getCacheView() != null && mIsMulti) {
             onUserVisible();
-        } else if (!isVisibleToUser && mWRView.get() != null && mIsMulti) {
+        } else if (!isVisibleToUser && getCacheView() != null && mIsMulti) {
             onUserInvisible();
         } else {
             super.setUserVisibleHint(isVisibleToUser);
@@ -202,7 +206,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
      * fragment不可见（切换掉或者onPause）
      */
     public void onUserInvisible() {
-        printFragmentLife("onUserVisible");
+        printFragmentLife("onUserInvisible");
     }
 
 
@@ -217,8 +221,13 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
         }
     }
 
-    public int getColorRes(int colorRes) {
-        return ContextCompat.getColor(mContext, colorRes);
+    public int getColorByResId(int colorResId) {
+        return ContextCompat.getColor(mContext, colorResId);
+    }
+
+    //base
+    public void startActivity(Class<?> clazz) {
+        startActivity(new Intent(getContext(), clazz));
     }
 
     protected void printFragmentLife(String fun) {

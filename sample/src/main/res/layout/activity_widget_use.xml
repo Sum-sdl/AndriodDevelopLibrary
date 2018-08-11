@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.dreamtobe.kpswitch.widget.KPSwitchRootLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -19,6 +18,12 @@
         android:background="@color/black"
         app:title_name="Dark Model"
         app:title_white="true" />
+
+    <EditText
+        android:id="@+id/ed_input"
+        android:layout_width="match_parent"
+        android:layout_height="88dp" />
+
 
     <TextView
         android:id="@+id/btn_1"
@@ -70,4 +75,4 @@
         app:pub_empty_img="@mipmap/ic_launcher"
         app:pub_empty_text="@string/app_name" />
 
-</LinearLayout>
+</cn.dreamtobe.kpswitch.widget.KPSwitchRootLinearLayout>

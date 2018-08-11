@@ -2,6 +2,7 @@ package com.sum.library.net;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,33 +30,65 @@ public class Retrofit2Helper {
     }
 
     private Retrofit mRetrofit;
-    private Retrofit.Builder mBuilder;
+    private Retrofit mUploadFileRetrofit;
 
     private Retrofit2Helper() {
-        mBuilder = new Retrofit.Builder();
-        //自动将ResponseBody转成对象
-        mBuilder.addConverterFactory(GsonConverterFactory.create());
     }
 
-    //自己添加添加公共参数Interceptor
-    public OkHttpClient.Builder buildDefaultOkHttpClient() {
+    private OkHttpClient.Builder buildDefaultOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        //ChuckInterceptor 广播调试请求参数
         builder.readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .connectTimeout(15, TimeUnit.SECONDS);
         return builder;
     }
 
+    //直接默认设置
+    public void initRetrofit(String baseUrl) {
+        initRetrofit(baseUrl, buildDefaultOkHttpClient().build());
+    }
+
+    //自己添加添加公共参数Interceptor
+    public void initRetrofit(String baseUrl, Interceptor... interceptor) {
+        OkHttpClient.Builder builder = buildDefaultOkHttpClient();
+        if (interceptor != null && interceptor.length > 0) {
+            for (Interceptor item : interceptor) {
+                builder.addInterceptor(item);
+            }
+        }
+        initRetrofit(baseUrl, builder.build());
+    }
 
     public void initRetrofit(String baseUrl, OkHttpClient client) {
-        mBuilder.baseUrl(baseUrl);
-        mBuilder.client(client);
-        mRetrofit = mBuilder.build();
+        Retrofit.Builder builder = new Retrofit.Builder();
+        builder.baseUrl(baseUrl);
+        //自动将ResponseBody转成对象
+        builder.addConverterFactory(GsonConverterFactory.create());
+        builder.client(client);
+        mRetrofit = builder.build();
+    }
+
+    //自定义上传文件操作信息
+    public Retrofit initUploadFileRetrofit(String uploadUrl, int seconds) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(seconds, TimeUnit.SECONDS)
+                .writeTimeout(seconds, TimeUnit.SECONDS)
+                .readTimeout(seconds, TimeUnit.SECONDS)
+                .build();
+        mUploadFileRetrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(uploadUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return mUploadFileRetrofit;
     }
 
     public static Retrofit getRetrofit() {
         return Retrofit2Helper.getInstance().mRetrofit;
+    }
+
+    public static Retrofit getUploadFileRetrofit() {
+        return Retrofit2Helper.getInstance().mUploadFileRetrofit;
     }
 
 }

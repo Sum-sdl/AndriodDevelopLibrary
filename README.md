@@ -1,15 +1,20 @@
 
-#### 个人开发库 [https://jitpack.io]
+## 个人开发库
 
--  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) --> [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
+-  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) === [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
  
 -  [RecyclerView通用适配器库](https://github.com/Sum-sdl/RvAdapter)
 
-##### 测试Apk下载二维码
+-  [常用开源库总结连接](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
+
+#### 测试Apk扫码下载
+
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
 
+---
 
- ## Dependency
+##### Dependency
+
 [![](https://jitpack.io/v/Sum-sdl/AndriodDevelopLibrary.svg)](https://jitpack.io/#Sum-sdl/AndriodDevelopLibrary)
 
  Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
@@ -25,12 +30,12 @@
  Then, add the library to your module `build.gradle`
  ```gradle
  dependencies {
-     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.4'
+     implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.0.9'
  }
  ```
  
 
-#### 1. 基础的功能
+### 项目功能介绍
 
 > **结构模块**
 >
@@ -49,8 +54,9 @@
 
 > **集成模块**
 >
--  集成Retrofit网络请求框架（未添加RxJava）[BaseDynamicInterceptor](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/net/token/BaseDynamicInterceptor.java)公共参数添加
--  集成[Fresco](https://www.fresco-cn.org/docs/scaling.html#_)图片框架
+-  集成[Retrofit2](http://square.github.io/retrofit/)网络框架（未添加RxJava）[BaseDynamicInterceptor](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/net/token/BaseDynamicInterceptor.java)请求公共参数添加
+-  集成[Glide](https://github.com/bumptech/glide)图片框架
+-  集成[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout/blob/master/art/md_property.md)下拉刷新框架
 
 > **基础功能模块**
 >

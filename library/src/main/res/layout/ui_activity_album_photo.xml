@@ -57,7 +57,6 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:text="预览"
             android:textColor="@drawable/shape_text_color" />
 
 

@@ -14,7 +14,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.sum.library.R;
+import com.sum.andrioddeveloplibrary.R;
 
 import java.util.ArrayList;
 import java.util.List;

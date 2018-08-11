@@ -31,14 +31,14 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
-            app:studentName="@{viewModel.age}" />
+           />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ff0"
             android:textSize="12sp"
-            app:addTab="@{viewModel.name}" />
+     />
 
     </LinearLayout>
 </layout>

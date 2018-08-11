@@ -7,10 +7,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ToastUtils
+import com.sum.adapter.RecyclerAdapter
+import com.sum.adapter.RecyclerDataHolder
 import com.sum.andrioddeveloplibrary.R
 import com.sum.andrioddeveloplibrary.databinding.ActivityDataBindTestBinding
-import com.sum.lib.rvadapter.RecyclerAdapter
-import com.sum.lib.rvadapter.RecyclerDataHolder
 import com.sum.library.domain.ActionState
 import com.sum.library.utils.Logger
 import jetpack.demo.databindAdapter.InfoDataHolder
@@ -57,7 +57,6 @@ class DataBindTestActivity : AppCompatActivity() {
                 info.name = "index->$index"
                 item.updateData(info)
             }
-
             mAdapter.notifyDataSetChanged()
 
         }

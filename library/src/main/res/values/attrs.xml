@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--侧滑删除布局-->
-    <declare-styleable name="BGASwipeItemLayout">
-        <attr name="bga_sil_swipeDirection" format="enum">
-            <enum name="left" value="0" />
-            <enum name="right" value="1" />
-        </attr>
-        <attr name="bga_sil_bottomMode" format="enum">
-            <enum name="pullOut" value="0" />
-            <enum name="layDown" value="1" />
-        </attr>
-        <attr name="bga_sil_springDistance" format="dimension" />
-        <attr name="bga_sil_swipeAble" format="boolean" />
-    </declare-styleable>
+    <declare-styleable name="CircleView">
+        <attr name="background_color" format="color" />
+        <attr name="foreground_color" format="color" />
+        <attr name="foreground_bg_color" format="color" />
+        <attr name="stoke_width" format="dimension" />
+        <attr name="progress" format="integer" />
+        <attr name="text_size" format="dimension" />
+        <attr name="text_color" format="color" />
+        <attr name="text" format="string" />
 
-    <!--下来刷新-->
-    <declare-styleable name="SwipeLayout">
-        <attr name="swipe_direction" format="enum">
-            <enum name="left" value="0" />
-            <enum name="right" value="1" />
-            <enum name="both" value="2" />
+        <attr name="direction" format="enum">
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
         </attr>
-        <attr name="swipe_drag_distance" format="dimension" />
-    </declare-styleable>
 
+        <attr name="start_direction" format="enum">
+            <enum name="left" value="1" />
+            <enum name="top" value="2" />
+            <enum name="right" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+    </declare-styleable>
 
     <!--组合复选框-->
     <!--reference 参考某一个资源id string integer dimension(dip) float(0.7)-->
@@ -36,16 +34,6 @@
         <attr name="multiColorChecked" format="reference|color" />
         <attr name="multiDrawableDefault" format="reference" />
         <attr name="multiDrawableChecked" format="reference" />
-    </declare-styleable>
-
-    <!--自定义滑动选择view-->
-    <declare-styleable name="ChooseView">
-        <attr name="workPaddingToLine" format="dimension" />
-        <attr name="workTextSize" format="dimension" />
-        <attr name="workTextColorNor" format="reference|color" />
-        <attr name="workTextColorSelected" format="reference|color" />
-        <attr name="workLineColorNor" format="reference|color" />
-        <attr name="workLineColorSelected" format="reference|color" />
     </declare-styleable>
 
 

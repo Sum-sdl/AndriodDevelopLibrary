@@ -2,8 +2,6 @@ package com.sum.library.net.token;
 
 import android.util.Log;
 
-import com.sum.library.BuildConfig;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -36,6 +34,12 @@ import okio.BufferedSource;
 
 public abstract class BaseDynamicInterceptor implements Interceptor {
 
+    protected boolean needLog() {
+        return false;
+    }
+
+    private static final String TAG = "app_net_log";
+
     public BaseDynamicInterceptor() {
 
     }
@@ -48,15 +52,15 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
         } else if (request.method().equals("POST")) {
             request = this.addPostParamsSign(request);
         }
-        if (BuildConfig.DEBUG) {
-            Log.d("net",
+        if (needLog()) {
+            Log.d(TAG,
                     "req->method:" + request.method() +
                             " head:" + request.headers().toString() +
                             " url:" + request.url().toString());
         }
         Response response = chain.proceed(request);
-        if (BuildConfig.DEBUG) {
-            Log.d("net", "rsp->" + unicodeToString(getBodyString(response)));
+        if (needLog()) {
+            Log.d(TAG, "rsp->" + unicodeToString(getBodyString(response)));
         }
         return response;
     }
@@ -64,7 +68,10 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
 
     private String getBodyString(Response response) throws IOException {
         ResponseBody responseBody = response.body();
-        BufferedSource source = responseBody.source();
+        BufferedSource source = null;
+        if (responseBody != null) {
+            source = responseBody.source();
+        }
         if (source == null) {
             return null;
         }
@@ -82,9 +89,9 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
         HttpUrl httpUrl = request.url();
         HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
         Set<String> nameSet = httpUrl.queryParameterNames();
+
         //GET查询参数
-        ArrayList<String> nameList = new ArrayList<>();
-        nameList.addAll(nameSet);
+        ArrayList<String> nameList = new ArrayList<>(nameSet);
 
         TreeMap<String, String> oldParams = new TreeMap<>();
         for (int i = 0; i < nameList.size(); ++i) {
@@ -139,6 +146,9 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
                     continue;
                 }
                 bodyBuilder.addEncoded(entry.getKey(), URLDecoder.decode(entry.getValue(), "UTF-8"));
+                if (needLog()) {
+                    Log.d(TAG, "key:" + entry.getKey() + ",value:" + entry.getValue() + "\n");
+                }
             }
             formBody = bodyBuilder.build();
 
@@ -154,9 +164,8 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
             MultipartBody multipartBody = (MultipartBody) request.body();
             okhttp3.MultipartBody.Builder bodyBuilder = new okhttp3.MultipartBody.Builder();
             List<MultipartBody.Part> oldparts = multipartBody.parts();
-            List<MultipartBody.Part> newparts = new ArrayList<>();
-            newparts.addAll(oldparts);
 
+            List<MultipartBody.Part> newparts = new ArrayList<>(oldparts);
             TreeMap<String, String> newParams = new TreeMap<>();
             this.addPubParams(newParams);
 

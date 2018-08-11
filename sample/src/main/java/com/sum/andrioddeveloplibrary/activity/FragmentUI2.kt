@@ -22,6 +22,7 @@ class FragmentUI2 : BaseFragment() {
     }
 
     override fun onAttach(context: Context?) {
+        PRINT_LIFE = true
         super.onAttach(context)
         log("onAttach")
     }
@@ -70,6 +71,7 @@ class FragmentUI2 : BaseFragment() {
         log("onResume")
         tv_1.text = mLife
     }
+
     private fun log(text: String) {
         Logger.e("FragmentUI2:" + text)
         mLife += text + " -> "

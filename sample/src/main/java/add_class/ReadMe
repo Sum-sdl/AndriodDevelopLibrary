@@ -1,1 +1,21 @@
 该目录下有一些非常用的类，根据自己需求添加
+
+
+libs pldroid-shortvideo-1.11.0.jar
+七牛短视频压缩库
+
+
+compile('com.github.Sum-sdl:RvAdapter:1.1.2') {
+ // 冲突时优先使用该版本
+ force = true
+
+ // 依据构建名称排除
+ exclude module: 'cglib'
+ // 依据组织名称排除
+ exclude group: 'org.jmock'
+ // 依据组织名称+构件名称排除
+ exclude group: 'org.unwanted', module: 'iAmBuggy'
+
+ // 为本依赖关闭依赖传递特性
+ transitive = false
+}

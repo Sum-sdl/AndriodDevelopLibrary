@@ -8,14 +8,14 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.sum.lib.rvadapter.RecyclerDataHolder;
-import com.sum.lib.rvadapter.RecyclerViewHolder;
+import com.bumptech.glide.request.RequestOptions;
+import com.sum.adapter.RecyclerDataHolder;
+import com.sum.adapter.RecyclerViewHolder;
 import com.sum.library.R;
 import com.sum.library.ui.image.photoAlbum.AlbumInfo;
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumListener;
-
-import java.io.File;
 
 /**
  * Created by sdl on 2018/1/12.
@@ -54,24 +54,20 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
         View mBgView;
         Photo mData;
 
-        private int mSize = 0;
-
         private ViewHolder(View view) {
             super(view);
             mBgView = view.findViewById(R.id.view_bg);
             mDView = view.findViewById(R.id.vh_album_image);
             mDView.setOnClickListener(this);
             //计算view大小
-            int default_space = albumInfo.default_space;
             int span_count = albumInfo.span_count;
             int screenWidth = ScreenUtils.getScreenWidth();
             int width = screenWidth / span_count;
-            int height = width;
+            int height = width + 1;
             ViewGroup.LayoutParams params = mDView.getLayoutParams();
             params.width = width;
             params.height = height;
             mDView.setLayoutParams(params);
-            mSize = height;
             mBgView.setLayoutParams(params);
 
             mState = view.findViewById(R.id.vh_album_selected);
@@ -84,8 +80,15 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
                 return;
             }
             mData = photo;
-            String path = photo.getPath();
-            Glide.with(mContext).asDrawable().load(new File(path)).transition(new DrawableTransitionOptions().crossFade()).into(mDView);
+
+            RequestOptions ro = RequestOptions.centerCropTransform()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+            Glide.with(mContext)
+                    .load(photo.getPath())
+                    .apply(ro)
+                    .transition(new DrawableTransitionOptions().crossFade())
+                    .into(mDView);
             updateUI();
         }
 

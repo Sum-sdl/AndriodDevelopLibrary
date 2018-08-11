@@ -1,5 +1,6 @@
 package com.sum.library.ui.image;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,6 +22,10 @@ import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by sdl on 2018/1/12.
@@ -83,7 +88,7 @@ public class AppImageUtils {
      * @return 拍照完成时，返回拍照的文件位置
      */
     public static File systemTakePhoto(Activity activity, int requestCode) {
-        String target = AppFileConfig.getImageDirectoryFile().getPath() + File.separator + System.currentTimeMillis() + ".jpg";
+        String target = AppFileConfig.getFileImageDirectory().getPath() + File.separator + System.currentTimeMillis() + ".jpg";
         File file = new File(target);
         systemTakePhoto(activity, requestCode, AppFileConfig.getAppSelfUri(activity, file));
         return file;
@@ -93,6 +98,7 @@ public class AppImageUtils {
     /**
      * 刷新系统相册
      */
+    @SuppressLint("ObsoleteSdkInt")
     public static void appRefreshAlbum(String newFile) {
         if (TextUtils.isEmpty(newFile)) {
             return;
@@ -132,7 +138,7 @@ public class AppImageUtils {
      * 图片剪裁
      */
     public static void appImageCrop(Activity activity, String sourcePath, int requestCode, float ratio, UCrop.Options option) {
-        String destinationPath = AppFileConfig.getImageDirectoryFile() + File.separator + System.currentTimeMillis() + ".jpg";
+        String destinationPath = AppFileConfig.getFileImageDirectory() + File.separator + System.currentTimeMillis() + ".jpg";
         UCrop uCrop = UCrop.of(Uri.fromFile(new File(sourcePath)), Uri.fromFile(new File(destinationPath)));
         UCrop.Options options = new UCrop.Options();
         if (ratio != 0) {
@@ -177,14 +183,43 @@ public class AppImageUtils {
     /**
      * 自定义多选相册
      */
-    public static void appImageAlbum(Activity activity, int requestCode, int maxNum) {
+    public static void appImageAlbum(Activity activity, int maxNum) {
         AlbumInfo info = new AlbumInfo();
         info.max_count = maxNum;
-        info.request_code = requestCode;
-        PhotoAlbumActivity.Companion.open(activity, info);
+        appImageAlbum(activity, info);
+    }
+
+    public static void appImageAlbum(Activity activity, int maxNum, boolean showTakePhoto) {
+        AlbumInfo info = new AlbumInfo();
+        info.max_count = maxNum;
+        info.take_photo_open = showTakePhoto;
+        appImageAlbum(activity, info);
     }
 
     public static void appImageAlbum(Activity activity, AlbumInfo info) {
         PhotoAlbumActivity.Companion.open(activity, info);
+    }
+
+
+    /**
+     * 鲁班压缩图片
+     *
+     * @param target           目标文件
+     * @param compressListener 压缩回调
+     */
+    public static void LuImageCompress(Context context, String target, OnCompressListener compressListener) {
+        Luban.with(context)
+                .load(target)
+                .ignoreBy(100)
+                .setTargetDir(AppFileConfig.getFileDirectoryCompress().getPath())
+                .setCompressListener(compressListener).launch();
+    }
+
+    public static void LuImageCompress(Context context, List<String> target, OnCompressListener compressListener) {
+        Luban.with(context)
+                .load(target)
+                .ignoreBy(100)
+                .setTargetDir(AppFileConfig.getFileDirectoryCompress().getPath())
+                .setCompressListener(compressListener).launch();
     }
 }

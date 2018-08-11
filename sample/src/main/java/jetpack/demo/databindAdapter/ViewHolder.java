@@ -2,7 +2,8 @@ package jetpack.demo.databindAdapter;
 
 import android.databinding.ViewDataBinding;
 
-import com.sum.lib.rvadapter.RecyclerViewHolder;
+import com.sum.adapter.RecyclerViewHolder;
+
 
 /**
  * Created by sdl on 2018/7/18.

@@ -2,19 +2,26 @@ package com.sum.andrioddeveloplibrary;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.blankj.utilcode.util.ToastUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.sum.adapter.RecyclerAdapter;
+import com.sum.adapter.RecyclerDataHolder;
 import com.sum.andrioddeveloplibrary.testActivity.holder.DemoDataHolder;
-import com.sum.lib.rvadapter.RecyclerAdapter;
-import com.sum.lib.rvadapter.RecyclerDataHolder;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
+    RecyclerAdapter mAdapter;
+
+    SmartRefreshLayout smartRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,30 +29,47 @@ public class SwipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_swipe);
 
         RecyclerAdapter adapter = new RecyclerAdapter();
+        mAdapter = adapter;
         SwipeMenuRecyclerView recyclerView = findViewById(R.id.sm_rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        smartRefreshLayout = findViewById(R.id.smart_refresh);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLongPressDragEnabled(true);
         recyclerView.setItemViewSwipeEnabled(true);
-        recyclerView.useDefaultLoadMore();
-
-        List<RecyclerDataHolder> holders = new ArrayList<>();
-        for (int i = 0; i <= 50; i++) {
-            holders.add(new DemoDataHolder(i + ""));
-        }
-        adapter.setDataHolders(holders);
-
         recyclerView.setAdapter(adapter);
 
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                top();
+                refreshLayout.finishRefresh(1000);//传入
+            }
+        });
+        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                add();
+                refreshLayout.finishLoadMore(2000);
+            }
+        });
 
-        recyclerView.setLoadMoreListener(() ->
+        smartRefreshLayout.autoRefresh();
+    }
 
-                {
-                    ToastUtils.showLong("LoadMore");
-                    recyclerView.loadMoreFinish(true, true);
-                }
+    private void top() {
+        List<RecyclerDataHolder> holders = new ArrayList<>();
+        for (int i = 0; i <= 20; i++) {
+            holders.add(new DemoDataHolder("index->" + i + ""));
+        }
+        mAdapter.setDataHolders(holders);
+    }
 
-        );
+    private void add() {
+        List<RecyclerDataHolder> holders = new ArrayList<>();
+        for (int i = 0; i <= 10; i++) {
+            holders.add(new DemoDataHolder("add->index->" + i + ""));
+        }
+        mAdapter.addDataHolder(holders);
     }
 
     @Override

@@ -5,8 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ScreenUtils;
-import com.sum.lib.rvadapter.RecyclerDataHolder;
-import com.sum.lib.rvadapter.RecyclerViewHolder;
+import com.sum.adapter.RecyclerDataHolder;
+import com.sum.adapter.RecyclerViewHolder;
 import com.sum.library.R;
 import com.sum.library.ui.image.photoAlbum.AlbumInfo;
 import com.sum.library.ui.image.photoAlbum.PhotoAlbumListener;

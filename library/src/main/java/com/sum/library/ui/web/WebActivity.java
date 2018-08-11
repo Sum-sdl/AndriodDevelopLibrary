@@ -76,9 +76,15 @@ public class WebActivity extends BaseActivity {
         return Color.WHITE;
     }
 
+    protected boolean needHardware() {
+        return true;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        if (needHardware()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        }
         if (!SonicEngine.isGetInstanceAllowed()) {
             SonicEngine.createInstance(new SonicRuntimeImpl(getApplication()), new SonicConfig.Builder().build());
         }
@@ -152,7 +158,6 @@ public class WebActivity extends BaseActivity {
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setDatabaseEnabled(true);
         settings.setAppCacheEnabled(true);
-//        settings.setTextZoom();字体大小
         settings.setSaveFormData(false);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
@@ -160,6 +165,7 @@ public class WebActivity extends BaseActivity {
         settings.setAllowContentAccess(true);
         settings.setAllowFileAccess(true);
         settings.setBuiltInZoomControls(false);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         settings.setAllowFileAccess(false);
         settings.setAllowFileAccessFromFileURLs(false);

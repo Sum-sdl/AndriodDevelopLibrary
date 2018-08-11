@@ -24,8 +24,7 @@
             android:layout_height="wrap_content"
             android:text="@{viewModel.name}"
             android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            app:addTab="@{viewModel.name}" />
+            android:textSize="18sp" />
 
         <Button
             android:layout_width="match_parent"

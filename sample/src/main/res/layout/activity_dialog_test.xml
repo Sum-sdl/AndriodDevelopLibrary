@@ -38,4 +38,11 @@
         android:text="DialogChooseView Dialog" />
 
 
+    <Button
+        android:id="@+id/bt6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DialogFragment 测试" />
+
+
 </LinearLayout>
