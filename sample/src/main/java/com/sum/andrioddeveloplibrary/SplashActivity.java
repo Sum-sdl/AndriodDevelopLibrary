@@ -31,13 +31,30 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //TODO 最简单的屏幕适配
+        //老版本 适配假设我们设计稿是宽度是 1080px，资源放在 xxhdpi，那么我们宽度转换为 dp 就是 1080 / 3 = 360dp，
+        //新版本 适配假设我们设计稿是宽度是 1080px，资源放在 xxhdpi，宽度为1080dp，这样就可以根据设计图的px直接写dp，
+        //最后版本 适配假设我们设计稿是宽度是 1080px，资源放在 xxhdpi，宽度为360dp，自己适配还是推荐360屏幕宽度，
 //        if (ScreenUtils.isPortrait()) {
-//            ScreenUtils.adaptScreen4VerticalSlide(this, 360);
+//            ScreenUtils.adaptScreen4VerticalSlide(this, 1080);
 //        } else {
-//            ScreenUtils.adaptScreen4HorizontalSlide(this, 360);
+//            ScreenUtils.adaptScreen4HorizontalSlide(this, 1080);
 //        }
+
+        if (ScreenUtils.isPortrait()) {
+            ScreenUtils.adaptScreen4VerticalSlide(this, 360);
+        } else {
+            ScreenUtils.adaptScreen4HorizontalSlide(this, 360);
+        }
+
         super.onCreate(savedInstanceState);
         Logger.e("ScreenUtils.isAdaptScreen()->" + ScreenUtils.isAdaptScreen());
+
+        findViewById(R.id.b3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScreenUtils.toggleFullScreen(SplashActivity.this);
+            }
+        });
     }
 
     @Override

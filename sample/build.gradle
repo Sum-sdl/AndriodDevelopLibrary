@@ -58,10 +58,10 @@ android {
         enabled = true
     }
 
-    //jni 调用位置
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
+    repositories {
+        mavenCentral()
+        flatDir {
+            dirs 'libs'
         }
     }
 
