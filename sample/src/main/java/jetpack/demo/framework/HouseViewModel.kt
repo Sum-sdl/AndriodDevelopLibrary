@@ -10,9 +10,7 @@ import java.util.*
  * Created by sdl on 2018/7/16.
  */
 class HouseViewModel : BaseViewModel<HouseRepository>() {
-
-    override fun getRepository() = HouseRepository()
-
+    override fun getRepositoryClass(): Class<*> = HouseRepository::class.java
 
     private val mInfoLiveData: MutableLiveData<String> by lazy {
         MutableLiveData<String>()

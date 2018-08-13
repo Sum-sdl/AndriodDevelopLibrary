@@ -63,7 +63,6 @@ public class PubEmptyView extends View implements View.OnClickListener {
     @SuppressLint("MissingSuperCall")
     @Override
     public void draw(Canvas canvas) {
-//        super.draw(canvas);
     }
 
     @Override

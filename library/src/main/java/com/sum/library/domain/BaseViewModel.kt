@@ -10,11 +10,31 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
 
     private var mHasRegisterAction = false
 
-    protected val mRepository by lazy {
-        getRepository()
+    @Suppress("UNCHECKED_CAST")
+    protected val mRepository: T by lazy {
+        newRepositoryInstance()?.let {
+            return@lazy it
+        }
+        return@lazy createInstance(getRepositoryClass()) as T
     }
 
-    protected abstract fun getRepository(): T
+    @MainThread
+    abstract fun getRepositoryClass(): Class<*>
+
+    protected fun newRepositoryInstance(): T? {
+        return null
+    }
+
+    private fun <T> createInstance(repositoryClass: Class<T>): T {
+        try {
+            return repositoryClass.newInstance()
+        } catch (e: InstantiationException) {
+            throw RuntimeException("Cannot create an instance of $repositoryClass", e)
+        } catch (e: IllegalAccessException) {
+            throw RuntimeException("Cannot create an instance of $repositoryClass", e)
+        }
+    }
+
 
     private val mState = MutableLiveData<ActionState>()
 
@@ -23,6 +43,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
             mRepository.registerActionState(it)
         }
     }
+
 
     //统一界面状态注册
     @MainThread

@@ -32,14 +32,15 @@
     </style>
 
     <!--水平-->
-    <style name="line_hor">
+    <style name="pub_line_hor">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_height">0.6dp</item>
         <item name="android:background">@color/pub_line_color</item>
     </style>
+
     <!--垂直-->
-    <style name="line_ver">
-        <item name="android:layout_width">0.5dp</item>
+    <style name="pub_line_ver">
+        <item name="android:layout_width">0.6dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/pub_line_color</item>
     </style>
