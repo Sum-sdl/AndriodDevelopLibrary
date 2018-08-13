@@ -8,7 +8,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -31,6 +33,8 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     private int mColorDefault, mColorChecked;
 
+    private int mDrawableSize, mTextSize;
+
     private boolean mDefaultChecked = false;
 
     private String mName;
@@ -50,11 +54,20 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
     public MultiRadioButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         loadAttrs(context, attrs);
+
         mContext = context;
         LayoutInflater.from(context).inflate(R.layout.cus_multi_radio_button, this, true);
         mImageView = findViewById(R.id.multi_iv_image);
+        if (mDrawableSize > 0) {
+            ViewGroup.LayoutParams params = mImageView.getLayoutParams();
+            params.height = mDrawableSize;
+            params.width = mDrawableSize;
+            mImageView.setLayoutParams(params);
+        }
         mTextView = findViewById(R.id.multi_tv_name);
-
+        if (mTextSize > 0) {
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+        }
         //初始化状态值
         initDefaultTint();
     }
@@ -78,6 +91,9 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         }
         mName = array.getString(R.styleable.MultiRadioButton_multiText);
         mDefaultChecked = array.getBoolean(R.styleable.MultiRadioButton_multiChecked, false);
+
+        mDrawableSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableSize, 0);
+        mTextSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiTextSize, 0);
         array.recycle();
     }
 

@@ -6,7 +6,7 @@
 
     <item name="view_pager" type="id" />
     <item name="recycler_view" type="id" />
-    <item name="smart_fresh_view" type="id" />
+    <item name="smart_refresh_view" type="id" />
     <item name="pub_empty_view" type="id" />
 
     <!--统一title-->

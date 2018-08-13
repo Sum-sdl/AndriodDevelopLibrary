@@ -34,6 +34,8 @@
         <attr name="multiColorChecked" format="reference|color" />
         <attr name="multiDrawableDefault" format="reference" />
         <attr name="multiDrawableChecked" format="reference" />
+        <attr name="multiDrawableSize" format="integer" />
+        <attr name="multiTextSize" format="integer" />
     </declare-styleable>
 
 
