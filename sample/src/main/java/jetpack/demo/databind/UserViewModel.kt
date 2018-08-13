@@ -12,10 +12,7 @@ import com.sum.library.domain.BaseViewModel
  * Created by sdl on 2018/7/13.
  */
 class UserViewModel : BaseViewModel<UserRepository>() {
-
-    override fun getRepository(): UserRepository {
-        return UserRepository()
-    }
+    override fun getRepositoryClass(): Class<*> = UserRepository::class.java
 
     var name = ObservableField("Hello world")
 

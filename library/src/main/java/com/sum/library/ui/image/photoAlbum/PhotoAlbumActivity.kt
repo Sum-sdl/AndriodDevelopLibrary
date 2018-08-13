@@ -80,8 +80,6 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         if (savedInstanceState != null) {
             try {
                 mHasLoadFinish = savedInstanceState.getBoolean("load_finish", false)
-                mAllFile = savedInstanceState.getSerializable("all_image") as HashMap<String, PhotoDirectory>?
-                mChoosePhoto = savedInstanceState.getSerializable("choose_image") as ArrayList<Photo>
             } catch (e: Exception) {
             }
         }
@@ -91,8 +89,6 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putBoolean("load_finish", mHasLoadFinish)
-        outState?.putSerializable("choose_image", mChoosePhoto)
-        outState?.putSerializable("all_image", mAllFile)
     }
 
 

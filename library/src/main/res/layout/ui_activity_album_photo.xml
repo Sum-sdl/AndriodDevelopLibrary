@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:title_name="选择图片" />
 
-    <View style="@style/line_hor" />
+    <View style="@style/pub_line_hor" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_images"

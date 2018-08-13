@@ -40,6 +40,6 @@
     </LinearLayout>
 
     <View
-        style="@style/line_hor"
+        style="@style/pub_line_hor"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>

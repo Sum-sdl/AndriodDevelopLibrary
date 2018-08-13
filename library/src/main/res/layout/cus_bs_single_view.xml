@@ -39,7 +39,7 @@
 
     <View
         android:id="@+id/title_line"
-        style="@style/line_hor" />
+        style="@style/pub_line_hor" />
 
     <LinearLayout
         android:layout_width="match_parent"
