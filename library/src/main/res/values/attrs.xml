@@ -42,8 +42,9 @@
     <!--通用头部布局-->
     <declare-styleable name="PubTitleView">
         <attr name="title_view" format="reference" />
-        <attr name="title_name" format="string" />
         <attr name="title_white" format="boolean" />
+        <attr name="title_name" format="string" />
+        <attr name="title_back_img" format="reference" />
     </declare-styleable>
 
 

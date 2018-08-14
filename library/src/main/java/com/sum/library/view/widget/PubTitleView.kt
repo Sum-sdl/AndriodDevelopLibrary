@@ -31,7 +31,12 @@ open class PubTitleView : LinearLayout {
         val array = context.obtainStyledAttributes(attrs, R.styleable.PubTitleView)
         val layoutId = array.getResourceId(R.styleable.PubTitleView_title_view, R.layout.pub_title_view)
         initLayout(context, layoutId)
+
         mTitle?.text = array.getString(R.styleable.PubTitleView_title_name)
+        val resourceId = array.getResourceId(R.styleable.PubTitleView_title_back_img, -1)
+        if (resourceId != -1) {
+            mTitleBack?.setImageResource(resourceId)
+        }
 
         val white = array.getBoolean(R.styleable.PubTitleView_title_white, false)
         if (white) {
