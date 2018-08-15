@@ -4,11 +4,11 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -51,8 +51,8 @@ public class WebActivity extends BaseActivity {
     public PubTitleView mTitleView;
     public WebJavascriptInterface mJs;
 
-    private SonicSession sonicSession;
-    private SonicSessionClientImpl sonicSessionClient = null;
+    protected SonicSession sonicSession;
+    protected SonicSessionClientImpl sonicSessionClient = null;
 
     public static void open(Context c, String title, String url, WebJavascriptInterface js, String jsName) {
         Intent intent = new Intent(c, WebActivity.class);
@@ -133,22 +133,6 @@ public class WebActivity extends BaseActivity {
         mWeb.setVerticalFadingEdgeEnabled(false);
         mWeb.setHorizontalFadingEdgeEnabled(false);
 
-        mWeb.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                mProgress.setShowProgress(newProgress);
-            }
-
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-                if (!TextUtils.isEmpty(getIntent().getStringExtra("title"))) {
-                    mTitle.setText(getIntent().getStringExtra("title"));
-                } else {
-                    mTitle.setText(title);
-                }
-            }
-        });
-
         WebSettings settings = mWeb.getSettings();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -163,7 +147,6 @@ public class WebActivity extends BaseActivity {
         settings.setLoadWithOverviewMode(true);
         settings.setJavaScriptEnabled(true);
         settings.setAllowContentAccess(true);
-        settings.setAllowFileAccess(true);
         settings.setBuiltInZoomControls(false);
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
@@ -179,13 +162,31 @@ public class WebActivity extends BaseActivity {
         }
         mWeb.removeJavascriptInterface("searchBoxJavaBridge_");
 
-        mWeb.setWebViewClient(new WebViewClient() {
+        mWeb.setWebChromeClient(getWebChromeClient());
+        mWeb.setWebViewClient(getWebViewClient());
 
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
+        // 设置cookies
+        if (getIntent().getStringExtra("cookieUrl") != null) {
+            HashMap<String, String> cookies = new HashMap<>();
+            ArrayList<String> cookieValues = getIntent().getStringArrayListExtra("cookieValues");
+            for (int i = 0; i < cookieValues.size() / 2; i++) {
+                cookies.put(cookieValues.get(i * 2), cookieValues.get(i * 2 + 1));
             }
+            // cookies同步方法要在WebView的setting设置完之后调用，否则无效。
+            syncCookie(this, getIntent().getStringExtra("cookieUrl"), cookies);
+        }
+        if (sonicSessionClient != null) {
+            sonicSessionClient.bindWebView(mWeb);
+            sonicSessionClient.clientReady();
+        } else {
+            mWeb.loadUrl(getIntent().getStringExtra("url"));
+        }
 
+    }
+
+    @NonNull
+    protected WebViewClient getWebViewClient() {
+        return new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -214,28 +215,29 @@ public class WebActivity extends BaseActivity {
                 handler.proceed();
                 super.onReceivedSslError(view, handler, error);
             }
-        });
-
-        // 设置cookies
-        if (getIntent().getStringExtra("cookieUrl") != null) {
-            HashMap<String, String> cookies = new HashMap<>();
-            ArrayList<String> cookieValues = getIntent().getStringArrayListExtra("cookieValues");
-            for (int i = 0; i < cookieValues.size() / 2; i++) {
-                cookies.put(cookieValues.get(i * 2), cookieValues.get(i * 2 + 1));
-            }
-            // cookies同步方法要在WebView的setting设置完之后调用，否则无效。
-            syncCookie(this, getIntent().getStringExtra("cookieUrl"), cookies);
-        }
-        if (sonicSessionClient != null) {
-            sonicSessionClient.bindWebView(mWeb);
-            sonicSessionClient.clientReady();
-        } else {
-            mWeb.loadUrl(getIntent().getStringExtra("url"));
-        }
-
+        };
     }
 
-    private void syncCookie(Context context, String url, HashMap<String, String> cookies) {
+    @NonNull
+    protected WebChromeClient getWebChromeClient() {
+        return new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                mProgress.setShowProgress(newProgress);
+            }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                if (!TextUtils.isEmpty(getIntent().getStringExtra("title"))) {
+                    mTitle.setText(getIntent().getStringExtra("title"));
+                } else {
+                    mTitle.setText(title);
+                }
+            }
+        };
+    }
+
+    protected void syncCookie(Context context, String url, HashMap<String, String> cookies) {
         // 如果API是21以下的话，需要在CookieManager前加
         CookieSyncManager.createInstance(context);
         CookieManager cookieManager = CookieManager.getInstance();
