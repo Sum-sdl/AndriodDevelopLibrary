@@ -7,7 +7,9 @@
 
 -  [常用开源库总结连接](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
 
-#### 测试Apk扫码下载
+-  [其他项目连接](https://gitee.com/Sum-sdl/code_project)
+
+#### 测试App扫码下载
 
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
 

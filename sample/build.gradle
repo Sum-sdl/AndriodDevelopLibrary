@@ -42,14 +42,12 @@ android {
     buildTypes {
         debug {
             minifyEnabled false//混淆
-            debuggable true//调试
             buildConfigField("String", "API_HOST", "\"https+++重写构建值\"")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
             minifyEnabled false
-            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

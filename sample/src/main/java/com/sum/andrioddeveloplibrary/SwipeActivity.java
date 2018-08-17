@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
-    RecyclerAdapter mAdapter;
+    RecyclerAdapter<RecyclerDataHolder> mAdapter;
 
     SmartRefreshLayout smartRefreshLayout;
 
@@ -28,7 +28,7 @@ public class SwipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
 
-        RecyclerAdapter adapter = new RecyclerAdapter();
+        RecyclerAdapter<RecyclerDataHolder> adapter = new RecyclerAdapter<>();
         mAdapter = adapter;
         SwipeMenuRecyclerView recyclerView = findViewById(R.id.sm_rv);
         smartRefreshLayout = findViewById(R.id.smart_refresh);
