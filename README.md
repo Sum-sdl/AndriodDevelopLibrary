@@ -11,7 +11,7 @@
 
 #### 测试App扫码下载
 
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download.png">
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/download_demo.png">
 
 ---
 
