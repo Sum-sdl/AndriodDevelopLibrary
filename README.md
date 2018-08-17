@@ -1,7 +1,7 @@
 
 ## 个人开发库
 
--  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) === [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-debug.apk)
+-  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary) === [Demo Apk 点击下载](https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-release.apk)
  
 -  [RecyclerView通用适配器库](https://github.com/Sum-sdl/RvAdapter)
 
@@ -85,3 +85,9 @@
 > **JetPack框架结构**
 >
 <img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/architecture.png">
+
+
+> **其他开发项目**
+>
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/project.png">
+
