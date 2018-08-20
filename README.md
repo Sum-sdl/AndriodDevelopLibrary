@@ -10,7 +10,7 @@
 -  [前后台合作须知](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/develop_standard.md)
 
 
-<table border="1"  bgcolor="#cccccc">
+<table border="1"  bgcolor="#cccccc" cellpadding="7">
  <caption style ="text-align:center;font-size:16px;font-weight:bold;color:#000;">扫码下载</caption>
     <tr style ="background:#f2fbfe !important;">
         <td >
