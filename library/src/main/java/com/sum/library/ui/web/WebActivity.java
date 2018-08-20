@@ -144,12 +144,19 @@ public class WebActivity extends BaseActivity {
         settings.setAppCacheEnabled(true);
         settings.setSaveFormData(false);
         settings.setUseWideViewPort(true);
-        settings.setLoadWithOverviewMode(true);
         settings.setJavaScriptEnabled(true);
         settings.setAllowContentAccess(true);
-        settings.setBuiltInZoomControls(false);
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
+        //支持缩放，关闭展示,大屏幕的时候才会有效
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
+        //自适应屏幕
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setLoadWithOverviewMode(true);
+        //缓存模式
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        //关闭文件读取
         settings.setAllowFileAccess(false);
         settings.setAllowFileAccessFromFileURLs(false);
         settings.setAllowUniversalAccessFromFileURLs(false);
