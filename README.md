@@ -7,13 +7,13 @@
 
 -  [常用开源库总结连接](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
 
--  [其他项目连接](https://gitee.com/Sum-sdl/code_project)
+-  [前后台合作须知](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/develop_standard.md)
 
-#### 测试App扫码下载
 
-<table border="1">
-    <tr>
-        <td>
+<table border="1"  bgcolor="#cccccc">
+ <caption style ="text-align:center;font-size:16px;font-weight:bold;color:#000;">扫码下载</caption>
+    <tr style ="background:#f2fbfe !important;">
+        <td >
         <img src="https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/demoUi/download_demo.png"   height="120" width="120" >
         </td>
         <td>
@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <td style ="text-align:center"><a href="https://raw.githubusercontent.com/Sum-sdl/AndriodDevelopLibrary/master/sample/other/sample-release.apk">测试Demo下载</a></td>
-        <td style ="text-align:center"><a href="https://gitee.com/Sum-sdl/code_project">其他项目地址</a></td>
+        <td style ="text-align:center"><a href="https://gitee.com/Sum-sdl/code_project" target="_blank">其他项目地址</a></td>
     </tr>
 </table>
 </br>
@@ -85,20 +85,20 @@
 > **功能图片展示**
 >
 <div align="center">
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/img.jpg" height="330" width="190" >
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/bt_1.jpg" height="330" width="190" >
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/bt_2.jpg" height="330" width="190" >
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/bt_3.jpg" height="330" width="190" >
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/img.jpg" height="330" width="190" >
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/bt_1.jpg" height="330" width="190" >
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/bt_2.jpg" height="330" width="190" >
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/bt_3.jpg" height="330" width="190" >
 </div>
 <div align="center">
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/img1.jpg" height="330" width="190" >
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/img3.jpg" height="330" width="190" >
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/img4.jpg" height="330" width="190" >
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/img5.jpg" height="330" width="190" >
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/img1.jpg" height="330" width="190" >
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/img3.jpg" height="330" width="190" >
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/img4.jpg" height="330" width="190" >
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/img5.jpg" height="330" width="190" >
 </div>
 
 > **JetPack框架结构**
 >
-<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/demoUi/architecture.png">
+<img src="https://github.com/Sum-sdl/AndriodDevelopLibrary/raw/master/sample/demoUi/architecture.png">
 
 
