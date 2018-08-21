@@ -29,8 +29,8 @@ public class LiveDataEventBus {
     }
 
 
-    public static MutableLiveData<Object> with(@Nullable String key) {
-        return get().withInfo(key, Object.class, false);
+    public static MutableLiveData<String> with(@Nullable String key) {
+        return get().withInfo(key, String.class, false);
     }
 
     public static <T> MutableLiveData<T> with(@Nullable String key, Class<T> type) {
