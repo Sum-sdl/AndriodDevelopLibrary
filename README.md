@@ -7,7 +7,7 @@
 
 -  [常用开源库总结连接](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
 
--  [前后台合作须知](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/develop_standard.md)
+-  [后台接口开发规范](https://github.com/Sum-sdl/StudyNode/blob/master/TeamWork/Interface_development_standard.md)
 
 
 <table border="1"  bgcolor="#cccccc" cellpadding="7">
