@@ -8,6 +8,8 @@
     <!--统一空文本大小-->
     <dimen name="pub_empty_text_size">15sp</dimen>
 
+    <dimen name="pub_line_height">0.6dp</dimen>
+
     <!--BottomSheetView 部分属性-->
     <dimen name="bsv_title_height">45dp</dimen>
     <dimen name="bsv_content_height">180dp</dimen>
