@@ -50,7 +50,7 @@ class LiveDataChangeActivity : AppCompatActivity() {
 
         bt3.setOnClickListener {
             bt3.text = ("second activity change_Forever" + (++index))
-            LiveDataEventBus.with("change_forever").value = bt3.text
+            LiveDataEventBus.with("change_forever").value = bt3.text.toString()
         }
     }
 

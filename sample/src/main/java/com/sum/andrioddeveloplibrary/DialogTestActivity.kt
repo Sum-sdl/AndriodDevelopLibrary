@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import com.blankj.utilcode.util.PhoneUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.library.app.BaseDialogFragment
@@ -52,13 +53,13 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                     }.show(this)
 
         }
-        bt3.setOnClickListener {
+
+        bt3.setOnClickListener { _ ->
             DialogChooseView().setMessage("message").setTitle("Test Title")
                     .setPos("Next").setCancel(true).setNeg("Cancel")
                     .setPosListener { ToastUtils.showLong("Next") }
                     .setNegListener { ToastUtils.showLong("Cancel") }
                     .show(supportFragmentManager, "show")
-
         }
 
         bt4.setOnClickListener {
@@ -80,13 +81,12 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
 
     class DialogF : BaseDialogFragment() {
-        override fun getLayoutId(): Int = R.layout.cus_dialog_choice
+        override fun getLayoutId(): Int = R.layout.bsv_bottom_in_view
 
         override fun initParams(view: View) {
-            val textV: TextView = view.findViewById(R.id.choice_container_content)
-            val textItle: TextView = view.findViewById(R.id.choice_container_title)
-            textV.text = "Dialog Content"
-            textItle.text = "Dialog Title"
+            view.findViewById<View>(R.id.fl_content).setOnClickListener { dismiss() }
+            view.findViewById<View>(R.id.btn_cancel).setOnClickListener { dismiss() }
+
         }
     }
 }
