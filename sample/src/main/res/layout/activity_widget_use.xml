@@ -1,29 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.dreamtobe.kpswitch.widget.KPSwitchRootLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <com.sum.library.view.widget.PubTitleView
         android:id="@+id/pub_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_name="White Model" />
+        app:title_default_adjust_bar="true"
+        app:title_default_adjust_bar_color="#f00"
+        app:title_default_name="状态栏适配" />
+
+    <View style="@style/pub_line_hor" />
+
+    <com.sum.library.view.widget.PubTitleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_default_name="默认配置" />
+
+    <View style="@style/pub_line_hor" />
+
+    <com.sum.library.view.widget.PubTitleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_default_adjust_bar="true"
+        app:title_default_back_img_tint="#F00"
+        app:title_default_bg_color="#ac0"
+        app:title_default_name="自定义配置"
+        app:title_default_name_text_color="@color/white"
+        app:title_default_name_text_size="12sp" />
+
+    <View style="@style/pub_line_hor" />
 
     <com.sum.library.view.widget.PubTitleView
         android:id="@+id/pub_view2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
-        app:title_name="Dark Model"
-        app:title_white="true" />
+        app:title_default_back_img_show="false"
+        app:title_default_name="Dark Model"
+        app:title_default_white_theme="true" />
 
-    <EditText
-        android:id="@+id/ed_input"
-        android:layout_width="match_parent"
-        android:layout_height="88dp" />
-
+    <View style="@style/pub_line_hor" />
 
     <TextView
         android:id="@+id/btn_1"
@@ -75,4 +96,4 @@
         app:pub_empty_img="@mipmap/ic_launcher"
         app:pub_empty_text="@string/app_name" />
 
-</cn.dreamtobe.kpswitch.widget.KPSwitchRootLinearLayout>
+</LinearLayout>

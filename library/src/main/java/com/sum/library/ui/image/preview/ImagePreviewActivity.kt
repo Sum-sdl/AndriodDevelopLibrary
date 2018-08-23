@@ -31,7 +31,6 @@ class ImagePreviewActivity : BaseActivity() {
 
     override fun initParams() {
         mTitle = findViewById(R.id.pub_title_view)
-        mTitle.addStatusBarHeight()
         val list = intent.getStringArrayListExtra("urls")
         val size = list?.size ?: 0
         val fragments = arrayListOf<ImagePreviewFragment>()

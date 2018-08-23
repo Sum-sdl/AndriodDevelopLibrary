@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.sum.andrioddeveloplibrary.WebViewActivity">
+    android:orientation="vertical">
 
 
     <com.sum.library.view.widget.PubTitleView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_name="WebView测试使用" />
+        app:title_default_name="WebView测试使用" />
 
 
     <WebView

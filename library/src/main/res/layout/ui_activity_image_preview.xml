@@ -22,8 +22,9 @@
         android:id="@id/pub_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/translate_50"
         android:layout_alignParentTop="true"
-        app:title_white="true" />
+        android:background="@color/translate_50"
+        app:title_default_adjust_bar="true"
+        app:title_default_white_theme="true" />
 
 </RelativeLayout>

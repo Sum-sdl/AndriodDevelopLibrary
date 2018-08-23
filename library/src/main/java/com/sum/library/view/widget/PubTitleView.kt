@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -21,57 +22,88 @@ import com.sum.library.R
  * Created by sdl on 2018/1/2.
  * 自定义title
  */
-open class PubTitleView : LinearLayout {
+class PubTitleView : LinearLayout {
 
     constructor(context: Context) : super(context) {
-        initLayout(context, R.layout.pub_title_view)
+        initLayoutView(context, R.layout.pub_title_view)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         val array = context.obtainStyledAttributes(attrs, R.styleable.PubTitleView)
         val layoutId = array.getResourceId(R.styleable.PubTitleView_title_view, R.layout.pub_title_view)
-        initLayout(context, layoutId)
+        initLayoutView(context, layoutId)
 
-        mTitle?.text = array.getString(R.styleable.PubTitleView_title_name)
-        val resourceId = array.getResourceId(R.styleable.PubTitleView_title_back_img, -1)
+        //内容
+        mTitleTextView?.text = array.getString(R.styleable.PubTitleView_title_default_name)
+
+        //字体大小
+        val defaultSize = context.resources.getDimensionPixelSize(R.dimen.pub_title_text_size)
+        val size = array.getDimensionPixelSize(R.styleable.PubTitleView_title_default_name_text_size, defaultSize).toFloat()
+        mTitleTextView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
+
+        //返回键
+        val resourceId = array.getResourceId(R.styleable.PubTitleView_title_default_back_img, -1)
         if (resourceId != -1) {
-            mTitleBack?.setImageResource(resourceId)
+            mTitleBackImage?.setImageResource(resourceId)
+        }
+        //返回键展示
+        val backShow = array.getBoolean(R.styleable.PubTitleView_title_default_back_img_show, true)
+        if (backShow) {
+            mTitleBackImage?.visibility = View.VISIBLE
+        } else {
+            mTitleBackImage?.visibility = View.GONE
         }
 
-        val white = array.getBoolean(R.styleable.PubTitleView_title_white, false)
+        //背景色
+        val bgColor = array.getColor(R.styleable.PubTitleView_title_default_bg_color, -1)
+        if (bgColor != -1) {
+            setBackgroundColor(bgColor)
+        }
+
+        //状态栏适配
+        if (array.getBoolean(R.styleable.PubTitleView_title_default_adjust_bar, false)) {
+            val barColor = array.getColor(R.styleable.PubTitleView_title_default_adjust_bar_color, -1)
+            if (barColor != -1) {
+                addStatusBarHeight(barColor)
+            } else {
+                addStatusBarHeight()
+            }
+        }
+
+        //主题色
+        val white = array.getBoolean(R.styleable.PubTitleView_title_default_white_theme, false)
         if (white) {
-            val drawable = mTitleBack?.drawable
+            val drawable = mTitleBackImage?.drawable
             if (drawable != null) {
                 DrawableCompat.setTint(drawable, Color.WHITE)
             }
-            mTitle?.setTextColor(Color.WHITE)
+            mTitleTextView?.setTextColor(Color.WHITE)
         } else {
-            val drawable = mTitleBack?.drawable
+            //字体颜色
+            val titleColor = array.getColor(R.styleable.PubTitleView_title_default_name_text_color, ContextCompat.getColor(context, R.color.pub_title_text_color))
+            mTitleTextView?.setTextColor(titleColor)
+        }
+
+        //返回键tint
+        val backImageTint = array.getColor(R.styleable.PubTitleView_title_default_back_img_tint, -1)
+        if (backImageTint != -1) {
+            val drawable = mTitleBackImage?.drawable
             if (drawable != null) {
-                DrawableCompat.setTint(drawable, ContextCompat.getColor(context, R.color.pub_title_text_color))
+                DrawableCompat.setTint(drawable, backImageTint)
             }
-            mTitle?.setTextColor(ContextCompat.getColor(context, R.color.pub_title_text_color))
         }
         array.recycle()
     }
 
     private lateinit var mView: View
 
-    private var mTitle: TextView? = null//标题
+    var mTitleTextView: TextView? = null//标题
 
-    private var mTitleBack: ImageView? = null//返回
+    var mTitleBackImage: ImageView? = null//返回
 
     private var mTitleRightContent: LinearLayout? = null//右侧按钮
 
-    private var mTitleBgView: View? = null//背景
-
-    open fun getTitleText(): TextView? = mTitle
-
-    open fun getTitleBackImage(): ImageView? = mTitleBack
-
-    open fun getTitleBgView(): View? = mTitleBgView
-
-    private fun initLayout(context: Context, layoutId: Int) {
+    private fun initLayoutView(context: Context, layoutId: Int) {
         orientation = LinearLayout.VERTICAL
         val view = LayoutInflater.from(context).inflate(layoutId, this, true)
         initView(view)
@@ -79,31 +111,35 @@ open class PubTitleView : LinearLayout {
     }
 
     private fun initView(view: View) {
-        mTitle = view.findViewById(R.id.pub_title_text)
-        mTitleBack = view.findViewById(R.id.pub_title_back)
+        mTitleTextView = view.findViewById(R.id.pub_title_text)
+        mTitleBackImage = view.findViewById(R.id.pub_title_back)
         mTitleRightContent = view.findViewById(R.id.pub_title_right)
-//        mTitleBgView = view.findViewById(R.id.pub_title_content)
-        mTitleBgView = this
         defaultSetting()
     }
 
     private fun defaultSetting() {
-        mTitleBack?.setOnClickListener {
+        mTitleBackImage?.setOnClickListener {
             if (context is Activity) {
-                (context as Activity).finish()
+                (context as Activity).onBackPressed()
             }
         }
     }
 
     //插入一个状态栏高度的view
-    fun addStatusBarHeight() {
+    private fun addStatusBarHeight() {
         val space = View(context)
         addView(space, 0, LayoutParams(-1, BarUtils.getStatusBarHeight()))
     }
 
+    private fun addStatusBarHeight(color: Int) {
+        val space = View(context)
+        space.setBackgroundColor(color)
+        addView(space, 0, LayoutParams(-1, BarUtils.getStatusBarHeight()))
+    }
+
     //设置标题
-    open fun setTitle(title: CharSequence?) {
-        mTitle?.text = title
+    fun setTitle(title: CharSequence?) {
+        mTitleTextView?.text = title
     }
 
     //添加文本按钮
@@ -131,8 +167,9 @@ open class PubTitleView : LinearLayout {
     }
 
     //添加按钮
-    open fun addRightView(view: View) {
+    fun addRightView(view: View): View {
         mTitleRightContent?.addView(view, 0, ViewGroup.LayoutParams(-2, -1))
+        return view
     }
 
 }

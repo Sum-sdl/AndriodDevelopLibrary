@@ -123,7 +123,7 @@ public class WebActivity extends BaseActivity {
         showTitle(getIntent().getBooleanExtra("show_title", true));
         mProgress = findViewById(R.id.web_progress);
 
-        mTitle = mTitleView.getTitleText();
+        mTitle = mTitleView.getMTitleTextView();
         if (!TextUtils.isEmpty(getIntent().getStringExtra("title"))) {
             mTitle.setText(getIntent().getStringExtra("title"));
         }
