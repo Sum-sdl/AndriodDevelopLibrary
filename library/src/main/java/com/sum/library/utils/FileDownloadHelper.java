@@ -30,7 +30,7 @@ public class FileDownloadHelper {
 
     private OkHttpClient okHttpClient;
 
-    public static int TIME = 60 * 3;
+    private static final int TIME = 60 * 3;
     private static FileDownloadHelper mDownload;
 
     public static FileDownloadHelper instance() {
@@ -70,7 +70,9 @@ public class FileDownloadHelper {
      * @param downloadListener 回调状态
      */
     public Call downloadFile(final String url, File targetFile, final FileDownloadListener downloadListener) {
-        FileUtils.createFileByDeleteOldFile(targetFile);
+        FileUtils.deleteFile(targetFile);
+        FileUtils.createOrExistsFile(targetFile);
+
         Request request = new Request.Builder().url(url).build();
         Call call = okHttpClient.newCall(request);
         //Callback都在子线程,回调注意线程调整
