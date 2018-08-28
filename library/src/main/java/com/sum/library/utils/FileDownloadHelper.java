@@ -1,4 +1,4 @@
-package add_class.utils;
+package com.sum.library.utils;
 
 import com.blankj.utilcode.util.FileUtils;
 
