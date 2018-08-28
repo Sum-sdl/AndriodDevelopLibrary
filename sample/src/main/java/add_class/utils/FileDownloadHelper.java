@@ -50,6 +50,17 @@ public class FileDownloadHelper {
         okHttpClient = builder.build();
     }
 
+    private Call mFastCall;
+
+    //只取消最近的一个下载操作
+    public void downloadCancel() {
+        if (mFastCall != null) {
+            if (!mFastCall.isCanceled()) {
+                mFastCall.cancel();
+            }
+            mFastCall = null;
+        }
+    }
 
     /**
      * 下载文件
@@ -58,7 +69,7 @@ public class FileDownloadHelper {
      * @param targetFile       保存的文件地址
      * @param downloadListener 回调状态
      */
-    public void downloadFile(final String url, File targetFile, final FileDownloadListener downloadListener) {
+    public Call downloadFile(final String url, File targetFile, final FileDownloadListener downloadListener) {
         FileUtils.createFileByDeleteOldFile(targetFile);
         Request request = new Request.Builder().url(url).build();
         Call call = okHttpClient.newCall(request);
@@ -130,6 +141,8 @@ public class FileDownloadHelper {
                 }
             }
         });
+        mFastCall = call;
+        return call;
     }
 
 }
