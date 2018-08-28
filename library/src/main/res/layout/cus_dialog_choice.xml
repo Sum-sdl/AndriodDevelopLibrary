@@ -22,6 +22,7 @@
 
             <TextView
                 android:id="@+id/choice_container_title"
+                style="@style/lib_style_choose_dialog_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
@@ -29,13 +30,11 @@
                 android:layout_marginStart="20dip"
                 android:gravity="center"
                 android:lineSpacingExtra="7dip"
-                android:text="标题"
-                android:textColor="#666666"
-                android:textSize="16dp"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/choice_container_content"
+                style="@style/lib_style_choose_dialog_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -43,9 +42,7 @@
                 android:layout_marginStart="20dip"
                 android:gravity="center"
                 android:lineSpacingExtra="7dip"
-                android:minHeight="30dip"
-                android:textColor="#666666"
-                android:textSize="14dp" />
+                android:minHeight="30dip" />
         </LinearLayout>
 
         <LinearLayout

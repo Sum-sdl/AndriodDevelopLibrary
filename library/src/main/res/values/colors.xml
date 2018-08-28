@@ -14,8 +14,6 @@
     <color name="pub_title_text_color">#333333</color>
     <color name="pub_title_text_right_color">#666666</color>
 
-    <color name="pub_empty_text_color">#999999</color>
-
     <color name="pub_line_color">#e5e5e5</color>
 
     <color name="pub_loading_bg_color">#e5e5e5</color>
