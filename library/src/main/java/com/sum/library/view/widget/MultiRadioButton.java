@@ -33,7 +33,7 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     private int mColorDefault, mColorChecked;
 
-    private int mDrawableSize, mTextSize;
+    private int mDrawableSize, mTextSize, mTextTopMargin;
 
     private boolean mDefaultChecked = false;
 
@@ -68,6 +68,11 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         if (mTextSize > 0) {
             mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
+        if (mTextTopMargin > 0) {
+            MarginLayoutParams params = (MarginLayoutParams) mTextView.getLayoutParams();
+            params.topMargin = mTextTopMargin;
+            mTextView.setLayoutParams(params);
+        }
         //初始化状态值
         initDefaultTint();
     }
@@ -94,6 +99,7 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
         mDrawableSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableSize, 0);
         mTextSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiTextSize, 0);
+        mTextTopMargin = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiTextMarginTop, 0);
         array.recycle();
     }
 
