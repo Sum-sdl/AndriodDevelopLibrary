@@ -23,6 +23,17 @@ import com.sum.library.R;
  */
 public class MultiRadioButton extends FrameLayout implements Checkable {
 
+    private static final ImageView.ScaleType[] sScaleTypeArray = {
+            ImageView.ScaleType.MATRIX,
+            ImageView.ScaleType.FIT_XY,
+            ImageView.ScaleType.FIT_START,
+            ImageView.ScaleType.FIT_CENTER,
+            ImageView.ScaleType.FIT_END,
+            ImageView.ScaleType.CENTER,
+            ImageView.ScaleType.CENTER_CROP,
+            ImageView.ScaleType.CENTER_INSIDE
+    };
+
     private boolean mChecked = false;
 
     private ImageView mImageView;
@@ -100,6 +111,14 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         mDrawableSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableSize, 0);
         mTextSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiTextSize, 0);
         mTextTopMargin = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiTextMarginTop, 0);
+
+        //
+        final int index = array.getInt(R.styleable.MultiRadioButton_multiDrawableScaleType, -1);
+        if (index >= 0) {
+            mImageView = findViewById(R.id.multi_iv_image);
+            mImageView.setScaleType(sScaleTypeArray[index]);
+        }
+
         array.recycle();
     }
 
@@ -162,5 +181,13 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         }
 
         setChecked(mDefaultChecked);
+    }
+
+    public ImageView getImageView() {
+        return mImageView;
+    }
+
+    public TextView getTextView() {
+        return mTextView;
     }
 }

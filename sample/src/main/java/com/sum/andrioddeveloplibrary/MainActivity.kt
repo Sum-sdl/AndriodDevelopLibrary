@@ -1,5 +1,6 @@
 package com.sum.andrioddeveloplibrary
 
+import android.content.Intent
 import android.os.Bundle
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
@@ -60,6 +61,13 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
         b14.setOnClickListener {
             startActivity(NewStartActivity::class.java)
+        }
+
+        b15.setOnClickListener {
+            val intent = Intent()
+            intent.action = tv_b.text.toString()
+            sendBroadcast(intent)
+            ToastUtils.showLong("intent.action->" + intent.action)
         }
     }
 

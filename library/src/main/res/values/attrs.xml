@@ -35,6 +35,7 @@
         <attr name="multiDrawableDefault" format="reference" />
         <attr name="multiDrawableChecked" format="reference" />
         <attr name="multiDrawableSize" format="dimension" />
+        <attr name="multiDrawableScaleType" format="integer" />
         <attr name="multiTextSize" format="dimension" />
         <attr name="multiTextMarginTop" format="dimension" />
     </declare-styleable>
@@ -60,7 +61,6 @@
     <declare-styleable name="PubEmptyView">
         <attr name="pub_empty_layout" format="reference" />
         <attr name="pub_empty_text" format="string" />
-        <attr name="pub_empty_text_size" format="dimension" />
         <attr name="pub_empty_img" format="reference" />
         <attr name="pub_empty_bg_color" format="reference|color" />
     </declare-styleable>
