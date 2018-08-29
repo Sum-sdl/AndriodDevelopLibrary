@@ -143,7 +143,6 @@ public class WebActivity extends BaseActivity {
         settings.setDatabaseEnabled(true);
         settings.setAppCacheEnabled(true);
         settings.setSaveFormData(false);
-        settings.setUseWideViewPort(true);
         settings.setJavaScriptEnabled(true);
         settings.setAllowContentAccess(true);
 
@@ -154,6 +153,7 @@ public class WebActivity extends BaseActivity {
         //自适应屏幕
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(true);
         //缓存模式
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         //关闭文件读取
