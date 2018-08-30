@@ -74,6 +74,8 @@
     <style name="lib_style_pub_title_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/pub_title_height</item>
+        <item name="android:layout_marginEnd">@dimen/pub_title_height</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textSize">@dimen/pub_title_text_size</item>
         <item name="android:gravity">center</item>
@@ -82,5 +84,20 @@
         <item name="android:textColor">@color/pub_title_text_color</item>
     </style>
 
+    <!--底部操作栏-->
+    <style name="lib_style_tab_item_imageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="lib_style_tab_item_textView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingMultiplier">0.9</item>
+        <item name="android:lines">1</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
 </resources>

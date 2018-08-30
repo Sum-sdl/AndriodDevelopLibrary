@@ -2,6 +2,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
+    <size
+        android:width="@dimen/pub_title_height"
+        android:height="@dimen/pub_title_height" />
+
     <solid android:color="#444444" />
 
 </shape>

@@ -30,14 +30,17 @@
     <declare-styleable name="MultiRadioButton">
         <attr name="multiChecked" format="boolean" />
         <attr name="multiText" format="reference|string" />
+        <attr name="multiTextSize" format="dimension" />
         <attr name="multiColorDefault" format="reference|color" />
         <attr name="multiColorChecked" format="reference|color" />
         <attr name="multiDrawableDefault" format="reference" />
         <attr name="multiDrawableChecked" format="reference" />
-        <attr name="multiDrawableSize" format="dimension" />
-        <attr name="multiDrawableScaleType" format="integer" />
-        <attr name="multiTextSize" format="dimension" />
-        <attr name="multiTextMarginTop" format="dimension" />
+        <attr name="multiDrawableWidth" format="dimension" />
+        <attr name="multiDrawableHeight" format="dimension" />
+        <attr name="multiDrawableMarginTop" format="dimension" />
+        <attr name="multiDrawableMarginLeft" format="dimension" />
+        <attr name="multiDrawableMarginRight" format="dimension" />
+        <attr name="multiDrawableMarginBottom" format="dimension" />
     </declare-styleable>
 
 

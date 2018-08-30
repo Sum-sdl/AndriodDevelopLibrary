@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:title_default_adjust_bar="true"
         app:title_default_adjust_bar_color="#f00"
-        app:title_default_name="状态栏适配" />
+        app:title_default_name="状态栏适配+红色" />
 
     <View style="@style/pub_line_hor" />
 
@@ -26,7 +26,7 @@
     <com.sum.library.view.widget.PubTitleView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_default_adjust_bar="true"
+        app:title_default_adjust_bar="false"
         app:title_default_back_img_tint="#F00"
         app:title_default_bg_color="#ac0"
         app:title_default_name="自定义配置"
@@ -53,6 +53,29 @@
         android:gravity="center"
         android:text="FragmentCacheManager测试使用" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/pub_line_color"
+        android:orientation="horizontal">
+
+        <com.sum.library.view.widget.MultiRadioButton
+            android:id="@+id/mr_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:multiChecked="true"
+            app:multiColorChecked="@color/colorAccent"
+            app:multiColorDefault="@color/black"
+            app:multiDrawableDefault="@mipmap/home_tab_icon_home_h"
+            app:multiDrawableMarginBottom="4dp"
+            app:multiDrawableMarginLeft="6dp"
+            app:multiDrawableMarginRight="6dp"
+            app:multiDrawableMarginTop="4dp"
+            app:multiText="@string/app_name"
+            app:multiTextSize="12sp" />
+
+    </LinearLayout>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -72,6 +95,7 @@
             android:src="@mipmap/anim4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_2"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

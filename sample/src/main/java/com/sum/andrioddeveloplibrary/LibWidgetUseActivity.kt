@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.SharedElementCallback
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.activity.FragmentManagerActivity
@@ -15,6 +16,7 @@ import com.sum.library.ui.web.WebActivity
 import com.sum.library.utils.Logger
 import com.sum.library.view.widget.PubTitleView
 import kotlinx.android.synthetic.main.activity_widget_use.*
+import q.rorbin.badgeview.QBadgeView
 
 class LibWidgetUseActivity : AppCompatActivity() {
 
@@ -67,8 +69,18 @@ class LibWidgetUseActivity : AppCompatActivity() {
             } else {
                 activity.startActivity(intent)
             }
-
         }
+
+        //num
+        val mBadgeWork = QBadgeView(this).setBadgeTextSize(7f, true)
+                .setBadgeGravity(Gravity.TOP or Gravity.END)
+                .setBadgePadding(2f, true)
+                .setOnDragStateChangedListener { _, _, _ -> }
+                .bindTarget(mr_btn.ivParent)
+
+        mBadgeWork.badgeNumber = 99
+
+
     }
 
     private var reenterState: Bundle? = null

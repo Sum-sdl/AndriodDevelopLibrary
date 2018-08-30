@@ -23,28 +23,19 @@ import com.sum.library.R;
  */
 public class MultiRadioButton extends FrameLayout implements Checkable {
 
-    private static final ImageView.ScaleType[] sScaleTypeArray = {
-            ImageView.ScaleType.MATRIX,
-            ImageView.ScaleType.FIT_XY,
-            ImageView.ScaleType.FIT_START,
-            ImageView.ScaleType.FIT_CENTER,
-            ImageView.ScaleType.FIT_END,
-            ImageView.ScaleType.CENTER,
-            ImageView.ScaleType.CENTER_CROP,
-            ImageView.ScaleType.CENTER_INSIDE
-    };
-
     private boolean mChecked = false;
 
     private ImageView mImageView;
 
     private TextView mTextView;
 
+    private FrameLayout mIvParent;
+
     private int mImageResDefault = -1, mImageResChecked = -1;
 
     private int mColorDefault, mColorChecked;
 
-    private int mDrawableSize, mTextSize, mTextTopMargin;
+    private int mTextSize;
 
     private boolean mDefaultChecked = false;
 
@@ -64,26 +55,18 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     public MultiRadioButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        loadAttrs(context, attrs);
-
         mContext = context;
         LayoutInflater.from(context).inflate(R.layout.cus_multi_radio_button, this, true);
         mImageView = findViewById(R.id.multi_iv_image);
-        if (mDrawableSize > 0) {
-            ViewGroup.LayoutParams params = mImageView.getLayoutParams();
-            params.height = mDrawableSize;
-            params.width = mDrawableSize;
-            mImageView.setLayoutParams(params);
-        }
         mTextView = findViewById(R.id.multi_tv_name);
+        mIvParent = findViewById(R.id.multi_iv_parent);
+
+        loadAttrs(context, attrs);
+
         if (mTextSize > 0) {
             mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
-        if (mTextTopMargin > 0) {
-            MarginLayoutParams params = (MarginLayoutParams) mTextView.getLayoutParams();
-            params.topMargin = mTextTopMargin;
-            mTextView.setLayoutParams(params);
-        }
+
         //初始化状态值
         initDefaultTint();
     }
@@ -108,17 +91,27 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         mName = array.getString(R.styleable.MultiRadioButton_multiText);
         mDefaultChecked = array.getBoolean(R.styleable.MultiRadioButton_multiChecked, false);
 
-        mDrawableSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableSize, 0);
         mTextSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiTextSize, 0);
-        mTextTopMargin = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiTextMarginTop, 0);
 
-        //
-        final int index = array.getInt(R.styleable.MultiRadioButton_multiDrawableScaleType, -1);
-        if (index >= 0) {
-            mImageView = findViewById(R.id.multi_iv_image);
-            mImageView.setScaleType(sScaleTypeArray[index]);
+
+        MarginLayoutParams params = (MarginLayoutParams) mImageView.getLayoutParams();
+        int iv_width = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableWidth, -1);
+        int iv_height = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableWidth, -1);
+        int iv_mar_l = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableMarginLeft, 0);
+        int iv_mar_r = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableMarginRight, 0);
+        int iv_mar_t = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableMarginTop, 0);
+        int iv_mar_b = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableMarginBottom, 0);
+        if (iv_width != -1) {
+            params.width = iv_width;
         }
-
+        if (iv_height != -1) {
+            params.height = iv_height;
+        }
+        params.topMargin = iv_mar_t;
+        params.bottomMargin = iv_mar_b;
+        params.leftMargin = iv_mar_l;
+        params.rightMargin = iv_mar_r;
+        mImageView.setLayoutParams(params);
         array.recycle();
     }
 
@@ -183,11 +176,21 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         setChecked(mDefaultChecked);
     }
 
+    //调整图片位置
+    public FrameLayout getIvParent() {
+        return mIvParent;
+    }
+
     public ImageView getImageView() {
         return mImageView;
     }
 
     public TextView getTextView() {
         return mTextView;
+    }
+
+    //变更倒初始状态
+    public void resetToDefault() {
+        initDefaultTint();
     }
 }
