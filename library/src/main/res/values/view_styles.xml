@@ -71,5 +71,16 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="lib_style_pub_title_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/pub_title_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLength">12</item>
+        <item name="android:textColor">@color/pub_title_text_color</item>
+    </style>
+
 
 </resources>
