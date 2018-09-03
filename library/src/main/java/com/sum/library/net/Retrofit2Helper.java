@@ -1,5 +1,7 @@
 package com.sum.library.net;
 
+import com.google.gson.Gson;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -45,25 +47,25 @@ public class Retrofit2Helper {
 
     //直接默认设置
     public void initRetrofit(String baseUrl) {
-        initRetrofit(baseUrl, buildDefaultOkHttpClient().build());
+        initRetrofit(baseUrl, buildDefaultOkHttpClient().build(), new Gson());
     }
 
     //自己添加添加公共参数Interceptor
-    public void initRetrofit(String baseUrl, Interceptor... interceptor) {
+    public void initRetrofit(String baseUrl, Gson gson, Interceptor... interceptor) {
         OkHttpClient.Builder builder = buildDefaultOkHttpClient();
         if (interceptor != null && interceptor.length > 0) {
             for (Interceptor item : interceptor) {
                 builder.addInterceptor(item);
             }
         }
-        initRetrofit(baseUrl, builder.build());
+        initRetrofit(baseUrl, builder.build(), gson);
     }
 
-    public void initRetrofit(String baseUrl, OkHttpClient client) {
+    private void initRetrofit(String baseUrl, OkHttpClient client, Gson gson) {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(baseUrl);
-        //自动将ResponseBody转成对象
-        builder.addConverterFactory(GsonConverterFactory.create());
+        //自动将ResponseBody转成对象,自动将请求体转成json
+        builder.addConverterFactory(GsonConverterFactory.create(gson));
         builder.client(client);
         mRetrofit = builder.build();
     }
