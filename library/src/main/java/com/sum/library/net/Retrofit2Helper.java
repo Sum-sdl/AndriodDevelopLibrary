@@ -45,6 +45,11 @@ public class Retrofit2Helper {
         return builder;
     }
 
+    //直接设置
+    public void initRetrofit(Retrofit.Builder builder) {
+        mRetrofit = builder.build();
+    }
+
     //直接默认设置
     public void initRetrofit(String baseUrl) {
         initRetrofit(baseUrl, buildDefaultOkHttpClient().build(), new Gson());
@@ -82,6 +87,11 @@ public class Retrofit2Helper {
                 .baseUrl(uploadUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        return mUploadFileRetrofit;
+    }
+
+    public Retrofit initUploadFileRetrofit(Retrofit.Builder builder) {
+        mUploadFileRetrofit = builder.build();
         return mUploadFileRetrofit;
     }
 
