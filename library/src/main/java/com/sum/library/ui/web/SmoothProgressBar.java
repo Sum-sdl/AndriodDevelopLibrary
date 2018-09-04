@@ -1,5 +1,7 @@
 package com.sum.library.ui.web;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -55,9 +57,16 @@ public class SmoothProgressBar extends ProgressBar {
             Integer pro = (Integer) animation.getAnimatedValue();
             setProgress(pro);
             if (pro == getMax()) {
-                setVisibility(View.GONE);
+                animate().alpha(0).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        setVisibility(View.GONE);
+                    }
+                }).setDuration(200).start();
             } else {
+                setAlpha(1);
                 setVisibility(View.VISIBLE);
+
             }
         });
         animator.setInterpolator(PROGRESS_ANIM_INTERPOLATOR);
