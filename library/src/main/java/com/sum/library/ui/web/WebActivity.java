@@ -54,21 +54,36 @@ public class WebActivity extends BaseActivity {
     protected SonicSession sonicSession;
     protected SonicSessionClientImpl sonicSessionClient = null;
 
-    public static void open(Context c, String title, String url, WebJavascriptInterface js, String jsName) {
-        Intent intent = new Intent(c, WebActivity.class);
+    public static void openTarget(Context c, Class<?> target, String title, String url, Bundle other) {
+        openTarget(c, target, title, url, null, null, other);
+    }
+
+    public static void openTarget(Context c, Class<?> target, String title, String url, WebJavascriptInterface js, String jsName, Bundle other) {
+        Intent intent = new Intent(c, target);
         intent.putExtra("title", title);
         intent.putExtra("url", url);
         intent.putExtra("WebJavascriptInterface", js);
         intent.putExtra("WebJavascriptInterfaceName", jsName);
+        if (other != null) {
+            intent.putExtras(other);
+        }
         c.startActivity(intent);
     }
 
+    public static void open(Context c, String title, String url, WebJavascriptInterface js, String jsName, Bundle other) {
+        openTarget(c, WebActivity.class, title, url, js, jsName, other);
+    }
+
     public static void open(Context c, String url) {
-        open(c, null, url, null, null);
+        open(c, null, url, null, null, null);
     }
 
     public static void open(Context c, String url, String title) {
-        open(c, title, url, null, null);
+        open(c, title, url, null, null, null);
+    }
+
+    public static void open(Context c, String url, String title, Bundle other) {
+        open(c, title, url, null, null, other);
     }
 
     @Override
@@ -80,24 +95,29 @@ public class WebActivity extends BaseActivity {
         return true;
     }
 
+    protected boolean needSonic() {
+        return true;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (needHardware()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         }
-        if (!SonicEngine.isGetInstanceAllowed()) {
-            SonicEngine.createInstance(new SonicRuntimeImpl(getApplication()), new SonicConfig.Builder().build());
+        if (needSonic()) {
+            if (!SonicEngine.isGetInstanceAllowed()) {
+                SonicEngine.createInstance(new SonicRuntimeImpl(getApplication()), new SonicConfig.Builder().build());
+            }
+            sonicSessionClient = new SonicSessionClientImpl();
+            SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
+            sessionConfigBuilder.setSupportLocalServer(true);
+            sonicSession = SonicEngine.getInstance().createSession(getIntent().getStringExtra("url"), sessionConfigBuilder.build());
+            if (null != sonicSession) {
+                sonicSession.bindClient(sonicSessionClient);
+            } else {
+                finish();
+            }
         }
-        sonicSessionClient = new SonicSessionClientImpl();
-        SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
-        sessionConfigBuilder.setSupportLocalServer(true);
-        sonicSession = SonicEngine.getInstance().createSession(getIntent().getStringExtra("url"), sessionConfigBuilder.build());
-        if (null != sonicSession) {
-            sonicSession.bindClient(sonicSessionClient);
-        } else {
-            finish();
-        }
-
         super.onCreate(savedInstanceState);
     }
 
@@ -167,7 +187,6 @@ public class WebActivity extends BaseActivity {
             mJs.addWebView(mWeb);
             mWeb.addJavascriptInterface(mJs, getIntent().getStringExtra("WebJavascriptInterfaceName"));
         }
-        mWeb.removeJavascriptInterface("searchBoxJavaBridge_");
 
         mWeb.setWebChromeClient(getWebChromeClient());
         mWeb.setWebViewClient(getWebViewClient());
@@ -182,7 +201,7 @@ public class WebActivity extends BaseActivity {
             // cookies同步方法要在WebView的setting设置完之后调用，否则无效。
             syncCookie(this, getIntent().getStringExtra("cookieUrl"), cookies);
         }
-        if (sonicSessionClient != null) {
+        if (needSonic() && sonicSessionClient != null) {
             sonicSessionClient.bindWebView(mWeb);
             sonicSessionClient.clientReady();
         } else {
@@ -262,7 +281,7 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (null != sonicSession) {
+        if (needSonic() && null != sonicSession) {
             sonicSession.destroy();
             sonicSession = null;
         }

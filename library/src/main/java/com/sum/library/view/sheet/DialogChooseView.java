@@ -1,6 +1,8 @@
 package com.sum.library.view.sheet;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -53,6 +55,12 @@ public class DialogChooseView extends BaseDialogFragment {
     public DialogChooseView setNegListener(View.OnClickListener neg) {
         mNegLis = neg;
         return this;
+    }
+
+    public void showFast(Context context) {
+        if (context instanceof FragmentActivity) {
+            show(((FragmentActivity) context).getSupportFragmentManager(), "choose_view");
+        }
     }
 
     @Override
