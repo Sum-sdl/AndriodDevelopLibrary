@@ -144,12 +144,17 @@ class PubTitleView : LinearLayout {
 
     //添加文本按钮
     fun addRightTextButton(btnName: String, clickListener: View.OnClickListener?): TextView {
+        return addRightTextButton(btnName, R.color.pub_title_text_right_color, clickListener)
+    }
+
+    //添加文本按钮
+    fun addRightTextButton(btnName: String, colorRes: Int, clickListener: View.OnClickListener?): TextView {
         val view = TextView(context)
         view.text = btnName
         view.textSize = 14f
         view.gravity = Gravity.CENTER
         view.setPadding(0, 0, SizeUtils.dp2px(12f), 0)
-        view.setTextColor(ContextCompat.getColor(context, R.color.pub_title_text_right_color))
+        view.setTextColor(ContextCompat.getColor(context, colorRes))
         view.setOnClickListener(clickListener)
         addRightView(view)
         return view
