@@ -141,14 +141,19 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
             }
             this.addPubParams(oldParams);
 
+            StringBuilder content = new StringBuilder();
+
             for (Map.Entry<String, String> entry : oldParams.entrySet()) {
                 if (entry.getValue() == null) {
                     continue;
                 }
                 bodyBuilder.addEncoded(entry.getKey(), URLDecoder.decode(entry.getValue(), "UTF-8"));
                 if (needLog()) {
-                    Log.d(TAG, "key:" + entry.getKey() + ",value:" + entry.getValue() + "\n");
+                    content.append(entry.getKey()).append("->").append(entry.getValue()).append("\n");
                 }
+            }
+            if (needLog()) {
+                Log.d(TAG, "post params->{\n" + content + "}");
             }
             formBody = bodyBuilder.build();
 
