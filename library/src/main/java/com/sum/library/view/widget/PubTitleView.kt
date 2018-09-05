@@ -139,6 +139,10 @@ class PubTitleView : LinearLayout {
 
     //设置标题
     fun setTitle(title: CharSequence?) {
+        val old = mTitleTextView?.text
+        if (title == old) {
+            return
+        }
         mTitleTextView?.text = title
     }
 
