@@ -2,14 +2,14 @@ package com.sum.library.net.token;
 
 import android.util.Log;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -20,7 +20,6 @@ import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -40,24 +39,22 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
 
     private static final String TAG = "app_net_log";
 
-    public BaseDynamicInterceptor() {
-
-    }
-
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        if (request.method().equals("GET")) {
-            request = this.addGetParamsSign(request);
-        } else if (request.method().equals("POST")) {
-            request = this.addPostParamsSign(request);
-        }
         if (needLog()) {
             Log.d(TAG,
                     "req->method:" + request.method() +
                             " head:" + request.headers().toString() +
                             " url:" + request.url().toString());
         }
+
+        if (request.method().equals("GET")) {
+            request = this.addGetParamsSign(request);
+        } else if (request.method().equals("POST")) {
+            request = this.addPostParamsSign(request);
+        }
+
         Response response = chain.proceed(request);
         if (needLog()) {
             Log.d(TAG, "rsp->" + unicodeToString(getBodyString(response)));
@@ -85,7 +82,7 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
         return buffer.clone().readString(charset);
     }
 
-    private Request addGetParamsSign(Request request) throws UnsupportedEncodingException {
+    private Request addGetParamsSign(Request request) {
         HttpUrl httpUrl = request.url();
         HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
         Set<String> nameSet = httpUrl.queryParameterNames();
@@ -110,7 +107,6 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
             if (entry.getKey() == null || entry.getValue() == null) {
                 continue;
             }
-            //String urlValue = URLEncoder.encode((String) entry.getValue(), "UTF-8");
             if (!nameKeys.contains(entry.getKey())) {
                 urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
             }
@@ -128,10 +124,10 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
         return request;
     }
 
-    private Request addPostParamsSign(Request request) throws UnsupportedEncodingException {
+    private Request addPostParamsSign(Request request) {
         if (request.body() instanceof FormBody) {
             //完全新创建一个查询参数体
-            okhttp3.FormBody.Builder bodyBuilder = new okhttp3.FormBody.Builder();
+            FormBody.Builder bodyBuilder = new FormBody.Builder();
             FormBody formBody = (FormBody) request.body();
             TreeMap<String, String> oldParams = new TreeMap<>();
             if (formBody != null) {
@@ -141,19 +137,29 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
             }
             this.addPubParams(oldParams);
 
-            StringBuilder content = new StringBuilder();
-
+            StringBuilder content = null;
+            JsonArray array = null;
+            if (needLog()) {
+                content = new StringBuilder();
+                array = new JsonArray();
+            }
             for (Map.Entry<String, String> entry : oldParams.entrySet()) {
                 if (entry.getValue() == null) {
                     continue;
                 }
-                bodyBuilder.addEncoded(entry.getKey(), URLDecoder.decode(entry.getValue(), "UTF-8"));
+                bodyBuilder.add(entry.getKey(), entry.getValue());
                 if (needLog()) {
                     content.append(entry.getKey()).append("->").append(entry.getValue()).append("\n");
+                    JsonObject object = new JsonObject();
+                    object.addProperty("key", entry.getKey());
+                    object.addProperty("value", entry.getValue());
+                    object.addProperty("enabled", true);
+                    array.add(object);
                 }
             }
             if (needLog()) {
                 Log.d(TAG, "post params->{\n" + content + "}");
+                Log.d(TAG, "Postman params->" + array.toString());
             }
             formBody = bodyBuilder.build();
 
@@ -165,26 +171,6 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
                 }
             }
             request = builder.post(formBody).build();
-        } else if (request.body() instanceof MultipartBody) {
-            MultipartBody multipartBody = (MultipartBody) request.body();
-            okhttp3.MultipartBody.Builder bodyBuilder = new okhttp3.MultipartBody.Builder();
-            List<MultipartBody.Part> oldparts = multipartBody.parts();
-
-            List<MultipartBody.Part> newparts = new ArrayList<>(oldparts);
-            TreeMap<String, String> newParams = new TreeMap<>();
-            this.addPubParams(newParams);
-
-            for (Map.Entry<String, String> entry : newParams.entrySet()) {
-                MultipartBody.Part part = MultipartBody.Part.createFormData(entry.getKey(), entry.getValue());
-                newparts.add(part);
-            }
-
-            for (MultipartBody.Part part : newparts) {
-                bodyBuilder.addPart(part);
-            }
-
-            multipartBody = bodyBuilder.build();
-            request = request.newBuilder().post(multipartBody).build();
         }
         return request;
     }
