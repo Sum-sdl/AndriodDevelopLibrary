@@ -42,19 +42,17 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
+        if (request.method().equals("GET")) {
+            request = this.addGetParamsSign(request);
+        } else if (request.method().equals("POST")) {
+            request = this.addPostParamsSign(request);
+        }
         if (needLog()) {
             Log.d(TAG,
                     "req->method:" + request.method() +
                             " head:" + request.headers().toString() +
                             " url:" + request.url().toString());
         }
-
-        if (request.method().equals("GET")) {
-            request = this.addGetParamsSign(request);
-        } else if (request.method().equals("POST")) {
-            request = this.addPostParamsSign(request);
-        }
-
         Response response = chain.proceed(request);
         if (needLog()) {
             Log.d(TAG, "rsp->" + unicodeToString(getBodyString(response)));
