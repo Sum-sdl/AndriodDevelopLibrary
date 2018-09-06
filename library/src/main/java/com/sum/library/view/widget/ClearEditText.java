@@ -2,6 +2,7 @@ package com.sum.library.view.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,8 +15,13 @@ import com.sum.library.R;
 public class ClearEditText extends AppCompatEditText implements View.OnTouchListener,
         View.OnFocusChangeListener, TextWatcher {
 
-    Drawable clearDrawable;
-    OnFocusChangeListener focusChangeListener;
+    private Drawable clearDrawable;
+    private OnFocusChangeListener focusChangeListener;
+    private Handler mTimeHandler;
+
+    private static final int MSG_SEARCH_INPUT = 11;
+    private String mCur = "-1";
+    private int mDelayTime;
 
     public ClearEditText(Context context) {
         this(context, null);
@@ -66,12 +72,25 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
 
     @Override
     public void afterTextChanged(Editable s) {
-
+        String text = s.toString().trim();
+        if (text.equals(mCur)) {
+            return;
+        }
+        mCur = text;
+        if (mTimeHandler != null) {
+            if (text.isEmpty()) {
+                mTimeHandler.sendEmptyMessageDelayed(MSG_SEARCH_INPUT, 0);
+            } else {
+                if (mTimeHandler.hasMessages(MSG_SEARCH_INPUT)) {
+                    mTimeHandler.removeMessages(MSG_SEARCH_INPUT);
+                }
+                mTimeHandler.sendEmptyMessageDelayed(MSG_SEARCH_INPUT, mDelayTime);
+            }
+        }
     }
 
     @Override
     public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
-        super.onTextChanged(text, start, lengthBefore, lengthAfter);
         if (isFocused()) {
             setClearIconVisible(getText().length() > 0);
         }
@@ -89,5 +108,21 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
 
     public void setFocusChangeListener(OnFocusChangeListener focusChangeListener) {
         this.focusChangeListener = focusChangeListener;
+    }
+
+    public interface DelayChangeTextListener {
+        void onDelayTextChange(String input);
+    }
+
+    public void initTextSearchTime(int delayTime, DelayChangeTextListener listener) {
+        this.mDelayTime = delayTime;
+        if (mTimeHandler == null) {
+            mTimeHandler = new Handler(msg -> {
+                if (listener != null) {
+                    listener.onDelayTextChange(getText().toString().trim());
+                }
+                return true;
+            });
+        }
     }
 }

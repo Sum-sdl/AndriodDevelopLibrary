@@ -34,6 +34,9 @@ public class LoadingViewImpl implements LoadingView {
 
     @Override
     public void showLoading(String msg, boolean cancelable) {
+        if (mLoadDialog != null && mLoadDialog.isShowing()) {
+            mLoadDialog.dismiss();
+        }
         mLoadDialog = DialogMaker.showLoadingDialog(mContext, msg,cancelable);
         if (!mLoadDialog.isShowing()) {
             mLoadDialog.show();
