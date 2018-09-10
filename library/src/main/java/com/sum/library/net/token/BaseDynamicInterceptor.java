@@ -130,7 +130,7 @@ public abstract class BaseDynamicInterceptor implements Interceptor {
             TreeMap<String, String> oldParams = new TreeMap<>();
             if (formBody != null) {
                 for (int i = 0; i < formBody.size(); ++i) {
-                    oldParams.put(formBody.encodedName(i), formBody.encodedValue(i));
+                    oldParams.put(formBody.name(i), formBody.value(i));
                 }
             }
             this.addPubParams(oldParams);
