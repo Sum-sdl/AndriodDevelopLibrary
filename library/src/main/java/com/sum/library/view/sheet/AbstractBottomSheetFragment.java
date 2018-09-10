@@ -15,9 +15,6 @@ import android.view.ViewGroup;
  */
 public abstract class AbstractBottomSheetFragment extends BottomSheetDialogFragment {
 
-    //底部统一布局
-    public abstract int getBottomLayoutId();
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,6 +25,16 @@ public abstract class AbstractBottomSheetFragment extends BottomSheetDialogFragm
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setCancelable(false);//让界面不跟随手势自动滚动
-        return inflater.inflate(getBottomLayoutId(), container);
+        return inflater.inflate(getLayoutId(), container);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initParams(view);
+    }
+
+    protected abstract int getLayoutId();
+
+    protected abstract void initParams(View view);
 }
