@@ -46,11 +46,6 @@ public class BottomSheetView extends AbstractBottomSheetFragment {
     private String mHours, mMin;
 
     @Override
-    public int getBottomLayoutId() {
-        return R.layout.cus_bs_single_view;
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.tv_cancel).setOnClickListener(v -> dismiss());
@@ -82,6 +77,16 @@ public class BottomSheetView extends AbstractBottomSheetFragment {
                 }
             });
         }
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return  R.layout.cus_bs_single_view;
+    }
+
+    @Override
+    protected void initParams(View view) {
+
     }
 
     private void initHours(@NonNull View view) {
