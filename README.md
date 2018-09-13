@@ -64,8 +64,8 @@
 
 > **UI组件模块**
 >
-- 底部滑动出来的通用浮层的[AbstractBottomSheetFragment](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/sheet/AbstractBottomSheetFragment.java)
-- 底部滑动通用浮层案例[BottomSheetView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/sheet/BottomSheetView.java)
+- 底部滑动出来的通用浮层的[BaseBottomSheetFragment](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/sheet/BaseBottomSheetFragment.java)
+- 底部滑动通用浮层案例[DialogTimeChooseView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/sheet/DialogTimeChooseView.java)
 支持时间，日期选择，单选滚动功能
 - 统一的空UI展示[PubEmptyView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/widget/PubEmptyView.java),类似ViewStub的功能实现,调用setVisibility()的时候才会初始化View的内容
 - 统一的标题展示[PubTitleView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/widget/PubTitleView.kt)
