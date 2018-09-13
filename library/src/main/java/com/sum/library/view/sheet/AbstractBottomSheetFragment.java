@@ -1,10 +1,13 @@
 package com.sum.library.view.sheet;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,4 +40,11 @@ public abstract class AbstractBottomSheetFragment extends BottomSheetDialogFragm
     protected abstract int getLayoutId();
 
     protected abstract void initParams(View view);
+
+    public void showFast(Context context) {
+        if (context instanceof FragmentActivity) {
+            FragmentManager manager = ((FragmentActivity) context).getSupportFragmentManager();
+            show(manager, "bottom_dilog");
+        }
+    }
 }
