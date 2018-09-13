@@ -47,7 +47,7 @@
  Then, add the library to your module `build.gradle`
  ```gradle
  dependencies {
-        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.1.9
+        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.2.0
      }
  ```
  

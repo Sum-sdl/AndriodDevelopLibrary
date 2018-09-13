@@ -3,12 +3,10 @@ package com.sum.andrioddeveloplibrary
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.TextView
-import com.blankj.utilcode.util.PhoneUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.library.app.BaseDialogFragment
-import com.sum.library.view.sheet.BottomSheetView
+import com.sum.library.view.sheet.DialogTimeChooseView
 import com.sum.library.view.sheet.DialogChooseView
 import kotlinx.android.synthetic.main.activity_dialog_test.*
 
@@ -30,7 +28,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             if (it.tag is String) {
                 time = it.tag as String
             }
-            BottomSheetView.Builder()
+            DialogTimeChooseView.Builder()
                     .setShowHours()
                     .setHours(time)
                     .setListener { _, content ->
@@ -45,7 +43,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             if (it.tag is String) {
                 time = it.tag as String
             }
-            BottomSheetView.Builder()
+            DialogTimeChooseView.Builder()
                     .setCurrentTime(time)
                     .setListener { _, content ->
                         it.tag = content
@@ -68,7 +66,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                 index = it.tag as Int
             }
             val data = arrayOf("单选1", "单选2", "单选3", "单选4", "单选5", "单选6", "单选7", "单选8", "单选9", "单选10", "单选11", "单选12")
-            BottomSheetView.Builder().setItems(data).setChooseIndex(index).setListener { pos, content ->
+            DialogTimeChooseView.Builder().setItems(data).setChooseIndex(index).setListener { pos, content ->
                 it.tag = pos
                 ToastUtils.showLong("pos=$pos,content$content")
             }.show(this)

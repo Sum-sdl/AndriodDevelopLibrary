@@ -16,7 +16,7 @@ import android.view.ViewGroup;
  * Created by sdl on 2018/5/15.
  * 底部浮层界面，点击空白部分，自动关闭界面
  */
-public abstract class AbstractBottomSheetFragment extends BottomSheetDialogFragment {
+public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment {
 
     @NonNull
     @Override
@@ -44,7 +44,7 @@ public abstract class AbstractBottomSheetFragment extends BottomSheetDialogFragm
     public void showFast(Context context) {
         if (context instanceof FragmentActivity) {
             FragmentManager manager = ((FragmentActivity) context).getSupportFragmentManager();
-            show(manager, "bottom_dilog");
+            show(manager, "bottom_dialog");
         }
     }
 }

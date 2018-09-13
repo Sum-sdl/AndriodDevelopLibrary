@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 /**
  * Created by sdl on 2018/5/15.
  */
-public class BottomDialog extends BottomSheetDialog {
+class BottomDialog extends BottomSheetDialog {
 
     BottomDialog(@NonNull Context context, int theme) {
         super(context, theme);

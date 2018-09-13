@@ -27,7 +27,7 @@ import java.util.Locale;
  * Created by sdl on 2018/5/14.
  * 时间,单选，操作界面
  */
-public class BottomSheetView extends AbstractBottomSheetFragment {
+public class DialogTimeChooseView extends BaseBottomSheetFragment {
 
     public void setListener(SheetListener listener) {
         this.mListener = listener;
@@ -367,7 +367,7 @@ public class BottomSheetView extends AbstractBottomSheetFragment {
         }
 
         public void show(FragmentManager manager) {
-            BottomSheetView sheet = new BottomSheetView();
+            DialogTimeChooseView sheet = new DialogTimeChooseView();
             sheet.mListener = mListener;
             sheet.mData = this;
             sheet.show(manager, "sheet");
