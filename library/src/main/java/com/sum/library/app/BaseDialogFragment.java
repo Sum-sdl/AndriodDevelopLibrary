@@ -14,7 +14,6 @@ import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.sum.library.R;
 
@@ -77,7 +76,7 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             }
             WindowManager.LayoutParams lp = window.getAttributes();
             lp.width = ScreenUtils.getScreenWidth();
-            lp.height = ScreenUtils.getScreenHeight() - BarUtils.getStatusBarHeight();
+            lp.height = ScreenUtils.getScreenHeight();
             window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             if (Build.VERSION.SDK_INT >= 21) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
