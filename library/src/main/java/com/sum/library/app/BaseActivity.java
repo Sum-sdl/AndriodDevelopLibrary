@@ -108,4 +108,12 @@ public abstract class BaseActivity extends AppCompatActivity implements UiViewMo
     public void startActivity(Class<?> clazz) {
         startActivity(new Intent(this, clazz));
     }
+
+    public void showLoadingDilog() {
+        mPresent.loadingView.showLoading();
+    }
+
+    public void hideLoadingDilog() {
+        mPresent.loadingView.hideLoading();
+    }
 }

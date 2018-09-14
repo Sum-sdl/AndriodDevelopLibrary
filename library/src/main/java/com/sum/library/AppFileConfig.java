@@ -32,6 +32,10 @@ public class AppFileConfig {
         }
     }
 
+    public static File getAppStoreDirectory() {
+        return getBaseDir(false);
+    }
+
     public static File getFileDirectory() {
         return getDir("file");
     }
