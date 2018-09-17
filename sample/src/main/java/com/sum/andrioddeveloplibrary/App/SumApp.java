@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -71,7 +72,7 @@ public class SumApp extends BaseApplication {
 //        }
 //        LeakCanary.install(this);
         Logger.e("SumApp onCreate");
-        Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new TestToken());
+        Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new TestToken());
     }
 
     protected void attachBaseContext(Context base) {

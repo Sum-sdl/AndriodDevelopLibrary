@@ -91,14 +91,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="发送广播" />
+            android:text="下载，打开文件" />
 
         <TextView
             android:id="@+id/tv_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="com.huawei.hwid.ACTION_REMOVE_ACCOUNT"
-            android:textColor="@color/white" />
+            android:text="打开"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

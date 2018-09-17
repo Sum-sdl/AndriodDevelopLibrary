@@ -1,6 +1,6 @@
 package com.sum.andrioddeveloplibrary
 
-import android.content.Intent
+import add_class.utils.FileOpen
 import android.os.Bundle
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
@@ -8,10 +8,16 @@ import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
+import com.sum.library.AppFileConfig
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.AppDownloadManager
+import com.sum.library.utils.FileDownloadHelper
+import com.sum.library.utils.Logger
+import com.sum.library.utils.mainThread
+import com.sum.library.view.widget.DialogMaker
 import jetpack.demo.NewStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
     override fun onItemClicked(position: Int) {
@@ -64,12 +70,52 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
 
         b15.setOnClickListener {
-            val intent = Intent()
-            intent.action = tv_b.text.toString()
-            sendBroadcast(intent)
-            ToastUtils.showLong("intent.action->" + intent.action)
+            val url = "http://oa.house365.com/attachment_new/2018/09/13/347511066/%CE%A2%D0%C5%CD%BC%C6%AC_20180913150705.jpg"
+            download(url)
         }
     }
+
+
+    private fun download(url: String) {
+        val mLocalFile = AppFileConfig.getFileDirectory().path + "/20180913150705.jpg"
+        Logger.e("file->$mLocalFile")
+        val file = File(mLocalFile)
+        if (file.exists()) {
+            val intent = FileOpen.getOpenFileIntent(mLocalFile)
+            startActivity(intent)
+            return
+        }
+
+        val dialog = DialogMaker.showProgress(this, "", "文件下载中...", false)
+        FileDownloadHelper.instance().downloadFile(url, file, object : FileDownloadHelper.FileDownloadListener {
+            private var mCurPos = 0
+            override fun updateProgress(pos: Int, p1: Long, p2: Long) {
+                if (mCurPos != pos) {
+                    mCurPos = pos
+                    mainThread {
+                        dialog.setMessage("文件下载中...$pos%")
+                    }
+                }
+            }
+
+            override fun downloadError() {
+                mainThread {
+                    dialog.dismiss()
+                    ToastUtils.showShort("文件下载异常,请重试")
+                }
+            }
+
+            override fun downloadSuccess(target: String) {
+                mainThread {
+                    dialog.dismiss()
+                    ToastUtils.showShort("文件下载成功")
+                    val intent = FileOpen.getOpenFileIntent(target)
+                    startActivity(intent)
+                }
+            }
+        })
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
