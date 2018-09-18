@@ -132,6 +132,7 @@ dependencies {
 
     implementation 'cn.dreamtobe.kpswitch:library:1.6.1'
     implementation 'q.rorbin:badgeview:1.1.3'
+    implementation 'org.xutils:xutils:3.5.0'
 
 }
 
