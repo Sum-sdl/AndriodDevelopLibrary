@@ -36,24 +36,30 @@ public class FileDownloadHelper {
     public static FileDownloadHelper instance() {
         if (mDownload == null) {
             synchronized (FileDownloadHelper.class) {
-                mDownload = new FileDownloadHelper();
+                mDownload = new FileDownloadHelper(TIME);
             }
         }
         return mDownload;
     }
 
-    private FileDownloadHelper() {
+    public static FileDownloadHelper newInstance(int seconds) {
+        return new FileDownloadHelper(seconds);
+    }
+
+    private FileDownloadHelper(int time) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .connectTimeout(TIME, TimeUnit.SECONDS)
-                .readTimeout(TIME, TimeUnit.SECONDS)
-                .writeTimeout(TIME, TimeUnit.SECONDS);
+                .connectTimeout(time, TimeUnit.SECONDS)
+                .readTimeout(time, TimeUnit.SECONDS)
+                .writeTimeout(time, TimeUnit.SECONDS);
         okHttpClient = builder.build();
     }
 
+
+    //对象实例操作
     private Call mFastCall;
 
     //只取消最近的一个下载操作
-    public void downloadCancel() {
+    public void downloadFastCancel() {
         if (mFastCall != null) {
             if (!mFastCall.isCanceled()) {
                 mFastCall.cancel();
@@ -66,7 +72,7 @@ public class FileDownloadHelper {
      * 下载文件
      *
      * @param url              下载地址
-     * @param targetFile       保存的文件地址
+     * @param targetFile       保存的本地文件地址
      * @param downloadListener 回调状态
      */
     public Call downloadFile(final String url, File targetFile, final FileDownloadListener downloadListener) {

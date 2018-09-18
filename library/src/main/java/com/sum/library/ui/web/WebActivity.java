@@ -45,15 +45,6 @@ import java.util.Map;
  */
 public class WebActivity extends BaseActivity {
 
-    public WebView mWeb;
-    public SmoothProgressBar mProgress;
-    public TextView mTitle;
-    public PubTitleView mTitleView;
-    public WebJavascriptInterface mJs;
-
-    protected SonicSession sonicSession;
-    protected SonicSessionClientImpl sonicSessionClient = null;
-
     public static void openTarget(Context c, Class<?> target, String title, String url, Bundle other) {
         openTarget(c, target, title, url, null, null, other);
     }
@@ -98,6 +89,16 @@ public class WebActivity extends BaseActivity {
     protected boolean needSonic() {
         return true;
     }
+
+
+    public WebView mWeb;
+    public SmoothProgressBar mProgress;
+    public TextView mTitle;
+    public PubTitleView mTitleView;
+    public WebJavascriptInterface mJs;
+
+    protected SonicSession sonicSession;
+    protected SonicSessionClientImpl sonicSessionClient = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
