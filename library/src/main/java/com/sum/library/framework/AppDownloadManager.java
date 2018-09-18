@@ -110,7 +110,9 @@ public class AppDownloadManager {
             Logger.e("download url is null");
             return;
         }
-        ToastUtils.showLong("后台下载中...");
+        if (isNeedShowView) {
+            ToastUtils.showLong("后台下载中...");
+        }
         mDownload.downloadStart(downloadUrl);
     }
 }

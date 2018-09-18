@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -20,7 +22,21 @@ public class DownloadReceiver extends BroadcastReceiver {
             long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             if (id != -1) {
                 ToastUtils.showLong("下载完成");
-                installApk(context, id);
+                // 兼容Android 8.0
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    //先获取是否有安装未知来源应用的权限
+                    boolean haveInstallPermission = context.getPackageManager().canRequestPackageInstalls();
+                    if (!haveInstallPermission) {//没有权限
+                        //注意这个是8.0新API
+                        Intent setting = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                                Uri.parse("package:" + context.getPackageName()));
+                        context.startActivity(setting);
+                    } else {
+                        installApk(context, id);
+                    }
+                } else {
+                    installApk(context, id);
+                }
             }
         } else if (intent.getAction().equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
             //处理 如果还未完成下载，用户点击Notification ，跳转到下载中心
@@ -38,10 +54,10 @@ public class DownloadReceiver extends BroadcastReceiver {
         Intent install = new Intent(Intent.ACTION_VIEW);
         Uri downloadFileUri = dManager.getUriForDownloadedFile(downloadApkId);
         if (downloadFileUri != null) {
-            Log.d("DownloadReceiver", downloadFileUri.toString());
+            Log.d("DownloadReceiver", "install-> " + downloadFileUri.toString());
             install.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
             install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             context.startActivity(install);
         } else {
             Log.e("DownloadReceiver", "download error");

@@ -4,7 +4,6 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 
 
@@ -22,12 +21,9 @@ internal class UpdateService {
 
     private var mLastId = 0L
 
-    init {
-        title = AppUtils.getAppName() + ".apk"
-    }
-
     fun downloadStart(url: String) {
         mDwUrl = url
+        title = url.substring(url.lastIndexOf("/") + 1, url.length)
         if (mLastId != 0L) {
             clearCurrentTask(mLastId)
         }
@@ -44,7 +40,7 @@ internal class UpdateService {
         req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
         //下载中和下载完后都显示通知栏
         req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        //使用系统默认的下载路径 此处为应用内 /android/data/packages ,所以兼容7.0
+        //使用系统默认的下载路径
         req.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, title)
         //通知栏标题
         req.setTitle(title)
