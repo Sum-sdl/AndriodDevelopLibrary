@@ -134,6 +134,9 @@ dependencies {
     implementation 'q.rorbin:badgeview:1.1.3'
     implementation 'org.xutils:xutils:3.5.0'
 
+    // walle  Android Signature V2 Scheme签名下的新一代渠道包打包神器
+    implementation 'com.meituan.android.walle:library:1.1.6'
+
 }
 
 repositories {
