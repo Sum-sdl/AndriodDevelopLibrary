@@ -2,6 +2,9 @@
 adb shell am kill com.house365.aizuna（包名）
 adb shell am kill com.sum.andrioddeveloplibrary
 
+//追踪打包错误命令
+gradle compileDebug —stacktrace
+
 
 fragment 生命周期
 onAttach -> onCreate ->onViewCreate->onViewCreated->onDestroyView ->onDestroy-> onDetach
