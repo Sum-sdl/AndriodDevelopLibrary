@@ -114,13 +114,14 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         rv_images.setHasFixedSize(true)
         rv_images.layoutManager = GridLayoutManager(this, data.span_count)
         rv_images.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 super.getItemOffsets(outRect, view, parent, state)
-                outRect?.left = data.default_space
-                outRect?.bottom = data.default_space
-                val loc = parent?.getChildLayoutPosition(view)!! % data.span_count
+                outRect.left = data.default_space
+                outRect.bottom = data.default_space
+                val loc = parent.getChildLayoutPosition(view) % data.span_count
                 if (loc == 0) {
-                    outRect?.left = 0
+                    outRect.left = 0
                 }
             }
         })
