@@ -28,6 +28,9 @@ public class LiveDataEventBus {
         return SingletonHolder.DEFAULT_BUS;
     }
 
+    public static void clearAll() {
+        get().mCacheBus.clear();
+    }
 
     public static MutableLiveData<String> with(@Nullable String key) {
         return get().withInfo(key, String.class, false);

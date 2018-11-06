@@ -142,3 +142,24 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+//project.android.buildTypes.each {
+//    addFlutterJarImplementationDependency(project, releaseFlutterJar)
+//}
+//project.android.buildTypes.whenObjectAdded {
+//    addFlutterJarImplementationDependency(project, releaseFlutterJar)
+//}
+//
+//private static void addFlutterJarImplementationDependency(Project project, releaseFlutterJar) {
+//    project.dependencies {
+//        String configuration
+//        if (project.getConfigurations().findByName("implementation")) {
+//            configuration = "implementation"
+//        } else {
+//            configuration = "compile"
+//        }
+//        add(configuration, project.files {
+//            releaseFlutterJar
+//        })
+//    }
+//}

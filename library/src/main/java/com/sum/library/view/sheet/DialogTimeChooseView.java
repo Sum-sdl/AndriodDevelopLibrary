@@ -1,9 +1,9 @@
 package com.sum.library.view.sheet;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
@@ -358,19 +358,18 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
             return this;
         }
 
-        public void show(FragmentActivity activity) {
-            show(activity.getSupportFragmentManager());
-        }
-
-        public void show(Fragment fragment) {
-            show(fragment.getFragmentManager());
-        }
-
-        public void show(FragmentManager manager) {
+        private void show(FragmentManager manager) {
             DialogTimeChooseView sheet = new DialogTimeChooseView();
             sheet.mListener = mListener;
             sheet.mData = this;
             sheet.show(manager, "sheet");
         }
+
+        public void showFast(Context activity) {
+            if (activity instanceof FragmentActivity) {
+                show(((FragmentActivity) activity).getSupportFragmentManager());
+            }
+        }
+
     }
 }
