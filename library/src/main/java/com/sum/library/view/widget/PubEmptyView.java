@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class PubEmptyView extends View implements View.OnClickListener {
     private WeakReference<View> mInflatedViewRef;
     private Context mContext;
     private int mInflatedId;
-    private String mEmptyText;
+    private CharSequence mEmptyText;
     private int mEmptyImageRes;
     private int mBgColor;
 
@@ -76,7 +77,7 @@ public class PubEmptyView extends View implements View.OnClickListener {
     }
 
     //空文字
-    public void setEmptyText(String mEmptyText) {
+    public void setEmptyText(CharSequence mEmptyText) {
         this.mEmptyText = mEmptyText;
         updateEmptyView();
     }

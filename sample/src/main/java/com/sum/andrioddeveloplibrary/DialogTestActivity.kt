@@ -34,7 +34,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                     .setListener { _, content ->
                         it.tag = content
                         ToastUtils.showLong("time = $content")
-                    }.show(this)
+                    }.showFast(this)
 
         }
 
@@ -48,7 +48,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                     .setListener { _, content ->
                         it.tag = content
                         ToastUtils.showLong("date = $content")
-                    }.show(this)
+                    }.showFast(this)
 
         }
 
@@ -69,7 +69,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             DialogTimeChooseView.Builder().setItems(data).setChooseIndex(index).setListener { pos, content ->
                 it.tag = pos
                 ToastUtils.showLong("pos=$pos,content$content")
-            }.show(this)
+            }.showFast(this)
         }
 
         bt6.setOnClickListener {
