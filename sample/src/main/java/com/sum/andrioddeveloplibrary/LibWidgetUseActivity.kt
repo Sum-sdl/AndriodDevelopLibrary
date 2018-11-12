@@ -2,6 +2,7 @@ package com.sum.andrioddeveloplibrary
 
 import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -10,6 +11,7 @@ import android.support.v4.app.SharedElementCallback
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.View
+import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.activity.FragmentManagerActivity
 import com.sum.library.ui.web.WebActivity
@@ -56,6 +58,8 @@ class LibWidgetUseActivity : AppCompatActivity() {
 
         pub_empty_view.setEmptyViewClickListener { ToastUtils.showLong("EmptyView Click") }
 
+        val sp = SpanUtils().append("Hi ! Hello\n").append("World").setForegroundColor(Color.RED)
+        pub_empty_view.setEmptyText(sp.create())
 
         iv_1.setOnClickListener {
 
