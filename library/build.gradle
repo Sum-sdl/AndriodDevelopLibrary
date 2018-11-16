@@ -42,11 +42,11 @@ dependencies {
     //最新框架lifecycle扩展
     api "android.arch.lifecycle:extensions:1.1.1"
 
-    api('com.github.Sum-sdl:RvAdapter:2.0.1') {
+    api('com.github.Sum-sdl:RvAdapter:2.0.2') {
         transitive = true
     }
     // 工具类 https://github.com/Blankj/AndroidUtilCode
-    api 'com.blankj:utilcode:1.21.0'
+    api 'com.blankj:utilcode:1.21.2'
     // retrofit2
     api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.retrofit2:converter-gson:2.4.0'
