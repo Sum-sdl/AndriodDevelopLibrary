@@ -28,4 +28,15 @@
     </style>
 
 
+    <style name="pub_floating_action_bar">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_margin">30dp</item>
+        <item name="android:src">@mipmap/pub_icon_write</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="elevation">3dp</item>
+        <!--<item name="fabCustomSize">45dp</item>-->
+    </style>
+
+
 </resources>

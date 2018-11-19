@@ -24,6 +24,10 @@ class SurfaceActivity : BaseActivity() {
         btn_print.setOnClickListener {
             surface_view.print()
         }
+        btn_start2.setOnClickListener {
+            surface_view.reset()
+        }
+        fl.setOnClickListener { surface_view.start() }
     }
 
     override fun onDestroy() {

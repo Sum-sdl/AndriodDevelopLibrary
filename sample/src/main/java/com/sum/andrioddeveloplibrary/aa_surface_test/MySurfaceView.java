@@ -37,7 +37,6 @@ public class MySurfaceView extends SurfaceView {
         mPaint.setColor(Color.RED);
         mPaint.setTextSize(SizeUtils.dp2px(20f));
         mPaint.setAntiAlias(true);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStyle(Paint.Style.FILL);
     }
@@ -59,11 +58,16 @@ public class MySurfaceView extends SurfaceView {
         SurfaceHolder holder = getHolder();
         if (holder != null) {
             Canvas canvas = holder.lockCanvas();
+            canvas.drawColor(Color.WHITE);
             num += 10;
-            canvas.drawCircle(10 + num, 10 + num, 80, mPaint);
+            canvas.drawCircle(10 + num, 10 + num, 40, mPaint);
             holder.unlockCanvasAndPost(canvas);
         }
         printLog();
+    }
+
+    public void reset() {
+        num = 0;
     }
 
     public void printLog() {
@@ -73,6 +77,8 @@ public class MySurfaceView extends SurfaceView {
     //子线程可直接绘制数据源
     //lockCanvas 获取画布绘制数据
     //unlockCanvasAndPost 通知系统服务SurfaceFlinger刷新
+
+    //lockCanvas返回的画布，每次都缓存了上次的绘制内容
     private void threadStart() {
         new Thread(() -> {
             while (loop) {
@@ -84,7 +90,7 @@ public class MySurfaceView extends SurfaceView {
                     num += 10;
                     String text = "index->" + num;
                     canvas.drawText(text, getMeasuredWidth() / 2 - mPaint.measureText(text) / 2, getMeasuredHeight() / 3, mPaint);
-                    canvas.drawCircle(10 + num, 10 + num, 80, mPaint);
+                    canvas.drawCircle(10 + num, 10 + num, 60, mPaint);
                     holder.unlockCanvasAndPost(canvas);
                     printLog();
                     try {

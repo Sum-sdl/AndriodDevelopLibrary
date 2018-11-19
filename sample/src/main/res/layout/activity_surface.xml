@@ -30,14 +30,38 @@
 		android:id="@+id/btn_print"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="打印日志" />
+		android:text="主线程刷新" />
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
 
 
-	<com.sum.andrioddeveloplibrary.aa_surface_test.MySurfaceView
-		android:id="@+id/surface_view"
-		android:layout_width="300dp"
-		android:layout_height="300dp"
-		android:layout_gravity="center_horizontal"
-		android:layout_marginTop="10dp" />
+		<com.sum.andrioddeveloplibrary.aa_surface_test.MySurfaceView
+			android:id="@+id/surface_view"
+			android:layout_width="300dp"
+			android:layout_height="300dp"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginTop="10dp"
+			android:background="@color/translate" />
 
+		<Button
+			android:id="@+id/btn_start2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="重置" />
+
+		<android.support.design.widget.FloatingActionButton
+			android:id="@+id/fl"
+			style="@style/pub_floating_action_bar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="#FF7500"
+			app:fabCustomSize="0dp"
+			app:fabSize="mini"
+			app:rippleColor="#FF7500" />
+
+
+	</FrameLayout>
 </LinearLayout>
