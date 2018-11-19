@@ -83,8 +83,14 @@
             android:id="@+id/b14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="最新框架测试" />
+
+        <Button
+            android:id="@+id/b16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SurfaceView测试" />
+
 
         <Button
             android:id="@+id/b15"

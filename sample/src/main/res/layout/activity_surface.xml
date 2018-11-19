@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+
+	<com.sum.library.view.widget.PubTitleView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:title_default_bg_color="#fffff0"
+		app:title_default_name="Surface测试" />
+
+
+	<Button
+		android:id="@+id/btn_start"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="开始" />
+
+
+	<Button
+		android:id="@+id/btn_stop"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="停止" />
+
+	<Button
+		android:id="@+id/btn_print"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="打印日志" />
+
+
+	<com.sum.andrioddeveloplibrary.aa_surface_test.MySurfaceView
+		android:id="@+id/surface_view"
+		android:layout_width="300dp"
+		android:layout_height="300dp"
+		android:layout_gravity="center_horizontal"
+		android:layout_marginTop="10dp" />
+
+</LinearLayout>

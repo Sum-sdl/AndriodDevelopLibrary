@@ -1,5 +1,8 @@
 package com.sum.andrioddeveloplibrary.net.interceptorTest;
 
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +27,10 @@ public class Test {
 
     public static void main(String[] args) throws InterruptedException {
 
+        //链式调用，
         new Test().start();
+
+        Type type =new TypeToken<Test>(){}.getType();
 
     }
 }
