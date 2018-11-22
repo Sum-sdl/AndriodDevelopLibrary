@@ -32,25 +32,17 @@
 
 ##### Dependency
 
-[![](https://jitpack.io/v/Sum-sdl/AndriodDevelopLibrary.svg)](https://jitpack.io/#Sum-sdl/AndriodDevelopLibrary)
+[![JitPack](https://jitpack.io/v/Sum-sdl/AndriodDevelopLibrary.svg)](https://jitpack.io/#Sum-sdl/AndriodDevelopLibrary)
 
  Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
- 
- ```gradle
- allprojects {
- 	repositories {
-         maven { url "https://jitpack.io" }
-     }
- }
- ```
  
  Then, add the library to your module `build.gradle`
  ```gradle
  dependencies {
-        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.2.2
+        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.0
      }
  ```
- 
+ **2.3.0 升级库并发布到JCenter**
 
 ### 项目功能介绍
 

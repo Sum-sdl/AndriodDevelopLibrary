@@ -19,7 +19,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
     }
 
     @MainThread
-    abstract fun getRepositoryClass(): Class<*>
+    protected abstract fun getRepositoryClass(): Class<*>
 
     protected fun newRepositoryInstance(): T? {
         return null
@@ -62,7 +62,7 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel() {
         mState.postValue(ActionState.obtain(state))
     }
 
-    internal fun sendActionState(state: Int, msg: String) {
+    fun sendActionState(state: Int, msg: String) {
         val action = ActionState.obtain(state)
         action.msg = msg
         mState.postValue(action)

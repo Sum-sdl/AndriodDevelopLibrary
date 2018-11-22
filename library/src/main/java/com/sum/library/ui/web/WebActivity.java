@@ -2,9 +2,11 @@ package com.sum.library.ui.web;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -34,8 +37,6 @@ import com.tencent.sonic.sdk.SonicEngine;
 import com.tencent.sonic.sdk.SonicSession;
 import com.tencent.sonic.sdk.SonicSessionConfig;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -174,7 +175,7 @@ public class WebActivity extends BaseActivity {
         //自适应屏幕
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadWithOverviewMode(true);
-        settings.setUseWideViewPort(true);
+        settings.setUseWideViewPort(false);//影响内容宽度
         //缓存模式
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         //关闭文件读取
@@ -261,7 +262,28 @@ public class WebActivity extends BaseActivity {
                     mTitle.setText(title);
                 }
             }
+
+            @Override
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+                uploadPathCallback = filePathCallback;
+                openFile();
+                return true;
+            }
+
+            //For Android  >= 4.1
+            public void openFileChooser(ValueCallback<Uri> valueCallback, String acceptType, String capture) {
+                uploadFile = valueCallback;
+                openFile();
+            }
+
         };
+    }
+
+    private void openFile() {
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("*/*");
+        startActivityForResult(Intent.createChooser(i, "选择文件"), 10001);
     }
 
     protected void syncCookie(Context context, String url, HashMap<String, String> cookies) {
@@ -302,23 +324,42 @@ public class WebActivity extends BaseActivity {
         }
     }
 
+    private ValueCallback<Uri> uploadFile;
+    private ValueCallback<Uri[]> uploadPathCallback;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (mJs != null) {
-                for (Method method : mJs.getClass().getDeclaredMethods()) {
-                    String name = method.getName();
-                    if (name.startsWith("onActivityResult_") && name.split("_")[1].equals("" + requestCode)) {
-                        try {
-                            method.invoke(mJs);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        //文件选择
+        if (requestCode == 10001) {
+            if (null == uploadFile && null == uploadPathCallback) {
+                return;
+            }
+            if (data == null) {
+                return;
+            }
+            Uri uri = data.getData();
+            if (uploadPathCallback != null) {
+                ArrayList<Uri> results = new ArrayList<>();
+                String dataString = data.getDataString();
+                if (!TextUtils.isEmpty(dataString)) {
+                    results.add(Uri.parse(dataString));
+                } else {
+                    ClipData clipData = data.getClipData();
+                    if (clipData != null) {
+                        for (int i = 0; i < clipData.getItemCount(); i++) {
+                            results.add(clipData.getItemAt(i).getUri());
                         }
                     }
                 }
+                uploadPathCallback.onReceiveValue(results.toArray(new Uri[]{}));
+                uploadPathCallback = null;
+            } else if (uploadFile != null) {
+                uploadFile.onReceiveValue(uri);
+                uploadFile = null;
             }
         }
     }
