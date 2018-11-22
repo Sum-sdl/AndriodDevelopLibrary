@@ -34,9 +34,6 @@
 
 [![JitPack](https://jitpack.io/v/Sum-sdl/AndriodDevelopLibrary.svg)](https://jitpack.io/#Sum-sdl/AndriodDevelopLibrary)
 
- Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
- 
- Then, add the library to your module `build.gradle`
  ```gradle
  dependencies {
         implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.0
