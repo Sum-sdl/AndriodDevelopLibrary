@@ -32,7 +32,7 @@
 #### Dependency
 
  ```add to gradle
-    dependencies {
+ dependencies {
         implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.1'
      }
  ```
