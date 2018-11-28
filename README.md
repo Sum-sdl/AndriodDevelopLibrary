@@ -31,7 +31,7 @@
 
 #### Dependency
 
- ```add to gradle
+ ```gradle
  dependencies {
         implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.1'
      }
