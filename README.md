@@ -9,6 +9,8 @@
 
 -  [后台接口开发规范](https://github.com/Sum-sdl/StudyNode/blob/master/TeamWork/Interface_development_standard.md)
 
+-  [个人简历介绍](https://github.com/Sum-sdl/StudyNode/blob/master/Self/personal_experience.md)
+
 
 <table border="1"  bgcolor="#cccccc" cellpadding="7">
  <caption style ="text-align:center;font-size:16px;font-weight:bold;color:#000;">扫码下载</caption>
@@ -45,11 +47,11 @@
 
 > **结构模块**
 >
-- [JetPack框架封装 --> ViewModel+LiveData (App->ViewModel->DataRepository)](https://github.com/Sum-sdl/AndriodDevelopLibrary/tree/master/sample/src/main/java/jetpack/demo/framework)
-- Fragment的管理类[FragmentCacheManager](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/framework/FragmentCacheManager.java)
+- [LiveData框架的封装 --> 新的MVVM结构调用](https://github.com/Sum-sdl/AndriodDevelopLibrary/tree/master/sample/src/main/java/jetpack/demo/framework)
+- Fragment的管理显示类[FragmentCacheManager](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/framework/FragmentCacheManager.java)
 用来管理多个Fragment的切换操作（如App主页的底部按钮）
-- RecyclerView的通用适配器[RvAdapter](https://github.com/Sum-sdl/RvAdapter)
-- [LiveDataEventBus](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/utils/LiveDataEventBus.java)->[测试代码](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/src/main/java/jetpack/demo/NewStartActivity.kt)基于LiveData搞定EventBus全部功能。支持Observer可见刷新和ObserverForever一直监听
+- RecyclerView的通用适配器框架[RvAdapter](https://github.com/Sum-sdl/RvAdapter)
+- [LiveDataEventBus](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/utils/LiveDataEventBus.java)->[测试代码](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/src/main/java/jetpack/demo/NewStartActivity.kt)基于LiveData搞定EventBus全部功能。支持Observer可见时触发和ObserverForever一直监听触发
 
 > **UI组件模块**
 >
@@ -63,12 +65,12 @@
 >
 -  集成[Retrofit2](http://square.github.io/retrofit/)网络框架（未添加RxJava）[BaseDynamicInterceptor](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/net/token/BaseDynamicInterceptor.java)请求公共参数添加
 -  集成[Glide](https://github.com/bumptech/glide)图片框架
--  推荐[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout/blob/master/art/md_property.md)下拉刷新框架，需要手动添加
+-  常用刷新框架[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout/blob/master/art/md_property.md)
 
-> **基础功能模块**
+> **图片功能模块**
 >
 - [图片预览功能（支持手势）](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/ui/image/AppImageUtils.java)
-- [自定义相册选择功能（支持预览，多选，拍照）](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/ui/image/AppImageUtils.java)
+- [自定义相册选择功能（支持预览，单选，多选，拍照）](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/ui/image/AppImageUtils.java)
 - [图片裁剪功能](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/ui/image/AppImageUtils.java)
 
 > **功能图片展示**
