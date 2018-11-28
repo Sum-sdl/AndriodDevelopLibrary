@@ -1,123 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/white"
+	android:orientation="vertical">
 
-    <com.sum.library.view.widget.PubTitleView
-        android:id="@+id/pub_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title_default_adjust_bar="true"
-        app:title_default_adjust_bar_color="#f00"
-        app:title_default_name="状态栏适配+红色" />
+	<com.sum.library.view.widget.PubTitleView
+		android:id="@+id/pub_view"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:title_default_adjust_bar="true"
+		app:title_default_adjust_bar_color="#f00"
+		app:title_default_name="状态栏高度适配" />
 
-    <View style="@style/pub_line_hor" />
+	<View style="@style/pub_line_hor" />
 
-    <com.sum.library.view.widget.PubTitleView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title_default_name="默认配置" />
+	<com.sum.library.view.widget.PubTitleView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:title_default_name="Default Setting" />
 
-    <View style="@style/pub_line_hor" />
-
-    <com.sum.library.view.widget.PubTitleView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title_default_adjust_bar="false"
-        app:title_default_back_img_tint="#F00"
-        app:title_default_bg_color="#ac0"
-        app:title_default_name="自定义配置"
-        app:title_default_name_text_color="@color/white"
-        app:title_default_name_text_size="12sp" />
-
-    <View style="@style/pub_line_hor" />
-
-    <com.sum.library.view.widget.PubTitleView
-        android:id="@+id/pub_view2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        app:title_default_back_img_show="false"
-        app:title_default_name="Dark Model"
-        app:title_default_white_theme="true" />
-
-    <View style="@style/pub_line_hor" />
-
-    <TextView
-        android:id="@+id/btn_1"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:gravity="center"
-        android:text="FragmentCacheManager测试使用" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:background="@color/pub_line_color"
-        android:orientation="horizontal">
-
-        <com.sum.library.view.widget.MultiRadioButton
-            android:id="@+id/mr_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:multiChecked="true"
-            app:multiColorChecked="@color/colorAccent"
-            app:multiColorDefault="@color/black"
-            app:multiDrawableDefault="@mipmap/home_tab_icon_home_h"
-            app:multiDrawableMarginBottom="4dp"
-            app:multiDrawableMarginLeft="6dp"
-            app:multiDrawableMarginRight="6dp"
-            app:multiDrawableMarginTop="4dp"
-            app:multiText="@string/app_name"
-            app:multiTextSize="12sp" />
-
-    </LinearLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_1"
-            android:layout_width="136dp"
-            android:layout_height="136dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/anim4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_2"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_2"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginEnd="8dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/anim4"
-            app:layout_constraintEnd_toEndOf="parent" />
+	<View style="@style/pub_line_hor" />
 
 
-    </android.support.constraint.ConstraintLayout>
+	<com.sum.library.view.widget.PubTitleView
+		android:id="@+id/title_2"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:title_default_adjust_bar="true"
+		app:title_default_adjust_bar_color="#42a953"
+		app:title_default_bg_color="#ac0"
+		app:title_default_name="自定义配置全开+状态栏高度自适配+颜色任意定制"
+		app:title_default_name_text_color="#180cff"
+		app:title_default_name_text_size="13sp" />
+
+	<View style="@style/pub_line_hor" />
+
+	<TextView
+		android:id="@+id/btn_1"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:gravity="center"
+		android:text="FragmentCacheManager 测试" />
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="49dp"
+		android:background="@color/pub_line_color"
+		android:orientation="horizontal">
+
+		<com.sum.library.view.widget.MultiRadioButton
+			android:id="@+id/mr_btn"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			app:multiChecked="true"
+			app:multiColorChecked="@color/colorAccent"
+			app:multiColorDefault="@color/black"
+			app:multiDrawableDefault="@mipmap/home_tab_icon_home_h"
+			app:multiDrawableMarginBottom="4dp"
+			app:multiDrawableMarginLeft="6dp"
+			app:multiDrawableMarginRight="6dp"
+			app:multiDrawableMarginTop="4dp"
+			app:multiText="@string/app_name"
+			app:multiTextSize="12sp" />
+
+	</LinearLayout>
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="20dp"
+			android:layout_marginTop="8dp"
+			android:background="@color/colorAccent"
+			app:layout_constraintBottom_toBottomOf="parent" />
+
+		<ImageView
+			android:id="@+id/iv_1"
+			android:layout_width="136dp"
+			android:layout_height="136dp"
+			android:scaleType="centerCrop"
+			android:src="@mipmap/anim4"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/iv_2"
+			app:layout_constraintHorizontal_bias="0.4"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<ImageView
+			android:id="@+id/iv_2"
+			android:layout_width="200dp"
+			android:layout_height="200dp"
+			android:layout_marginEnd="8dp"
+			android:scaleType="centerCrop"
+			android:src="@mipmap/anim4"
+			app:layout_constraintEnd_toEndOf="parent" />
 
 
-    <com.sum.library.view.widget.PubEmptyView
-        android:id="@+id/pub_empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:pub_empty_bg_color="@color/colorAccent"
-        app:pub_empty_img="@mipmap/ic_launcher"
-        app:pub_empty_text="@string/app_name" />
+	</android.support.constraint.ConstraintLayout>
+
+
+	<com.sum.library.view.widget.PubEmptyView
+		android:id="@+id/pub_empty_view"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:pub_empty_bg_color="@color/colorAccent"
+		app:pub_empty_img="@mipmap/ic_launcher"
+		app:pub_empty_text="@string/app_name" />
 
 </LinearLayout>

@@ -11,6 +11,7 @@ import android.support.v4.app.SharedElementCallback
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.View
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.activity.FragmentManagerActivity
@@ -24,22 +25,20 @@ class LibWidgetUseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        BarUtils.setStatusBarAlpha(this)
         setContentView(R.layout.activity_widget_use)
         ActivityCompat.setExitSharedElementCallback(this, exitElementCallback)
         Logger.e("LibWidgetUseActivity onCreate")
 
         val view: PubTitleView = pub_view
 
-        view.addRightTextButton("My Github", View.OnClickListener {
+        view.addRightTextButton("Github", View.OnClickListener {
             WebActivity.open(this, "https://github.com/Sum-sdl")
         })
 
-        pub_view2.addRightTextButton("Web", View.OnClickListener {
-            WebActivity.open(this, "http://m.018929.com/index.php/phone/userReg")
-        })
 
-        pub_view2.addRightTextButton("活动页", View.OnClickListener {
-            WebActivity.open(this, "http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12")
+        title_2.addRightTextButton("按钮", View.OnClickListener {
+            WebActivity.open(this, "https://github.com/Sum-sdl")
         })
 
 
