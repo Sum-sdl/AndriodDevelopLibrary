@@ -29,11 +29,11 @@
 </table>
 </br>
 
-##### Dependency
+#### Dependency
 
- ```gradle
- dependencies {
-        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.0
+ ```add to gradle
+    dependencies {
+        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.1'
      }
  ```
  **2.3.0 升级库并发布到JCenter**
