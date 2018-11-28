@@ -1,5 +1,7 @@
 
-## 个人开发库
+##  [**个人简历**](https://github.com/Sum-sdl/StudyNode/blob/master/Self/personal_experience.md)
+
+## 快速开发库
 
 -  [快速开发的基础功能库](https://github.com/Sum-sdl/AndriodDevelopLibrary)
  
@@ -8,8 +10,6 @@
 -  [常用开源库总结连接](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
 
 -  [后台接口开发规范](https://github.com/Sum-sdl/StudyNode/blob/master/TeamWork/Interface_development_standard.md)
-
--  [个人简历介绍](https://github.com/Sum-sdl/StudyNode/blob/master/Self/personal_experience.md)
 
 
 <table border="1"  bgcolor="#cccccc" cellpadding="7">
@@ -33,8 +33,6 @@
 ---
 
 ##### Dependency
-
-[![JitPack](https://jitpack.io/v/Sum-sdl/AndriodDevelopLibrary.svg)](https://jitpack.io/#Sum-sdl/AndriodDevelopLibrary)
 
  ```gradle
  dependencies {
