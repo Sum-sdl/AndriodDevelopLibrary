@@ -85,6 +85,7 @@
         <activity android:name="jetpack.demo.framework.HouseInfoTestActivity" />
         <activity android:name="jetpack.demo.databind.DataBindTestActivity"></activity>
 	    <activity android:name=".aa_surface_test.SurfaceActivity" />
+	    <activity android:name=".activity.BridgeWebViewActivity" />
     </application>
 
 </manifest>
