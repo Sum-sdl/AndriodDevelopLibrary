@@ -86,6 +86,7 @@
         <activity android:name="jetpack.demo.databind.DataBindTestActivity"></activity>
 	    <activity android:name=".aa_surface_test.SurfaceActivity" />
 	    <activity android:name=".activity.BridgeWebViewActivity" />
+	    <activity android:name=".coroutine.CoroutineActivity" />
     </application>
 
 </manifest>

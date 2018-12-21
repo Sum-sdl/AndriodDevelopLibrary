@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.aa_surface_test.SurfaceActivity
 import com.sum.andrioddeveloplibrary.activity.BridgeWebViewActivity
+import com.sum.andrioddeveloplibrary.coroutine.CoroutineActivity
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
@@ -36,6 +37,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
     override fun initParams() {
 
+        b18.setOnClickListener { startActivity(CoroutineActivity::class.java) }
         b17.setOnClickListener { startActivity(BridgeWebViewActivity::class.java) }
         b16.setOnClickListener { startActivity(SurfaceActivity::class.java) }
         b1.setOnClickListener { startActivity(StickyActivity::class.java) }

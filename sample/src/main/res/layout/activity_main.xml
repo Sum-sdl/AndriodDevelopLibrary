@@ -91,6 +91,12 @@
             android:text="最新框架测试" />
 
         <Button
+            android:id="@+id/b18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="协程测试" />
+
+        <Button
             android:id="@+id/b16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,64 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/colorPrimary"
-	android:fitsSystemWindows="true"
-	tools:context=".SplashActivity">
+	android:background="@color/white">
 
 	<LinearLayout
+		android:id="@+id/ll_content"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+		<FrameLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
 
-		<Button
-			android:id="@+id/b7"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="权限申请" />
+			<Button
+				android:id="@+id/b3"
+				android:layout_width="1080pt"
+				android:layout_height="1080pt"
+				android:background="#90f00000"
+				android:text="全屏"
+				android:textSize="120pt" />
+			<View
+				android:layout_width="1080pt"
+				android:layout_height="1980pt"
+				android:background="#80accccc" />
+
+		</FrameLayout>
 
 		<Button
 			android:id="@+id/b1"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="权限设置" />
-
-		<Button
-			android:id="@+id/b2"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="通知权限检测" />
-
-
-		<Button
-			android:id="@+id/b3"
-			android:layout_width="match_parent"
-			android:layout_height="60dp"
-			android:text="点击全屏幕" />
-
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="20dp"
-			android:orientation="horizontal">
-
-			<View
-				android:layout_width="180dp"
-				android:layout_height="180dp"
-				android:background="#abce00" />
-
-			<View
-				android:layout_width="180dp"
-				android:layout_height="180dp"
-				android:background="#2b6cd4" />
-
-
-		</LinearLayout>
+			android:layout_width="1080pt"
+			android:layout_height="100pt"
+			android:text="关闭适配"
+			android:textSize="50pt" />
 
 	</LinearLayout>
 
