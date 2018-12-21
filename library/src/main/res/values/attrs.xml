@@ -55,6 +55,7 @@
         <attr name="title_default_back_img_tint" format="reference|color" />
         <attr name="title_default_back_img_show" format="boolean" />
         <attr name="title_default_bg_color" format="reference|color" />
+        <attr name="title_default_bg_resource" format="reference" />
         <attr name="title_default_adjust_bar" format="boolean" />
         <attr name="title_default_adjust_bar_color" format="reference|color" />
     </declare-styleable>

@@ -11,7 +11,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:title_default_adjust_bar="true"
-		app:title_default_adjust_bar_color="#f00"
+		app:title_default_bg_color="#ca0"
+		app:title_default_bg_resource="@drawable/grand"
 		app:title_default_name="状态栏高度适配" />
 
 	<View style="@style/pub_line_hor" />
@@ -29,7 +30,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:title_default_adjust_bar="true"
-		app:title_default_adjust_bar_color="#42a953"
 		app:title_default_bg_color="#ac0"
 		app:title_default_name="自定义配置全开+状态栏高度自适配+颜色任意定制"
 		app:title_default_name_text_color="#180cff"

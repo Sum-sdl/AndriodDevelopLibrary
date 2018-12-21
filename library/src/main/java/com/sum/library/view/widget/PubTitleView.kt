@@ -56,9 +56,13 @@ class PubTitleView : LinearLayout {
 
         //背景色
         val bgColor = array.getColor(R.styleable.PubTitleView_title_default_bg_color, -1)
-        if (bgColor != -1) {
+        val bgRes = array.getResourceId(R.styleable.PubTitleView_title_default_bg_resource, -1)
+        if (bgRes != -1) {
+            setBackgroundResource(bgRes)
+        } else if (bgColor != -1) {
             setBackgroundColor(bgColor)
         }
+
 
         //状态栏适配
         if (array.getBoolean(R.styleable.PubTitleView_title_default_adjust_bar, false)) {

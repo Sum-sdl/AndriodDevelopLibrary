@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -221,6 +222,12 @@ public class AppUtils {
         }
     }
 
+    private static int getStatusBarHeight() {
+        Resources resources = Resources.getSystem();
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        return resources.getDimensionPixelSize(resourceId);
+    }
+
     public static void setColor(Activity activity, int color) {
         //设置contentview为fitsSystemWindows
         ViewGroup viewGroup = activity.findViewById(android.R.id.content);
@@ -240,7 +247,7 @@ public class AppUtils {
 
             //给statusbar着色
             View view = new View(activity);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, com.blankj.utilcode.util.BarUtils.getStatusBarHeight()));
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
             view.setBackgroundColor(color);
             viewGroup.addView(view);
 
