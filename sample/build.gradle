@@ -147,6 +147,9 @@ dependencies {
     // walle  Android Signature V2 Scheme签名下的新一代渠道包打包神器
     implementation 'com.meituan.android.walle:library:1.1.6'
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
+
+    //ui卡顿检测
+    implementation 'com.github.markzhai:blockcanary-android:1.5.0'
 }
 
 repositories {

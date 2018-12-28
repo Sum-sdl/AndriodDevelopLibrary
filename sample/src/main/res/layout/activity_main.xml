@@ -20,6 +20,12 @@
             android:textColor="@color/white" />
 
         <Button
+            android:id="@+id/b19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UI 卡顿 BlockCanary" />
+
+        <Button
             android:id="@+id/b17"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

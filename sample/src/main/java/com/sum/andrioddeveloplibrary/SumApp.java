@@ -1,9 +1,11 @@
-package com.sum.andrioddeveloplibrary.App;
+package com.sum.andrioddeveloplibrary;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
+import com.github.moduth.blockcanary.BlockCanary;
+import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -67,10 +69,16 @@ public class SumApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        //内存检测
 //        if (LeakCanary.isInAnalyzerProcess(this)) {
 //            return;
 //        }
 //        LeakCanary.install(this);
+        //ui
+        BlockCanary.install(this, new BlockCanaryContext()).start();
+
+        //ANRWatchDog ANR监测线程
+
         Logger.e("SumApp onCreate");
         Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new TestToken());
     }

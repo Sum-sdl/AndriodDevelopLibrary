@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
-        android:name=".App.SumApp"
+        android:name=".SumApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -87,6 +87,7 @@
 	    <activity android:name=".aa_surface_test.SurfaceActivity" />
 	    <activity android:name=".activity.BridgeWebViewActivity" />
 	    <activity android:name=".coroutine.CoroutineActivity" />
+	    <activity android:name=".BlockcanaryActivity" />
     </application>
 
 </manifest>

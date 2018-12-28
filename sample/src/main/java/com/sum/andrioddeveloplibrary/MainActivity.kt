@@ -37,6 +37,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
     override fun initParams() {
 
+        b19.setOnClickListener { startActivity(CoroutineActivity::class.java) }
         b18.setOnClickListener { startActivity(CoroutineActivity::class.java) }
         b17.setOnClickListener { startActivity(BridgeWebViewActivity::class.java) }
         b16.setOnClickListener { startActivity(SurfaceActivity::class.java) }
