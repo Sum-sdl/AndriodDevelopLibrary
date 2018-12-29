@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.squareup.leakcanary.LeakCanary;
 import com.sum.andrioddeveloplibrary.R;
 import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.AppFileConfig;
@@ -70,10 +71,10 @@ public class SumApp extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         //内存检测
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            return;
-//        }
-//        LeakCanary.install(this);
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
         //ui
         BlockCanary.install(this, new BlockCanaryContext()).start();
 

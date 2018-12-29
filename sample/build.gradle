@@ -113,11 +113,13 @@ dependencies {
     //    implementation 'com.android.support:support-v4:28.0.0-alpha3'
     testImplementation 'junit:junit:4.12'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+    //网络请求数据拦截
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     implementation project(':library')
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //协程
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.27.0-eap13'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0-eap13'
 
@@ -150,6 +152,8 @@ dependencies {
 
     //ui卡顿检测
     implementation 'com.github.markzhai:blockcanary-android:1.5.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }
 
 repositories {

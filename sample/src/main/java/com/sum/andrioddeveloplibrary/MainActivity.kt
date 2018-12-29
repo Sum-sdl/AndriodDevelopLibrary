@@ -37,7 +37,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
     override fun initParams() {
 
-        b19.setOnClickListener { startActivity(CoroutineActivity::class.java) }
+        b19.setOnClickListener { startActivity(BlockcanaryActivity::class.java) }
         b18.setOnClickListener { startActivity(CoroutineActivity::class.java) }
         b17.setOnClickListener { startActivity(BridgeWebViewActivity::class.java) }
         b16.setOnClickListener { startActivity(SurfaceActivity::class.java) }
@@ -127,7 +127,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        PermissionUtils.permission(*PermissionConstants.getPermissions(PermissionConstants.STORAGE)).request()
+        PermissionUtils.permission(*PermissionConstants.getPermissions(PermissionConstants.STORAGE), *PermissionConstants.getPermissions(PermissionConstants.PHONE)).request()
     }
 
 }

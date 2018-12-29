@@ -17,7 +17,7 @@
 		android:id="@+id/b1"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="协程测试Main" />
+		android:text="主线程卡顿一下" />
 
 
 </LinearLayout>
