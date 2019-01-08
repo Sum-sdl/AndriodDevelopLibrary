@@ -11,10 +11,7 @@ import com.sum.library.ui.image.AppImageUtils
 import com.sum.library.ui.image.photoAlbum.AlbumInfo
 import com.sum.library.ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_net.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
+import okhttp3.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -90,6 +87,7 @@ class NetActivity : BaseAppActivity() {
                     }
                 })
     }
+
 
     private fun net_get() {
         mPresent.loadingView.showLoading("加载中-Net...")

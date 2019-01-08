@@ -84,6 +84,18 @@ public class SumApp extends BaseApplication {
         Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new TestToken());
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        Logger.e("SumApp onTrimMemory "+level);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        Logger.e("SumApp onTerminate");
+    }
+
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
