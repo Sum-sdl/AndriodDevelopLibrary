@@ -15,6 +15,7 @@ import okhttp3.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class NetActivity : BaseAppActivity() {
@@ -136,6 +137,10 @@ class NetActivity : BaseAppActivity() {
         }
     }
 
+    private fun test(){
+        //设置请求缓存方案
+        var req =  Request.Builder().cacheControl(CacheControl.FORCE_CACHE)
+    }
 
     private class ReqBody {
         var head = HeadBean()
@@ -163,4 +168,5 @@ class NetActivity : BaseAppActivity() {
             var newFollow = "false"
         }
     }
+
 }

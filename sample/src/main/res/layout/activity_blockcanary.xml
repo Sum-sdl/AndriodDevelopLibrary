@@ -20,4 +20,11 @@
 		android:text="主线程卡顿一下" />
 
 
+	<Button
+		android:id="@+id/b2"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="主线程卡顿一下" />
+
+
 </LinearLayout>

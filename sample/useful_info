@@ -5,3 +5,17 @@ estalg SHA1 -sigalg MD5withRSA 要签名的文件.apk com.xhl
 
 //反编译apk 输出expand_data文件夹
 java -jar apktool.jar d -f app-debug.apk -o expand_data
+
+
+//高版本的明文网络设置
+android:usesCleartextTraffic="true"
+
+//查看签名
+keytool -list -v -keystore house365
+
+//后台杀掉进程->回退主页面->息屏->执行命令
+adb shell am kill com.house365.oa2
+
+//应用启动时间检测
+adb shell am start -W [PackageName]/[PackageName.MainActivity]
+

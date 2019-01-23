@@ -3,6 +3,7 @@ package com.sum.andrioddeveloplibrary
 import add_class.utils.FileOpen
 import android.os.Bundle
 import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.aa_surface_test.SurfaceActivity
@@ -128,6 +129,10 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         super.onCreate(savedInstanceState)
 
         PermissionUtils.permission(*PermissionConstants.getPermissions(PermissionConstants.STORAGE), *PermissionConstants.getPermissions(PermissionConstants.PHONE)).request()
+
+        val time = System.currentTimeMillis() - SumApp.mOpenStartTime
+        LogUtils.e("open time->$time")
+
     }
 
 }

@@ -1,0 +1,21 @@
+
+Android开发基础命名规范
+
+1.通用模块以pub_xxx开头
+eg. pub_empty_view
+eg. pub_refresh_recycler_view
+
+2.其他模块以对应module_xxx开头
+eg. work_activity_xxx
+eg. work_fragment_xxx
+eg. work_vh_item_xxx ->recyclerView 对应item布局
+eg. work_bar_xxx ->组合布局
+
+3.启动页和主页命名
+activity_splash;activity_main
+
+
+//打开文件夹
+open app/build/outputs/apk/release/
+
+

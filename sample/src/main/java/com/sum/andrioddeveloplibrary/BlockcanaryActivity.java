@@ -1,5 +1,6 @@
 package com.sum.andrioddeveloplibrary;
 
+import android.os.SystemClock;
 import android.view.Choreographer;
 import android.view.View;
 
@@ -31,8 +32,25 @@ public class BlockcanaryActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Thread.sleep(2000);
+                    long start = SystemClock.currentThreadTimeMillis();
+                    Thread.sleep(1000);
                     ToastUtils.showShort("finish sleep");
+                    long end = SystemClock.currentThreadTimeMillis();
+                    LogUtils.e("draw time:" + start+","+end);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+     findViewById(R.id.b2).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                try {
+                    long start = SystemClock.currentThreadTimeMillis();
+                    Thread.sleep(500);
+                    ToastUtils.showShort("finish sleep");
+                    long end = SystemClock.currentThreadTimeMillis();
+                    LogUtils.e("draw2 time:" + start+","+end);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

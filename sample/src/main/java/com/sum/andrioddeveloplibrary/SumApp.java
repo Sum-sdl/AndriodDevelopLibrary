@@ -17,7 +17,6 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.squareup.leakcanary.LeakCanary;
-import com.sum.andrioddeveloplibrary.R;
 import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.AppFileConfig;
 import com.sum.library.app.BaseApplication;
@@ -67,9 +66,12 @@ public class SumApp extends BaseApplication {
     //TODO 以/结尾
     public static String BASE_URL = "http://apps.meitoutiao.net/";
 
+    public static long mOpenStartTime = 0;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        mOpenStartTime = System.currentTimeMillis();
         //内存检测
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
