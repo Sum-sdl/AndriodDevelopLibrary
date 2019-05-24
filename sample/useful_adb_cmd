@@ -6,17 +6,33 @@ adb shell am kill com.sum.andrioddeveloplibrary
 gradle compileDebug —stacktrace
 
 
-fragment 生命周期
-onAttach -> onCreate ->onViewCreate->onViewCreated->onDestroyView ->onDestroy-> onDetach
-FragmentTransaction attach/detach 重复方法【onViewCreate->onViewCreated->onDestroyView ->onViewCreate】
-Activity销毁时才会走 ->onDestroy-> onDetach
+- 进入设备 adb shell
+- 退出设备 exit
+- 查询设备 adb devices
+- 连接设备 adb connect 192.xxx.xx:5566/5555
+- ps |grep xxx 进程查看
+- adb shell input text xxx:直接输入字符串
+- showmap pid
+- 输出日志到当前目录下的t.txt中 adb logcat > t.txt
+- adb shell dumpsys activity activities | sed -En -e '/Stack #/p' -e '/Running activities/,/Run #0/p' 查看运行时的Task
 
+- 包列表 pm list packages
+- 包安装位置 pm list packages -f
+- 筛选  pm list packages | grep test
 
-退到后台的时候-fragment的 onSaveInstanceState -> Activity的onSaveInstanceState
+### 文件操作
+- 拉文件 adb pull /app/xxx.apk ~/Downloads
+-
 
-Activity保存流程： onResume -> onPause -> onSaveInstanceState -> onStop
-Activity恢复流程： onCreate -> onRestoreInstanceState -> onResume
+### 管理员权限
+adb root
 
-被系统杀了-> 声明周期重新走, 在不同的方法中，bundle不为空，并且是同一个对象
+adb remount
 
-处理方案：在Activity被回收后，进程被杀，整个流程会重新走一边，自己保存少数关键的数据
+adb reboot（可以不用）
+
+### 替换系统应用
+1. 管理员权限；到system/app/应用目录/
+2. 删除应用目录下的apk rm -rf xxx.apk
+3. push新的apk到应用目录
+

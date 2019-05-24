@@ -6,6 +6,7 @@ import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.sum.andrioddeveloplibrary.R.id.*
 import com.sum.andrioddeveloplibrary.aa_surface_test.SurfaceActivity
 import com.sum.andrioddeveloplibrary.activity.BridgeWebViewActivity
 import com.sum.andrioddeveloplibrary.coroutine.CoroutineActivity
