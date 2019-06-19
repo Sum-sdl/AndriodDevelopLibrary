@@ -186,8 +186,8 @@ dependencies {
     }
 
 //    路由
-    implementation 'com.github.Sum-sdl:router-api:1.0.1'
-    annotationProcessor 'com.github.Sum-sdl:router-complier:1.0.1'
+//    implementation 'com.github.Sum-sdl:router-api:1.0.1'
+//    annotationProcessor 'com.github.Sum-sdl:router-complier:1.0.1'
 
 }
 

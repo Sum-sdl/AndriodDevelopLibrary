@@ -1,5 +1,17 @@
 apply plugin: 'com.android.library'
 
+//手动上传操作
+//1. ./gradlew library-base:install
+//2. ./gradlew library-base::bintrayUpload
+
+ext {
+    bintrayName = 'library-base'
+    artifact = bintrayName
+    libraryName = 'base library'
+    libraryDescription = ''
+    libraryVersion = lib_base
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -43,12 +55,6 @@ dependencies {
 
 }
 
-ext {
-    bintrayName = 'library-base'
-    artifact = bintrayName
-    libraryName = 'base library'
-    libraryDescription = ''
-    libraryVersion = lib_base
-}
 apply from: '../up_install.gradle'
 apply from: '../up_bintray.gradle'
+//apply from : 'upload.gradle'

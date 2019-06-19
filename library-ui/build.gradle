@@ -2,6 +2,18 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+//手动上传操作
+//1. ./gradlew library-ui:install
+//2. ./gradlew library-ui:bintrayUpload
+
+ext {
+    bintrayName = 'library-ui'
+    artifact = bintrayName
+    libraryName = 'library ui'
+    libraryDescription = ''
+    libraryVersion = lib_ui
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -49,12 +61,6 @@ dependencies {
     api project(path: ':library-base')
 }
 
-ext {
-    bintrayName = 'library-ui'
-    artifact = bintrayName
-    libraryName = 'library ui'
-    libraryDescription = ''
-    libraryVersion = lib_ui
-}
 apply from: '../up_install.gradle'
 apply from: '../up_bintray.gradle'
+//apply from : 'upload.gradle'
