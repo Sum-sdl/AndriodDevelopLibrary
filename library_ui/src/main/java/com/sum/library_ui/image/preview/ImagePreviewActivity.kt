@@ -7,6 +7,7 @@ import com.sum.library.app.BaseActivity
 import com.sum.library.utils.simple.ViewPagerFragmentAdapter
 import com.sum.library.view.widget.PubTitleView
 import com.sum.library_ui.R
+import com.sum.library_ui.utils.Utils
 import kotlinx.android.synthetic.main.ui_activity_image_preview.*
 
 class ImagePreviewActivity : BaseActivity() {
@@ -34,7 +35,7 @@ class ImagePreviewActivity : BaseActivity() {
         list?.forEach {
             fragments.add(ImagePreviewFragment.instance(it, true))
         }
-        //TODO 状态栏透明
+        Utils.transparentStatusBar(this)
         image_view_pager.adapter = ViewPagerFragmentAdapter(supportFragmentManager, fragments, null)
         image_view_pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {

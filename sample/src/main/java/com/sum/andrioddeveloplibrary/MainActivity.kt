@@ -24,7 +24,7 @@ import com.sum.library.app.BaseActivity
 import com.sum.library.framework.AppDownloadManager
 import com.sum.library.utils.FileDownloadHelper
 import com.sum.library.utils.Logger
-import com.sum.library.utils.mainThread
+import com.sum.library.utils.TaskExecutor.mainThread
 import com.sum.library.view.widget.DialogMaker
 import jetpack.demo.NewStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,10 +37,6 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
-    }
-
-    override fun statusBarTranslate(): Boolean {
-        return false
     }
 
     override fun initParams() {
@@ -90,7 +86,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
 
         b20.setOnClickListener {
-            wms()
+//            wms()
         }
     }
 

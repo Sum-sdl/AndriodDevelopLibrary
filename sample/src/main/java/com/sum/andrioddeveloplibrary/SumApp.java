@@ -1,9 +1,11 @@
 package com.sum.andrioddeveloplibrary;
 
+import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
+import com.blankj.utilcode.util.Utils;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.google.gson.Gson;
@@ -19,7 +21,6 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.squareup.leakcanary.LeakCanary;
 import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.AppFileConfig;
-import com.sum.library.app.BaseApplication;
 import com.sum.library.net.Retrofit2Helper;
 import com.sum.library.utils.Logger;
 
@@ -27,7 +28,7 @@ import com.sum.library.utils.Logger;
  * Created by sdl on 2017/12/27.
  */
 
-public class SumApp extends BaseApplication {
+public class SumApp extends Application {
 
     static {
         AppFileConfig.App_External_Directory_Name = "AA_Sum";
@@ -71,6 +72,7 @@ public class SumApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Utils.init(this);
         mOpenStartTime = System.currentTimeMillis();
         //内存检测
         if (LeakCanary.isInAnalyzerProcess(this)) {

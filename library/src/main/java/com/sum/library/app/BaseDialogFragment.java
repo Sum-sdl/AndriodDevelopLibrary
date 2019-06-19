@@ -75,7 +75,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             if (getDialogShowAnimation() != 0) {
                 window.setWindowAnimations(getDialogShowAnimation());  //添加动画
             }
-
             WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
             Point point = new Point();
             //noinspection ConstantConditions
@@ -83,8 +82,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             WindowManager.LayoutParams lp = window.getAttributes();
             lp.width = point.x;
             lp.height = point.y;
-            //TODO
-            Logger.e("x->" + point.x + ",y:" + point.y);
             window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             if (Build.VERSION.SDK_INT >= 21) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

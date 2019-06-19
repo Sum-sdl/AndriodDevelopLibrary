@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import com.sum.library.domain.ActionState
 import com.sum.library.domain.BaseRepository
 import com.sum.library.utils.Logger
-import com.sum.library.utils.ioThread
+import com.sum.library.utils.TaskExecutor
 
 /**
  * Created by sdl on 2018/7/13.
@@ -23,7 +23,7 @@ class UserRepository : BaseRepository() {
 
         Logger.e("UserRepository getData ->$input")
 
-        ioThread {
+        TaskExecutor.ioThread {
             Logger.e("Thread load data start")
             sendActionState(ActionState.NET_START)
             Thread.sleep(2000)

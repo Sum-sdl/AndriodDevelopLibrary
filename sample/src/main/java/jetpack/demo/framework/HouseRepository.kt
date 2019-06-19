@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import com.sum.library.domain.ActionState
 import com.sum.library.domain.BaseRepository
 import com.sum.library.utils.Logger
-import com.sum.library.utils.ioThread
+import com.sum.library.utils.TaskExecutor.ioThread
 
 /**
  * Created by sdl on 2018/7/16.
@@ -25,7 +25,7 @@ class HouseRepository : BaseRepository() {
 
         ioThread {
             Logger.e("Thread load data start")
-            val state = ActionState(ActionState.DIALOG_LOADING)
+            val state = ActionState.obtain(ActionState.DIALOG_LOADING)
             state.msg = "加载中..."
 
             sendActionState(state)
@@ -45,7 +45,7 @@ class HouseRepository : BaseRepository() {
 
         ioThread {
             Logger.e("Thread uploadFile data start")
-            val state = ActionState(ActionState.DIALOG_PROGRESS_SHOW)
+            val state = ActionState.obtain(ActionState.DIALOG_PROGRESS_SHOW)
             state.msg = "上传文件中..."
             sendActionState(state)
 

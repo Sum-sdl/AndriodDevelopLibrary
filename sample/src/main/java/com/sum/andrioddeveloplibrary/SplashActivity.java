@@ -54,8 +54,8 @@ public class SplashActivity extends BaseActivity {
     @Override
     public Resources getResources() {//设计宽度
         if (mRes == null) {
-//            mRes = AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
-            mRes = AdaptScreenUtils.adaptHeight(super.getResources(), 1920);
+            mRes = AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
+//            mRes = AdaptScreenUtils.adaptHeight(super.getResources(), 1920);
 //            mRes = AdaptScreenUtils.closeAdapt(super.getResources());
         }
         return mRes;

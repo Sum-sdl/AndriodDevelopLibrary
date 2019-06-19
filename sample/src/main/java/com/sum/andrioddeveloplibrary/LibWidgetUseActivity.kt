@@ -15,9 +15,9 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.activity.FragmentManagerActivity
-import com.sum.library.ui.web.WebActivity
 import com.sum.library.utils.Logger
 import com.sum.library.view.widget.PubTitleView
+import com.sum.library_ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_widget_use.*
 import q.rorbin.badgeview.QBadgeView
 
@@ -25,7 +25,7 @@ class LibWidgetUseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BarUtils.setStatusBarAlpha(this)
+        BarUtils.setStatusBarColor(this,Color.RED)
         setContentView(R.layout.activity_widget_use)
         ActivityCompat.setExitSharedElementCallback(this, exitElementCallback)
         Logger.e("LibWidgetUseActivity onCreate")

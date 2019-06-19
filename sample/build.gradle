@@ -124,9 +124,11 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
-    //
+    //基础库
     api('com.github.Sum-sdl:RvAdapter:2.1.1')
     api 'com.github.bumptech.glide:glide:4.8.0'
+    api 'com.blankj:utilcode:1.23.7'
+
     //美团日志框架
     implementation 'com.dianping.android.sdk:logan:1.2.1'
     implementation 'com.tencent.mars:mars-xlog:1.0.7'
@@ -136,6 +138,8 @@ dependencies {
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     implementation project(':library')
+    implementation project(':library_ui')
+
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //协程

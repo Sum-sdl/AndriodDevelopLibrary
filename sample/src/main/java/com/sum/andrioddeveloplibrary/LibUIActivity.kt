@@ -12,10 +12,10 @@ import android.transition.Transition
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
-import com.sum.library.ui.image.AppImageUtils
-import com.sum.library.ui.image.photoAlbum.AlbumInfo
-import com.sum.library.ui.web.WebActivity
-import com.sum.library.utils.ImageLoader
+import com.sum.library_ui.image.AppImageUtils
+import com.sum.library_ui.image.photoAlbum.AlbumInfo
+import com.sum.library_ui.utils.ImageLoader
+import com.sum.library_ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_ui.*
 import top.zibin.luban.OnCompressListener
 import java.io.File
@@ -174,7 +174,7 @@ class LibUIActivity : BaseAppActivity() {
         if (resultCode != Activity.RESULT_OK)
             return
         if (requestCode == 1) {
-            val uri = AppImageUtils.systemChooseImageIntentImagePath(data)
+            val uri = AppImageUtils.systemChooseImageIntentImagePath(mContext, data)
             if (!TextUtils.isEmpty(uri)) {
                 AppImageUtils.appImageCrop(this, uri, 11)
             }
