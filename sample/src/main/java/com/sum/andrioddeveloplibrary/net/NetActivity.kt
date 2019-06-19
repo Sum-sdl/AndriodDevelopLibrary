@@ -7,9 +7,9 @@ import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.andrioddeveloplibrary.R
-import com.sum.library.ui.image.AppImageUtils
-import com.sum.library.ui.image.photoAlbum.AlbumInfo
-import com.sum.library.ui.web.WebActivity
+import com.sum.library_ui.image.AppImageUtils
+import com.sum.library_ui.image.photoAlbum.AlbumInfo
+import com.sum.library_ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_net.*
 import okhttp3.*
 import retrofit2.Call

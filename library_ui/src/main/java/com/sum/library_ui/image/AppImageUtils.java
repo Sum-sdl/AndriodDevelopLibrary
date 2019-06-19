@@ -12,10 +12,9 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
-import com.blankj.utilcode.util.Utils;
 import com.sum.library.AppFileConfig;
 import com.sum.library.R;
-import com.sum.library.ui.image.photoAlbum.AlbumInfo;
+import com.sum.library_ui.image.photoAlbum.AlbumInfo;
 import com.sum.library_ui.image.photoAlbum.PhotoAlbumActivity;
 import com.sum.library_ui.image.preview.ImagePreviewActivity;
 import com.yalantis.ucrop.UCrop;
@@ -47,7 +46,7 @@ public class AppImageUtils {
     /**
      * 调用系统相册返回图片路劲
      */
-    public static String systemChooseImageIntentImagePath(Intent intent) {
+    public static String systemChooseImageIntentImagePath(Context context, Intent intent) {
         if (intent == null) {
             return null;
         }
@@ -60,7 +59,7 @@ public class AppImageUtils {
         } else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
             img_path = uri.getPath();
         } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            Cursor cursor = Utils.getApp().getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
             if (null != cursor) {
                 if (cursor.moveToFirst()) {
                     int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
@@ -99,7 +98,7 @@ public class AppImageUtils {
      * 刷新系统相册
      */
     @SuppressLint("ObsoleteSdkInt")
-    public static void appRefreshAlbum(String newFile) {
+    public static void appRefreshAlbum(Context context, String newFile) {
         if (TextUtils.isEmpty(newFile)) {
             return;
         }
@@ -108,12 +107,12 @@ public class AppImageUtils {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
             Intent scan_dir = new Intent(Intent.ACTION_MEDIA_MOUNTED);
             scan_dir.setData(Uri.fromFile(target.getParentFile()));
-            Utils.getApp().sendBroadcast(scan_dir);
+            context.sendBroadcast(scan_dir);
         }
         //刷新文件
         Intent intent_scan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent_scan.setData(Uri.fromFile(target));
-        Utils.getApp().sendBroadcast(intent_scan);
+        context.sendBroadcast(intent_scan);
     }
 
 

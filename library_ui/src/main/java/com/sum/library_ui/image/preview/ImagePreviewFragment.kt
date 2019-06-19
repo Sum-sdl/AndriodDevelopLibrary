@@ -1,4 +1,4 @@
-package com.sum.library.ui.image.preview
+package com.sum.library_ui.image.preview
 
 import android.net.Uri
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.sum.library.R
 import com.sum.library.app.BaseFragment
+import com.sum.library_ui.R
 import kotlinx.android.synthetic.main.ui_fragment_image_preview.*
 
 /**

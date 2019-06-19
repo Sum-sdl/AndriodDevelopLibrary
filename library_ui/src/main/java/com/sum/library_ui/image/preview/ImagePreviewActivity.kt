@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.view.ViewPager
 import com.sum.library.app.BaseActivity
-import com.sum.library.ui.image.preview.ImagePreviewFragment
 import com.sum.library.utils.simple.ViewPagerFragmentAdapter
 import com.sum.library.view.widget.PubTitleView
 import com.sum.library_ui.R

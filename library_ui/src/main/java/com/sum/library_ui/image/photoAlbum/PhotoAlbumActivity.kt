@@ -355,7 +355,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             return
         }
         if (requestCode == 101) {//系统拍照
-            AppImageUtils.appRefreshAlbum(mTakePhotoFile?.path)
+            AppImageUtils.appRefreshAlbum(mContext,mTakePhotoFile?.path)
             if (mTakePhotoFile != null && mTakePhotoFile!!.exists()) {
                 addTakePic()
             }

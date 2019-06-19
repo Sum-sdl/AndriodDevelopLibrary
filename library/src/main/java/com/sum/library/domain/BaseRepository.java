@@ -24,7 +24,7 @@ public class BaseRepository {
         sendActionState(action);
     }
 
-    private void sendActionState(ActionState state) {
+    public void sendActionState(ActionState state) {
         mActionLiveData.postValue(state);
     }
 
