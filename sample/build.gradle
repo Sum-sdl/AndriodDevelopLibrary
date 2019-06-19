@@ -129,6 +129,9 @@ dependencies {
     api 'com.github.bumptech.glide:glide:4.8.0'
     api 'com.blankj:utilcode:1.23.7'
 
+    implementation project(':library-base')
+    implementation project(':library-ui')
+
     //美团日志框架
     implementation 'com.dianping.android.sdk:logan:1.2.1'
     implementation 'com.tencent.mars:mars-xlog:1.0.7'
@@ -137,8 +140,6 @@ dependencies {
     //网络请求数据拦截
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-    implementation project(':library_base')
-    implementation project(':library_ui')
 
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

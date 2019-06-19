@@ -46,7 +46,7 @@ dependencies {
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //compileOnly
-    api project(path: ':library_base')
+    api project(path: ':library-base')
 }
 
 ext {
