@@ -45,8 +45,8 @@ dependencies {
 
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    api project(path: ':library')
+    //compileOnly
+    api project(path: ':library_base')
 }
 
 ext {
@@ -54,7 +54,7 @@ ext {
     artifact = bintrayName
     libraryName = 'library ui'
     libraryDescription = ''
-    libraryVersion = lib_base
+    libraryVersion = lib_ui
 }
 apply from: '../up_install.gradle'
 apply from: '../up_bintray.gradle'

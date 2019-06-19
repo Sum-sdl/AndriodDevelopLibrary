@@ -137,7 +137,7 @@ dependencies {
     //网络请求数据拦截
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-    implementation project(':library')
+    implementation project(':library_base')
     implementation project(':library_ui')
 
     //kotlin

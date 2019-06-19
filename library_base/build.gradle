@@ -1,9 +1,4 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.github.dcendents.android-maven'
-//apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
-
-group = 'com.github.Sum-sdl'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -53,7 +48,7 @@ ext {
     artifact = bintrayName
     libraryName = 'base library'
     libraryDescription = ''
-    libraryVersion = lib_ui
+    libraryVersion = lib_base
 }
 apply from: '../up_install.gradle'
 apply from: '../up_bintray.gradle'
