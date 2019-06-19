@@ -1,12 +1,18 @@
 package com.sum.andrioddeveloplibrary
 
 import add_class.utils.FileOpen
+import android.content.Context
+import android.graphics.Color
+import android.graphics.PixelFormat
 import android.os.Bundle
+import android.view.Gravity
+import android.view.WindowManager
+import android.widget.ImageView
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.sum.andrioddeveloplibrary.R.id.*
 import com.sum.andrioddeveloplibrary.aa_surface_test.SurfaceActivity
 import com.sum.andrioddeveloplibrary.activity.BridgeWebViewActivity
 import com.sum.andrioddeveloplibrary.coroutine.CoroutineActivity
@@ -82,6 +88,46 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
             val url = "http://oa.house365.com/attachment_new/2018/09/13/347511066/%CE%A2%D0%C5%CD%BC%C6%AC_20180913150705.jpg"
             download(url)
         }
+
+        b20.setOnClickListener {
+            wms()
+        }
+    }
+
+    /**
+     * WindowManager->WindowManagerImpl
+     *
+     * Window -> PhoneWindow ->DecorView根布局
+     * */
+    private fun wms() {
+
+        val wm: WindowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+
+        val view = ImageView(this)
+        view.setBackgroundColor(Color.RED)
+        view.setImageResource(R.mipmap.ic_launcher)
+
+        val layout = WindowManager.LayoutParams()
+
+        //view size
+        layout.width = 200
+        layout.height = 700
+
+        //收到Gravity影响，注意这个x、y点的意义
+        //x,y是相对应gravity的一个偏移量，如果超出后界面，最少取界面位置
+        layout.x = ScreenUtils.getScreenWidth()
+        layout.y = ScreenUtils.getScreenHeight() - 1000
+        layout.gravity = Gravity.TOP or Gravity.START
+        layout.format = PixelFormat.RGB_565
+
+        layout.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+
+//        layout.type = WindowManager.LayoutParams.TYPE_APPLICATION //应用内部
+
+        layout.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY//需要权限
+
+        wm.addView(view, layout)
+
     }
 
 

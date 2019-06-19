@@ -3,8 +3,8 @@ package com.sum.library.app.common;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.widget.Toast;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.UiViewModel;
 
@@ -16,13 +16,16 @@ import com.sum.library.domain.UiViewModel;
 public final class ActivePresent {
 
     public LoadingView loadingView;
+    private Context mContext;
 
     public ActivePresent(Context context) {
         this.loadingView = new LoadingViewImpl(context);
+        mContext = context;
     }
 
     public ActivePresent(Fragment fragment) {
         this.loadingView = new LoadingViewImpl(fragment.getContext());
+        mContext = fragment.getContext();
     }
 
     public void setLoadingView(LoadingView loadingView) {
@@ -36,14 +39,14 @@ public final class ActivePresent {
         switch (action) {
             case ActionState.TOAST:
                 if (!TextUtils.isEmpty(state.getMsg())) {
-                    ToastUtils.showShort(state.getMsg());
+                    Toast.makeText(mContext, state.getMsg(), Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case ActionState.DIALOG_HIDE:
                 loadingView.hideLoading();
                 if (!TextUtils.isEmpty(state.getMsg())) {
-                    ToastUtils.showShort(state.getMsg());
+                    Toast.makeText(mContext, state.getMsg(), Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -67,6 +70,6 @@ public final class ActivePresent {
         }
         viewModel.expandActionDeal(state);
         //添加对象缓存
-        ActionState.Companion.release(state);
+        ActionState.release(state);
     }
 }

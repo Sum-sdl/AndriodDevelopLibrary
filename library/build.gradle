@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
 
 group = 'com.github.Sum-sdl'
 
@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    //compileOnly
     api "com.android.support:appcompat-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
     api "com.android.support:support-v4:${rootProject.ext.dependencies.supportLibraryVersion}"
     api "com.android.support:recyclerview-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
@@ -42,29 +42,33 @@ dependencies {
     //最新框架lifecycle扩展
     api "android.arch.lifecycle:extensions:1.1.1"
 
-    api('com.github.Sum-sdl:RvAdapter:2.1.0') {
-        transitive = true
-    }
-    // 工具类 https://github.com/Blankj/AndroidUtilCode
-    api 'com.blankj:utilcode:1.22.5'
     // retrofit2
-    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
     api 'com.squareup.retrofit2:converter-gson:2.4.0'
 
+    // 工具类 https://github.com/Blankj/AndroidUtilCode
+//    api 'com.blankj:utilcode:1.23.7'
+
     //https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md
-    implementation 'com.tencent.sonic:sdk:3.0.0'
+//    implementation 'com.tencent.sonic:sdk:3.0.0'
 
     //image
-    api 'com.github.bumptech.glide:glide:4.8.0'
-    api 'com.github.chrisbanes:PhotoView:2.0.0'
-    api 'me.relex:circleindicator:1.2.2@aar'
-    api 'com.github.yalantis:ucrop:2.2.2'
-    api 'top.zibin:Luban:1.1.8'
+//    api 'com.github.bumptech.glide:glide:4.8.0'
+//    api 'com.github.chrisbanes:PhotoView:2.0.0'
+//    api 'me.relex:circleindicator:1.2.2@aar'
+//    api 'com.github.yalantis:ucrop:2.2.2'
+//    api 'top.zibin:Luban:1.1.8'
+//
+//    //kotlin
+//    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
 
-    //kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+ext {
+    bintrayName = 'library-base'
+    artifact = bintrayName
+    libraryName = 'base library'
+    libraryDescription = ''
+    libraryVersion = lib_ui
 }
-repositories {
-    mavenCentral()
-}
-apply from: 'upload.gradle'
+apply from: '../up_install.gradle'
+apply from: '../up_bintray.gradle'

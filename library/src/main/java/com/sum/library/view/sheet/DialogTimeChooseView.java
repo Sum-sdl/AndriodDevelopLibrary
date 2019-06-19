@@ -1,16 +1,14 @@
 package com.sum.library.view.sheet;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.sum.library.R;
 import com.sum.library.view.widget.wheelview.LoopView;
 
@@ -46,8 +44,12 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
     private String mHours, mMin;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.cus_bs_single_view;
+    }
+
+    @Override
+    protected void initParams(View view) {
         view.findViewById(R.id.tv_cancel).setOnClickListener(v -> dismiss());
         view.findViewById(R.id.tv_ok).setOnClickListener(v -> dismiss());
 
@@ -79,22 +81,12 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         }
     }
 
-    @Override
-    protected int getLayoutId() {
-        return  R.layout.cus_bs_single_view;
-    }
-
-    @Override
-    protected void initParams(View view) {
-
-    }
-
     private void initHours(@NonNull View view) {
         String h, m;
         if (!TextUtils.isEmpty(mData.mCurHour) && mData.mCurHour.contains(":")) {
             int index = mData.mCurHour.indexOf(":");
             h = mData.mCurHour.substring(0, index);
-            m = mData.mCurHour.substring(index + 1, mData.mCurHour.length());
+            m = mData.mCurHour.substring(index + 1);
         } else {
             Calendar instance = Calendar.getInstance();
             h = instance.get(Calendar.HOUR_OF_DAY) + "";
@@ -261,10 +253,15 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
 
     private void setLoopData(LoopView view, List<String> items, int index) {
         view.setItems(items);
-        view.setViewPadding(SizeUtils.dp2px(20), SizeUtils.dp2px(15), SizeUtils.dp2px(20), SizeUtils.dp2px(15));
+        view.setViewPadding(dp2px(20), dp2px(15), dp2px(20), dp2px(15));
         view.setNotLoop();
         view.setTextSize(17);
         view.setInitPosition(index);
+    }
+
+    private static int dp2px(final float dpValue) {
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     public static int getDaysInMonth(int month, int year) {

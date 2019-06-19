@@ -71,11 +71,18 @@ class ServiceTestActivity : BaseActivity() {
         }
 
         btn_9.setOnClickListener {
-            mWorker?.index?.let { it1 -> btn_9.text = "${it1}<-Helloworld" }
+            mWorker?.index?.let { it1 ->
+                {
+                    btn_9.text = "${it1}<-Helloworld"
+                    Logger.e("thread info")
+                }
+            }
         }
 
         btn_10.setOnClickListener {
+            Logger.e("1------thread info addSize(0)")
             mWorker?.addSize(0)
+            Logger.e("3------thread info addSize(0)")
         }
     }
 
@@ -103,6 +110,7 @@ class ServiceTestActivity : BaseActivity() {
         }
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            //IBinder -> BinderProxy实现类，不是Java的Binder
             mWorker = IServiceWorker.Stub.asInterface(service)
         }
     }

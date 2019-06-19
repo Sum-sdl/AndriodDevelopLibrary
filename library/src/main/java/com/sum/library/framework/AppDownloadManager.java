@@ -1,6 +1,7 @@
 package com.sum.library.framework;
 
 import android.app.Activity;
+import android.os.Process;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,9 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.sum.library.R;
 import com.sum.library.utils.Logger;
 
@@ -25,15 +25,11 @@ public class AppDownloadManager {
 
     private boolean isNeedShowView = true, isForceDownload;
 
-    private UpdateService mDownload;
+    private DownloadService mDownload;
 
     private String mLabel;
 
     private AlertDialog mDialog;
-
-    public AppDownloadManager() {
-        mDownload = new UpdateService();
-    }
 
     public void start() {
         if (isNeedShowView) {
@@ -67,7 +63,7 @@ public class AppDownloadManager {
 
         btn_cancel.setOnClickListener(v -> {
             if (isForceDownload) {
-                AppUtils.exitApp();
+                Process.killProcess(Process.myPid());
             } else {
                 mDialog.dismiss();
             }
@@ -111,7 +107,10 @@ public class AppDownloadManager {
             return;
         }
         if (isNeedShowView) {
-            ToastUtils.showLong("后台下载中...");
+            Toast.makeText(mActivity.getApplication(), "后台下载中...", Toast.LENGTH_LONG).show();
+        }
+        if (mDownload == null) {
+            mDownload = new DownloadService(mActivity);
         }
         mDownload.downloadStart(downloadUrl);
     }

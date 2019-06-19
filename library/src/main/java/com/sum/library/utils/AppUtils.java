@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -275,8 +274,8 @@ public class AppUtils {
      *
      * @return true ：允许通知 false:通知关闭
      */
-    public static boolean notificationIsOpen() {
-        return NotificationManagerCompat.from(Utils.getApp()).areNotificationsEnabled();
+    public static boolean notificationIsOpen(Context context) {
+        return NotificationManagerCompat.from(context).areNotificationsEnabled();
     }
 
 

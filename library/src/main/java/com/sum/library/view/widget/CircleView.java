@@ -3,6 +3,7 @@ package com.sum.library.view.widget;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,7 +14,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.sum.library.R;
 
 /**
@@ -42,6 +42,10 @@ public class CircleView extends View {
         init(context, attrs);
     }
 
+    static int dp2px(final float dpValue) {
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
     private void init(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleView);
         int background_color = array.getColor(R.styleable.CircleView_background_color, Color.parseColor("#000000"));
@@ -52,8 +56,8 @@ public class CircleView extends View {
 
         pDirection = array.getInt(R.styleable.CircleView_direction, 1);
 
-        stoke_width = array.getDimensionPixelSize(R.styleable.CircleView_stoke_width, SizeUtils.dp2px(2.4f));
-        int text_size = array.getDimensionPixelSize(R.styleable.CircleView_text_size, SizeUtils.dp2px(10.4f));
+        stoke_width = array.getDimensionPixelSize(R.styleable.CircleView_stoke_width, dp2px(2.4f));
+        int text_size = array.getDimensionPixelSize(R.styleable.CircleView_text_size, dp2px(10.4f));
 
         int text_color = array.getColor(R.styleable.CircleView_text_color, foreground_color);
         text = array.getString(R.styleable.CircleView_text);

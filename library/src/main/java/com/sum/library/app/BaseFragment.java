@@ -169,7 +169,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
         super.onActivityCreated(savedInstanceState);
         if (getUserVisibleHint() && getCacheView() != null && !mIsMulti) {
             mIsMulti = true;
-            onFirstUserVisible();
+            onUserFirstVisible();
         }
     }
 
@@ -177,7 +177,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && getCacheView() != null && !mIsMulti) {
             mIsMulti = true;
-            onFirstUserVisible();
+            onUserFirstVisible();
         } else if (isVisibleToUser && getCacheView() != null && mIsMulti) {
             onUserVisible();
         } else if (!isVisibleToUser && getCacheView() != null && mIsMulti) {
@@ -191,19 +191,19 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
      * 方法在Fragment可见的时候加载数据
      * 子类可根据需要判断使用已经加载完成过一次
      */
-    public void onFirstUserVisible() {
-        printFragmentLife("onFirstUserVisible");
+    public void onUserFirstVisible() {
+        printFragmentLife("onUserFirstVisible");
     }
 
     /**
-     * fragment可见（切换回来或者onResume）
+     * fragment可见（ViewPager切换回来或者onResume）
      */
     public void onUserVisible() {
         printFragmentLife("onUserVisible");
     }
 
     /**
-     * fragment不可见（切换掉或者onPause）
+     * fragment不可见（ViewPager切换掉或者onPause）
      */
     public void onUserInvisible() {
         printFragmentLife("onUserInvisible");
@@ -225,7 +225,6 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
         return ContextCompat.getColor(mContext, colorResId);
     }
 
-    //base
     public void startActivity(Class<?> clazz) {
         startActivity(new Intent(getContext(), clazz));
     }
@@ -233,7 +232,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     protected void printFragmentLife(String fun) {
         if (PRINT_LIFE) {
             String ids = Integer.toHexString(System.identityHashCode(this));
-            Log.e("life", getClass().getSimpleName() + " " + ids + "->" + fun);
+            Log.e("fragment_life", getClass().getSimpleName() + " " + ids + "->" + fun);
         }
     }
 }

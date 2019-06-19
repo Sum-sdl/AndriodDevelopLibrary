@@ -3,6 +3,7 @@ package add_class;
 import android.util.ArrayMap;
 import android.util.SparseArray;
 
+import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -46,8 +47,42 @@ public class Fast {
 
 
     public static void main(String[] args) {
-        int[] d = new int[]{4, 1, 5, 2, 3, 7, 6, 8, 9, 0};
-        test(d);
+//        int[] d = new int[]{4, 1, 5, 2, 3, 7, 6, 8, 9, 0};
+//        test(d);
+
+        System.out.println(fomatBigNumber2(999991d,null));
+        System.out.println(fomatBigNumber(999991.115666,null));
+        System.out.println(fomatBigNumber2(999991.115666,null));
+        System.out.println(fomatPriceNumber(999991.113666,null));
+        System.out.println(fomatPriceNumber(999991.11,null));
+        System.out.println(fomatPriceNumber(999991d,null));
+    }
+
+
+    public static String fomatBigNumber2(Double number, String fomat) {
+        if (null == fomat) {
+            fomat = "#.00";
+        }
+        DecimalFormat decimalFormat = new DecimalFormat(fomat);
+        String fomatedNumberStr = decimalFormat.format(number);
+        return fomatedNumberStr;
+    }
+    public static String fomatBigNumber(Double number, String fomat) {
+        if (null == fomat) {
+            fomat = "###,###,###.000";
+        }
+        DecimalFormat decimalFormat = new DecimalFormat(fomat);
+        String fomatedNumberStr = decimalFormat.format(number);
+        return fomatedNumberStr;
+    }
+
+    public static String fomatPriceNumber(Double number, String fomat) {
+        if (null == fomat) {
+            fomat = "#.####";
+        }
+        DecimalFormat decimalFormat = new DecimalFormat(fomat);
+        String fomatedNumberStr = decimalFormat.format(number);
+        return fomatedNumberStr;
     }
 
 }

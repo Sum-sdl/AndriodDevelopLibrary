@@ -7,8 +7,6 @@ import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
-import com.blankj.utilcode.util.Utils;
-
 import java.io.File;
 
 /**
@@ -22,6 +20,12 @@ public class AppFileConfig {
 
     //FileProvider使用的Uri文件
     public static String FOLDER_PROVIDER = ".fileProvider";
+
+    private static Context mContext;
+
+    public static void init(Context context) {
+        mContext = context.getApplicationContext();
+    }
 
     //FileProvider 获取app文件的Uri
     public static Uri getAppSelfUri(Context context, File file) {
@@ -81,7 +85,7 @@ public class AppFileConfig {
         if (existsSdcard()) {
             String cacheDir = null;
             if (isCacheFile) {
-                File file = Utils.getApp().getExternalCacheDir();//系统缓存数据文件夹路劲
+                File file = mContext.getExternalCacheDir();//系统缓存数据文件夹路劲
                 if (file != null) {
                     cacheDir = file.getAbsolutePath();
                 }
@@ -92,9 +96,9 @@ public class AppFileConfig {
             result = new File(cacheDir);
         } else {
             if (isCacheFile) {
-                result = (Utils.getApp().getCacheDir());
+                result = (mContext.getCacheDir());
             } else {
-                result = (Utils.getApp().getFilesDir());
+                result = (mContext.getFilesDir());
             }
         }
         if (result.exists() || result.mkdirs()) {

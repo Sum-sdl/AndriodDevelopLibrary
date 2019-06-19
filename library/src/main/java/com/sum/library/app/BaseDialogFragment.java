@@ -2,6 +2,7 @@ package com.sum.library.app;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +15,8 @@ import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.sum.library.R;
+import com.sum.library.utils.Logger;
 
 import java.lang.ref.WeakReference;
 
@@ -74,9 +75,16 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             if (getDialogShowAnimation() != 0) {
                 window.setWindowAnimations(getDialogShowAnimation());  //添加动画
             }
+
+            WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+            Point point = new Point();
+            //noinspection ConstantConditions
+            wm.getDefaultDisplay().getRealSize(point);
             WindowManager.LayoutParams lp = window.getAttributes();
-            lp.width = ScreenUtils.getScreenWidth();
-            lp.height = ScreenUtils.getScreenHeight();
+            lp.width = point.x;
+            lp.height = point.y;
+            //TODO
+            Logger.e("x->" + point.x + ",y:" + point.y);
             window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             if (Build.VERSION.SDK_INT >= 21) {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

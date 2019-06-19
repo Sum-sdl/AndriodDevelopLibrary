@@ -8,8 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
-
-import com.blankj.utilcode.util.ToastUtils;
+import android.widget.Toast;
 
 /**
  * Created by sdl on 2018/7/12.
@@ -21,7 +20,7 @@ public class DownloadReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
             long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             if (id != -1) {
-                ToastUtils.showLong("下载完成");
+                Toast.makeText(context, "下载完成", Toast.LENGTH_SHORT).show();
                 // 兼容Android 8.0
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     //先获取是否有安装未知来源应用的权限

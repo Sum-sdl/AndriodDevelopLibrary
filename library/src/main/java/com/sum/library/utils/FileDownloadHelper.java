@@ -1,6 +1,5 @@
 package com.sum.library.utils;
 
-import com.blankj.utilcode.util.FileUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -76,8 +75,13 @@ public class FileDownloadHelper {
      * @param downloadListener 回调状态
      */
     public Call downloadFile(final String url, File targetFile, final FileDownloadListener downloadListener) {
-        FileUtils.deleteFile(targetFile);
-        FileUtils.createOrExistsFile(targetFile);
+
+        try {
+            targetFile.deleteOnExit();
+            targetFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Request request = new Request.Builder().url(url).build();
         Call call = okHttpClient.newCall(request);

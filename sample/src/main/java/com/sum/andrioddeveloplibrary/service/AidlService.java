@@ -20,11 +20,13 @@ public class AidlService extends Service {
     private IBinder mIBinder = new IServiceWorker.Stub() {
         @Override
         public int getIndex() throws RemoteException {
+            Logger.e("thread info service");
             return mIndex;
         }
 
         @Override
         public void addSize(int size) throws RemoteException {
+            Logger.e("2------ thread info addSize " + size);
             mIndex = size;
         }
     };
@@ -37,7 +39,7 @@ public class AidlService extends Service {
             @Override
             public void run() {
                 while (true) {
-                    Logger.e("index=" + mIndex);
+                    Logger.i("index=" + mIndex);
                     mIndex++;
                     try {
                         Thread.sleep(500);
