@@ -41,8 +41,6 @@ android {
 }
 
 dependencies {
-    api('com.github.Sum-sdl:RvAdapter:2.1.1')
-
     //网页
     //https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md
     implementation 'com.tencent.sonic:sdk:3.0.0'
@@ -58,7 +56,8 @@ dependencies {
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //compileOnly
-    api project(path: ':library-base')
+    api 'com.github.Sum-sdl:library-base:2.0.1'
+    api 'com.github.Sum-sdl:RvAdapter:2.1.1'
 }
 
 apply from: '../up_install.gradle'

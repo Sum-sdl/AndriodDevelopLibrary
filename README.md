@@ -30,13 +30,28 @@
 </br>
 
 #### Dependency
-
+ **2.3.1 老版本UI和基础一个库**
  ```gradle
  dependencies {
         implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.1'
      }
  ```
- **2.3.0 升级库并发布到JCenter**
+ 
+ **新版本库，UI跟基础结构分离**
+ 
+ > 基础结构库(Java)
+  ```gradle
+  dependencies {
+         implementation 'com.github.Sum-sdl:library-base:2.0.1'
+      }
+  ```
+> 基础UI库(Kotlin)
+  ```gradle
+  dependencies {
+         implementation 'com.github.Sum-sdl:library-ui:2.0.1'
+      }
+  ```
+ 
 
 ### 项目功能介绍
 
