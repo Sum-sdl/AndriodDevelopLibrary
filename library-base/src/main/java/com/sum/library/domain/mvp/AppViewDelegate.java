@@ -25,8 +25,8 @@ public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
     protected Context mContext;
 
     private LifecycleOwner mLifecycle;
-    private FragmentActivity mActivity;
-    private Fragment mFragment;//可能为null
+    private FragmentActivity mActivity;//不为null
+    private Fragment mFragment;//可以为null
     //活动数据处理
     protected ActivePresent mPresent;
     //传递的参数
@@ -47,6 +47,7 @@ public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
 
     @Override
     public void onAttach(FragmentActivity activity, Fragment fragment, LifecycleOwner lifecycleOwner) {
+        printFragmentLife("onAttach");
         mContext = activity;
         mActivity = activity;
         mLifecycle = lifecycleOwner;

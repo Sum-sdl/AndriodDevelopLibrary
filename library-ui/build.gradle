@@ -56,8 +56,9 @@ dependencies {
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //compileOnly
-    api 'com.github.Sum-sdl:library-base:2.0.1'
-    api 'com.github.Sum-sdl:RvAdapter:2.1.1'
+//    api 'com.github.Sum-sdl:library-base:2.0.2'
+    api 'com.github.Sum-sdl:RvAdapter:2.1.2'
+    implementation project(path: ':library-base')
 }
 
 apply from: '../up_install.gradle'
