@@ -19,7 +19,7 @@ public class MyObserver implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void onPause() {
-        Logger.e("MyObserver onPause");
+        Logger.e("MyObserver onStop");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

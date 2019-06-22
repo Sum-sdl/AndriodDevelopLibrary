@@ -110,7 +110,7 @@ configurations.all {
 
 dependencies {
 //    compile fileTree(dir: 'libs', include: ['*.jar','*.aar'])
-    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     //compileOnly 不打包，只是依赖
 //    compileOnly 'com.android.support.constraint:constraint-layout:1.1.3'
 
@@ -179,9 +179,9 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
-    if(file("${rootProject.rootDir}/core/aa.aar").exists()){
+    if (file("${rootProject.rootDir}/core/aa.aar").exists()) {
         implementation files("${rootProject.rootDir}/core/aa.aar")
-    }else {
+    } else {
         //远程依赖
     }
 
@@ -215,3 +215,4 @@ repositories {
 //        })
 //    }
 //}
+

@@ -19,6 +19,7 @@ import com.sum.andrioddeveloplibrary.coroutine.CoroutineActivity
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
+import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateActivity
 import com.sum.library.AppFileConfig
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.AppDownloadManager
@@ -41,6 +42,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
     override fun initParams() {
 
+        b21.setOnClickListener { startActivity(ViewDelegateActivity::class.java) }
         b19.setOnClickListener { startActivity(BlockcanaryActivity::class.java) }
         b18.setOnClickListener { startActivity(CoroutineActivity::class.java) }
         b17.setOnClickListener { startActivity(BridgeWebViewActivity::class.java) }

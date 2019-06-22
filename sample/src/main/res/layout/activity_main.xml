@@ -100,7 +100,13 @@
             android:id="@+id/b14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="最新框架测试" />
+            android:text="Lifecycle框架测试" />
+
+        <Button
+            android:id="@+id/b21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View-Delegate结构测试" />
 
         <Button
             android:id="@+id/b18"

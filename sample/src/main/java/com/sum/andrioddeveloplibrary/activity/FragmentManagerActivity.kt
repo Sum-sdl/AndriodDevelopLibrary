@@ -54,7 +54,7 @@ class FragmentManagerActivity : BaseActivity() {
 
     override fun onPause() {
         super.onPause()
-        Logger.e("onPause")
+        Logger.e("onStop")
     }
 
     override fun onStop() {

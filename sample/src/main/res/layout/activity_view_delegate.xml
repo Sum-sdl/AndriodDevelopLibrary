@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/white"
+	android:orientation="vertical">
+
+	<TextView
+		android:id="@+id/tv_1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="这个一个Activity界面" />
+
+	<Button
+		android:id="@+id/bt1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="启动一个Fragment" />
+
+	<TextView
+		android:id="@+id/bt2"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="StartActivityForResult" />
+
+	<FrameLayout
+		android:id="@+id/fl_content"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
+
+</LinearLayout>

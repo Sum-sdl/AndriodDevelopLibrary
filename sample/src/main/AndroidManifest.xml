@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sum.andrioddeveloplibrary">
+	package="com.sum.andrioddeveloplibrary">
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+	<uses-permission android:name="android.permission.CALL_PHONE" />
+	<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-    <application
-        android:name=".SumApp"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+	<application
+		android:name=".SumApp"
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+		<activity android:name=".view_delegate.ViewDelegateActivity"></activity>
+		<activity
+			android:name=".MainActivity"
+			android:label="@string/app_name"
+			android:theme="@style/SplashTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".StickyActivity" />
-        <activity android:name=".SwipeActivity" />
-        <activity android:name=".CustomViewActivity" />
-        <activity android:name=".testActivity.ScrollingActivity" />
-        <activity android:name=".net.NetActivity" />
-        <activity android:name=".SplashActivity" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".StickyActivity" />
+		<activity android:name=".SwipeActivity" />
+		<activity android:name=".CustomViewActivity" />
+		<activity android:name=".testActivity.ScrollingActivity" />
+		<activity android:name=".net.NetActivity" />
+		<activity android:name=".SplashActivity" />
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+		<provider
+			android:name="android.support.v4.content.FileProvider"
+			android:authorities="${applicationId}.fileProvider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/file_paths" />
+		</provider>
 
-        <activity
-            android:name=".LibWidgetUseActivity"
-            android:windowSoftInputMode="adjustPan" />
+		<activity
+			android:name=".LibWidgetUseActivity"
+			android:windowSoftInputMode="adjustPan" />
+		<activity android:name=".LibUIActivity" />
+		<activity android:name=".activity.FragmentManagerActivity" />
+		<activity android:name=".testActivity.ServiceTestActivity" />
 
-        <activity android:name=".LibUIActivity" />
-        <activity android:name=".activity.FragmentManagerActivity" />
-        <activity android:name=".testActivity.ServiceTestActivity" />
+		<service android:name=".service.TestIntentService" />
+		<service android:name=".service.TestService" />
+		<service android:name=".service.TestJobIntentService" />
+		<service
+			android:name=".service.RemoteService"
+			android:exported="true"
+			android:process=":task" />
+		<service
+			android:name=".service.AidlService"
+			android:exported="true"
+			android:process=":aidl" />
+		<service android:name=".service.MessageService" />
 
-        <service android:name=".service.TestIntentService" />
-        <service android:name=".service.TestService" />
-        <service android:name=".service.TestJobIntentService" />
-        <service
-            android:name=".service.RemoteService"
-            android:exported="true"
-            android:process=":task" />
-        <service
-            android:name=".service.AidlService"
-            android:exported="true"
-            android:process=":aidl" />
-	    <service android:name=".service.MessageService" />
-
-	    <activity
-            android:name=".DialogTestActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation" />
-        <activity android:name=".EncryptionActivity" />
-        <activity android:name="jetpack.demo.NewStartActivity" />
-        <activity android:name="jetpack.demo.LiveDataChangeActivity" />
-        <activity android:name="jetpack.demo.page.PageActivity" />
-        <activity android:name="jetpack.demo.framework.HouseInfoTestActivity" />
-        <activity android:name="jetpack.demo.databind.DataBindTestActivity"></activity>
-	    <activity android:name=".aa_surface_test.SurfaceActivity" />
-	    <activity android:name=".activity.BridgeWebViewActivity" />
-	    <activity android:name=".coroutine.CoroutineActivity" />
-	    <activity android:name=".BlockcanaryActivity" />
-    </application>
+		<activity
+			android:name=".DialogTestActivity"
+			android:configChanges="keyboard|keyboardHidden|screenSize|orientation" />
+		<activity android:name=".EncryptionActivity" />
+		<activity android:name="jetpack.demo.NewStartActivity" />
+		<activity android:name="jetpack.demo.LiveDataChangeActivity" />
+		<activity android:name="jetpack.demo.page.PageActivity" />
+		<activity android:name="jetpack.demo.framework.HouseInfoTestActivity" />
+		<activity android:name="jetpack.demo.databind.DataBindTestActivity" />
+		<activity android:name=".aa_surface_test.SurfaceActivity" />
+		<activity android:name=".activity.BridgeWebViewActivity" />
+		<activity android:name=".coroutine.CoroutineActivity" />
+		<activity android:name=".BlockcanaryActivity" />
+	</application>
 
 </manifest>
