@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +36,9 @@ public abstract class BaseMvpFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkOrCreateDelegate();
+        mViewDelegate.onAttach(getActivity(), this, this);
         //都是v4包兼容类
-        mViewDelegate.onCreate((FragmentActivity) getContext(), savedInstanceState, getArguments(), this);
+        mViewDelegate.onCreate(savedInstanceState, getArguments());
     }
 
     private void checkOrCreateDelegate() {

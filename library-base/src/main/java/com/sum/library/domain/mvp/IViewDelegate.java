@@ -3,6 +3,7 @@ package com.sum.library.domain.mvp;
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,16 +15,20 @@ import android.view.ViewGroup;
  */
 public interface IViewDelegate {
 
+    /**
+     * 代理类关联的界面
+     *
+     * @param lifecycleOwner Activity、Fragment的Lifecycle
+     */
+    void onAttach(FragmentActivity activity, Fragment fragment, LifecycleOwner lifecycleOwner);
 
     /**
      * 界面首次初始化，只调用一次
      *
-     * @param context            启动的Activity
      * @param savedInstanceState 保存的信息
      * @param intentExtras       启动传递的参数
-     * @param lifecycleOwner     Activity、Fragment的Lifecycle
      */
-    void onCreate(FragmentActivity context, Bundle savedInstanceState, Bundle intentExtras, LifecycleOwner lifecycleOwner);
+    void onCreate(Bundle savedInstanceState, Bundle intentExtras);
 
     /**
      * @return 界面需要显示的View

@@ -46,7 +46,8 @@ public abstract class BaseMvpActivity extends FragmentActivity {
             }
         }
         checkOrCreateDelegate();
-        mViewDelegate.onCreate(this, savedInstanceState, getIntent().getExtras(), this);
+        mViewDelegate.onAttach(this, null, this);
+        mViewDelegate.onCreate(savedInstanceState, getIntent().getExtras());
         setContentView(mViewDelegate.onCreateView(getLayoutInflater(), null, savedInstanceState));
         mViewDelegate.init();
     }

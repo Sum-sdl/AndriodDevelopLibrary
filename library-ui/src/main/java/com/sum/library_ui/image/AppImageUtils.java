@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
@@ -188,6 +189,12 @@ public class AppImageUtils {
         appImageAlbum(activity, info);
     }
 
+    public static void appImageAlbum(Fragment activity, int maxNum) {
+        AlbumInfo info = new AlbumInfo();
+        info.max_count = maxNum;
+        appImageAlbum(activity, info);
+    }
+
     public static void appImageAlbum(Activity activity, int maxNum, boolean showTakePhoto) {
         AlbumInfo info = new AlbumInfo();
         info.max_count = maxNum;
@@ -195,7 +202,18 @@ public class AppImageUtils {
         appImageAlbum(activity, info);
     }
 
+    public static void appImageAlbum(Fragment activity, int maxNum, boolean showTakePhoto) {
+        AlbumInfo info = new AlbumInfo();
+        info.max_count = maxNum;
+        info.take_photo_open = showTakePhoto;
+        appImageAlbum(activity, info);
+    }
+
     public static void appImageAlbum(Activity activity, AlbumInfo info) {
+        PhotoAlbumActivity.Companion.open(activity, info);
+    }
+
+    public static void appImageAlbum(Fragment activity, AlbumInfo info) {
         PhotoAlbumActivity.Companion.open(activity, info);
     }
 

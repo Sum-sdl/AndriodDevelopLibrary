@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.v4.app.Fragment
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.Loader
 import android.support.v7.widget.GridLayoutManager
@@ -41,6 +42,12 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             val intent = Intent(activity, PhotoAlbumActivity::class.java)
             intent.putExtra("data", info)
             activity.startActivityForResult(intent, info.request_code)
+        }
+
+        fun open(fragment: Fragment, info: AlbumInfo) {
+            val intent = Intent(fragment.context, PhotoAlbumActivity::class.java)
+            intent.putExtra("data", info)
+            fragment.startActivityForResult(intent, info.request_code)
         }
     }
 

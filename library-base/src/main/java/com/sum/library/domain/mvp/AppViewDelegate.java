@@ -1,8 +1,10 @@
 package com.sum.library.domain.mvp;
 
 import android.arch.lifecycle.LifecycleOwner;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,13 +22,13 @@ import com.sum.library.domain.UiViewModel;
  */
 public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
 
-    protected LifecycleOwner mLifecycle;
+    protected Context mContext;
 
-    protected FragmentActivity mContext;
-
+    private LifecycleOwner mLifecycle;
+    private FragmentActivity mActivity;
+    private Fragment mFragment;//可能为null
     //活动数据处理
     protected ActivePresent mPresent;
-
     //传递的参数
     protected Bundle mIntentExtras;
 
@@ -44,12 +46,18 @@ public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
     }
 
     @Override
-    public void onCreate(FragmentActivity context, Bundle savedInstanceState, Bundle intentExtras, LifecycleOwner lifecycleOwner) {
-        printFragmentLife("onCreate");
-        mContext = context;
+    public void onAttach(FragmentActivity activity, Fragment fragment, LifecycleOwner lifecycleOwner) {
+        mContext = activity;
+        mActivity = activity;
         mLifecycle = lifecycleOwner;
+        mFragment = fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, Bundle intentExtras) {
+        printFragmentLife("onCreate");
         mIntentExtras = intentExtras;
-        mPresent = new ActivePresent(context);
+        mPresent = new ActivePresent(mActivity);
         BaseViewModel viewModel = getViewModel();
         if (viewModel != null) {
             viewModel.registerActionState(mLifecycle,
@@ -125,10 +133,21 @@ public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
         }
     }
 
+
     //expand fun
     public <T extends View> T findViewById(int id) {
         return mRootView.findViewById(id);
     }
 
+    protected FragmentActivity getActivity() {
+        return mActivity;
+    }
 
+    protected Fragment getFragment() {
+        return mFragment;
+    }
+
+    public LifecycleOwner getLifecycle() {
+        return mLifecycle;
+    }
 }

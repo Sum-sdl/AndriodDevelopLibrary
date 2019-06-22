@@ -3,6 +3,7 @@ package com.sum.andrioddeveloplibrary.view_delegate.mvp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -11,8 +12,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sum.andrioddeveloplibrary.R;
 import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateFragment;
 import com.sum.library.domain.mvp.AppViewDelegate;
-import com.sum.library_ui.image.AppImageUtils;
 import com.sum.library_ui.image.photoAlbum.AlbumInfo;
+import com.sum.library_ui.image.photoAlbum.PhotoAlbumActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -59,14 +60,25 @@ public class UiCopyUseDelegate extends AppViewDelegate {
     }
 
     private void replaceUi() {
-        mContext.getSupportFragmentManager()
+        getActivity().getSupportFragmentManager()
                 .beginTransaction().add(id, new ViewDelegateFragment()).addToBackStack(null).commit();
 
-//        mContext.getSupportFragmentManager().beginTransaction().add()
+//        mActivity.getSupportFragmentManager().beginTransaction().add()
     }
 
     private void startA() {
-        AppImageUtils.appImageAlbum(mContext, 2);
+        AlbumInfo info = new AlbumInfo();
+        info.max_count = 12;
+        info.take_photo_open = false;
+        info.span_count = 3;
+//        AppImageUtils.appImageAlbum(mActivity, info);
+        Fragment fragment = getFragment();
+        if (fragment != null) {
+            info.take_photo_open = true;
+            PhotoAlbumActivity.Companion.open(fragment, info);
+        } else {
+            PhotoAlbumActivity.Companion.open(getActivity(), info);
+        }
     }
 
     @Override
