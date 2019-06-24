@@ -1,4 +1,4 @@
-package com.sum.library.app;
+package com.sum.library.app.delegate;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,18 +6,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
-import com.sum.library.domain.mvp.IViewDelegate;
 import com.sum.library.utils.AppUtils;
 
 /**
  * Created by sdl on 2019-06-22.
  */
-public abstract class BaseMvpActivity extends FragmentActivity {
+public abstract class BaseDelegateActivity<T extends IViewDelegate> extends FragmentActivity {
 
-    private IViewDelegate mViewDelegate;
+    protected T mViewDelegate;
 
     //UI界面代理类
-    protected abstract Class<? extends IViewDelegate> getViewDelegateClass();
+    protected abstract Class<T> getViewDelegateClass();
 
     private void checkOrCreateDelegate() {
         if (mViewDelegate == null) {

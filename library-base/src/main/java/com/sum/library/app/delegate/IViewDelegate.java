@@ -1,4 +1,4 @@
-package com.sum.library.domain.mvp;
+package com.sum.library.app.delegate;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
@@ -45,7 +45,7 @@ public interface IViewDelegate {
      */
     void onFragmentFirstVisible();
 
-    //life fun
+    //ui life fun
 
     void onResume();
 

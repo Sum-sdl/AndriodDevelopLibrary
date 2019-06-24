@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.view.ViewPager
 import com.sum.library.app.BaseActivity
-import com.sum.library.utils.simple.ViewPagerFragmentAdapter
+import com.sum.library.utils.simple.SimpleViewPagerFragmentAdapter
 import com.sum.library.view.widget.PubTitleView
 import com.sum.library_ui.R
 import com.sum.library_ui.utils.Utils
@@ -36,7 +36,7 @@ class ImagePreviewActivity : BaseActivity() {
             fragments.add(ImagePreviewFragment.instance(it, true))
         }
         Utils.transparentStatusBar(this)
-        image_view_pager.adapter = ViewPagerFragmentAdapter(supportFragmentManager, fragments, null)
+        image_view_pager.adapter = SimpleViewPagerFragmentAdapter(supportFragmentManager, fragments, null)
         image_view_pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 mTitle.setTitle("${position + 1}/$size")

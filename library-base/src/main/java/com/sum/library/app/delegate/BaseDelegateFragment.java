@@ -1,4 +1,4 @@
-package com.sum.library.app;
+package com.sum.library.app.delegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.sum.library.domain.mvp.IViewDelegate;
 import com.sum.library.utils.Logger;
 
 import java.lang.ref.WeakReference;
@@ -17,12 +16,12 @@ import java.lang.ref.WeakReference;
 /**
  * Created by sdl on 2019-06-22.
  */
-public abstract class BaseMvpFragment extends Fragment {
+public abstract class BaseDelegateFragment<T extends IViewDelegate> extends Fragment {
 
-    private IViewDelegate mViewDelegate;
+    protected T mViewDelegate;
 
     //UI界面代理类
-    protected abstract Class<? extends IViewDelegate> getViewDelegateClass();
+    protected abstract Class<T> getViewDelegateClass();
 
     //在onViewCreated执行后进行数据加载
     private boolean mIsInflateView = false;

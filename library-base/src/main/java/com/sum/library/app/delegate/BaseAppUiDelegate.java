@@ -1,15 +1,20 @@
-package com.sum.library.domain.mvp;
+package com.sum.library.app.delegate;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.domain.ActionState;
@@ -18,17 +23,18 @@ import com.sum.library.domain.UiViewModel;
 
 /**
  * Created by sdl on 2019-06-22.
- * 统一处理UI界面基础功能代理类
+ * 统一处理UI界面基础功能代理类,fragment、activity通用
  */
-public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
+public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
 
     protected Context mContext;
 
     private LifecycleOwner mLifecycle;
-    private FragmentActivity mActivity;//不为null
-    private Fragment mFragment;//可以为null
+    private FragmentActivity mActivity;
+    private Fragment mFragment;//可能为null
+
     //活动数据处理
-    protected ActivePresent mPresent;
+    private ActivePresent mPresent;
     //传递的参数
     protected Bundle mIntentExtras;
 
@@ -47,7 +53,7 @@ public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
 
     @Override
     public void onAttach(FragmentActivity activity, Fragment fragment, LifecycleOwner lifecycleOwner) {
-        printFragmentLife("onAttach");
+        printFragmentLife("onAttach:" + activity.getClass().getSimpleName());
         mContext = activity;
         mActivity = activity;
         mLifecycle = lifecycleOwner;
@@ -78,10 +84,12 @@ public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
     }
 
 
-    public final void init() {
+    public void init() {
         printFragmentLife("init");
-        initParams(mRootView);
-        loadData();
+        if (mRootView != null) {
+            initParams(mRootView);
+            loadData();
+        }
     }
 
     @Override
@@ -125,10 +133,12 @@ public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
         //viewModel常用统一扩展操作
     }
 
-    public static boolean PRINT_LIFE = false;
+    protected boolean needPrint() {
+        return false;
+    }
 
     private void printFragmentLife(String fun) {
-        if (PRINT_LIFE) {
+        if (needPrint()) {
             String ids = Integer.toHexString(System.identityHashCode(this));
             Log.e("fragment_life", getClass().getSimpleName() + ":" + ids + "->" + fun);
         }
@@ -150,5 +160,63 @@ public abstract class AppViewDelegate implements IViewDelegate, UiViewModel {
 
     public LifecycleOwner getLifecycle() {
         return mLifecycle;
+    }
+
+    public ActivePresent getActivePresent() {
+        return mPresent;
+    }
+
+    public void startActivity(Class targetClass) {
+        Intent intent = new Intent(mContext, targetClass);
+        startActivity(intent);
+    }
+
+    public void startActivity(Intent intent) {
+        startActivityForResult(intent, -1);
+    }
+
+    //注册在fragment中，通过fragment启动，否则通过activity启动
+    public void startActivityForResult(Intent intent, int requestCode) {
+        if (getFragment() != null) {
+            getFragment().startActivityForResult(intent, requestCode);
+        } else {
+            getActivity().startActivityForResult(intent, requestCode);
+        }
+    }
+
+    //
+    public Drawable getDrawableWithTint(int drawableRes, int colorRes) {
+        Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
+        if (colorRes != -1 && drawable != null) {
+            DrawableCompat.setTint(drawable, ContextCompat.getColor(mContext, colorRes));
+        }
+        return drawable;
+    }
+
+    public int getColorByResId(int colorResId) {
+        return ContextCompat.getColor(mContext, colorResId);
+    }
+
+    public Drawable getDrawableByResId(int drawableRes) {
+        return ContextCompat.getDrawable(mContext, drawableRes);
+    }
+
+    //ui
+    public void showLoadingDilog() {
+        mPresent.loadingView.showLoading();
+    }
+
+    public void hideLoadingDilog() {
+        mPresent.loadingView.hideLoading();
+    }
+
+    public void hideLoadingDilog(String msg) {
+        mPresent.loadingView.showLoading(msg);
+    }
+
+    public void toast(String msg) {
+        if (!TextUtils.isEmpty(msg)) {
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 }

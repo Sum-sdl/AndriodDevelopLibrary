@@ -1,4 +1,4 @@
-package com.sum.andrioddeveloplibrary.view_delegate.mvp;
+package com.sum.andrioddeveloplibrary.view_delegate.delegate;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.andrioddeveloplibrary.R;
-import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateFragment;
-import com.sum.library.domain.mvp.AppViewDelegate;
+import com.sum.andrioddeveloplibrary.view_delegate.ViewDkotlinFragment;
+import com.sum.library.app.delegate.BaseAppUiDelegate;
 import com.sum.library_ui.image.photoAlbum.AlbumInfo;
 import com.sum.library_ui.image.photoAlbum.PhotoAlbumActivity;
 
@@ -21,17 +21,21 @@ import java.util.Random;
 /**
  * Created by sdl on 2019-06-22.
  */
-public class UiCopyUseDelegate extends AppViewDelegate {
+public class UiCopyUseDelegate extends BaseAppUiDelegate {
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_view_delegate;
     }
 
+    @Override
+    protected boolean needPrint() {
+        return true;
+    }
+
     private FrameLayout fl_content;
     int id;
     TextView tv_1;
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void initParams(View view) {
@@ -61,9 +65,9 @@ public class UiCopyUseDelegate extends AppViewDelegate {
 
     private void replaceUi() {
         getActivity().getSupportFragmentManager()
-                .beginTransaction().add(id, new ViewDelegateFragment()).addToBackStack(null).commit();
-
-//        mActivity.getSupportFragmentManager().beginTransaction().add()
+                .beginTransaction().add(id, new ViewDkotlinFragment()).addToBackStack(null).commit();
+//        getActivity().getSupportFragmentManager()
+//                .beginTransaction().add(id, new ViewDelegateFragment()).addToBackStack(null).commit();
     }
 
     private void startA() {

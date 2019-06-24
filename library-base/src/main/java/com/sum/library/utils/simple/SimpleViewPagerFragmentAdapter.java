@@ -9,17 +9,22 @@ import java.util.List;
 /**
  * Created by Sum on 15/11/28.
  */
-public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
+public class SimpleViewPagerFragmentAdapter extends FragmentPagerAdapter {
 
     private List<? extends Fragment> mFragments;
     private List<String> mTitles;
 
 
-    public ViewPagerFragmentAdapter(FragmentManager fm) {
+    public SimpleViewPagerFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public ViewPagerFragmentAdapter(FragmentManager fm, List<? extends Fragment> mFragments, List<String> mTitles) {
+    public SimpleViewPagerFragmentAdapter(FragmentManager fm, List<? extends Fragment> mFragments) {
+        super(fm);
+        this.mFragments = mFragments;
+    }
+
+    public SimpleViewPagerFragmentAdapter(FragmentManager fm, List<? extends Fragment> mFragments, List<String> mTitles) {
         super(fm);
         this.mFragments = mFragments;
         this.mTitles = mTitles;
