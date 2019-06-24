@@ -42,7 +42,7 @@
  > 基础结构库(Java)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-base:2.0.2'
+         implementation 'com.github.Sum-sdl:library-base:2.0.3'
       }
   ```
 > 基础UI库(Kotlin)
