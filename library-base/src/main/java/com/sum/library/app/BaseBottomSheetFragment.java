@@ -1,10 +1,11 @@
-package com.sum.library.view.sheet;
+package com.sum.library.app;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,42 @@ import android.view.ViewGroup;
  * 底部浮层界面，点击空白部分，自动关闭界面
  */
 public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment {
+
+    private static class BottomDialog extends BottomSheetDialog {
+
+        BottomDialog(Context context, int theme) {
+            super(context, theme);
+        }
+
+        @Override
+        public void setContentView(View view) {
+            super.setContentView(view);
+            addTouchListener();
+        }
+
+        @Override
+        public void setContentView(int layoutResId) {
+            super.setContentView(layoutResId);
+            addTouchListener();
+        }
+
+        @Override
+        public void setContentView(View view, ViewGroup.LayoutParams params) {
+            super.setContentView(view, params);
+            addTouchListener();
+        }
+
+        private void addTouchListener() {
+            View touch = findViewById(android.support.design.R.id.touch_outside);
+            if (touch != null) {
+                touch.setOnClickListener(v -> {
+                    if (isShowing()) {
+                        cancel();
+                    }
+                });
+            }
+        }
+    }
 
     @NonNull
     @Override

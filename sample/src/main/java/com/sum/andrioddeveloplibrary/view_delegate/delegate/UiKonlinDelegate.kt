@@ -17,7 +17,7 @@ class UiKonlinDelegate : BaseAppUiDelegate() {
 
     override fun getLayoutId(): Int = R.layout.activity_coordinator
 
-    override fun needPrint(): Boolean = true
+    override fun needPrintLifeLog(): Boolean = true
 
     override fun initParams(view: View) {
         view.findViewById<View>(R.id.b1)?.setOnClickListener {

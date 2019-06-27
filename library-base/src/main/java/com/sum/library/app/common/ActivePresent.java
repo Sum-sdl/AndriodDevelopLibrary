@@ -1,5 +1,6 @@
 package com.sum.library.app.common;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -18,22 +19,24 @@ public final class ActivePresent {
     public LoadingView loadingView;
     private Context mContext;
 
-    public ActivePresent(Context context) {
+    public ActivePresent(Activity context) {
         this.loadingView = new LoadingViewImpl(context);
         mContext = context;
     }
 
     public ActivePresent(Fragment fragment) {
-        this.loadingView = new LoadingViewImpl(fragment.getContext());
+        this.loadingView = new LoadingViewImpl(fragment.getActivity());
         mContext = fragment.getContext();
     }
 
+    //重置loadingView
     public void setLoadingView(LoadingView loadingView) {
         if (loadingView != null) {
             this.loadingView = loadingView;
         }
     }
 
+    //统一动作处理
     public void dealActionState(ActionState state, UiViewModel viewModel) {
         int action = state.getState();
         switch (action) {

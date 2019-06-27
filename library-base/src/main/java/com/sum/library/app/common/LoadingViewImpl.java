@@ -1,25 +1,28 @@
 package com.sum.library.app.common;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.support.v7.app.AlertDialog;
 
+import com.sum.library.utils.Logger;
 import com.sum.library.view.widget.DialogMaker;
+
+import java.lang.ref.WeakReference;
 
 
 /**
  * Created by Sum on 16/6/20.
  */
-public class LoadingViewImpl implements LoadingView {
+class LoadingViewImpl implements LoadingView {
 
-    private Context mContext;
+    private WeakReference<Activity> mReference;
 
     private AlertDialog mLoadDialog;
 
     private ProgressDialog mProgressDialog;
 
-    public LoadingViewImpl(Context context) {
-        mContext = context;
+    LoadingViewImpl(Activity context) {
+        mReference = new WeakReference<>(context);
     }
 
     @Override
@@ -37,7 +40,12 @@ public class LoadingViewImpl implements LoadingView {
         if (mLoadDialog != null && mLoadDialog.isShowing()) {
             mLoadDialog.dismiss();
         }
-        mLoadDialog = DialogMaker.showLoadingDialog(mContext, msg,cancelable);
+        Activity context = mReference.get();
+        if (context == null || context.isFinishing()) {
+            Logger.e("!!! context finish");
+            return;
+        }
+        mLoadDialog = DialogMaker.showLoadingDialog(context, msg, cancelable);
         if (!mLoadDialog.isShowing()) {
             mLoadDialog.show();
         }
@@ -45,7 +53,12 @@ public class LoadingViewImpl implements LoadingView {
 
     @Override
     public void showProgressLoading(String msg, boolean cancelable) {
-        mProgressDialog = DialogMaker.showProgress(mContext, "", msg, cancelable);
+        Activity context = mReference.get();
+        if (context == null || context.isFinishing()) {
+            Logger.e("!!! context finish");
+            return;
+        }
+        mProgressDialog = DialogMaker.showProgress(context, "", msg, cancelable);
         if (mProgressDialog != null) {
             mProgressDialog.show();
         }

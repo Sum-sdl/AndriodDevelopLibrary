@@ -23,6 +23,18 @@
 		android:layout_height="wrap_content"
 		android:text="StartActivityForResult" />
 
+	<TextView
+		android:id="@+id/bt3"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="LiveDataPost" />
+
+	<TextView
+		android:id="@+id/bt4"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Active" />
+
 	<FrameLayout
 		android:id="@+id/fl_content"
 		android:layout_width="match_parent"

@@ -20,7 +20,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
         setContentView(R.layout.activity_dialog_test)
 
         bt1.setOnClickListener {
-            ItemListDialogFragment.newInstance(3)
+            ItemListDialogFragment.newInstance(20)
                     .show(supportFragmentManager, "3")
         }
         bt2.setOnClickListener {

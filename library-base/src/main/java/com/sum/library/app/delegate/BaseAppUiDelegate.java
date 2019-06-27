@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
@@ -53,7 +54,7 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
 
     @Override
     public void onAttach(FragmentActivity activity, Fragment fragment, LifecycleOwner lifecycleOwner) {
-        printFragmentLife("onAttach:" + activity.getClass().getSimpleName());
+        printLifeLog("onAttach:" + activity.getClass().getSimpleName());
         mContext = activity;
         mActivity = activity;
         mLifecycle = lifecycleOwner;
@@ -62,7 +63,7 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
 
     @Override
     public void onCreate(Bundle savedInstanceState, Bundle intentExtras) {
-        printFragmentLife("onCreate");
+        printLifeLog("onCreate");
         mIntentExtras = intentExtras;
         mPresent = new ActivePresent(mActivity);
         BaseViewModel viewModel = getViewModel();
@@ -78,14 +79,14 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        printFragmentLife("onCreateView");
+        printLifeLog("onCreateView");
         mRootView = inflater.inflate(getLayoutId(), container, false);
         return mRootView;
     }
 
 
     public void init() {
-        printFragmentLife("init");
+        printLifeLog("init");
         if (mRootView != null) {
             initParams(mRootView);
             loadData();
@@ -95,32 +96,32 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
     @Override
     public void onFragmentFirstVisible() {
         //viewpager中fragment首次可见时调用
-        printFragmentLife("onFragmentFirstVisible");
+        printLifeLog("onFragmentFirstVisible");
     }
 
     @Override
     public void onResume() {
-        printFragmentLife("onResume");
+        printLifeLog("onResume");
     }
 
     @Override
     public void onStop() {
-        printFragmentLife("onStop");
+        printLifeLog("onStop");
     }
 
     @Override
     public void onDestroy() {
-        printFragmentLife("onDestroy");
+        printLifeLog("onDestroy");
     }
 
     @Override
     public void onNewIntent(Intent intent) {
-
+        printLifeLog("onNewIntent");
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        printLifeLog("onActivityResult:" + requestCode + "," + requestCode);
     }
 
     @Override
@@ -133,17 +134,20 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
         //viewModel常用统一扩展操作
     }
 
-    protected boolean needPrint() {
+    //模板方法打印控制
+    protected boolean needPrintLifeLog() {
         return false;
     }
 
-    private void printFragmentLife(String fun) {
-        if (needPrint()) {
-            String ids = Integer.toHexString(System.identityHashCode(this));
-            Log.e("fragment_life", getClass().getSimpleName() + ":" + ids + "->" + fun);
+    private void printLifeLog(String fun) {
+        if (needPrintLifeLog()) {
+            Log.e("ui_life", getClass().getSimpleName() + ":" + getObjectId() + "->" + fun);
         }
     }
 
+    protected String getObjectId() {
+        return Integer.toHexString(System.identityHashCode(this));
+    }
 
     //expand fun
     public <T extends View> T findViewById(int id) {
@@ -158,7 +162,7 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
         return mFragment;
     }
 
-    public LifecycleOwner getLifecycle() {
+    public LifecycleOwner getLifecycleOwner() {
         return mLifecycle;
     }
 
@@ -166,6 +170,7 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
         return mPresent;
     }
 
+    //启动目标Activity
     public void startActivity(Class targetClass) {
         Intent intent = new Intent(mContext, targetClass);
         startActivity(intent);
@@ -184,7 +189,23 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
         }
     }
 
-    //
+    //关闭Activity里面的fragment
+    public void closeBackStackFragment() {
+        FragmentManager fragmentManager;
+        if (getFragment() != null) {
+            fragmentManager = getFragment().getFragmentManager();
+        } else {
+            fragmentManager = getActivity().getSupportFragmentManager();
+        }
+        if (fragmentManager != null) {
+            int backStackEntryCount = fragmentManager.getBackStackEntryCount();
+            if (backStackEntryCount > 0) {
+                fragmentManager.popBackStack();
+            }
+        }
+    }
+
+    //Resource
     public Drawable getDrawableWithTint(int drawableRes, int colorRes) {
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
         if (colorRes != -1 && drawable != null) {
@@ -201,7 +222,7 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
         return ContextCompat.getDrawable(mContext, drawableRes);
     }
 
-    //ui
+    //ui function
     public void showLoadingDilog() {
         mPresent.loadingView.showLoading();
     }

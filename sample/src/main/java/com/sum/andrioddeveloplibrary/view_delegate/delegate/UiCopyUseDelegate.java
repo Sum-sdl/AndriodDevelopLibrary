@@ -1,6 +1,7 @@
 package com.sum.andrioddeveloplibrary.view_delegate.delegate;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,11 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.andrioddeveloplibrary.R;
+import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateFragment;
 import com.sum.andrioddeveloplibrary.view_delegate.ViewDkotlinFragment;
 import com.sum.library.app.delegate.BaseAppUiDelegate;
+import com.sum.library.utils.LiveDataEventBus;
+import com.sum.library.utils.TaskExecutor;
 import com.sum.library_ui.image.photoAlbum.AlbumInfo;
 import com.sum.library_ui.image.photoAlbum.PhotoAlbumActivity;
 
@@ -29,13 +33,14 @@ public class UiCopyUseDelegate extends BaseAppUiDelegate {
     }
 
     @Override
-    protected boolean needPrint() {
+    protected boolean needPrintLifeLog() {
         return true;
     }
 
     private FrameLayout fl_content;
     int id;
     TextView tv_1;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void initParams(View view) {
@@ -61,13 +66,45 @@ public class UiCopyUseDelegate extends BaseAppUiDelegate {
                 startA();
             }
         });
+        view.findViewById(R.id.bt3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LiveDataEventBus.with("hello").postValue("hello");
+            }
+        });
+        view.findViewById(R.id.bt4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                active();
+            }
+        });
+
+        LiveDataEventBus.with("hello").observe(getLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                tv_1.append(s);
+            }
+        });
+
+        //打开关闭模拟 泄漏
+        TaskExecutor.mainThread(new Runnable() {
+            @Override
+            public void run() {
+                active();
+            }
+        }, 2000);
+
+    }
+
+    private void active() {
+        getActivePresent().loadingView.showLoading("Hello:" + getObjectId());
     }
 
     private void replaceUi() {
-        getActivity().getSupportFragmentManager()
-                .beginTransaction().add(id, new ViewDkotlinFragment()).addToBackStack(null).commit();
 //        getActivity().getSupportFragmentManager()
-//                .beginTransaction().add(id, new ViewDelegateFragment()).addToBackStack(null).commit();
+//                .beginTransaction().add(id, new ViewDkotlinFragment()).addToBackStack(null).commit();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction().add(id, new ViewDelegateFragment()).addToBackStack(null).commit();
     }
 
     private void startA() {
