@@ -1,4 +1,4 @@
-package com.sum.library.net;
+package com.sum.library_network;
 
 import com.google.gson.Gson;
 

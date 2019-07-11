@@ -1,4 +1,4 @@
-package com.sum.library.utils;
+package com.sum.library_network.download;
 
 
 import java.io.File;
@@ -74,7 +74,7 @@ public class FileDownloadHelper {
      * @param targetFile       保存的本地文件地址
      * @param downloadListener 回调状态
      */
-    public Call downloadFile(final String url, File targetFile, final FileDownloadListener downloadListener) {
+    public Call downloadFile(final String url, final File targetFile, final FileDownloadListener downloadListener) {
 
         try {
             targetFile.deleteOnExit();

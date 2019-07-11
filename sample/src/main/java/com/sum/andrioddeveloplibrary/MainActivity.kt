@@ -23,10 +23,11 @@ import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateActivity
 import com.sum.library.AppFileConfig
 import com.sum.library.app.BaseActivity
 import com.sum.library.framework.AppDownloadManager
-import com.sum.library.utils.FileDownloadHelper
+import com.sum.library.utils.ACache
 import com.sum.library.utils.Logger
 import com.sum.library.utils.TaskExecutor.mainThread
 import com.sum.library.view.widget.DialogMaker
+import com.sum.library_network.download.FileDownloadHelper
 import jetpack.demo.NewStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -133,11 +134,11 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         val mLocalFile = AppFileConfig.getFileDirectory().path + "/20180913150705.jpg"
         Logger.e("file->$mLocalFile")
         val file = File(mLocalFile)
-        if (file.exists()) {
-            val intent = FileOpen.getOpenFileIntent(mLocalFile)
-            startActivity(intent)
-            return
-        }
+//        if (file.exists()) {
+//            val intent = FileOpen.getOpenFileIntent(mLocalFile)
+//            startActivity(intent)
+//            return
+//        }
 
         val dialog = DialogMaker.showProgress(this, "", "文件下载中...", false)
         FileDownloadHelper.instance().downloadFile(url, file, object : FileDownloadHelper.FileDownloadListener {
@@ -175,8 +176,10 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
         PermissionUtils.permission(*PermissionConstants.getPermissions(PermissionConstants.STORAGE), *PermissionConstants.getPermissions(PermissionConstants.PHONE)).request()
 
-        val time = System.currentTimeMillis() - SumApp.mOpenStartTime
+        var time = System.currentTimeMillis() - SumApp.mOpenStartTime
         LogUtils.e("open time->$time")
+        time = System.currentTimeMillis() - (ACache.get(this).getAsObject("time") as Long)
+        LogUtils.e("open time22->$time")
 
     }
 

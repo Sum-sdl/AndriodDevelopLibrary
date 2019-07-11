@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.sum.library.app.BaseActivity;
-import com.sum.library.net.Retrofit2Helper;
+import com.sum.library_network.Retrofit2Helper;
 
 import retrofit2.Retrofit;
 

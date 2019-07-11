@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="WebActivity测试" />
+            android:text="自定义相机" />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

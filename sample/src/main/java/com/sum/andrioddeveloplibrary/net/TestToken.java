@@ -1,6 +1,7 @@
 package com.sum.andrioddeveloplibrary.net;
 
-import com.sum.library.net.token.BaseDynamicInterceptor;
+
+import com.sum.library_network.token.BaseDynamicInterceptor;
 
 import java.util.HashMap;
 import java.util.TreeMap;

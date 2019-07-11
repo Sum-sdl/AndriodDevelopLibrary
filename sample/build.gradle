@@ -131,6 +131,7 @@ dependencies {
 
     implementation project(':library-base')
     implementation project(':library-ui')
+    implementation project(':library-network')
 
     //美团日志框架
     implementation 'com.dianping.android.sdk:logan:1.2.1'

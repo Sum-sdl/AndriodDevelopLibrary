@@ -21,8 +21,9 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.squareup.leakcanary.LeakCanary;
 import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.AppFileConfig;
-import com.sum.library.net.Retrofit2Helper;
+import com.sum.library.utils.ACache;
 import com.sum.library.utils.Logger;
+import com.sum.library_network.Retrofit2Helper;
 
 /**
  * Created by sdl on 2017/12/27.
@@ -86,6 +87,8 @@ public class SumApp extends Application {
 
         Logger.e("SumApp onCreate");
         Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new TestToken());
+
+        ACache.get(this).put("time", mOpenStartTime);
     }
 
     @Override

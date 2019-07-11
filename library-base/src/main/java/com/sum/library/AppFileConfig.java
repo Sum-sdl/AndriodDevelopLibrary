@@ -24,6 +24,9 @@ public class AppFileConfig {
     private static Context mContext;
 
     public static void init(Context context) {
+        if (context == null) {
+            throw new RuntimeException("context is null");
+        }
         mContext = context.getApplicationContext();
     }
 
@@ -36,19 +39,39 @@ public class AppFileConfig {
         }
     }
 
+    /**
+     * @return 项目存储的根目录
+     */
     public static File getAppStoreDirectory() {
         return getBaseDir(false);
     }
 
-    public static File getFileDirectory() {
-        return getDir("file");
+    /**
+     * @param dirName 自定义目录名
+     * @return 创建并返回外部存储App_External_Directory_Name目录下的文件夹
+     */
+    public static File getDir(String dirName) {
+        return getDir(dirName, false);
     }
 
+    /**
+     * @return 根目录->图片目录
+     */
     public static File getFileImageDirectory() {
         return getDir("images");
     }
 
-    public static File getFileDirectoryCompress() {
+    /**
+     * @return 根目录->文件目录
+     */
+    public static File getFileDirectory() {
+        return getDir("file");
+    }
+
+    /**
+     * @return 根目录->文件目录->压缩目录
+     */
+    public static File getFileCompressDirectory() {
         File result = new File(getFileDirectory() + File.separator + "compress");
         if (result.exists() || result.mkdirs()) {
             return result;
@@ -57,14 +80,13 @@ public class AppFileConfig {
         }
     }
 
-    //任意临时缓存文件夹
-    public static File getCacheDirectoryFile() {
+    /**
+     * @return 系统统一缓存目录
+     */
+    public static File getAppCacheDirectory() {
         return getDir("cache", true);
     }
 
-    public static File getDir(String dirName) {
-        return getDir(dirName, false);
-    }
 
     //创建项目目录下的文件夹
     public static File getDir(String dirName, boolean isAppCacheFile) {
