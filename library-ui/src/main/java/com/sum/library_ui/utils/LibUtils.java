@@ -2,19 +2,21 @@ package com.sum.library_ui.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 /**
  * Created by sdl on 2019-06-19.
  */
-public class Utils {
+public class LibUtils {
     /**
      * Return the width of screen, in pixel.
      *
@@ -67,12 +69,7 @@ public class Utils {
         return (int) (pxValue / scale + 0.5f);
     }
 
-    public static void showShort(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();;
-    }
-
     public static void transparentStatusBar(final Activity activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -89,4 +86,41 @@ public class Utils {
         }
     }
 
+    /**
+     * Set the screen to landscape.
+     *
+     * @param activity The activity.
+     */
+    public static void setLandscape(@NonNull final Activity activity) {
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+    /**
+     * Set the screen to portrait.
+     *
+     * @param activity The activity.
+     */
+    public static void setPortrait(@NonNull final Activity activity) {
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    /**
+     * Return whether screen is landscape.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isLandscape(Context context) {
+        return context.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    /**
+     * Return whether screen is portrait.
+     *
+     * @return {@code true}: yes<br>{@code false}: no
+     */
+    public static boolean isPortrait(Context context) {
+        return context.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+    }
 }

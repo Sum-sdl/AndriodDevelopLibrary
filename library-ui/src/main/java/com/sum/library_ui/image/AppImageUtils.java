@@ -38,9 +38,8 @@ public class AppImageUtils {
      * 选择调用系统相册
      */
     public static void systemChooseImage(Activity activity, int requestCode) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -228,7 +227,7 @@ public class AppImageUtils {
         Luban.with(context)
                 .load(target)
                 .ignoreBy(100)
-                .setTargetDir(AppFileConfig.getFileDirectoryCompress().getPath())
+                .setTargetDir(AppFileConfig.getFileCompressDirectory().getPath())
                 .setCompressListener(compressListener).launch();
     }
 
@@ -236,7 +235,7 @@ public class AppImageUtils {
         Luban.with(context)
                 .load(target)
                 .ignoreBy(100)
-                .setTargetDir(AppFileConfig.getFileDirectoryCompress().getPath())
+                .setTargetDir(AppFileConfig.getFileCompressDirectory().getPath())
                 .setCompressListener(compressListener).launch();
     }
 }

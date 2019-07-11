@@ -9,7 +9,7 @@ ext {
     artifact = bintrayName
     libraryName = 'base library'
     libraryDescription = ''
-    libraryVersion = lib_base
+    libraryVersion = '2.0.5'
 }
 
 android {
@@ -48,11 +48,6 @@ dependencies {
     api "com.android.support:design:${rootProject.ext.dependencies.supportLibraryVersion}"
     //最新框架lifecycle扩展
     api "android.arch.lifecycle:extensions:1.1.1"
-
-    // retrofit2
-    api 'com.squareup.retrofit2:retrofit:2.5.0'
-    api 'com.squareup.retrofit2:converter-gson:2.5.0'
-
 }
 
 apply from: '../up_install.gradle'

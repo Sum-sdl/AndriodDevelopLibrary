@@ -7,7 +7,7 @@ import com.sum.library.app.BaseActivity
 import com.sum.library.utils.simple.SimpleViewPagerFragmentAdapter
 import com.sum.library.view.widget.PubTitleView
 import com.sum.library_ui.R
-import com.sum.library_ui.utils.Utils
+import com.sum.library_ui.utils.LibUtils
 import kotlinx.android.synthetic.main.ui_activity_image_preview.*
 
 class ImagePreviewActivity : BaseActivity() {
@@ -35,7 +35,7 @@ class ImagePreviewActivity : BaseActivity() {
         list?.forEach {
             fragments.add(ImagePreviewFragment.instance(it, true))
         }
-        Utils.transparentStatusBar(this)
+        LibUtils.transparentStatusBar(this)
         image_view_pager.adapter = SimpleViewPagerFragmentAdapter(supportFragmentManager, fragments, null)
         image_view_pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {

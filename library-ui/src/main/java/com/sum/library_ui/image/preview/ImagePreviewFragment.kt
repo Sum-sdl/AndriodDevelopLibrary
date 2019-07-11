@@ -29,7 +29,7 @@ class ImagePreviewFragment : BaseFragment() {
 
     override fun initParams(view: View?) {
         val url = arguments?.getString("url")
-
+        val close: Boolean? = arguments?.getBoolean("close")
 
         if (TextUtils.isEmpty(url)) {
             return
@@ -39,17 +39,12 @@ class ImagePreviewFragment : BaseFragment() {
         val options = RequestOptions.fitCenterTransform()
         Glide.with(this).asDrawable().load(source).apply(options)
                 .transition(DrawableTransitionOptions().crossFade())
-                /* .listener(object : RequestListener<Drawable> {
-                     override fun onLoadFailed(e: GlideException?, model: Any?,
-                                               target: Target<Drawable>?, isFirstResource:
-                                               Boolean): Boolean {
-                         ToastUtils.showShort("加载失败")
-                     }
-
-                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                     }
-                 })*/
                 .into(photo_view)
+        photo_view.setOnPhotoTapListener { _, _, _ ->
+            if (close != null && close) {
+                activity?.finish()
+            }
+        }
 
     }
 

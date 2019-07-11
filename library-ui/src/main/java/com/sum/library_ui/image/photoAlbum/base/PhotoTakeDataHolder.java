@@ -9,7 +9,7 @@ import com.sum.adapter.RecyclerViewHolder;
 import com.sum.library_ui.R;
 import com.sum.library_ui.image.photoAlbum.AlbumInfo;
 import com.sum.library_ui.image.photoAlbum.PhotoAlbumListener;
-import com.sum.library_ui.utils.Utils;
+import com.sum.library_ui.utils.LibUtils;
 
 /**
  * Created by sdl on 2018/1/12.
@@ -55,7 +55,7 @@ public class PhotoTakeDataHolder extends RecyclerDataHolder<Photo> {
                 }
             });
             int span_count = mAlbumInfo.span_count;
-            int screenWidth = Utils.getScreenWidth(mContext);
+            int screenWidth = LibUtils.getScreenWidth(mContext);
             int width = screenWidth / span_count;
             int height = width;
             ViewGroup.LayoutParams params = take.getLayoutParams();

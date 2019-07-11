@@ -12,6 +12,7 @@ import android.transition.Transition
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
+import com.sum.library_ui.camera.CameraActivity
 import com.sum.library_ui.image.AppImageUtils
 import com.sum.library_ui.image.photoAlbum.AlbumInfo
 import com.sum.library_ui.utils.ImageLoader
@@ -127,7 +128,8 @@ class LibUIActivity : BaseAppActivity() {
         }
 
         btn_6.setOnClickListener {
-            WebActivity.open(this, "https://aznapi.house365.com/Home/Information/lists")
+//            WebActivity.open(this, "https://aznapi.house365.com/Home/Information/lists")
+            CameraActivity.open(this,"")
         }
     }
 

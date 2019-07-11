@@ -68,6 +68,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initParams() {
+        per();
     }
 
     private void per() {

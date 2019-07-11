@@ -20,19 +20,22 @@ public class ImageLoader {
     public static int mErrorResId = R.drawable.pub_imageload_bg;
 
     public static void loadImage(ImageView imageView, String url) {
-        if (!TextUtils.isEmpty(url)) {
-            loadImage(imageView, url, false, mPlaceResId, mErrorResId);
-        }
+        loadImage(imageView, url, false, mPlaceResId, mErrorResId);
+    }
+
+    public static void loadImage(ImageView imageView, String url, int errorResId) {
+        loadImage(imageView, url, false, errorResId, errorResId);
     }
 
     public static void loadImage(ImageView imageView, String url, boolean isCircle) {
-        if (!TextUtils.isEmpty(url)) {
-            loadImage(imageView, url, isCircle, mPlaceResId, mErrorResId);
-        }
+        loadImage(imageView, url, isCircle, mPlaceResId, mErrorResId);
     }
 
     public static void loadImage(ImageView imageView, String url, boolean isCircle, int placeholderResId, int errorResId) {
-
+        if (TextUtils.isEmpty(url)) {
+            imageView.setImageResource(errorResId);
+            return;
+        }
         RequestOptions options;
         if (isCircle) {
             options = RequestOptions.circleCropTransform();

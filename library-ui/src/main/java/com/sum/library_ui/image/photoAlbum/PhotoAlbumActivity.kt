@@ -17,6 +17,7 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.sum.adapter.RecyclerAdapter
 import com.sum.adapter.RecyclerDataHolder
 import com.sum.library.app.BaseActivity
@@ -25,7 +26,7 @@ import com.sum.library_ui.R
 import com.sum.library_ui.image.AppImageUtils
 import com.sum.library_ui.image.photoAlbum.base.*
 import com.sum.library_ui.image.preview.ImagePreviewActivity
-import com.sum.library_ui.utils.Utils
+import com.sum.library_ui.utils.LibUtils
 import kotlinx.android.synthetic.main.ui_activity_album_photo.*
 import java.io.File
 import java.util.*
@@ -232,7 +233,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 mPopupWindow.setAdapter(DictAdapter(this@PhotoAlbumActivity, mDictData))
                 if (mDictData.size > 0) {
                     val count = if (mDictData.size > 4) 4 else mDictData.size
-                    mPopupWindow.height = count * Utils.dp2px(90f)
+                    mPopupWindow.height = count * LibUtils.dp2px(90f)
                 }
 
                 //回复上次选中的文件状态
@@ -334,7 +335,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 mChoosePhoto.add(photo)
                 mAdapter.notifyItemChanged(position)
             } else {
-                Utils.showShort(mContext, "最多可选 $mMaxNum 张图片")
+                Toast.makeText(mContext, "最多可选 $mMaxNum 张图片", Toast.LENGTH_SHORT).show()
             }
         } else {
             mChoosePhoto.remove(photo)

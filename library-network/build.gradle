@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
 
 //手动上传操作
-//1. ./gradlew library-base:install
-//2. ./gradlew library-base::bintrayUpload
+//1. ./gradlew library-network:install
+//2. ./gradlew library-network::bintrayUpload
 
 ext {
     bintrayName = 'library-network'
     artifact = bintrayName
     libraryName = 'library'
     libraryDescription = ''
-    libraryVersion = lib_base
+    libraryVersion = '2.0.0'
 }
 
 android {

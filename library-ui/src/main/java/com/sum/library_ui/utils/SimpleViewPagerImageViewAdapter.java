@@ -14,10 +14,10 @@ import java.util.List;
 
 /**
  * Created by sdl on 2017/12/19.
- * ViewPager PagerAdapter适配器
+ * ViewPager 图片适配器
  */
 
-public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.ImageData> extends PagerAdapter {
+public class SimpleViewPagerImageViewAdapter<T extends SimpleViewPagerImageViewAdapter.ImageData> extends PagerAdapter {
 
     public void setListener(onItemImageClick<T> mListener) {
         this.mListener = mListener;
@@ -55,7 +55,7 @@ public class ViewPagerImageViewAdapter<T extends ViewPagerImageViewAdapter.Image
 
     private ArrayList<ImageView> mCachedViews;
 
-    public ViewPagerImageViewAdapter(List<T> mData) {
+    public SimpleViewPagerImageViewAdapter(List<T> mData) {
         this.mData = mData;
         mCachedViews = new ArrayList<>(1);
     }

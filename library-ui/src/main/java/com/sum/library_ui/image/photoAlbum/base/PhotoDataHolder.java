@@ -1,12 +1,9 @@
 package com.sum.library_ui.image.photoAlbum.base;
 
-import android.content.Context;
-import android.graphics.Point;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -18,7 +15,7 @@ import com.sum.adapter.RecyclerViewHolder;
 import com.sum.library_ui.R;
 import com.sum.library_ui.image.photoAlbum.AlbumInfo;
 import com.sum.library_ui.image.photoAlbum.PhotoAlbumListener;
-import com.sum.library_ui.utils.Utils;
+import com.sum.library_ui.utils.LibUtils;
 
 /**
  * Created by sdl on 2018/1/12.
@@ -65,7 +62,7 @@ public class PhotoDataHolder extends RecyclerDataHolder<Photo> {
             //计算view大小
             int span_count = albumInfo.span_count;
 
-            int screenWidth = Utils.getScreenWidth(mContext);
+            int screenWidth = LibUtils.getScreenWidth(mContext);
             int width = screenWidth / span_count;
             int height = width + 1;
             ViewGroup.LayoutParams params = mDView.getLayoutParams();
