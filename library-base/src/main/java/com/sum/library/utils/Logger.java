@@ -10,89 +10,89 @@ public class Logger {
 
     private static Logger instance = new Logger();
 
-    private String getFunctionName() {
-        StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+    public static int defaultLogStackOffset = 0;
 
-        if (sts == null) {
-            return null;
-        }
-        for (StackTraceElement st : sts)
+    private String getFunctionName(int offset) {
+        StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+        int index = 0;
+        int size = sts.length;
+        for (StackTraceElement st : sts) {
             if (!st.isNativeMethod()) {
                 if (!st.getClassName().equals(Thread.class.getName())) {
                     if (!st.getClassName().equals(getClass().getName())) {
-                        return "[" + Thread.currentThread().getName() + "(" + Thread.currentThread().getId() +
-                                "): " + st.getFileName() + ":" + st.getLineNumber() + "]";
+                        int indexOffset = index + offset;
+                        if (indexOffset < size) {
+                            return getStackInfo(sts[index + offset]);
+                        } else {
+                            return getStackInfo(st);
+                        }
                     }
                 }
             }
+            index++;
+        }
         return null;
     }
 
-    private String createMessage(String msg) {
-        String functionName = getFunctionName();
+    private String getStackInfo(StackTraceElement st) {
+        return "[" + Thread.currentThread().getName() + "(" + Thread.currentThread().getId() +
+                "): " + st.getFileName() + ":" + st.getLineNumber() + "]";
+    }
+
+    private String createMessage(String msg, int offset) {
+        String functionName = getFunctionName(offset);
         return functionName + " - " + msg;
     }
 
-    private void info(String msg) {
+    private void info(String msg, int offset) {
         if (mDebug) {
-            String message = createMessage(msg);
+            String message = createMessage(msg, offset);
             Log.i(tag, message);
         }
     }
 
     public static void i(String msg) {
-        instance.info(msg);
+        instance.info(msg, defaultLogStackOffset);
     }
 
-    public static void i(Exception e) {
-        instance.info(e != null ? e.toString() : "null");
+    public static void i(String msg, int offset) {
+        instance.info(msg, offset);
     }
 
-    private void verbose(String msg) {
+    private void debug(String msg, int offset) {
         if (mDebug) {
-            String message = createMessage(msg);
-            Log.v(tag, message);
-        }
-    }
-
-    public static void v(String msg) {
-        instance.verbose(msg);
-    }
-
-    public static void v(Exception e) {
-        instance.verbose(e != null ? e.toString() : "null");
-    }
-
-    public void debug(String msg) {
-        if (mDebug) {
-            String message = createMessage(msg);
+            String message = createMessage(msg, offset);
             Log.d(tag, message);
         }
     }
 
     public static void d(String msg) {
-        instance.debug(msg);
+        instance.debug(msg, defaultLogStackOffset);
     }
 
-    public static void d(Exception e) {
-        instance.debug(e != null ? e.toString() : "null");
+    public static void d(String msg, int offset) {
+        instance.debug(msg, offset);
     }
 
-    public void error(String msg) {
+    public void error(String msg, int offset) {
         if (mDebug) {
-            String message = createMessage(msg);
+            String message = createMessage(msg, offset);
             Log.e(tag, message);
         }
     }
 
     public static void e(String msg) {
-        instance.error(msg);
+        instance.error(msg, defaultLogStackOffset);
+    }
+
+    public static void e(String msg, int offset) {
+        instance.error(msg, offset);
     }
 
     public void error(Exception e) {
         if (mDebug) {
             StringBuilder sb = new StringBuilder();
-            String name = getFunctionName();
+            String name = getFunctionName(0);
             StackTraceElement[] sts = e.getStackTrace();
 
             if (name != null)
@@ -116,19 +116,23 @@ public class Logger {
     }
 
 
-    private void warn(String msg) {
+    private void warn(String msg, int offset) {
         if (mDebug) {
-            String message = createMessage(msg);
+            String message = createMessage(msg, offset);
             Log.w(tag, message);
         }
     }
 
     public static void w(String msg) {
-        instance.warn(msg);
+        instance.warn(msg, defaultLogStackOffset);
+    }
+
+    public static void w(String msg, int offset) {
+        instance.warn(msg, offset);
     }
 
     public static void w(Exception e) {
-        instance.warn(e != null ? e.toString() : "null");
+        instance.warn(e != null ? e.toString() : "null", defaultLogStackOffset);
     }
 
     public static void setDebug(boolean isDebug) {
