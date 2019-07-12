@@ -46,3 +46,5 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.5.0'
 
 }
+apply from: '../up_install.gradle'
+apply from: '../up_bintray.gradle'
