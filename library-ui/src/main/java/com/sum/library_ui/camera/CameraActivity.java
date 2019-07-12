@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -29,17 +30,19 @@ import com.sum.library_ui.utils.LibUtils;
  */
 public class CameraActivity extends BaseActivity implements CameraFragment.TakeCompleteListener {
 
-    public static void open(Activity context, String targetFile) {
+    public static void open(Activity context, int requestCode) {
         Intent intent = new Intent(context, CameraActivity.class);
-        intent.putExtra("targetFile", targetFile);
-        context.startActivityForResult(intent, 1001);
+        context.startActivityForResult(intent, requestCode);
         context.overridePendingTransition(R.anim.activity_bottom_in, R.anim.activity_anim_no);
     }
 
-    public static void open(Fragment context, String targetFile) {
+    public static void open(Fragment context, int requestCode) {
         Intent intent = new Intent(context.getContext(), CameraActivity.class);
-        intent.putExtra("targetFile", targetFile);
-        context.startActivityForResult(intent, 1001);
+        context.startActivityForResult(intent, requestCode);
+        FragmentActivity activity = context.getActivity();
+        if (activity != null) {
+            activity.overridePendingTransition(R.anim.activity_bottom_in, R.anim.activity_anim_no);
+        }
     }
 
     private View mPreviewView;
@@ -169,11 +172,13 @@ public class CameraActivity extends BaseActivity implements CameraFragment.TakeC
 
 
     private void reTake() {
+        mFragment.createNewFile();
         mFragment.mPreviewView.setVisibility(View.VISIBLE);
         mPreviewView.setVisibility(View.GONE);
     }
 
     private void cancel() {
+        mFragment.deleteFile();
         finish();
     }
 

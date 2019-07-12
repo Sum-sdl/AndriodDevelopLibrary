@@ -76,7 +76,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
     @Override
     public void onViewCreated(@Nullable View view, @Nullable Bundle savedInstanceState) {
         //默认存储的文件地址
-        dirPath = new File(AppFileConfig.getFileImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
+        createNewFile();
         //相机配置
         if (savedInstanceState == null) {
             mCameraID = getBackCameraID();
@@ -145,6 +145,11 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         return false;
     }
 
+    public void createNewFile() {
+        deleteFile();
+        dirPath = new File(AppFileConfig.getFileImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
+    }
+
     /**
      * Start the camera preview
      */
@@ -152,10 +157,6 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         determineDisplayOrientation();
         setupCamera();
         try {
-            if (dirPath != null) {
-                dirPath.deleteOnExit();
-            }
-            dirPath = new File(AppFileConfig.getFileImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
             mCamera.setPreviewDisplay(mSurfaceHolder);
             mCamera.startPreview();
         } catch (IOException e) {
@@ -320,13 +321,20 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         mOrientationListener.disable();
         mCamera = null;
         // 没有拍照，直接删除
+        if (dirPath.length() == 0) {
+            deleteFile();
+        }
+    }
+
+    public boolean deleteFile() {
         try {
-            if (dirPath.exists() && dirPath.length() == 0) {
-                dirPath.deleteOnExit();
+            if (dirPath != null && dirPath.exists()) {
+                return dirPath.delete();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override

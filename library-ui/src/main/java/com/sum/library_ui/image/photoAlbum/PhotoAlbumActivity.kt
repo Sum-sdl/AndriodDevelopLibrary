@@ -23,6 +23,7 @@ import com.sum.adapter.RecyclerDataHolder
 import com.sum.library.app.BaseActivity
 import com.sum.library.view.widget.PubTitleView
 import com.sum.library_ui.R
+import com.sum.library_ui.camera.CameraActivity
 import com.sum.library_ui.image.AppImageUtils
 import com.sum.library_ui.image.photoAlbum.base.*
 import com.sum.library_ui.image.preview.ImagePreviewActivity
@@ -354,7 +355,11 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     }
 
     override fun onTakePhotoClick() {//系统拍照
-        mTakePhotoFile = AppImageUtils.systemTakePhoto(this, 101)
+        if (mAlbumInfo.customer_camera) {
+            CameraActivity.open(this, 101)
+        } else {
+            mTakePhotoFile = AppImageUtils.systemTakePhoto(this, 101)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -363,13 +368,13 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             return
         }
         if (requestCode == 101) {//系统拍照
+            if (mAlbumInfo.customer_camera) {
+                mTakePhotoFile = File(data!!.getStringExtra("path"))
+            }
             AppImageUtils.appRefreshAlbum(mContext,mTakePhotoFile?.path)
             if (mTakePhotoFile != null && mTakePhotoFile!!.exists()) {
                 addTakePic()
             }
-//            else {
-//                loadData()
-//            }
         }
     }
 

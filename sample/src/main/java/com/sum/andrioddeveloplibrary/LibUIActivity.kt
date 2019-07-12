@@ -74,6 +74,7 @@ class LibUIActivity : BaseAppActivity() {
 
         btn_1.setOnClickListener {
             val list = arrayListOf<String>()
+            list.add(mTake)
             list.addAll(mData)
             list.addAll(getAll())
             AppImageUtils.appImagePreview(this, list)
@@ -98,7 +99,8 @@ class LibUIActivity : BaseAppActivity() {
         btn_7.setOnClickListener {
             val info = AlbumInfo()
             info.max_count = 12
-            info.take_photo_open = false
+            info.take_photo_open = true
+            info.customer_camera = true
             info.span_count = 3
             AppImageUtils.appImageAlbum(this, info)
         }
@@ -129,7 +131,7 @@ class LibUIActivity : BaseAppActivity() {
 
         btn_6.setOnClickListener {
 //            WebActivity.open(this, "https://aznapi.house365.com/Home/Information/lists")
-            CameraActivity.open(this,"")
+            CameraActivity.open(this, 1001)
         }
     }
 
@@ -162,10 +164,12 @@ class LibUIActivity : BaseAppActivity() {
         outState?.putSerializable("file", mPhoto)
     }
 
+    private var mTake = ""
     private fun updateImageShow(file: String?) {
         if (file != null) {
             iv_2.post {
                 ImageLoader.loadImage(iv_2, file)
+                mTake = file
             }
         }
     }
