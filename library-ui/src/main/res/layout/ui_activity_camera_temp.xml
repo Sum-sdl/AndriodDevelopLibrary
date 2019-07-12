@@ -10,14 +10,4 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
 
-
-	<com.sum.library.view.widget.PubTitleView
-		android:id="@id/pub_title_view"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/translate"
-		app:title_default_adjust_bar="true"
-		app:title_default_white_theme="true" />
-
-
 </FrameLayout>

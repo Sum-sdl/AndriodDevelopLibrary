@@ -17,8 +17,23 @@
 		android:orientation="horizontal"
 		android:padding="10dp">
 
+		<FrameLayout
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1">
 
-		<RelativeLayout
+			<ImageView
+				android:id="@id/pub_title_back"
+				android:layout_width="@dimen/pub_title_height"
+				android:layout_height="@dimen/pub_title_height"
+				android:layout_gravity="center"
+				android:scaleType="center"
+				android:src="@mipmap/lib_ic_black_arrow" />
+
+		</FrameLayout>
+
+
+		<FrameLayout
 			android:layout_width="0dp"
 			android:layout_height="69dp"
 			android:layout_weight="1">
@@ -27,16 +42,29 @@
 				android:id="@+id/capture_image_button"
 				android:layout_width="60dp"
 				android:layout_height="60dp"
-				android:layout_centerInParent="true"
+				android:layout_gravity="center"
 				android:src="@mipmap/lib_ic_take_pic" />
 
 			<ProgressBar
 				android:id="@+id/progress"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_centerInParent="true"
+				android:layout_gravity="center"
 				android:visibility="gone" />
-		</RelativeLayout>
+		</FrameLayout>
+
+		<FrameLayout
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1">
+
+			<ImageView
+				android:id="@+id/change_camera"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:src="@mipmap/lib_ic_change_camera" />
+		</FrameLayout>
 
 	</LinearLayout>
 

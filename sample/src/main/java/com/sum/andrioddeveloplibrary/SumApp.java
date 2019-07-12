@@ -2,6 +2,8 @@ package com.sum.andrioddeveloplibrary;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
@@ -81,8 +83,17 @@ public class SumApp extends Application {
         }
         LeakCanary.install(this);
         //ui
-        BlockCanary.install(this, new BlockCanaryContext()).start();
-
+//        BlockCanary.install(this, new BlockCanaryContext()).start();
+//        if (BuildConfig.DEBUG) {
+//            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//                    .detectAll()
+//                    .penaltyLog()
+//                    .build());
+//            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+//                    .detectAll()
+//                    .penaltyLog()
+//                    .build());
+//        }
         //ANRWatchDog ANR监测线程
 
         Logger.e("SumApp onCreate");

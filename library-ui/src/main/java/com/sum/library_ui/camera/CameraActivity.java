@@ -20,12 +20,13 @@ import com.sum.library_ui.utils.LibUtils;
 /**
  * Created by sdl on 2019-07-11.
  */
-public class CameraActivity extends BaseActivity {
+public class CameraActivity extends BaseActivity implements CameraFragment.TakeCompleteListener {
 
     public static void open(Activity context, String targetFile) {
         Intent intent = new Intent(context, CameraActivity.class);
         intent.putExtra("targetFile", targetFile);
         context.startActivityForResult(intent, 1001);
+        context.overridePendingTransition(R.anim.activity_bottom_in, R.anim.activity_anim_no);
     }
 
     public static void open(Fragment context, String targetFile) {
@@ -41,17 +42,22 @@ public class CameraActivity extends BaseActivity {
 
     @Override
     protected void initParams() {
-        LibUtils.transparentStatusBar(this);
+        LibUtils.setFullScreen(this);
         if (hasPermission()) {
             startCamera();
         } else {
-            //存在不在提示的权限
             if (hasDelayAllPermissions(this, needPermission)) {
                 showTipDialog();
             } else {
                 ActivityCompat.requestPermissions(this, needPermission, 1000);
             }
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_anim_no, R.anim.activity_bottom_out);
     }
 
     private void showTipDialog() {
@@ -62,18 +68,17 @@ public class CameraActivity extends BaseActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.setData(Uri.parse("package:" + getPackageName()));
                     startActivity(intent);
-                }).setNegativeButton("取消", (dialog, which) -> {
-                    startCamera();
-                });
+                }).setNegativeButton("取消", (dialog, which) -> finish());
+        builder.setCancelable(false);
         builder.show();
     }
 
-    private String[] needPermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+    private String[] needPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
 
     private boolean hasPermission() {
         for (String permission : needPermission) {
-            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
@@ -83,7 +88,7 @@ public class CameraActivity extends BaseActivity {
     private boolean hasDelayAllPermissions(Activity activity, String... permissions) {
         int count = 0;
         for (String permission : permissions) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, permission) && ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_DENIED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
                 count++;
             }
         }
@@ -119,5 +124,16 @@ public class CameraActivity extends BaseActivity {
                 showTipDialog();
             }
         }
+    }
+
+    @Override
+    public void onTakeFinish(String filePath) {
+        //返回上一级目录
+        Intent intent = getIntent();
+        Bundle bundle = new Bundle();
+        bundle.putString("path", filePath);
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

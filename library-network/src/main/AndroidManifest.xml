@@ -1,2 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.sum.library_network" />
+	package="com.sum.library_network">
+
+	<uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>

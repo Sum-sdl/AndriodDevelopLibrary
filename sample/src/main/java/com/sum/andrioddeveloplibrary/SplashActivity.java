@@ -1,5 +1,6 @@
 package com.sum.andrioddeveloplibrary;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -71,14 +72,19 @@ public class SplashActivity extends BaseActivity {
         per();
     }
 
+    private String[] needPermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+
     private void per() {
         List<String> permissions = PermissionUtils.getPermissions();
 
+        String[] permissions1 = PermissionConstants.getPermissions(PermissionConstants.STORAGE);
+        String[] permissions2 = PermissionConstants.getPermissions(PermissionConstants.CAMERA);
 
-        PermissionUtils.permission(PermissionConstants.getPermissions(PermissionConstants.STORAGE)).callback(new PermissionUtils.FullCallback() {
+
+        PermissionUtils.permission(needPermission).callback(new PermissionUtils.FullCallback() {
             @Override
             public void onGranted(List<String> permissionsGranted) {//允许
-                ToastUtils.showShort(permissions.toString());
+                ToastUtils.showShort(needPermission.toString());
             }
 
             @Override

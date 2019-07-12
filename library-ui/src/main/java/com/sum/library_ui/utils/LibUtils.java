@@ -5,13 +5,26 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.hardware.Camera;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by sdl on 2019-06-19.
@@ -86,6 +99,9 @@ public class LibUtils {
         }
     }
 
+    public static void setFullScreen(@NonNull final Activity activity) {
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
     /**
      * Set the screen to landscape.
      *
@@ -123,4 +139,149 @@ public class LibUtils {
         return context.getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_PORTRAIT;
     }
+
+
+    /**
+     * 获得最接近屏幕的尺寸
+     */
+    public static Camera.Size getCurrentScreenSize(Context context, List<Camera.Size> sizeList) {
+        if (sizeList != null && sizeList.size() > 0) {
+            int screenHeight = getScreenHeight(context);
+            int screenWidth = getScreenWidth(context);
+            if (isLandscape(context)) {
+                screenHeight = getScreenWidth(context);
+                screenWidth = getScreenHeight(context);
+            }
+            ChoiceSizeBean[] arry = new ChoiceSizeBean[sizeList.size()];
+            int temp = 0;
+            for (Camera.Size size : sizeList) {
+                arry[temp++] = new ChoiceSizeBean(size.height, size.width);
+            }
+            Arrays.sort(arry, Collections.reverseOrder());
+            // 选择比例接近的尺寸
+            ArrayList<ChoiceSizeBean> tmp = new ArrayList<>();
+            for (int i = 0; i < arry.length; i++) {
+                // 排除比例不同的
+                Log.d("CameraUtils", arry[i].getHeight() + " " + arry[i].getWidth() + " " + arry[i].getWidth() * 1.0f / arry[i].getHeight());
+                // 比例差值不能太大
+                if (Math.abs(arry[i].getWidth() * 1.0f / arry[i].getHeight() - 16f / 9) > 0.1) {
+                    continue;
+                }
+                tmp.add(arry[i]);
+            }
+            if (tmp.size() == 0) {
+                return null;
+            }
+            // 根据屏幕尺寸进行筛选
+            ChoiceSizeBean largeLast = tmp.get(0);
+            for (ChoiceSizeBean choiceSizeBean : tmp) {
+                if (screenWidth <= choiceSizeBean.getHeight() && screenHeight <= choiceSizeBean.getWidth()) {
+                    if (choiceSizeBean.compareTo(largeLast) <= 0) {
+                        largeLast = choiceSizeBean;
+                    }
+                }
+            }
+            ChoiceSizeBean smallLast = tmp.get(tmp.size() - 1);
+            for (ChoiceSizeBean choiceSizeBean : tmp) {
+                if (screenWidth >= choiceSizeBean.getHeight() && screenHeight >= choiceSizeBean.getWidth()) {
+                    if (choiceSizeBean.compareTo(smallLast) >= 0) {
+                        smallLast = choiceSizeBean;
+                    }
+                }
+            }
+            // 最终选择
+            ChoiceSizeBean last = null;
+            if (largeLast != null) {
+                // 判断最大的尺寸是不是超过2倍屏幕
+                if (largeLast.getWidth() > 2 * screenHeight || largeLast.getHeight() >= 2 * screenWidth) {
+                    largeLast = null;
+                } else {
+                    last = largeLast;
+                }
+            }
+            if (largeLast == null) {
+                last = smallLast;
+            }
+
+            for (Camera.Size size : sizeList) {
+                if (size.width == last.getWidth() && size.height == last.getHeight()) {
+                    return size;
+                }
+            }
+        }
+        return null;
+    }
+
+    private static class ChoiceSizeBean implements Comparable<ChoiceSizeBean> {
+        private int height;
+        private int width;
+
+        private ChoiceSizeBean(int height, int width) {
+            this.height = height;
+            this.width = width;
+        }
+
+        public int getHeight() {
+            return height;
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        @Override
+        public int compareTo(ChoiceSizeBean o) {
+            return width * height - o.getWidth() * o.getHeight();
+        }
+    }
+
+    private static boolean createFileByDeleteOldFile(final File file) {
+        if (file == null) return false;
+        if (file.exists() && !file.delete()) return false;
+        try {
+            return file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean isEmptyBitmap(final Bitmap src) {
+        return src == null || src.getWidth() == 0 || src.getHeight() == 0;
+    }
+
+    /**
+     * Save the bitmap.
+     *
+     * @param src     The source of bitmap.
+     * @param file    The file.
+     * @param format  The format of the image.
+     * @param recycle True to recycle the source of bitmap, false otherwise.
+     * @return {@code true}: success<br>{@code false}: fail
+     */
+    public static boolean save(final Bitmap src,
+                               final File file,
+                               final Bitmap.CompressFormat format,
+                               final boolean recycle) {
+        if (isEmptyBitmap(src) || !createFileByDeleteOldFile(file)) return false;
+        OutputStream os = null;
+        boolean ret = false;
+        try {
+            os = new BufferedOutputStream(new FileOutputStream(file));
+            ret = src.compress(format, 100, os);
+            if (recycle && !src.isRecycled()) src.recycle();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return ret;
+    }
+
 }
