@@ -12,6 +12,7 @@ import android.hardware.Camera.Size;
 import android.hardware.SensorManager;
 import android.media.ExifInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.OrientationEventListener;
@@ -44,7 +45,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
     private String mFlashMode;
     private Camera mCamera;
     private SurfaceHolder mSurfaceHolder;
-    private SquareCameraPreview mPreviewView;
+    public SquareCameraPreview mPreviewView;
     private ProgressBar progress = null;
     private ImageView takePhotoBtn = null;
 
@@ -93,10 +94,16 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         mPreviewView = findViewById(R.id.camera_preview_view);
         mPreviewView.getHolder().addCallback(this);
         progress = findViewById(R.id.progress);
+        findViewById(R.id.pub_title_back).setOnClickListener(v -> {
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
+        });
         takePhotoBtn = findViewById(R.id.capture_image_button);
         takePhotoBtn = view.findViewById(R.id.capture_image_button);
         takePhotoBtn.setOnClickListener(v -> takePicture());
         initChangeCamera(view);
+        mOrientationListener.enable();
     }
 
     private void initChangeCamera(View view) {
@@ -119,7 +126,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt(CAMERA_ID_KEY, mCameraID);
         outState.putString(CAMERA_FLASH_KEY, mFlashMode);
         super.onSaveInstanceState(outState);
@@ -145,6 +152,10 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         determineDisplayOrientation();
         setupCamera();
         try {
+            if (dirPath != null) {
+                dirPath.deleteOnExit();
+            }
+            dirPath = new File(AppFileConfig.getFileImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
             mCamera.setPreviewDisplay(mSurfaceHolder);
             mCamera.startPreview();
         } catch (IOException e) {
@@ -246,7 +257,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         mCamera.setParameters(parameters);
     }
 
-    private Size determineBestPreviewSize(Camera.Parameters parameters) {
+    private Camera.Size determineBestPreviewSize(Camera.Parameters parameters) {
         return LibUtils.getCurrentScreenSize(getContext(), parameters.getSupportedPreviewSizes());
     }
 
@@ -281,6 +292,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
     private void takePicture() {
         progress.setVisibility(View.VISIBLE);
         takePhotoBtn.setVisibility(View.GONE);
+        mOrientationListener.rememberOrientation();
         // Shutter callback occurs after the image is captured. This can
         // be used to trigger a sound to let the user know that image is taken
         Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
@@ -305,6 +317,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
     public void onDestroy() {
         super.onDestroy();
         stopCameraPreview();
+        mOrientationListener.disable();
         mCamera = null;
         // 没有拍照，直接删除
         try {
@@ -346,29 +359,27 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         progress.setVisibility(View.GONE);
         takePhotoBtn.setVisibility(View.VISIBLE);
 
-        TaskExecutor.ioThread(new Runnable() {
-            @Override
-            public void run() {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeByteArray(data, 0, data.length, options);
-                //旋转情况
-                int orientation = mOrientationListener.getRememberedNormalOrientation();
-                options.inJustDecodeBounds = false;
-                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-                //照片旋转检测
-                Matrix matrix = new Matrix();
-                if (orientation != ExifInterface.ORIENTATION_UNDEFINED) {
-                    matrix.setRotate(orientation);
-                    if (mCameraID == CameraInfo.CAMERA_FACING_FRONT) {
-                        matrix.postScale(-1, 1);
-                    }
+        TaskExecutor.ioThread(() -> {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeByteArray(data, 0, data.length, options);
+            //旋转情况
+            int orientation = mOrientationListener.getRememberedNormalOrientation();
+            options.inJustDecodeBounds = false;
+            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+            //照片旋转检测
+            Matrix matrix = new Matrix();
+            if (orientation != ExifInterface.ORIENTATION_UNDEFINED) {
+                matrix.setRotate(orientation);
+                if (mCameraID == CameraInfo.CAMERA_FACING_FRONT) {
+                    matrix.postScale(-1, 1);
                 }
-                bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-                LibUtils.save(bmp, dirPath, Bitmap.CompressFormat.JPEG, true);
-                Log.d(TAG, "save bitmap finish:" + dirPath.getPath());
-                mTakeCompleteListener.onTakeFinish(dirPath.getPath());
             }
+            bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+            LibUtils.save(bmp, dirPath, Bitmap.CompressFormat.JPEG, true);
+            Log.d(TAG, "save bitmap finish:" + dirPath.getPath());
+            //通知显示预览
+            TaskExecutor.mainThread(() -> mTakeCompleteListener.onTakeFinish(dirPath.getPath()));
         });
     }
 

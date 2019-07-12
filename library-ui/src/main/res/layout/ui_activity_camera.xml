@@ -15,20 +15,22 @@
 		android:layout_gravity="bottom"
 		android:gravity="center"
 		android:orientation="horizontal"
-		android:padding="10dp">
+		android:padding="15dp">
 
 		<FrameLayout
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1">
 
+
 			<ImageView
 				android:id="@id/pub_title_back"
-				android:layout_width="@dimen/pub_title_height"
-				android:layout_height="@dimen/pub_title_height"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
 				android:layout_gravity="center"
+				android:padding="10dp"
 				android:scaleType="center"
-				android:src="@mipmap/lib_ic_black_arrow" />
+				android:src="@mipmap/lib_ic_take_photo_close" />
 
 		</FrameLayout>
 
@@ -55,17 +57,20 @@
 
 		<FrameLayout
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="1dp"
 			android:layout_weight="1">
 
-			<ImageView
-				android:id="@+id/change_camera"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:src="@mipmap/lib_ic_change_camera" />
 		</FrameLayout>
 
 	</LinearLayout>
+
+	<ImageView
+		android:id="@+id/change_camera"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="top|end"
+		android:layout_marginTop="25dp"
+		android:layout_marginEnd="5dp"
+		android:src="@drawable/lib_camera_change" />
 
 </FrameLayout>

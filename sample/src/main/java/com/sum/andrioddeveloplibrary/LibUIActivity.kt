@@ -12,11 +12,11 @@ import android.transition.Transition
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
+import com.sum.library.utils.Logger
 import com.sum.library_ui.camera.CameraActivity
 import com.sum.library_ui.image.AppImageUtils
 import com.sum.library_ui.image.photoAlbum.AlbumInfo
 import com.sum.library_ui.utils.ImageLoader
-import com.sum.library_ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_ui.*
 import top.zibin.luban.OnCompressListener
 import java.io.File
@@ -205,6 +205,11 @@ class LibUIActivity : BaseAppActivity() {
             tv_xc_2.append("剪裁图片地址：")
             tv_xc_2.append(AppImageUtils.appImageCropIntentPath(data))
             updateImageShow(AppImageUtils.appImageCropIntentPath(data))
+        } else if (requestCode == 1001) {
+            val file = data?.getStringExtra("path")
+            Logger.e(file)
+            updateImageShow(file)
+
         }
     }
 }

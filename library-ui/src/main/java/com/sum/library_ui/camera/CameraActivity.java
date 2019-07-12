@@ -12,7 +12,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
+import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.sum.library.app.BaseActivity;
 import com.sum.library_ui.R;
 import com.sum.library_ui.utils.LibUtils;
@@ -35,6 +42,12 @@ public class CameraActivity extends BaseActivity implements CameraFragment.TakeC
         context.startActivityForResult(intent, 1001);
     }
 
+    private View mPreviewView;
+
+    private PhotoView mImageView;
+
+    private CameraFragment mFragment;
+
     @Override
     protected int getLayoutId() {
         return R.layout.ui_activity_camera_temp;
@@ -43,6 +56,14 @@ public class CameraActivity extends BaseActivity implements CameraFragment.TakeC
     @Override
     protected void initParams() {
         LibUtils.setFullScreen(this);
+        mPreviewView = findViewById(R.id.fl_take_result);
+        mImageView = findViewById(R.id.photo_view);
+        findViewById(R.id.tv_take_cancel).setOnClickListener(v -> cancel());
+
+        findViewById(R.id.tv_take_conform).setOnClickListener(v -> conform());
+
+        findViewById(R.id.tv_take).setOnClickListener(v -> reTake());
+
         if (hasPermission()) {
             startCamera();
         } else {
@@ -104,6 +125,7 @@ public class CameraActivity extends BaseActivity implements CameraFragment.TakeC
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(
                     R.id.fl_content, fragment, "camera").commitAllowingStateLoss();
+            mFragment = fragment;
         }
     }
 
@@ -126,12 +148,39 @@ public class CameraActivity extends BaseActivity implements CameraFragment.TakeC
         }
     }
 
+    private String mFilePath;
+
     @Override
     public void onTakeFinish(String filePath) {
-        //返回上一级目录
+        mFilePath = filePath;
+        if (TextUtils.isEmpty(filePath)) {
+            return;
+        }
+        Uri parse = Uri.parse("file://" + filePath);
+        RequestOptions options = RequestOptions.fitCenterTransform().diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(this).asDrawable().load(parse).apply(options)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .into(mImageView);
+
+        mPreviewView.setVisibility(View.VISIBLE);
+        //关闭相机
+        mFragment.mPreviewView.setVisibility(View.GONE);
+    }
+
+
+    private void reTake() {
+        mFragment.mPreviewView.setVisibility(View.VISIBLE);
+        mPreviewView.setVisibility(View.GONE);
+    }
+
+    private void cancel() {
+        finish();
+    }
+
+    private void conform() {
         Intent intent = getIntent();
         Bundle bundle = new Bundle();
-        bundle.putString("path", filePath);
+        bundle.putString("path", mFilePath);
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();
