@@ -42,14 +42,24 @@
  > 基础结构库(Java)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-base:2.0.4'
+         implementation 'com.github.Sum-sdl:library-base:2.0.5'
+      }
+  ```
+> 网络库
+  ```gradle
+  dependencies {
+         implementation 'com.github.Sum-sdl:library-network:2.0.0'
       }
   ```
 > 基础UI库(Kotlin)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-ui:2.0.2'
+         implementation 'com.github.Sum-sdl:library-ui:2.0.4'
       }
+      
+      1.自定义相册
+      2.自定义相机
+      3.图片预览
   ```
  
 
