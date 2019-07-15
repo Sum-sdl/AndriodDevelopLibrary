@@ -100,6 +100,9 @@ public class SumApp extends Application {
         Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new TestToken());
 
         ACache.get(this).put("time", mOpenStartTime);
+
+        AppFileConfig.init(this);
+        AppFileConfig.getAppCacheImageDirectory();
     }
 
     @Override

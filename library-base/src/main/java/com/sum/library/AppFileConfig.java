@@ -81,10 +81,10 @@ public class AppFileConfig {
     }
 
     /**
-     * @return 系统统一缓存目录
+     * @return 系统统一缓存目录cache/image
      */
-    public static File getAppCacheDirectory() {
-        return getDir("cache", true);
+    public static File getAppCacheImageDirectory() {
+        return getDir("image", true);
     }
 
 

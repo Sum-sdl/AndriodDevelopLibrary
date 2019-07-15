@@ -147,7 +147,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
 
     public void createNewFile() {
         deleteFile();
-        dirPath = new File(AppFileConfig.getFileImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
+        dirPath = new File(AppFileConfig.getAppCacheImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
     }
 
     /**
