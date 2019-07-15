@@ -1,93 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="28dp"
-        android:layout_marginRight="28dp"
-        android:background="@drawable/shape_code_dialog_bg"
-        android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginLeft="28dp"
+		android:layout_marginRight="28dp"
+		android:background="@drawable/shape_code_dialog_bg"
+		android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:orientation="vertical"
-            android:paddingBottom="30dip"
-            android:paddingTop="28dip">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@android:color/transparent"
+			android:orientation="vertical"
+			android:paddingTop="28dip"
+			android:paddingBottom="30dip">
 
-            <TextView
-                android:id="@+id/choice_container_title"
-                style="@style/lib_style_choose_dialog_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dip"
-                android:layout_marginEnd="20dip"
-                android:layout_marginStart="20dip"
-                android:gravity="center"
-                android:lineSpacingExtra="7dip"
-                android:visibility="gone" />
+			<TextView
+				android:id="@+id/choice_container_title"
+				style="@style/lib_style_choose_dialog_title"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dip"
+				android:layout_marginEnd="20dip"
+				android:layout_marginBottom="20dip"
+				android:gravity="center"
+				android:lineSpacingExtra="7dip"
+				android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/choice_container_content"
-                style="@style/lib_style_choose_dialog_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="20dip"
-                android:layout_marginStart="20dip"
-                android:gravity="center"
-                android:lineSpacingExtra="7dip"
-                android:minHeight="30dip" />
-        </LinearLayout>
+			<TextView
+				android:id="@+id/choice_container_content"
+				style="@style/lib_style_choose_dialog_message"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginStart="20dip"
+				android:layout_marginEnd="20dip"
+				android:gravity="center"
+				android:lineSpacingExtra="7dip"
+				android:minHeight="30dip" />
+		</LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:background="#e5e5e5" />
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dip"
+				android:background="#e5e5e5" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dip"
-                android:gravity="center"
-                android:orientation="horizontal">
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="44dip"
+				android:gravity="center"
+				android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/choice_container_negative"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:text="取消"
-                    android:textColor="#999999"
-                    android:textSize="14sp" />
+				<TextView
+					android:id="@+id/choice_container_negative"
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:background="@android:color/transparent"
+					android:gravity="center"
+					android:text="取消"
+					android:textColor="#999999"
+					android:textSize="14sp" />
 
-                <View
-                    android:id="@+id/choice_container_line"
-                    android:layout_width="1dip"
-                    android:layout_height="match_parent"
-                    android:background="#e5e5e5" />
+				<View
+					android:id="@+id/choice_container_line"
+					android:layout_width="1dip"
+					android:layout_height="match_parent"
+					android:background="#e5e5e5" />
 
-                <Button
-                    android:id="@+id/choice_container_positive"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:text="确定"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+				<TextView
+					android:id="@+id/choice_container_positive"
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:background="@android:color/transparent"
+					android:gravity="center"
+					android:text="确定"
+					android:textColor="@color/colorPrimary"
+					android:textSize="14sp" />
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
 </FrameLayout>

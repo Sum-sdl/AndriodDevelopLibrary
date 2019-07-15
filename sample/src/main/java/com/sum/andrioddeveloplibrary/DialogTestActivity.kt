@@ -6,8 +6,8 @@ import android.view.View
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.library.app.BaseDialogFragment
-import com.sum.library.view.sheet.DialogTimeChooseView
 import com.sum.library.view.sheet.DialogChooseView
+import com.sum.library.view.sheet.DialogTimeChooseView
 import kotlinx.android.synthetic.main.activity_dialog_test.*
 
 class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener {
@@ -73,7 +73,10 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
         }
 
         bt6.setOnClickListener {
-            DialogF().show(supportFragmentManager, "test")
+//            DialogF().show(supportFragmentManager, "test")
+            val d = DialogF()
+            d.setStyle(R.style.dialog_no_bg, 0)
+            d.showFast(this)
         }
     }
 
