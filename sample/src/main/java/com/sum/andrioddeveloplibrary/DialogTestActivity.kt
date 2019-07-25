@@ -54,8 +54,19 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
         bt3.setOnClickListener { _ ->
             DialogChooseView().setMessage("message").setTitle("Test Title")
-                    .setPos("Next").setCancel(true).setNeg("Cancel")
+                    .setPos("立即更新").setCancel(true).setNeedHideButtonWhenEmpty(true).setClickDismiss(true)
                     .setPosListener { ToastUtils.showLong("Next") }
+                    .setNegListener { ToastUtils.showLong("Cancel") }
+                    .show(supportFragmentManager, "show")
+        }
+
+        bt73.setOnClickListener { _ ->
+            DialogChooseView().setMessage("message")
+                    .setPos("立即更新2").setCancel(true).setNeg("neg").setNeedHideButtonWhenEmpty(true)
+                    .setPosListener {
+                        it.dismiss()
+                        ToastUtils.showLong("升级")
+                    }
                     .setNegListener { ToastUtils.showLong("Cancel") }
                     .show(supportFragmentManager, "show")
         }
@@ -73,7 +84,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
         }
 
         bt6.setOnClickListener {
-//            DialogF().show(supportFragmentManager, "test")
+            //            DialogF().show(supportFragmentManager, "test")
             val d = DialogF()
             d.setStyle(R.style.dialog_no_bg, 0)
             d.showFast(this)

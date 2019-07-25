@@ -2,6 +2,7 @@ package com.sum.library.view.sheet;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,11 +20,22 @@ public class DialogChooseView extends BaseDialogFragment {
     private String mTitle, mContent;
     private String mPos, mNeg;
     private boolean mCancel;
+    private boolean mClickDismiss, mNeedHideButtonWhenEmpty;
 
-    private View.OnClickListener mPosLis, mNegLis;
+    private ClickListener mPosLis, mNegLis;
+
+    public DialogChooseView setNeedHideButtonWhenEmpty(boolean needHideButtonWhenEmpty) {
+        mNeedHideButtonWhenEmpty = needHideButtonWhenEmpty;
+        return this;
+    }
 
     public DialogChooseView setCancel(boolean cancel) {
         mCancel = cancel;
+        return this;
+    }
+
+    public DialogChooseView setClickDismiss(boolean clickDismiss) {
+        mClickDismiss = clickDismiss;
         return this;
     }
 
@@ -47,12 +59,12 @@ public class DialogChooseView extends BaseDialogFragment {
         return this;
     }
 
-    public DialogChooseView setPosListener(View.OnClickListener pos) {
+    public DialogChooseView setPosListener(ClickListener pos) {
         mPosLis = pos;
         return this;
     }
 
-    public DialogChooseView setNegListener(View.OnClickListener neg) {
+    public DialogChooseView setNegListener(ClickListener neg) {
         mNegLis = neg;
         return this;
     }
@@ -95,26 +107,45 @@ public class DialogChooseView extends BaseDialogFragment {
         if (!TextUtils.isEmpty(mContent)) {
             content.setText(mContent);
         }
+
+        //确定按钮
         if (!TextUtils.isEmpty(mPos)) {
             pos.setText(mPos);
         }
+        if (mNeedHideButtonWhenEmpty && TextUtils.isEmpty(mPos)) {
+            pos.setVisibility(View.GONE);
+            view.findViewById(R.id.choice_container_line).setVisibility(View.GONE);
+        }
+
+        //取消按钮
         if (!TextUtils.isEmpty(mNeg)) {
             neg.setText(mNeg);
         }
-
+        if (mNeedHideButtonWhenEmpty && TextUtils.isEmpty(mNeg)) {
+            neg.setVisibility(View.GONE);
+            view.findViewById(R.id.choice_container_line).setVisibility(View.GONE);
+        }
         neg.setOnClickListener(v -> {
-            dismiss();
+            if (mClickDismiss) {
+                dismiss();
+            }
             if (mNegLis != null) {
-                mNegLis.onClick(v);
+                mNegLis.onClick(this);
             }
         });
 
         pos.setOnClickListener(v -> {
-            dismiss();
+            if (mClickDismiss) {
+                dismiss();
+            }
             if (mPosLis != null) {
-                mPosLis.onClick(v);
+                mPosLis.onClick(this);
             }
         });
         setCancelable(mCancel);
+    }
+
+    public interface ClickListener {
+        void onClick(DialogFragment view);
     }
 }
