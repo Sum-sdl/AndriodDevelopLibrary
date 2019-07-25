@@ -54,15 +54,18 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
         bt3.setOnClickListener { _ ->
             DialogChooseView().setMessage("message").setTitle("Test Title")
-                    .setPos("立即更新").setCancel(true).setNeedHideButtonWhenEmpty(true).setClickDismiss(true)
+                    .setNeg("立即更新").setCancel(true).setNeedHideButtonWhenEmpty(true).setClickDismiss(false)
                     .setPosListener { ToastUtils.showLong("Next") }
-                    .setNegListener { ToastUtils.showLong("Cancel") }
-                    .show(supportFragmentManager, "show")
+                    .setNegListener {
+                        ToastUtils.showLong("update")
+                        it.dismiss()
+                    }
+                    .showFast(this)
         }
 
         bt73.setOnClickListener { _ ->
             DialogChooseView().setMessage("message")
-                    .setPos("立即更新2").setCancel(true).setNeg("neg").setNeedHideButtonWhenEmpty(true)
+                    .setPos("立即更新2").setNeg("neg").setNeedHideButtonWhenEmpty(true)
                     .setPosListener {
                         it.dismiss()
                         ToastUtils.showLong("升级")

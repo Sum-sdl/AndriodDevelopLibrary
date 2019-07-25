@@ -20,7 +20,7 @@ public class DialogChooseView extends BaseDialogFragment {
     private String mTitle, mContent;
     private String mPos, mNeg;
     private boolean mCancel;
-    private boolean mClickDismiss, mNeedHideButtonWhenEmpty;
+    private boolean mClickDismiss = true, mNeedHideButtonWhenEmpty;
 
     private ClickListener mPosLis, mNegLis;
 
@@ -146,6 +146,6 @@ public class DialogChooseView extends BaseDialogFragment {
     }
 
     public interface ClickListener {
-        void onClick(DialogFragment view);
+        void onClick(DialogChooseView view);
     }
 }
