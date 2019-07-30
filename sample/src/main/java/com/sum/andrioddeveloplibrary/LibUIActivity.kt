@@ -12,6 +12,7 @@ import android.transition.Transition
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
+import com.sum.library.AppFileConfig
 import com.sum.library.utils.Logger
 import com.sum.library_ui.camera.CameraActivity
 import com.sum.library_ui.image.AppImageUtils
@@ -130,8 +131,9 @@ class LibUIActivity : BaseAppActivity() {
         }
 
         btn_6.setOnClickListener {
-//            WebActivity.open(this, "https://aznapi.house365.com/Home/Information/lists")
-            CameraActivity.open(this, 1001)
+            //            WebActivity.open(this, "https://aznapi.house365.com/Home/Information/lists")
+            val target = AppFileConfig.getAppStoreDirectory().path + "/test.img"
+            CameraActivity.open(this, 1001, target)
         }
     }
 

@@ -14,6 +14,7 @@ import android.media.ExifInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.Surface;
@@ -145,9 +146,18 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         return false;
     }
 
-    public void createNewFile() {
+    private void createNewFile() {
         deleteFile();
-        dirPath = new File(AppFileConfig.getAppCacheImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            String targetFile = arguments.getString("targetFile");
+            if (!TextUtils.isEmpty(targetFile)) {
+                dirPath = new File(targetFile);
+            }
+        }
+        if (dirPath == null) {
+            dirPath = new File(AppFileConfig.getAppCacheImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
+        }
     }
 
     /**
@@ -321,7 +331,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         mOrientationListener.disable();
         mCamera = null;
         // 没有拍照，直接删除
-        if (dirPath.length() == 0) {
+        if (dirPath != null && dirPath.length() == 0) {
             deleteFile();
         }
     }
@@ -384,6 +394,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
                 }
             }
             bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+            deleteFile();
             LibUtils.save(bmp, dirPath, Bitmap.CompressFormat.JPEG, true);
             Log.d(TAG, "save bitmap finish:" + dirPath.getPath());
             //通知显示预览
