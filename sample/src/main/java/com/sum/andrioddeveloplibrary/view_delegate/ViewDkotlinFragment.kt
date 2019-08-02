@@ -7,7 +7,7 @@ import com.sum.library.app.delegate.BaseDelegateFragment
  * Created by sdl on 2019-06-24.
  */
 
-class ViewDkotlinFragment : BaseDelegateFragment<UiKonlinDelegate>() {
+class ViewDkotlinFragment : BaseDelegateFragment() {
 
     override fun getViewDelegateClass(): Class<UiKonlinDelegate> {
         return UiKonlinDelegate::class.java

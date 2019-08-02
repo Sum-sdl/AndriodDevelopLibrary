@@ -64,7 +64,6 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresent = new ActivePresent(this);
-
         BaseViewModel viewModel = getViewModel();
         if (viewModel != null) {
             viewModel.registerActionState(this,
@@ -74,7 +73,6 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
                         }
                     });
         }
-
         printFragmentLife("onCreate");
     }
 
@@ -93,7 +91,7 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
         } else {
             mIsInflateView = false;
             ViewParent parent = cacheView.getParent();
-            if (parent != null && parent instanceof ViewGroup) {
+            if (parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(cacheView);
                 Logger.e("base fragment remove from parent  " + this.getClass().getName());
             }

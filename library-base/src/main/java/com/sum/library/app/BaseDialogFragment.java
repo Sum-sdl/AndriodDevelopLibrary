@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.sum.library.R;
+import com.sum.library.utils.Logger;
 
 import java.lang.ref.WeakReference;
 
@@ -51,7 +52,7 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             mWRView = new WeakReference<>(cacheView);
         } else {
             ViewParent parent = cacheView.getParent();
-            if (parent != null && parent instanceof ViewGroup) {
+            if (parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(cacheView);
             }
         }
@@ -101,7 +102,9 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
 
     public void showFast(Context context) {
         if (context instanceof FragmentActivity) {
-            show(((FragmentActivity) context).getSupportFragmentManager(), "dialog");
+            if (!((FragmentActivity) context).isFinishing()) {
+                show(((FragmentActivity) context).getSupportFragmentManager(), "dialog");
+            }
         }
     }
 }

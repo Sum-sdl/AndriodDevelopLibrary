@@ -80,8 +80,10 @@ public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment 
 
     public void showFast(Context context) {
         if (context instanceof FragmentActivity) {
-            FragmentManager manager = ((FragmentActivity) context).getSupportFragmentManager();
-            show(manager, "bottom_dialog");
+            if (!((FragmentActivity) context).isFinishing()) {
+                FragmentManager manager = ((FragmentActivity) context).getSupportFragmentManager();
+                show(manager, "bottom_dialog");
+            }
         }
     }
 }

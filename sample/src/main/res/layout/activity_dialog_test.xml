@@ -1,54 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".DialogTestActivity">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	tools:context=".DialogTestActivity">
 
 
-    <Button
-        android:id="@+id/bt1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="bottom sheet" />
+	<Button
+		android:id="@+id/bt1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="bottom sheet" />
 
-    <Button
-        android:id="@+id/bt2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="BottomSheetView 时间" />
+	<Button
+		android:id="@+id/bt2"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="BottomSheetView 时间" />
 
-    <Button
-        android:id="@+id/bt5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="BottomSheetView 日期" />
+	<Button
+		android:id="@+id/bt5"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="BottomSheetView 日期" />
 
-    <Button
-        android:id="@+id/bt4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="BottomSheetView 自定义数据源" />
+	<Button
+		android:id="@+id/bt51"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="BottomSheetView 日期" />
 
-    <Button
-        android:id="@+id/bt3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="DialogChooseView Dialog" />
+	<Button
+		android:id="@+id/bt4"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="BottomSheetView 自定义数据源" />
 
-    <Button
-        android:id="@+id/bt73"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="DialogChooseView Dialog2" />
+	<Button
+		android:id="@+id/bt3"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="DialogChooseView Dialog" />
+
+	<Button
+		android:id="@+id/bt31"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="DialogChooseView Dialog" />
+
+	<Button
+		android:id="@+id/bt73"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="DialogChooseView Dialog2" />
+
+	<Button
+		android:id="@+id/bt74"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="DialogChooseView延迟测试" />
 
 
-    <Button
-        android:id="@+id/bt6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="自定义的DialogFragment 测试" />
+	<Button
+		android:id="@+id/bt6"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="自定义的DialogFragment 测试" />
 
 
 </LinearLayout>

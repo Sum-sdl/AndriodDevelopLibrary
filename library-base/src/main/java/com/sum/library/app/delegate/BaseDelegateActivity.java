@@ -11,23 +11,27 @@ import com.sum.library.utils.AppUtils;
 /**
  * Created by sdl on 2019-06-22.
  */
-public abstract class BaseDelegateActivity<T extends IViewDelegate> extends FragmentActivity {
+public abstract class BaseDelegateActivity extends FragmentActivity {
 
-    protected T mViewDelegate;
+    private IViewDelegate mViewDelegate;
 
     //UI界面代理类
-    protected abstract Class<T> getViewDelegateClass();
+    protected abstract Class<? extends IViewDelegate> getViewDelegateClass();
 
     private void checkOrCreateDelegate() {
         if (mViewDelegate == null) {
             try {
                 mViewDelegate = getViewDelegateClass().newInstance();
             } catch (InstantiationException e) {
-                throw new RuntimeException("create IDelegate error");
+                throw new RuntimeException("create IDelegate error InstantiationException");
             } catch (IllegalAccessException e) {
-                throw new RuntimeException("create IDelegate error");
+                throw new RuntimeException("create IDelegate error IllegalAccessException");
             }
         }
+    }
+
+    public IViewDelegate getViewDelegate() {
+        return mViewDelegate;
     }
 
     //状态栏背景 颜色
@@ -35,9 +39,15 @@ public abstract class BaseDelegateActivity<T extends IViewDelegate> extends Frag
         return 0;
     }
 
+    //界面初始化后最先调用的模板方法，处理一些
+    protected void onCreateFirst(Bundle savedInstanceState) {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onCreateFirst(savedInstanceState);
         if (statusBarColor() != 0) {//状态栏颜色
             AppUtils.setColor(this, statusBarColor());
             if (statusBarColor() == Color.WHITE) {

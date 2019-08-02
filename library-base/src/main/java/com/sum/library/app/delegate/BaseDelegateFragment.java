@@ -16,12 +16,12 @@ import java.lang.ref.WeakReference;
 /**
  * Created by sdl on 2019-06-22.
  */
-public abstract class BaseDelegateFragment<T extends IViewDelegate> extends Fragment {
+public abstract class BaseDelegateFragment extends Fragment {
 
-    protected T mViewDelegate;
+    private IViewDelegate mViewDelegate;
 
     //UI界面代理类
-    protected abstract Class<T> getViewDelegateClass();
+    protected abstract Class<? extends IViewDelegate> getViewDelegateClass();
 
     //在onViewCreated执行后进行数据加载
     private boolean mIsInflateView = false;
@@ -31,9 +31,15 @@ public abstract class BaseDelegateFragment<T extends IViewDelegate> extends Frag
     //缓存View对象
     private WeakReference<View> mWRView;
 
+    //界面初始化后最先调用的模板方法
+    protected void onCreateFirst(Bundle savedInstanceState) {
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onCreateFirst(savedInstanceState);
         checkOrCreateDelegate();
         mViewDelegate.onAttach(getActivity(), this, this);
         //都是v4包兼容类
@@ -49,9 +55,13 @@ public abstract class BaseDelegateFragment<T extends IViewDelegate> extends Frag
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("create IDelegate error");
             } catch (java.lang.InstantiationException e) {
-                e.printStackTrace();
+                throw new RuntimeException("create IDelegate error");
             }
         }
+    }
+
+    public IViewDelegate getViewDelegate() {
+        return mViewDelegate;
     }
 
     private View getCacheView() {
@@ -82,7 +92,7 @@ public abstract class BaseDelegateFragment<T extends IViewDelegate> extends Frag
         } else {
             mIsInflateView = false;
             ViewParent parent = cacheView.getParent();
-            if (parent != null && parent instanceof ViewGroup) {
+            if (parent instanceof ViewGroup) {
                 ((ViewGroup) parent).removeView(cacheView);
                 Logger.e("base fragment remove from parent  " + this.getClass().getName());
             }

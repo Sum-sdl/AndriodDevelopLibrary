@@ -104,7 +104,7 @@
 
 
 	<com.sum.library.view.widget.PubEmptyView
-		android:id="@+id/pub_empty_view"
+		android:id="@id/pub_empty_view"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		app:pub_empty_bg_color="@color/colorAccent"

@@ -132,8 +132,8 @@ class LibUIActivity : BaseAppActivity() {
 
         btn_6.setOnClickListener {
             //            WebActivity.open(this, "https://aznapi.house365.com/Home/Information/lists")
-            val target = AppFileConfig.getAppStoreDirectory().path + "/test.img"
-            CameraActivity.open(this, 1001, target)
+            val target = AppFileConfig.getAppStoreDirectory().path + "/test.jpg"
+            CameraActivity.open(this, 1001, "")
         }
     }
 
@@ -216,6 +216,27 @@ class LibUIActivity : BaseAppActivity() {
             Logger.e(file)
             updateImageShow(file)
 
+            val dirSize = FileUtils.getFileSize(file)
+            tv_img_size.text = "拍照原图大小->$dirSize"
+
+            //compress
+            AppImageUtils.LuImageCompress(this,file,object :OnCompressListener{
+                override fun onError(e: Throwable?) {
+                }
+
+                override fun onStart() {
+                    mPresent.loadingView.showLoading("开始压缩")
+
+                }
+
+                override fun onSuccess(file: File?) {
+                    mPresent.loadingView.hideLoading()
+                    val dirSize = FileUtils.getFileSize(file)
+                    tv_img_size.append(",新图大小->$dirSize")
+                    tv_img_size.append("\n新图位置->${file?.path}")
+                    ToastUtils.showLong("压缩成功")
+                }
+            })
         }
     }
 }

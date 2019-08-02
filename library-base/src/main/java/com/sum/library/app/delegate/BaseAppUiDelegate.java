@@ -84,9 +84,9 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
         return mRootView;
     }
 
-
+    @Override
     public void init() {
-        printLifeLog("init");
+        printLifeLog("init delegate");
         if (mRootView != null) {
             initParams(mRootView);
             loadData();

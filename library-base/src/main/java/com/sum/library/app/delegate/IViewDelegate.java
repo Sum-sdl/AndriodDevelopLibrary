@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 public interface IViewDelegate {
 
     /**
-     * 代理类关联的界面
+     * 代理类关联的界面,onCreate前调用
      *
      * @param lifecycleOwner Activity、Fragment的Lifecycle
      */

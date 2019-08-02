@@ -6,6 +6,8 @@ import android.view.View
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.library.app.BaseDialogFragment
+import com.sum.library.utils.Logger
+import com.sum.library.utils.TaskExecutor
 import com.sum.library.view.sheet.DialogChooseView
 import com.sum.library.view.sheet.DialogTimeChooseView
 import kotlinx.android.synthetic.main.activity_dialog_test.*
@@ -31,6 +33,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             DialogTimeChooseView.Builder()
                     .setShowHours()
                     .setHours(time)
+                    .setTitle("选择时间")
                     .setListener { _, content ->
                         it.tag = content
                         ToastUtils.showLong("time = $content")
@@ -52,9 +55,29 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
         }
 
+        bt51.setOnClickListener {
+            var time = ""
+            if (it.tag is String) {
+                time = it.tag as String
+            }
+            DialogTimeChooseView.Builder()
+                    .setCurrentTime(time)
+                    .setShowHours()
+                    .setListener { _, content ->
+                        it.tag = content
+                        ToastUtils.showLong("date = $content")
+                    }.showFast(this)
+
+        }
+
+        bt31.setOnClickListener { _ ->
+            DialogChooseView().setMessage("message").setTitle("Test Title")
+                    .setPosListener { ToastUtils.showLong("pos") }
+                    .showFast(this)
+        }
         bt3.setOnClickListener { _ ->
             DialogChooseView().setMessage("message").setTitle("Test Title")
-                    .setNeg("立即更新").setCancel(true).setNeedHideButtonWhenEmpty(true).setClickDismiss(false)
+                    .setPos("立即更新").setCancel(false).setNeedHideButtonWhenEmpty(true)
                     .setPosListener { ToastUtils.showLong("Next") }
                     .setNegListener {
                         ToastUtils.showLong("update")
@@ -65,13 +88,15 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
         bt73.setOnClickListener { _ ->
             DialogChooseView().setMessage("message")
-                    .setPos("立即更新2").setNeg("neg").setNeedHideButtonWhenEmpty(true)
+                    .setPos("立即更新2").setNeg("取消").setCancel(false).setNeedHideButtonWhenEmpty(true)
                     .setPosListener {
-                        it.dismiss()
                         ToastUtils.showLong("升级")
                     }
                     .setNegListener { ToastUtils.showLong("Cancel") }
                     .show(supportFragmentManager, "show")
+        }
+        bt74.setOnClickListener {
+            TaskExecutor.mainThread({ showTipDelay() }, 1000)
         }
 
         bt4.setOnClickListener {
@@ -92,6 +117,18 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             d.setStyle(R.style.dialog_no_bg, 0)
             d.showFast(this)
         }
+    }
+
+    private fun showTipDelay() {
+        DialogChooseView().setMessage("message")
+                .setPos("立即更新3").setNeg("neg").setNeedHideButtonWhenEmpty(true)
+                .setPosListener {
+                    it.dismiss()
+                    ToastUtils.showLong("升级")
+                }
+                .setNegListener { ToastUtils.showLong("Cancel") }
+                .showFast(this)
+        Logger.e("show11112222")
     }
 
 

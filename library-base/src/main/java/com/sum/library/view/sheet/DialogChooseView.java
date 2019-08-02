@@ -1,9 +1,6 @@
 package com.sum.library.view.sheet;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -19,8 +16,10 @@ public class DialogChooseView extends BaseDialogFragment {
 
     private String mTitle, mContent;
     private String mPos, mNeg;
-    private boolean mCancel;
-    private boolean mClickDismiss = true, mNeedHideButtonWhenEmpty;
+    private boolean mCancel = true;
+    private boolean mClickDismiss = true;
+    //没有设置按钮文本是否自动隐藏按钮
+    private boolean mNeedHideButtonWhenEmpty = false;
 
     private ClickListener mPosLis, mNegLis;
 
@@ -69,11 +68,6 @@ public class DialogChooseView extends BaseDialogFragment {
         return this;
     }
 
-    public void showFast(Context context) {
-        if (context instanceof FragmentActivity) {
-            show(((FragmentActivity) context).getSupportFragmentManager(), "choose_view");
-        }
-    }
 
     @Override
     protected int getDialogShowAnimation() {
@@ -96,7 +90,11 @@ public class DialogChooseView extends BaseDialogFragment {
 
         TextView neg = view.findViewById(R.id.choice_container_negative);
         TextView pos = view.findViewById(R.id.choice_container_positive);
-
+        view.findViewById(R.id.fl_root).setOnClickListener(v -> {
+            if (mCancel) {
+                dismissAllowingStateLoss();
+            }
+        });
         if (!TextUtils.isEmpty(mTitle)) {
             title.setVisibility(View.VISIBLE);
             title.setText(mTitle);
@@ -127,7 +125,7 @@ public class DialogChooseView extends BaseDialogFragment {
         }
         neg.setOnClickListener(v -> {
             if (mClickDismiss) {
-                dismiss();
+                dismissAllowingStateLoss();
             }
             if (mNegLis != null) {
                 mNegLis.onClick(this);
@@ -136,7 +134,7 @@ public class DialogChooseView extends BaseDialogFragment {
 
         pos.setOnClickListener(v -> {
             if (mClickDismiss) {
-                dismiss();
+                dismissAllowingStateLoss();
             }
             if (mPosLis != null) {
                 mPosLis.onClick(this);
