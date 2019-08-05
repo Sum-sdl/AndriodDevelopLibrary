@@ -2,11 +2,12 @@ package com.sum.library.view.sheet;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.sum.library.R;
@@ -32,6 +33,7 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         this.mListener = listener;
     }
 
+    //点击数据回调
     public interface SheetListener {
         void onConfirm(int pos, String content);
     }
@@ -49,6 +51,17 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         return R.layout.cus_bs_single_view;
     }
 
+    private TextView mTvTitle;
+
+    //设置标题
+    public void setTitle(String msg) {
+        if (mTvTitle != null) {
+            mTvTitle.setText(msg);
+        }
+    }
+
+    private int mColumnNum = 0;
+
     @Override
     protected void initParams(View view) {
         view.findViewById(R.id.tv_cancel).setOnClickListener(v -> dismiss());
@@ -57,37 +70,55 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         if (mData == null) {
             return;
         }
-        TextView tv_title = view.findViewById(R.id.tv_title);
+        mTvTitle = view.findViewById(R.id.tv_title);
         if (!TextUtils.isEmpty(mData.mTitle)) {
-            tv_title.setText(mData.mTitle);
+            mTvTitle.setText(mData.mTitle);
         }
 
-        if (mData.mIsShowTime) {
-            if (mData.mHoursType == 1) {
+        try {
+            //0:单日期选择 1:单时间选择 2:时间+日期 3:自定义数据
+            int chooseType = mData.mHoursType;
+            if (chooseType == 0) {
+                mColumnNum = 3;
+                initTime(view);
+            } else if (chooseType == 1) {
+                mColumnNum = 2;
                 initHours(view);
-            } else {
+            } else if (chooseType == 3) {
+                mColumnNum = 1;
+                List<String> list = Arrays.asList(mData.mItems);
+                LoopView loop_view_1 = view.findViewById(R.id.loop_view_1);
+                setLoopData(loop_view_1, list, mData.mChooseIndex);
+                view.findViewById(R.id.tv_ok).setOnClickListener(v -> {
+                    if (mData.mClickDismiss) {
+                        dismiss();
+                    }
+                    if (mListener != null) {
+                        int index = loop_view_1.getSelectedItem();
+                        mListener.onConfirm(index, list.get(index));
+                    }
+                });
+            } else if (chooseType == 2) {
+                mColumnNum = 5;
+                initHours(view);
                 initTime(view);
             }
-        } else {
-            List<String> list = Arrays.asList(mData.mItems);
-            LoopView loop_view_1 = view.findViewById(R.id.loop_view_1);
-            setLoopData(loop_view_1, list, mData.mChooseIndex);
-            view.findViewById(R.id.tv_ok).setOnClickListener(v -> {
-                dismiss();
-                if (mListener != null) {
-                    int index = loop_view_1.getSelectedItem();
-                    mListener.onConfirm(index, list.get(index));
-                }
-            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     private void initHours(@NonNull View view) {
         String h, m;
-        if (!TextUtils.isEmpty(mData.mCurHour) && mData.mCurHour.contains(":")) {
-            int index = mData.mCurHour.indexOf(":");
-            h = mData.mCurHour.substring(0, index);
-            m = mData.mCurHour.substring(index + 1);
+        String time = mData.mCurDate;
+        if (!TextUtils.isEmpty(time) && time.contains(":") && time.contains(" ")) {
+            int index = time.indexOf(":");
+            if (mData.mHoursType == 2) {//时间+日期
+                h = time.substring(time.indexOf(" ") + 1, index);
+            } else {
+                h = time.substring(0, index);
+            }
+            m = time.substring(index + 1);
         } else {
             Calendar instance = Calendar.getInstance();
             h = instance.get(Calendar.HOUR_OF_DAY) + "";
@@ -103,23 +134,31 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         //时
         LoopView loop_view_4 = view.findViewById(R.id.loop_view_4);
         loop_view_4.setUnit("时");
-        ArrayList<String> time = getRangeHasZero(1, 23);
-        int index_hour = time.indexOf(h);
-        mHours = time.get(index_hour);
-        setLoopData(loop_view_4, time, index_hour);
-        loop_view_4.setListener(index -> mHours = time.get(index));
+        ArrayList<String> hour = getRangeHasZero(1, 23);
+        int index_hour = hour.indexOf(h);
+        if (index_hour == -1) {
+            index_hour = 0;
+        }
+        mHours = hour.get(index_hour);
+        setLoopData(loop_view_4, hour, index_hour);
+        loop_view_4.setListener(index -> mHours = hour.get(index));
 
         //分
         ArrayList<String> min = getRangeHasZero(1, 59);
         LoopView loop_view_5 = view.findViewById(R.id.loop_view_5);
         loop_view_5.setUnit("分");
         int index_min = min.indexOf(m);
+        if (index_min == -1) {
+            index_min = 0;
+        }
         mMin = min.get(index_min);
         setLoopData(loop_view_5, min, index_min);
         loop_view_5.setListener(index -> mMin = min.get(index));
 
         view.findViewById(R.id.tv_ok).setOnClickListener(v -> {
-            dismiss();
+            if (mData.mClickDismiss) {
+                dismiss();
+            }
             if (mListener != null) {
                 mListener.onConfirm(0, mHours + ":" + mMin);
             }
@@ -140,7 +179,7 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
                 calendar_start.setTime(format.parse("1950-01-01"));
             }
 
-            if (mData.mMaxDate > 0) {
+            if (mData.mMaxDate > 0) {//最大时间
                 calendar_end.setTimeInMillis(mData.mMaxDate);
             } else {
                 calendar_end.setTime(format.parse("2100-12-31"));
@@ -198,10 +237,12 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         loop_view_3.setListener(index -> mDay = Integer.parseInt(mCurDays.get(index)));
 
         view.findViewById(R.id.tv_ok).setOnClickListener(v -> {
-            dismiss();
+            if (mData.mClickDismiss) {
+                dismiss();
+            }
             if (mListener != null) {
                 String time = mYear + "-" + (mMonth + 1) + "-" + mDay;
-                if (mData.mHoursType == 2) {
+                if (mData.mHoursType == 2) {//时间+日期
                     time = time + " " + mHours + ":" + mMin;
                 }
                 mListener.onConfirm(0, time);
@@ -252,7 +293,48 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         return data;
     }
 
+    private int getScreenWidth(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        if (wm != null) {
+            wm.getDefaultDisplay().getRealSize(point);
+        }
+        return point.x;
+    }
+
+    private void setLoopData(LoopView view, List<String> items, int index, int columnNum) {
+        Context context = getContext();
+        if (context == null) {
+            return;
+        }
+        int screenWidth = getScreenWidth(getContext());
+        int oneWidth = screenWidth / 3;
+        if (columnNum > 1) {
+            oneWidth = screenWidth / columnNum - dp2px(20);
+        }
+        view.setItems(items);
+        int top = dp2px(15);
+        int left;
+        if (mColumnNum == 5) {
+            left = oneWidth / 2 - 30;
+        } else {
+            left = oneWidth / 2 - 20;
+        }
+        view.setViewPadding(left, top, left, top);
+        view.setNotLoop();
+        view.setTextSize(17);
+        view.setInitPosition(index);
+
+    }
+
     private void setLoopData(LoopView view, List<String> items, int index) {
+        if (getContext() == null) {
+            return;
+        }
+        if (mColumnNum > 3) {
+            setLoopData(view, items, index, mColumnNum);
+            return;
+        }
         view.setItems(items);
         view.setViewPadding(dp2px(20), dp2px(15), dp2px(20), dp2px(15));
         view.setNotLoop();
@@ -294,17 +376,28 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         private String[] mItems;
         private int mChooseIndex;
 
-        private boolean mIsShowTime;//时间单选标识
-
         private long mMaxDate, mMinDate;
-        private String mCurDate;//当前日期
+        private String mCurDate;//当前日期或者时间
 
-        private int mHoursType;//1:时间选择器
-        private String mCurHour;//当前时间
+        private int mHoursType;//0:单日期选择 1:单时间选择 2:时间+日期 3:自定义数据
+
+        private boolean mClickDismiss = true;//点集合自动关闭
 
         public Builder() {
-            //默认是时间选择器
-            mIsShowTime = true;
+            //默认是日期选择
+            mHoursType = 0;
+        }
+
+        //时间日期选器
+        public Builder setShowTimeAndHours() {
+            this.mHoursType = 2;
+            return this;
+        }
+
+        //单时间选器
+        public Builder setShowHours() {
+            this.mHoursType = 1;
+            return this;
         }
 
         public Builder setTitle(String title) {
@@ -317,27 +410,20 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
             return this;
         }
 
+        public Builder setClickDismiss(boolean clickDismiss) {
+            mClickDismiss = clickDismiss;
+            return this;
+        }
 
-        public Builder setItems(String[] items) {
+        //自定义数据源
+        public Builder setCustomItems(String[] items) {
             this.mItems = items;
-            mIsShowTime = false;
+            mHoursType = 3;
             return this;
         }
 
         public Builder setChooseIndex(int chooseIndex) {
             this.mChooseIndex = chooseIndex;
-            return this;
-        }
-
-        //时间选器
-        public Builder setShowHours() {
-            this.mIsShowTime = true;
-            this.mHoursType = 1;
-            return this;
-        }
-
-        public Builder setHours(String hours) {
-            this.mCurHour = hours;
             return this;
         }
 
@@ -356,17 +442,15 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
             return this;
         }
 
-        private void show(FragmentManager manager) {
-            DialogTimeChooseView sheet = new DialogTimeChooseView();
-            sheet.mListener = mListener;
-            sheet.mData = this;
-            sheet.show(manager, "sheet");
-        }
-
-        public void showFast(Context activity) {
+        public DialogTimeChooseView showFast(Context activity) {
             if (activity instanceof FragmentActivity) {
-                show(((FragmentActivity) activity).getSupportFragmentManager());
+                DialogTimeChooseView sheet = new DialogTimeChooseView();
+                sheet.mListener = mListener;
+                sheet.mData = this;
+                sheet.show(((FragmentActivity) activity).getSupportFragmentManager(), "sheet");
+                return sheet;
             }
+            return null;
         }
 
     }

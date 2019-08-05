@@ -32,7 +32,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             }
             DialogTimeChooseView.Builder()
                     .setShowHours()
-                    .setHours(time)
+                    .setCurrentTime(time)
                     .setTitle("选择时间")
                     .setListener { _, content ->
                         it.tag = content
@@ -62,7 +62,9 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             }
             DialogTimeChooseView.Builder()
                     .setCurrentTime(time)
-                    .setShowHours()
+                    .setShowTimeAndHours()
+                    .setTitle(time)
+                    .setClickDismiss(false)
                     .setListener { _, content ->
                         it.tag = content
                         ToastUtils.showLong("date = $content")
@@ -105,7 +107,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                 index = it.tag as Int
             }
             val data = arrayOf("单选1", "单选2", "单选3", "单选4", "单选5", "单选6", "单选7", "单选8", "单选9", "单选10", "单选11", "单选12")
-            DialogTimeChooseView.Builder().setItems(data).setChooseIndex(index).setListener { pos, content ->
+            DialogTimeChooseView.Builder().setCustomItems(data).setChooseIndex(index).setListener { pos, content ->
                 it.tag = pos
                 ToastUtils.showLong("pos=$pos,content$content")
             }.showFast(this)

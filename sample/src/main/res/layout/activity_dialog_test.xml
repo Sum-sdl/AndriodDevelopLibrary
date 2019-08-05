@@ -29,7 +29,7 @@
 		android:id="@+id/bt51"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="BottomSheetView 日期" />
+		android:text="BottomSheetView TEST" />
 
 	<Button
 		android:id="@+id/bt4"

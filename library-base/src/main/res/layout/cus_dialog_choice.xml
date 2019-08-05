@@ -8,8 +8,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
-		android:layout_marginLeft="28dp"
-		android:layout_marginRight="28dp"
+		android:layout_marginLeft="40dp"
+		android:layout_marginRight="40dp"
 		android:background="@drawable/shape_code_dialog_bg"
 		android:orientation="vertical">
 
@@ -71,7 +71,7 @@
 					android:background="@drawable/shape_code_dialog_btn"
 					android:gravity="center"
 					android:text="取消"
-					android:textColor="#999999"
+					android:textColor="@color/lib_dialog_choose_cancel_color"
 					android:textSize="14sp" />
 
 				<View
@@ -88,7 +88,7 @@
 					android:background="@drawable/shape_code_dialog_btn"
 					android:gravity="center"
 					android:text="确定"
-					android:textColor="@color/colorPrimary"
+					android:textColor="@color/lib_dialog_choose_ok_color"
 					android:textSize="14sp" />
 			</LinearLayout>
 		</LinearLayout>

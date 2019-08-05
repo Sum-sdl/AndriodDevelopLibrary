@@ -24,4 +24,6 @@
     <color name="bsv_title_confirm_color">@color/colorPrimary</color>
     <color name="bsv_title_title_color">@color/pub_title_text_color</color>
 
+    <color name="lib_dialog_choose_ok_color">@color/colorPrimary</color>
+    <color name="lib_dialog_choose_cancel_color">#999999</color>
 </resources>
