@@ -30,15 +30,7 @@
 </br>
 
 ### Dependency
- **2.3.1 老版本UI和基础一个库**
- ```gradle
- dependencies {
-        implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.1'
-     }
- ```
- 
- **新版本库，UI跟基础结构分离**
- 
+
  > 基础结构库(Java)
   ```gradle
   dependencies {
@@ -56,7 +48,6 @@
   dependencies {
          implementation 'com.github.Sum-sdl:library-ui:2.0.5'
       }
-      
       1.自定义相册
       2.自定义相机
       3.图片预览
