@@ -59,30 +59,30 @@
 > **结构模块**
 >
 - [LiveData框架的封装 --> 新的MVVM结构调用](https://github.com/Sum-sdl/AndriodDevelopLibrary/tree/master/sample/src/main/java/jetpack/demo/framework)
-- Fragment的管理显示类[FragmentCacheManager](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/framework/FragmentCacheManager.java)
+- Fragment的管理显示类[FragmentCacheManager](https://github.com/Sum-sdl/AndriodDevelopLibrary/tree/master/library-base/src/main/java/com/sum/library/framework/FragmentCacheManager.java)
 用来管理多个Fragment的切换操作（如App主页的底部按钮）
 - RecyclerView的通用适配器框架[RvAdapter](https://github.com/Sum-sdl/RvAdapter)
-- [LiveDataEventBus](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/utils/LiveDataEventBus.java)->[测试代码](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/src/main/java/jetpack/demo/NewStartActivity.kt)基于LiveData搞定EventBus全部功能。支持Observer可见时触发和ObserverForever一直监听触发
+- [LiveDataEventBus](https://github.com/Sum-sdl/AndriodDevelopLibrary/tree/master/library-base/src/main/java/com/sum/library/utils/LiveDataEventBus.java)->[测试代码](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/src/main/java/jetpack/demo/NewStartActivity.kt)基于LiveData搞定EventBus全部功能。支持Observer可见时触发和ObserverForever一直监听触发
 
 > **UI组件模块**
 >
-- 底部滑动出来的通用浮层的[BaseBottomSheetFragment](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/sheet/BaseBottomSheetFragment.java)
-- 底部滑动通用浮层案例[DialogTimeChooseView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/sheet/DialogTimeChooseView.java)
+- 底部滑动出来的通用浮层的[BaseBottomSheetFragment](https://github.com/Sum-sdl/AndriodDevelopLibrary/tree/master/library-base/src/main/java/com/sum/library/app/BaseBottomSheetFragment.java)
+- 底部滑动通用浮层案例[DialogTimeChooseView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library-base/src/main/java/com/sum/library/view/sheet/DialogTimeChooseView.java)
 支持时间，日期选择，单选滚动功能
-- 统一的空UI展示[PubEmptyView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/widget/PubEmptyView.java),类似ViewStub的功能实现,调用setVisibility()的时候才会初始化View的内容
-- 统一的标题展示[PubTitleView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/view/widget/PubTitleView.kt)
+- 统一的空UI展示[PubEmptyView](https://github.com/Sum-sdl/AndriodDevelopLibrary/tree/master/library-base/src/main/java/com/sum/library/view/widget/PubEmptyView.java),类似ViewStub的功能实现,调用setVisibility()的时候才会初始化View的内容
+- 统一的标题展示[PubTitleView](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library-base/src/main/java/com/sum/library/view/widget/PubTitleView.java)
 
 > **集成模块**
 >
--  集成[Retrofit2](http://square.github.io/retrofit/)网络框架（未添加RxJava）[BaseDynamicInterceptor](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/net/token/BaseDynamicInterceptor.java)请求公共参数添加
+-  集成[Retrofit2](http://square.github.io/retrofit/)网络框架（未添加RxJava
 -  集成[Glide](https://github.com/bumptech/glide)图片框架
 -  常用刷新框架[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout/blob/master/art/md_property.md)
 
 > **图片功能模块**
 >
-- [图片预览功能（支持手势）](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/ui/image/AppImageUtils.java)
-- [自定义相册选择功能（支持预览，单选，多选，拍照）](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/ui/image/AppImageUtils.java)
-- [图片裁剪功能](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library/src/main/java/com/sum/library/ui/image/AppImageUtils.java)
+- [图片预览功能（支持手势）](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library-ui/src/main/java/com/sum/library_ui/image/AppImageUtils.java)
+- [自定义相册选择功能（支持预览，单选，多选，拍照）](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library-ui/src/main/java/com/sum/library_ui/image/AppImageUtils.java)
+- [图片裁剪功能](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/library-ui/src/main/java/com/sum/library_ui/image/AppImageUtils.java)
 
 > **功能图片展示**
 >
