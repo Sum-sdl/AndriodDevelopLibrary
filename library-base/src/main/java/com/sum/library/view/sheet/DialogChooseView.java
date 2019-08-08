@@ -23,6 +23,8 @@ public class DialogChooseView extends BaseDialogFragment {
 
     private ClickListener mPosLis, mNegLis;
 
+    private UiChange mUiLis;
+
     public DialogChooseView setNeedHideButtonWhenEmpty(boolean needHideButtonWhenEmpty) {
         mNeedHideButtonWhenEmpty = needHideButtonWhenEmpty;
         return this;
@@ -35,6 +37,11 @@ public class DialogChooseView extends BaseDialogFragment {
 
     public DialogChooseView setClickDismiss(boolean clickDismiss) {
         mClickDismiss = clickDismiss;
+        return this;
+    }
+
+    public DialogChooseView setUiChange(UiChange uiChange) {
+        mUiLis = uiChange;
         return this;
     }
 
@@ -141,9 +148,17 @@ public class DialogChooseView extends BaseDialogFragment {
             }
         });
         setCancelable(mCancel);
+        //接口回调调整UI展示
+        if (mUiLis != null) {
+            mUiLis.onInitView(view);
+        }
     }
 
     public interface ClickListener {
         void onClick(DialogChooseView view);
+    }
+
+    public interface UiChange {
+        void onInitView(View view);
     }
 }
