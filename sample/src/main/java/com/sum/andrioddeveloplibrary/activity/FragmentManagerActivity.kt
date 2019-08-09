@@ -30,8 +30,7 @@ class FragmentManagerActivity : BaseActivity() {
     }
 
     override fun initParams() {
-        mManager = FragmentCacheManager.instance()
-        mManager.setUp(this, R.id.fl_content)
+        mManager = FragmentCacheManager(this,R.id.fl_content)
         mManager.addFragmentToCache(R.id.rb1, FragmentUI1::class.java)
         mManager.addFragmentToCache(R.id.rb2, FragmentUI2::class.java)
 

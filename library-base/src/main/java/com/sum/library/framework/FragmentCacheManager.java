@@ -19,20 +19,11 @@ import java.util.Set;
  */
 public class FragmentCacheManager {
 
-    public static FragmentCacheManager instance() {
-        return new FragmentCacheManager();
-    }
 
-    private FragmentCacheManager() {
-        mCacheFragment = new HashMap<>();
-    }
-
-    //Activity 中的Fragment管理
+    //Activity|Fragment 中的Fragment管理
     private FragmentManager mFragmentManager;
 
     private Activity mActivity;
-
-    private Fragment mFragment;
 
     private int mContainerId;
 
@@ -51,20 +42,16 @@ public class FragmentCacheManager {
     private Fragment mCurrentFragment;
     private Object mCurrentFragmentIndex = null;
 
-    public void setUp(FragmentActivity activity, @IdRes int containerId) {
-        if (mFragment != null) {
-            throw new RuntimeException("you have setup for Fragment");
-        }
+
+    public FragmentCacheManager(FragmentActivity activity, @IdRes int containerId) {
+        mCacheFragment = new HashMap<>();
         this.mActivity = activity;
         this.mContainerId = containerId;
         mFragmentManager = activity.getSupportFragmentManager();
     }
 
-    public void setUp(Fragment fragment, @IdRes int containerId) {
-        if (mActivity != null) {
-            throw new RuntimeException("you have setup for Activity");
-        }
-        this.mFragment = fragment;
+    public FragmentCacheManager(Fragment fragment, @IdRes int containerId) {
+        mCacheFragment = new HashMap<>();
         this.mContainerId = containerId;
         mFragmentManager = fragment.getChildFragmentManager();
         //Fragment所在的Activity
