@@ -24,12 +24,17 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:text="BottomSheetView 日期" />
+<Button
+		android:id="@+id/bt52"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="BottomSheetView 月份" />
 
 	<Button
 		android:id="@+id/bt51"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="BottomSheetView TEST" />
+		android:text="BottomSheetView 日期+时间" />
 
 	<Button
 		android:id="@+id/bt4"

@@ -84,6 +84,9 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
             } else if (chooseType == 1) {
                 mColumnNum = 2;
                 initHours(view);
+            } else if (chooseType == 4) {
+                mColumnNum = 2;
+                initMonth(view);
             } else if (chooseType == 3) {
                 mColumnNum = 1;
                 List<String> list = Arrays.asList(mData.mItems);
@@ -106,6 +109,60 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void initMonth(@NonNull View view) {
+        int month, day;
+        String curDate = mData.mCurDate;
+
+        Calendar calendar_choose = Calendar.getInstance();//当前
+        int year = calendar_choose.get(Calendar.YEAR);
+        mYear = year;
+        if (!TextUtils.isEmpty(curDate) && curDate.contains("-")) {
+            int index = curDate.indexOf("-");
+            try {
+                mMonth = month = Integer.parseInt(curDate.substring(0, index)) - 1;
+                mDay = day = Integer.parseInt(curDate.substring(index + 1));
+            } catch (NumberFormatException e) {
+                mMonth = month = calendar_choose.get(Calendar.MONTH);
+                mDay = day = calendar_choose.get(Calendar.DAY_OF_MONTH);
+            }
+        } else {
+            mMonth = month = calendar_choose.get(Calendar.MONTH);
+            mDay = day = calendar_choose.get(Calendar.DAY_OF_MONTH);
+        }
+//        Logger.e("mMonth->" + mMonth + " mDay:" + mDay);
+
+        final ArrayList<String> months = getRange(1, 12);
+        final ArrayList<String> days = getRange(1, getDaysInMonth(month, year));
+        int day_index = day - 1;
+        mCurDays = days;
+
+        //月
+        LoopView loop_view_2 = view.findViewById(R.id.loop_view_2);
+        loop_view_2.setUnit("月");
+        setLoopData(loop_view_2, months, month);
+        loop_view_2.setListener(index -> {
+            mMonth = Integer.parseInt(months.get(index)) - 1;
+            checkDay();
+        });
+
+        //日
+        LoopView loop_view_3 = view.findViewById(R.id.loop_view_3);
+        loop_view_3.setUnit("日");
+        mLoopDay = loop_view_3;
+        setLoopData(loop_view_3, days, day_index);
+        loop_view_3.setListener(index -> mDay = Integer.parseInt(mCurDays.get(index)));
+
+        view.findViewById(R.id.tv_ok).setOnClickListener(v -> {
+            if (mData.mClickDismiss) {
+                dismiss();
+            }
+            if (mListener != null) {
+                String time = (mMonth + 1) + "-" + mDay;
+                mListener.onConfirm(0, time);
+            }
+        });
     }
 
     private void initHours(@NonNull View view) {
@@ -266,8 +323,8 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
 
             mDay = Integer.parseInt(range.get(newIndex));
             mLoopDay.setItems(range);
-            mLoopDay.setInitPosition(0);
-            mLoopDay.setTotalScrollYPosition(newIndex);
+            mLoopDay.setInitPosition(newIndex);
+//            mLoopDay.setTotalScrollYPosition(newIndex);
 
             mCurDays = range;
         }
@@ -379,7 +436,7 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         private long mMaxDate, mMinDate;
         private String mCurDate;//当前日期或者时间
 
-        private int mHoursType;//0:单日期选择 1:单时间选择 2:时间+日期 3:自定义数据
+        private int mHoursType;//0:单日期选择 1:单时间选择 2:时间+日期 3:自定义数据 4:只显示月份选择
 
         private boolean mClickDismiss = true;//点集合自动关闭
 
@@ -397,6 +454,12 @@ public class DialogTimeChooseView extends BaseBottomSheetFragment {
         //单时间选器
         public Builder setShowHours() {
             this.mHoursType = 1;
+            return this;
+        }
+
+        //月份选择
+        public Builder setShowMonth() {
+            this.mHoursType = 4;
             return this;
         }
 

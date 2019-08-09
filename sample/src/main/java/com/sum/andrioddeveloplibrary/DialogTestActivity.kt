@@ -71,6 +71,22 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                     }.showFast(this)
 
         }
+        bt52.setOnClickListener {
+            var time = ""
+            if (it.tag is String) {
+                time = it.tag as String
+            }
+            DialogTimeChooseView.Builder()
+                    .setCurrentTime(time)
+                    .setShowMonth()
+                    .setTitle(time)
+                    .setClickDismiss(true )
+                    .setListener { _, content ->
+                        it.tag = content
+                        ToastUtils.showLong("date = $content")
+                    }.showFast(this)
+
+        }
 
         bt31.setOnClickListener { _ ->
             DialogChooseView().setMessage("message").setTitle("Test Title")
