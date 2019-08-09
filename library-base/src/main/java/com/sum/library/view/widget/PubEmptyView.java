@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
-import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sum.library.R;
@@ -31,6 +31,7 @@ public class PubEmptyView extends View implements View.OnClickListener {
     private CharSequence mEmptyText;
     private int mEmptyImageRes;
     private int mBgColor;
+    private View mEmptyAddView;
 
     private OnEmptyViewClickListener mEmptyViewClick;
 
@@ -79,6 +80,12 @@ public class PubEmptyView extends View implements View.OnClickListener {
     //空文字
     public void setEmptyText(CharSequence mEmptyText) {
         this.mEmptyText = mEmptyText;
+        updateEmptyView();
+    }
+
+    //添加内容view
+    public void addEmptyView(View emptyView) {
+        mEmptyAddView = emptyView;
         updateEmptyView();
     }
 
@@ -147,16 +154,23 @@ public class PubEmptyView extends View implements View.OnClickListener {
     }
 
     private void updateUI(View view) {
-        ImageView image = view.findViewById(R.id.pub_empty_img);
-        if (image != null && mEmptyImageRes != -1) {
-            image.setImageResource(mEmptyImageRes);
-        }
-        TextView content = view.findViewById(R.id.pub_empty_text);
-        if (content != null && !TextUtils.isEmpty(mEmptyText)) {
-            content.setText(mEmptyText);
-        }
-        if (mBgColor != -1) {
-            view.setBackgroundColor(mBgColor);
+        //默认样式
+        if (mInflatedId == R.layout.pub_empty_view) {
+            ImageView image = view.findViewById(R.id.pub_empty_img);
+            if (image != null && mEmptyImageRes != -1) {
+                image.setImageResource(mEmptyImageRes);
+            }
+            TextView content = view.findViewById(R.id.pub_empty_text);
+            if (content != null && !TextUtils.isEmpty(mEmptyText)) {
+                content.setText(mEmptyText);
+            }
+            if (mBgColor != -1) {
+                view.setBackgroundColor(mBgColor);
+            }
+            if (mEmptyAddView != null) {
+                LinearLayout layout = view.findViewById(R.id.pub_empty_content);
+                layout.addView(mEmptyAddView);
+            }
         }
     }
 

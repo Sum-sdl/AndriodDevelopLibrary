@@ -11,6 +11,7 @@ import android.support.v4.app.SharedElementCallback
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.View
+import android.widget.TextView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -59,6 +60,11 @@ class LibWidgetUseActivity : AppCompatActivity() {
 
         val sp = SpanUtils().append("Hi ! Hello\n").append("World").setForegroundColor(Color.RED)
         pub_empty_view.setEmptyText(sp.create())
+
+        val tv= TextView(this)
+        tv.text = "add View"
+        tv.setPadding(0, 20, 0, 20)
+        pub_empty_view.addEmptyView(tv)
 
         iv_1.setOnClickListener {
 

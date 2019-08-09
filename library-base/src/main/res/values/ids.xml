@@ -16,10 +16,6 @@
     <item name="pub_title_text" type="id" />
     <item name="pub_title_right" type="id" />
 
-    <!--统一empty view-->
-    <item name="pub_empty_img" type="id" />
-    <item name="pub_empty_text" type="id" />
-
     <item name="pub_web_view" type="id" />
 
 
