@@ -2,6 +2,7 @@ package com.sum.library.view.sheet;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ public class DialogChooseView extends BaseDialogFragment {
     private String mTitle, mContent;
     private String mPos, mNeg;
     private boolean mCancel = true;
+    private boolean mTextGrayStart = false;
     private boolean mClickDismiss = true;
     //没有设置按钮文本是否自动隐藏按钮
     private boolean mNeedHideButtonWhenEmpty = false;
@@ -32,6 +34,11 @@ public class DialogChooseView extends BaseDialogFragment {
 
     public DialogChooseView setCancel(boolean cancel) {
         mCancel = cancel;
+        return this;
+    }
+
+    public DialogChooseView setTextGrayStart(boolean textGrayStart) {
+        mTextGrayStart = textGrayStart;
         return this;
     }
 
@@ -94,7 +101,9 @@ public class DialogChooseView extends BaseDialogFragment {
     private void initView(@NonNull View view) {
         TextView title = view.findViewById(R.id.choice_container_title);
         TextView content = view.findViewById(R.id.choice_container_content);
-
+        if (mTextGrayStart) {
+            content.setGravity(Gravity.START);
+        }
         TextView neg = view.findViewById(R.id.choice_container_negative);
         TextView pos = view.findViewById(R.id.choice_container_positive);
         view.findViewById(R.id.fl_root).setOnClickListener(v -> {
