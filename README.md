@@ -31,19 +31,19 @@
 
 ### Dependency
 
- > 基础结构库(Java)
+ > 基础结构库(Java) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-base/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-base/_latestVersion)
   ```gradle
   dependencies {
          implementation 'com.github.Sum-sdl:library-base:2.0.8'
       }
   ```
-> 网络库
+> 网络库 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-network/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-network/_latestVersion)
   ```gradle
   dependencies {
          implementation 'com.github.Sum-sdl:library-network:2.0.0'
       }
   ```
-> 基础UI库(Kotlin)
+> 基础UI库(Kotlin) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-ui/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-ui/_latestVersion)
   ```gradle
   dependencies {
          implementation 'com.github.Sum-sdl:library-ui:2.0.5'
