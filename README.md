@@ -34,7 +34,7 @@
  > 基础结构库(Java)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-base:2.0.7'
+         implementation 'com.github.Sum-sdl:library-base:2.0.8'
       }
   ```
 > 网络库
