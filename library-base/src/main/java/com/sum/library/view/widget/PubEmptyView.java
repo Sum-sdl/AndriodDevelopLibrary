@@ -23,7 +23,7 @@ import java.lang.ref.WeakReference;
  * Created by sdl on 2018/5/8.
  * ViewStub 扩展
  */
-public class PubEmptyView extends View implements View.OnClickListener {
+public class PubEmptyView extends View {
 
     private WeakReference<View> mInflatedViewRef;
     private Context mContext;
@@ -33,7 +33,7 @@ public class PubEmptyView extends View implements View.OnClickListener {
     private int mBgColor;
     private View mEmptyAddView;
 
-    private OnEmptyViewClickListener mEmptyViewClick;
+    private View.OnClickListener mEmptyViewClick;
 
     public PubEmptyView(Context context) {
         this(context, null, 0);
@@ -86,6 +86,11 @@ public class PubEmptyView extends View implements View.OnClickListener {
     //添加内容view
     public void addEmptyView(View emptyView) {
         mEmptyAddView = emptyView;
+        updateEmptyView();
+    }
+
+    public void setEmptyViewClickListener(View.OnClickListener emptyViewClick) {
+        this.mEmptyViewClick = emptyViewClick;
         updateEmptyView();
     }
 
@@ -149,7 +154,7 @@ public class PubEmptyView extends View implements View.OnClickListener {
             view.setId(mInflatedId);
         }
         updateUI(view);
-        view.setOnClickListener(this);
+
         return view;
     }
 
@@ -172,6 +177,7 @@ public class PubEmptyView extends View implements View.OnClickListener {
                 layout.addView(mEmptyAddView);
             }
         }
+        view.setOnClickListener(mEmptyViewClick);
     }
 
     private void replaceSelfWithView(View view, ViewGroup parent) {
@@ -185,19 +191,5 @@ public class PubEmptyView extends View implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        if (mEmptyViewClick != null) {
-            mEmptyViewClick.onEmptyViewClick();
-        }
-    }
-
-    public void setEmptyViewClickListener(OnEmptyViewClickListener emptyViewClick) {
-        this.mEmptyViewClick = emptyViewClick;
-    }
-
-    public interface OnEmptyViewClickListener {
-        void onEmptyViewClick();
-    }
 
 }

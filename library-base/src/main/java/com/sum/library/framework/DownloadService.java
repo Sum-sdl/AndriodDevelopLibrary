@@ -40,7 +40,7 @@ class DownloadService {
         Uri uri = Uri.parse(mDwUrl);
         DownloadManager.Request req = new DownloadManager.Request(uri);
         //设置WIFI下进行更新
-        req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+//        req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
         //下载中和下载完后都显示通知栏
         req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         //使用系统默认的下载路径

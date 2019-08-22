@@ -149,7 +149,6 @@ public class PubTitleView extends LinearLayout {
     }
 
 
-
     //插入一个状态栏高度的view
     private void addStatusBarHeight() {
         View space = new View(context);
@@ -216,5 +215,20 @@ public class PubTitleView extends LinearLayout {
         return view;
     }
 
+    //添加按钮
+    public View addRightView(View view, ViewGroup.LayoutParams params) {
+        mTitleRightContent.addView(view, 0, params);
+        return view;
+    }
+
+    //添加按钮
+    public View addRightCustomView(View view) {
+        mTitleRightContent.addView(view);
+        return view;
+    }
+
+    public LinearLayout getTitleRightContent() {
+        return mTitleRightContent;
+    }
 
 }
