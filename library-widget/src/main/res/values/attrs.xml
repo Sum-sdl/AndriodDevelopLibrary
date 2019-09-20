@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<declare-styleable name="CircleView">
+		<attr name="background_color" format="color" />
+		<attr name="foreground_color" format="color" />
+		<attr name="foreground_bg_color" format="color" />
+		<attr name="stoke_width" format="dimension" />
+		<attr name="progress" format="integer" />
+		<attr name="text_size" format="dimension" />
+		<attr name="text_color" format="color" />
+		<attr name="text" format="string" />
+
+		<attr name="direction" format="enum">
+			<enum name="left" value="1" />
+			<enum name="right" value="2" />
+		</attr>
+
+		<attr name="start_direction" format="enum">
+			<enum name="left" value="1" />
+			<enum name="top" value="2" />
+			<enum name="right" value="3" />
+			<enum name="bottom" value="4" />
+		</attr>
+	</declare-styleable>
+
+	<!--组合复选框-->
+	<!--reference 参考某一个资源id string integer dimension(dip) float(0.7)-->
+	<!--color 颜色 enum 枚举值 boolean (true/false)-->
+	<declare-styleable name="MultiRadioButton">
+		<attr name="multiChecked" format="boolean" />
+		<attr name="multiText" format="reference|string" />
+		<attr name="multiTextSize" format="dimension" />
+		<attr name="multiColorDefault" format="reference|color" />
+		<attr name="multiColorChecked" format="reference|color" />
+		<attr name="multiDrawableDefault" format="reference" />
+		<attr name="multiDrawableChecked" format="reference" />
+		<attr name="multiDrawableWidth" format="dimension" />
+		<attr name="multiDrawableHeight" format="dimension" />
+		<attr name="multiDrawableMarginTop" format="dimension" />
+		<attr name="multiDrawableMarginLeft" format="dimension" />
+		<attr name="multiDrawableMarginRight" format="dimension" />
+		<attr name="multiDrawableMarginBottom" format="dimension" />
+	</declare-styleable>
+
+
+	<!--通用头部布局-->
+	<declare-styleable name="PubTitleView">
+		<attr name="title_view" format="reference" />
+		<attr name="title_default_white_theme" format="boolean" />
+		<attr name="title_default_name" format="string" />
+		<attr name="title_default_name_text_color" format="color" />
+		<attr name="title_default_name_text_size" format="dimension" />
+		<attr name="title_default_back_img" format="reference" />
+		<attr name="title_default_back_img_tint" format="reference|color" />
+		<attr name="title_default_back_img_show" format="boolean" />
+		<attr name="title_default_bg_color" format="reference|color" />
+		<attr name="title_default_bg_resource" format="reference" />
+		<attr name="title_default_adjust_bar" format="boolean" />
+		<attr name="title_default_adjust_bar_color" format="reference|color" />
+	</declare-styleable>
+
+
+	<!--通用数据空View-->
+	<declare-styleable name="PubEmptyView">
+		<attr name="pub_empty_layout" format="reference" />
+		<attr name="pub_empty_text" format="string" />
+		<attr name="pub_empty_img" format="reference" />
+		<attr name="pub_empty_bg_color" format="reference|color" />
+	</declare-styleable>
+
+
+</resources>

@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+
+
+//手动上传操作
+//1. ./gradlew library-widget:install
+//2. ./gradlew library-widget:bintrayUpload
+
+ext {
+    bintrayName = 'library-widget'
+    artifact = bintrayName
+    libraryName = 'widget'
+    libraryDescription = ''
+    libraryVersion = '1.0.0'
+}
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+}
+
+dependencies {
+    //compileOnly
+    api "com.android.support:appcompat-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
+    api "com.android.support:design:${rootProject.ext.dependencies.supportLibraryVersion}"
+}
+
+apply from: '../up_install.gradle'
+apply from: '../up_bintray.gradle'

@@ -57,7 +57,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //compileOnly
 //    api 'com.github.Sum-sdl:library-base:2.0.2'
-    api 'com.github.Sum-sdl:RvAdapter:2.1.2'
+    api 'com.github.Sum-sdl:RvAdapter:2.3.0'
     implementation project(path: ':library-base')
 }
 
