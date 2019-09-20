@@ -55,7 +55,7 @@ class DataBindTestActivity : AppCompatActivity() {
             mAdapter.dataHolders.forEachIndexed { index, item ->
                 val info = InfoModel()
                 info.name = "index->$index"
-                item.updateData(info)
+//                item.updateData(info)
             }
             mAdapter.notifyDataSetChanged()
 

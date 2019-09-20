@@ -2,14 +2,10 @@ package com.sum.andrioddeveloplibrary;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Build;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.Utils;
-import com.github.moduth.blockcanary.BlockCanary;
-import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -26,6 +22,9 @@ import com.sum.library.AppFileConfig;
 import com.sum.library.utils.ACache;
 import com.sum.library.utils.Logger;
 import com.sum.library_network.Retrofit2Helper;
+
+import me.jessyan.autosize.AutoSizeConfig;
+import me.jessyan.autosize.DefaultAutoAdaptStrategy;
 
 /**
  * Created by sdl on 2017/12/27.
@@ -103,6 +102,11 @@ public class SumApp extends Application {
 
         AppFileConfig.init(this);
         AppFileConfig.getAppCacheImageDirectory();
+
+        //自适配
+        //多进程适配
+//        AutoSize.initCompatMultiProcess(this);
+        AutoSizeConfig.getInstance().setCustomFragment(false).setLog(true);
     }
 
     @Override

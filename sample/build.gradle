@@ -179,7 +179,7 @@ dependencies {
     implementation 'com.github.markzhai:blockcanary-android:1.5.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
+    implementation 'me.jessyan:autosize:1.1.2'
     if (file("${rootProject.rootDir}/core/aa.aar").exists()) {
         implementation files("${rootProject.rootDir}/core/aa.aar")
     } else {

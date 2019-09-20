@@ -12,30 +12,181 @@
 		android:orientation="vertical"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-		<FrameLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
 
-			<Button
-				android:id="@+id/b3"
-				android:layout_width="1080pt"
-				android:layout_height="1080pt"
-				android:background="#90f00000"
-				android:text="全屏"
-				android:textSize="120pt" />
-			<View
-				android:layout_width="1080pt"
-				android:layout_height="1980pt"
-				android:background="#80accccc" />
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
 
-		</FrameLayout>
+			<FrameLayout
+				android:id="@+id/fl_add"
+				android:layout_width="match_parent"
+				android:layout_height="50dp"
+				android:background="@color/white"
+				android:visibility="gone">
 
-		<Button
-			android:id="@+id/b1"
-			android:layout_width="1080pt"
-			android:layout_height="100pt"
-			android:text="关闭适配"
-			android:textSize="50pt" />
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginStart="30dp"
+					android:layout_marginTop="8dp"
+					android:layout_marginEnd="30dp"
+					android:layout_marginBottom="8dp"
+					android:background="@color/black"
+					android:gravity="center"
+					android:text="+ 添加客户"
+					android:textColor="@color/white"
+					android:textSize="16sp" />
+
+			</FrameLayout>
+
+			<RelativeLayout
+				android:id="@+id/rl_bg"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#F7F7F7">
+
+				<ImageView
+					android:id="@+id/iv_close"
+					android:layout_width="38dp"
+					android:layout_height="26dp"
+					android:layout_alignParentEnd="true"
+					android:scaleType="center"
+					android:src="@drawable/pub_imageload_bg" />
+
+				<ImageView
+					android:id="@+id/iv_arrow"
+					android:layout_width="wrap_content"
+					android:layout_height="10dp"
+					android:layout_below="@+id/ll_2"
+					android:layout_centerHorizontal="true"
+					android:layout_gravity="center"
+					android:layout_marginTop="3dp"
+					android:layout_marginBottom="6dp"
+					android:src="@drawable/pub_imageload_bg" />
+
+				<LinearLayout
+					android:id="@+id/ll_2"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginEnd="40dp"
+					android:layout_toEndOf="@+id/tv_time"
+					android:orientation="vertical">
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:orientation="horizontal">
+
+						<TextView
+							android:id="@+id/tv_task_name"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="4dp"
+							android:ellipsize="end"
+							android:maxWidth="180dp"
+							android:maxLines="3"
+							android:text="此处是任务名称此处是任此处是任务名称此处是任此处是任务名称此处是任"
+							android:textColor="@color/black"
+							android:textSize="16sp"
+							android:textStyle="bold" />
+
+
+						<TextView
+							android:id="@+id/tv_task_type"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:background="#8CC8FF"
+							android:lines="1"
+							android:paddingLeft="6dp"
+							android:paddingTop="2dp"
+							android:paddingRight="6dp"
+							android:paddingBottom="2dp"
+							android:text="老板任务"
+							android:textColor="@color/white"
+							android:textSize="12sp" />
+
+					</LinearLayout>
+
+
+					<TextView
+						android:id="@+id/tv_task_remark"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ellipsize="end"
+						android:maxLines="2"
+						android:text="此处是任务名称"
+						android:textSize="14sp"
+						android:visibility="visible" />
+
+					<TextView
+						android:id="@+id/tv_task_time"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="此处是任务名称"
+						android:textSize="14sp" />
+
+
+					<LinearLayout
+						android:id="@+id/ll_1"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:gravity="center_vertical"
+						android:orientation="horizontal">
+
+						<TextView
+							android:id="@+id/tv_cancel_type"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:gravity="center"
+							android:paddingLeft="8dp"
+							android:paddingTop="3dp"
+							android:paddingRight="8dp"
+							android:paddingBottom="3dp"
+							android:text="已取消"
+							android:textSize="12sp" />
+
+						<TextView
+							android:id="@+id/tv_cancel_time"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="6dp"
+							android:gravity="center"
+							android:paddingTop="3dp"
+							android:paddingBottom="3dp"
+							android:text="时间:2019-08-21 12:13"
+							android:textSize="12sp" />
+
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<TextView
+					android:id="@+id/tv_time"
+					android:layout_width="50dp"
+					android:layout_height="50dp"
+					android:layout_centerVertical="true"
+					android:layout_marginStart="10dp"
+					android:layout_marginTop="10dp"
+					android:gravity="center"
+					android:layout_marginBottom="10dp"
+					android:background="@drawable/pub_imageload_bg"
+					android:includeFontPadding="false"
+					android:lineSpacingExtra="0dp"
+					android:text="07月\n06日"
+					android:textColor="@color/white"
+					android:textSize="14sp"
+					android:textStyle="bold" />
+			</RelativeLayout>
+
+
+		</LinearLayout>
+
 
 	</LinearLayout>
 

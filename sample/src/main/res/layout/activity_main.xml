@@ -70,7 +70,7 @@
             android:id="@+id/b7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="屏幕自动适配->权限功能" />
+            android:text="屏幕自动适配-AutoSize" />
 
         <Button
             android:id="@+id/b8"

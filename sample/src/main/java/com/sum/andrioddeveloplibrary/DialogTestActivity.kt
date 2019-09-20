@@ -1,6 +1,7 @@
 package com.sum.andrioddeveloplibrary
 
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
@@ -132,7 +133,8 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
         bt6.setOnClickListener {
             //            DialogF().show(supportFragmentManager, "test")
             val d = DialogF()
-            d.setStyle(R.style.dialog_no_bg, 0)
+            d.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.dialog_no_bg)
+
             d.showFast(this)
         }
     }
