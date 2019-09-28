@@ -1,7 +1,7 @@
 package com.sum.andrioddeveloplibrary.test;
 
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 
 import com.sum.library.domain.BaseRepository;
 

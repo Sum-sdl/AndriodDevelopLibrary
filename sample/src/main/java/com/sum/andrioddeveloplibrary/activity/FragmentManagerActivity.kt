@@ -66,7 +66,7 @@ class FragmentManagerActivity : BaseActivity() {
         Logger.e("onDestroy")
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Logger.e("onSaveInstanceState:" + ",b:" + outState?.toString())
         outState?.putInt("index", mCurIndex)

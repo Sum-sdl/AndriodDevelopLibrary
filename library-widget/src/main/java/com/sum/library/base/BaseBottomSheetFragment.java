@@ -3,15 +3,18 @@ package com.sum.library.base;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 /**
  * Created by sdl on 2018/5/15.
@@ -44,7 +47,7 @@ public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment 
         }
 
         private void addTouchListener() {
-            View touch = findViewById(android.support.design.R.id.touch_outside);
+            View touch = findViewById(R.id.touch_outside);
             if (touch != null) {
                 touch.setOnClickListener(v -> {
                     if (isShowing()) {

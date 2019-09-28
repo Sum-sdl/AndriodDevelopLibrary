@@ -1,6 +1,6 @@
 package com.sum.library.domain;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * Created by sdl on 2019/2/18.

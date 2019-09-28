@@ -21,7 +21,7 @@ class FragmentUI2 : BaseFragment() {
         log("onCreate " + savedInstanceState?.toString())
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         PRINT_LIFE = true
         super.onAttach(context)
         log("onAttach")

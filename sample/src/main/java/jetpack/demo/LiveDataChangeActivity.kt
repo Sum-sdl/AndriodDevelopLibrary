@@ -1,9 +1,9 @@
 package jetpack.demo
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.sum.andrioddeveloplibrary.R
 import com.sum.library.utils.LiveDataEventBus
 import com.sum.library.utils.Logger

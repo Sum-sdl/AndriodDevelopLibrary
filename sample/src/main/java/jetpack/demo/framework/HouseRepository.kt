@@ -1,7 +1,7 @@
 package jetpack.demo.framework
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.sum.library.domain.ActionState
 import com.sum.library.domain.BaseRepository
 import com.sum.library.utils.Logger

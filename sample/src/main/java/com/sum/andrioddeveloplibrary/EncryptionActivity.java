@@ -1,7 +1,7 @@
 package com.sum.andrioddeveloplibrary;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;

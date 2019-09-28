@@ -2,7 +2,7 @@ package com.sum.library_ui.image.preview
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import com.sum.library.app.BaseActivity
 import com.sum.library.utils.simple.SimpleViewPagerFragmentAdapter
 import com.sum.library.view.widget.PubTitleView

@@ -1,7 +1,7 @@
 package jetpack.demo.page
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.sum.andrioddeveloplibrary.R
 import com.sum.library.utils.Logger
 import com.sum.library.utils.TaskExecutor.ioThread

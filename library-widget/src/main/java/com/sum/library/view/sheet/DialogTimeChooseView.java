@@ -3,12 +3,13 @@ package com.sum.library.view.sheet;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import com.sum.library.R;
 import com.sum.library.base.BaseBottomSheetFragment;

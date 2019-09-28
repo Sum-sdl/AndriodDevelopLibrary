@@ -2,9 +2,9 @@ package com.sum.andrioddeveloplibrary.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +37,7 @@ class ItemListDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        list.layoutManager = LinearLayoutManager(context)
+        list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         list.adapter = ItemAdapter(arguments!!.getInt(ARG_ITEM_COUNT))
     }
     override fun onAttach(context: Context) {
@@ -60,7 +60,7 @@ class ItemListDialogFragment : BottomSheetDialogFragment() {
     }
 
     private inner class ViewHolder internal constructor(inflater: LayoutInflater, parent: ViewGroup)
-        : RecyclerView.ViewHolder(inflater.inflate(R.layout.fragment_item_list_dialog_item, parent, false)) {
+        : androidx.recyclerview.widget.RecyclerView.ViewHolder(inflater.inflate(R.layout.fragment_item_list_dialog_item, parent, false)) {
 
         internal val text: TextView = itemView.text
 
@@ -74,7 +74,7 @@ class ItemListDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private inner class ItemAdapter internal constructor(private val mItemCount: Int) : RecyclerView.Adapter<ViewHolder>() {
+    private inner class ItemAdapter internal constructor(private val mItemCount: Int) : androidx.recyclerview.widget.RecyclerView.Adapter<ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(LayoutInflater.from(parent.context), parent)

@@ -1,11 +1,10 @@
 package jetpack.demo.databind
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.adapter.RecyclerAdapter
 import com.sum.adapter.RecyclerDataHolder
@@ -25,7 +24,9 @@ class DataBindTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+//        val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+
+        val viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)).get(UserViewModel::class.java)
 
         val binding = DataBindingUtil.setContentView<ActivityDataBindTestBinding>(this, R.layout.activity_data_bind_test)
 //        val binding = DataBindingUtil.setContentView<ActivityDb2Binding>(this, R.layout.activity_db_2)
@@ -75,7 +76,7 @@ class DataBindTestActivity : AppCompatActivity() {
 
 
         mAdapter = RecyclerAdapter()
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerView.adapter = mAdapter
 
 

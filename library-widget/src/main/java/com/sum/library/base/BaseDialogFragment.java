@@ -5,11 +5,6 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +12,18 @@ import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.sum.library.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import java.lang.ref.WeakReference;
 
 /**
  * Created by sdl on 2018/8/6.
  * 全屏对话框的dialog，默认底部进入动画
- *
+ * <p>
  * 1.根布局View是铺满屏幕
  * 2.内容必须在根布局里在添加一层View
  */

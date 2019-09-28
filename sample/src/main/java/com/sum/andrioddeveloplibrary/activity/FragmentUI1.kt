@@ -18,7 +18,7 @@ class FragmentUI1 : BaseFragment() {
     var mLife: String? = ""
 
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         PRINT_LIFE = true
         super.onAttach(context)
         log("onAttach")

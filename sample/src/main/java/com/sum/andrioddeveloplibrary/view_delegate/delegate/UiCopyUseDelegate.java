@@ -1,10 +1,10 @@
 package com.sum.andrioddeveloplibrary.view_delegate.delegate;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.andrioddeveloplibrary.R;
 import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateFragment;
-import com.sum.andrioddeveloplibrary.view_delegate.ViewDkotlinFragment;
 import com.sum.library.app.delegate.BaseAppUiDelegate;
 import com.sum.library.utils.LiveDataEventBus;
 import com.sum.library.utils.TaskExecutor;

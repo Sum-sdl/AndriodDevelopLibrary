@@ -2,8 +2,8 @@ package com.sum.andrioddeveloplibrary;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.multidex.MultiDex;
+import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
 
 import com.blankj.utilcode.util.Utils;
 import com.google.gson.Gson;
@@ -24,7 +24,6 @@ import com.sum.library.utils.Logger;
 import com.sum.library_network.Retrofit2Helper;
 
 import me.jessyan.autosize.AutoSizeConfig;
-import me.jessyan.autosize.DefaultAutoAdaptStrategy;
 
 /**
  * Created by sdl on 2017/12/27.

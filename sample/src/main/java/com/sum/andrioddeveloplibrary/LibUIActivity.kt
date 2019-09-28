@@ -5,7 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.view.ViewCompat
+import androidx.core.view.ViewCompat
 import android.text.TextUtils
 import android.transition.AutoTransition
 import android.transition.Transition
@@ -161,9 +161,9 @@ class LibUIActivity : BaseAppActivity() {
         mPhoto = savedInstanceState?.getSerializable("file") as File?
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putSerializable("file", mPhoto)
+        outState.putSerializable("file", mPhoto)
     }
 
     private var mTake = ""

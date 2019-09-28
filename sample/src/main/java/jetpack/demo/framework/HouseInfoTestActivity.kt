@@ -1,7 +1,7 @@
 package jetpack.demo.framework
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.R
 import com.sum.library.app.BaseActivity
@@ -13,7 +13,8 @@ import java.util.*
 class HouseInfoTestActivity : BaseActivity() {
 
     override fun getViewModel(): HouseViewModel {
-        return ViewModelProviders.of(this).get(HouseViewModel::class.java)
+//        return ViewModelProviders.of(this).get(HouseViewModel::class.java)
+        return  ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)).get(HouseViewModel::class.java)
     }
 
     override fun expandActionDeal(state: ActionState?) {

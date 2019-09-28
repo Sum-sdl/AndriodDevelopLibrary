@@ -38,8 +38,8 @@ android {
 
 dependencies {
     //compileOnly
-    api "com.android.support:appcompat-v7:${rootProject.ext.dependencies.supportLibraryVersion}"
-    api "com.android.support:design:${rootProject.ext.dependencies.supportLibraryVersion}"
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'com.google.android.material:material:1.0.0'
 }
 
 apply from: '../up_install.gradle'

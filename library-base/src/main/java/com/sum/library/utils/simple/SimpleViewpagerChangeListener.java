@@ -1,6 +1,6 @@
 package com.sum.library.utils.simple;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by sdl on 2018/9/11.

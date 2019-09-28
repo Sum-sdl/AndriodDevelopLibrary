@@ -44,10 +44,9 @@ dependencies {
     //网页
     //https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md
     implementation 'com.tencent.sonic:sdk:3.0.0'
-//    implementation 'com.github.Sum-sdl:AndriodDevelopLibrary:2.3.1'
 
     //image
-    api 'com.github.bumptech.glide:glide:4.8.0'
+    api 'com.github.bumptech.glide:glide:4.9.0'
     api 'com.github.chrisbanes:PhotoView:2.0.0'
     api 'me.relex:circleindicator:1.2.2@aar'
     api 'com.github.yalantis:ucrop:2.2.3'
@@ -55,9 +54,10 @@ dependencies {
 
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     //compileOnly
-//    api 'com.github.Sum-sdl:library-base:2.0.2'
-    api 'com.github.Sum-sdl:RvAdapter:2.3.0'
+//    compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
+    api 'com.github.Sum-sdl:RvAdapter:3.0.0'
     implementation project(path: ':library-base')
 }
 

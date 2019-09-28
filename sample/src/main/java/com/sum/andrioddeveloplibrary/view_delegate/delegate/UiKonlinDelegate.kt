@@ -1,6 +1,6 @@
 package com.sum.andrioddeveloplibrary.view_delegate.delegate
 
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.R

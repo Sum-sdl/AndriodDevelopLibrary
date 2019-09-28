@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.sum.andrioddeveloplibrary.R;
 import com.sum.library.app.BaseFragment;
+import com.sum.library.domain.BaseViewModel;
 
 /**
  * Created by 365 on 2017/3/2.
@@ -24,6 +25,11 @@ public class TestFragment extends BaseFragment {
     }
 
     private TextView textView;
+
+    @Override
+    public BaseViewModel getViewModel() {
+        return super.getViewModel();
+    }
 
     @Override
     protected void initParams(View view) {

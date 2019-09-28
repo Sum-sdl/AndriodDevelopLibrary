@@ -1,10 +1,10 @@
 package com.sum.library.utils;
 
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.ArrayMap;
 
 import java.util.Map;
@@ -82,19 +82,8 @@ public class LiveDataEventBus {
 
         //添加注册对应事件type的监听
         @Override
-        public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<T> observer) {
-            super.observe(owner, new ObserverWrapper<>(observer, this));
-        }
-
-        //数据更新一直通知刷新
-        @Override
-        public void observeForever(@NonNull Observer<T> observer) {
-            super.observeForever(observer);
-        }
-
-        @Override
-        public void removeObserver(@NonNull Observer<T> observer) {
-            super.removeObserver(observer);
+        public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super T> observer) {
+            super.observe(owner, new ObserverWrapper(observer, this));
         }
     }
 

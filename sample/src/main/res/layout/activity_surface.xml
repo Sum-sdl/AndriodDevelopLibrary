@@ -52,7 +52,7 @@
 			android:layout_gravity="center"
 			android:text="重置" />
 
-		<android.support.design.widget.FloatingActionButton
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
 			android:id="@+id/fl"
 			style="@style/pub_floating_action_bar"
 			android:layout_width="wrap_content"

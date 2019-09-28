@@ -7,17 +7,15 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.provider.MediaStore
-import android.support.v4.app.Fragment
-import android.support.v4.app.LoaderManager
-import android.support.v4.content.Loader
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.ListPopupWindow
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.ListPopupWindow
+import androidx.fragment.app.Fragment
+import androidx.loader.app.LoaderManager
+import androidx.loader.content.Loader
 import com.sum.adapter.RecyclerAdapter
 import com.sum.adapter.RecyclerDataHolder
 import com.sum.library.app.BaseActivity
@@ -94,9 +92,9 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putBoolean("load_finish", mHasLoadFinish)
+        outState.putBoolean("load_finish", mHasLoadFinish)
     }
 
 
@@ -120,10 +118,10 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         mAdapter = RecyclerAdapter()
         rv_images.adapter = mAdapter
         rv_images.setHasFixedSize(true)
-        rv_images.layoutManager = GridLayoutManager(this, data.span_count)
-        rv_images.addItemDecoration(object : RecyclerView.ItemDecoration() {
+        rv_images.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, data.span_count)
+        rv_images.addItemDecoration(object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
                 super.getItemOffsets(outRect, view, parent, state)
                 outRect.left = data.default_space
                 outRect.bottom = data.default_space

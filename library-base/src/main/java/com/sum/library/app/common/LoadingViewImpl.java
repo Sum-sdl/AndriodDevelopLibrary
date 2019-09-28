@@ -2,7 +2,7 @@ package com.sum.library.app.common;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 
 import com.sum.library.utils.Logger;
 import com.sum.library.view.widget.DialogMaker;

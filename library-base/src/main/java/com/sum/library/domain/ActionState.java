@@ -1,6 +1,6 @@
 package com.sum.library.domain;
 
-import android.support.v4.util.Pools;
+import androidx.core.util.Pools;
 
 /**
  * Created by sdl on 2019/2/18.
