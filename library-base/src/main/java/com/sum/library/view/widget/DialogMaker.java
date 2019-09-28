@@ -2,9 +2,6 @@ package com.sum.library.view.widget;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,42 +9,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+
 import com.sum.library.R;
-import com.sum.library.view.widget.view.MaterialProgressDrawable;
 
 
 /**
  * Created by Sum on 15/12/17.
  */
 public class DialogMaker {
-
-
-    public static void showAlterDialog(Context context, String Title, String message, DialogInterface.OnClickListener cancel, DialogInterface.OnClickListener ok) {
-        AlertDialog dialog = getDialog(context)
-                .setTitle(Title)
-                .setMessage(message)
-                .setNegativeButton("取消", cancel)
-                .setPositiveButton("确定", ok)
-                .create();
-        dialog.setCancelable(false);
-        dialog.show();
-    }
-
-    public static void showAlterDialog(Context context, String Title, String message, String negative, DialogInterface.OnClickListener cancel, String positive, DialogInterface.OnClickListener ok) {
-        AlertDialog dialog = getDialog(context)
-                .setTitle(Title)
-                .setMessage(message)
-                .setNegativeButton(negative, cancel)
-                .setPositiveButton(positive, ok)
-                .create();
-        dialog.setCancelable(false);
-        dialog.show();
-    }
-
-    public static AlertDialog.Builder getDialog(Context context) {
-        return new AlertDialog.Builder(context);
-    }
-
 
     public static AlertDialog showLoadingDialog(Context context, String content) {
         return showLoadingDialog(context, content, true);

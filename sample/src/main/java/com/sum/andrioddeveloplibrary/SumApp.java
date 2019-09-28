@@ -2,6 +2,7 @@ package com.sum.andrioddeveloplibrary;
 
 import android.app.Application;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.multidex.MultiDex;
 
@@ -32,8 +33,6 @@ import me.jessyan.autosize.AutoSizeConfig;
 public class SumApp extends Application {
 
     static {
-        AppFileConfig.App_External_Directory_Name = "AA_Sum";
-
         //设置全局默认配置（优先级最低，会被其他设置覆盖）
         SmartRefreshLayout.setDefaultRefreshInitializer(new DefaultRefreshInitializer() {
             @Override
@@ -99,7 +98,7 @@ public class SumApp extends Application {
 
         ACache.get(this).put("time", mOpenStartTime);
 
-        AppFileConfig.init(this);
+        AppFileConfig.init(this, "AA_Sum");
         AppFileConfig.getAppCacheImageDirectory();
 
         //自适配

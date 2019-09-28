@@ -16,16 +16,19 @@ import java.io.File;
 public class AppFileConfig {
 
     //外部根文件夹名称
-    public static String App_External_Directory_Name = "A_SumApp_File";
+    private static String App_External_Directory_Name = "A_SumApp_File";
 
     //FileProvider使用的Uri文件
     public static String FOLDER_PROVIDER = ".fileProvider";
 
     private static Context mContext;
 
-    public static void init(Context context) {
+    public static void init(Context context, String appExternalDirectoryName) {
         if (context == null) {
             throw new RuntimeException("context is null");
+        }
+        if (!TextUtils.isEmpty(appExternalDirectoryName)) {
+            App_External_Directory_Name = appExternalDirectoryName;
         }
         mContext = context.getApplicationContext();
     }
