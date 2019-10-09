@@ -23,7 +23,6 @@ import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
 import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateActivity
 import com.sum.library.AppFileConfig
 import com.sum.library.app.BaseActivity
-import com.sum.library.framework.AppDownloadManager
 import com.sum.library.utils.ACache
 import com.sum.library.utils.Logger
 import com.sum.library.utils.TaskExecutor.mainThread
@@ -58,9 +57,9 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
         b6.setOnClickListener {
             val url = "http://app.house365.com/d/house365-rent-XiaZaiYe-v3.6.8.apk"
-            AppDownloadManager().setActivity(this).setLabel("更新内容")
-                    .setUrl(url)
-                    .setIsForceDownload(false).start()
+//            AppDownloadManager().setActivity(this).setLabel("更新内容")
+//                    .setUrl(url)
+//                    .setIsForceDownload(false).start()
 
         }
         b7.setOnClickListener {

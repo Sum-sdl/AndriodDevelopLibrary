@@ -34,7 +34,7 @@
  > 基础结构库(Java) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-base/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-base/_latestVersion)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-base:2.1.1'
+         implementation 'com.github.Sum-sdl:library-base:2.2.1'
       }
   ```
 > 网络库 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-network/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-network/_latestVersion)

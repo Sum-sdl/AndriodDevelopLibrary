@@ -12,13 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-        <receiver android:name=".framework.DownloadReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
-            </intent-filter>
-        </receiver>
-
     </application>
 
 </manifest>
