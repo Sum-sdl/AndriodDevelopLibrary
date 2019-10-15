@@ -4,8 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import androidx.core.content.FileProvider;
 import android.text.TextUtils;
+
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 
@@ -23,10 +24,22 @@ public class AppFileConfig {
 
     private static Context mContext;
 
-    public static void init(Context context, String appExternalDirectoryName) {
+    //根目录是否在系统应用缓存目录创建文件夹
+    private static boolean mIsAppDataDir = false;
+
+    /**
+     * 不存在sd卡时,全部存放在应用内部file文件夹
+     * 应用内部文件夹只能app写入,外部应该不能写入,只能读取
+     *
+     * @param context                  applicationContext
+     * @param appExternalDirectoryName 目录根路径的包名
+     * @param isAppDataDir             true:全部创建在Android/Data/files目录 false:全部创建sd卡根目录
+     */
+    public static void init(Context context, String appExternalDirectoryName, boolean isAppDataDir) {
         if (context == null) {
             throw new RuntimeException("context is null");
         }
+        mIsAppDataDir = isAppDataDir;
         if (!TextUtils.isEmpty(appExternalDirectoryName)) {
             App_External_Directory_Name = appExternalDirectoryName;
         }
@@ -46,18 +59,13 @@ public class AppFileConfig {
      * @return 项目存储的根目录
      */
     public static File getAppStoreDirectory() {
-        return getBaseDir(false);
+        return getBaseDir();
     }
 
-    /**
-     * @param dirName 自定义目录名
-     * @return 创建并返回外部存储App_External_Directory_Name目录下的文件夹
-     */
-    public static File getDir(String dirName) {
-        return getDir(dirName, false);
-    }
 
     /**
+     * App_External_Directory_Name
+     *
      * @return 根目录->图片目录
      */
     public static File getFileImageDirectory() {
@@ -65,6 +73,15 @@ public class AppFileConfig {
     }
 
     /**
+     * @return 根目录->日志目录
+     */
+    public static File getFileLogDirectory() {
+        return getDir("logs");
+    }
+
+    /**
+     * App_External_Directory_Name
+     *
      * @return 根目录->文件目录
      */
     public static File getFileDirectory() {
@@ -72,6 +89,8 @@ public class AppFileConfig {
     }
 
     /**
+     * App_External_Directory_Name
+     *
      * @return 根目录->文件目录->压缩目录
      */
     public static File getFileCompressDirectory() {
@@ -84,16 +103,11 @@ public class AppFileConfig {
     }
 
     /**
-     * @return 系统统一缓存目录cache/image
+     * @param dirName 自定义目录名
+     * @return 创建并返回外部存储App_External_Directory_Name目录下的文件夹
      */
-    public static File getAppCacheImageDirectory() {
-        return getDir("image", true);
-    }
-
-
-    //创建项目目录下的文件夹
-    public static File getDir(String dirName, boolean isAppCacheFile) {
-        File baseDir = getBaseDir(isAppCacheFile);
+    public static File getDir(String dirName) {
+        File baseDir = getBaseDir();
         if (baseDir == null) {
             return null;
         }
@@ -105,32 +119,37 @@ public class AppFileConfig {
         }
     }
 
-    private static File getBaseDir(boolean isCacheFile) {
+
+    private static File getBaseDir() {
         File result;
+        String rootDir = null;
         if (existsSdcard()) {
-            String cacheDir = null;
-            if (isCacheFile) {
-                File file = mContext.getExternalCacheDir();//系统缓存数据文件夹路劲
-                if (file != null) {
-                    cacheDir = file.getAbsolutePath();
+            if (mIsAppDataDir) {
+                File externalFilesDir = mContext.getExternalFilesDir(App_External_Directory_Name);
+                if (externalFilesDir != null) {
+                    rootDir = externalFilesDir.getAbsolutePath();//系统缓存数据文件夹路劲
                 }
-            }
-            if (TextUtils.isEmpty(cacheDir)) {
-                cacheDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + App_External_Directory_Name;
-            }
-            result = new File(cacheDir);
-        } else {
-            if (isCacheFile) {
-                result = (mContext.getCacheDir());
             } else {
-                result = (mContext.getFilesDir());
+                //sd 跟目录创建文件夹
+                rootDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + App_External_Directory_Name;
             }
-        }
-        if (result.exists() || result.mkdirs()) {
-            return result;
         } else {
-            return null;
+            rootDir = (mContext.getFilesDir()) + File.separator + App_External_Directory_Name;
         }
+        try {
+            if (TextUtils.isEmpty(rootDir)) {
+                return null;
+            }
+            result = new File(rootDir);
+            if (result.exists() || result.mkdirs()) {
+                return result;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static Boolean existsSdcard() {

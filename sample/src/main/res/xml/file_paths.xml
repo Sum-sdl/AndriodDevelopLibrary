@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <external-path path="AA_Sum" name="files" />
+	<files-path
+		name="files"
+		path="AA_Sum" />
+	<external-path
+		name="files"
+		path="AA_Sum" />
+	<external-cache-path
+		name="files_cache"
+		path="AA_Sum" />
+	<external-files-path
+		name="files_cache"
+		path="AA_Sum" />
 </paths>

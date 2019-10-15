@@ -12,8 +12,6 @@ import android.hardware.Camera.Size;
 import android.hardware.SensorManager;
 import android.media.ExifInterface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.OrientationEventListener;
@@ -22,6 +20,9 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.sum.library.AppFileConfig;
 import com.sum.library.app.BaseFragment;
@@ -156,7 +157,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
             }
         }
         if (dirPath == null) {
-            dirPath = new File(AppFileConfig.getAppCacheImageDirectory() + "/" + System.currentTimeMillis() + ".jpg");
+            dirPath = new File(AppFileConfig.getFileImageDirectory(), System.currentTimeMillis() + ".jpg");
         }
     }
 

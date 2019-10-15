@@ -67,7 +67,7 @@
 
 	</LinearLayout>
 
-	<androidx.constraintlayout.ConstraintLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
@@ -100,7 +100,7 @@
 			app:layout_constraintEnd_toEndOf="parent" />
 
 
-	</androidx.constraintlayout.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 	<com.sum.library.view.widget.PubEmptyView

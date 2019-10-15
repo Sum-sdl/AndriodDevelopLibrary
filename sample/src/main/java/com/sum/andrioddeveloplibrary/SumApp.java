@@ -98,8 +98,7 @@ public class SumApp extends Application {
 
         ACache.get(this).put("time", mOpenStartTime);
 
-        AppFileConfig.init(this, "AA_Sum");
-        AppFileConfig.getAppCacheImageDirectory();
+        AppFileConfig.init(this, "AA_Sum",true);
 
         //自适配
         //多进程适配
