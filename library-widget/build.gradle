@@ -10,7 +10,7 @@ ext {
     artifact = bintrayName
     libraryName = 'widget'
     libraryDescription = ''
-    libraryVersion = '2.0.0'
+    libraryVersion = '2.0.1'
 }
 
 android {
