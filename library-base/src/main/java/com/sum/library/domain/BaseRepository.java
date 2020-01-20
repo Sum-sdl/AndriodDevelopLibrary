@@ -1,36 +1,12 @@
 package com.sum.library.domain;
 
-import androidx.lifecycle.MutableLiveData;
-
 /**
  * Created by sdl on 2019/2/18.
+ * 数据源的获取类，只有数据，没有跟UI交互的方式，与UI交互完全通过ViewModel层
  */
 public class BaseRepository {
 
-    private MutableLiveData<ActionState> mActionLiveData;
-
-    public BaseRepository() {
-        mActionLiveData = new MutableLiveData<>();
-    }
-
-    //发送界面操作状态
-    public void sendActionState(int state) {
-        sendActionState(ActionState.obtain(state));
-    }
-
-    public void sendActionState(int state, String msg) {
-        ActionState action = ActionState.obtain(state);
-        action.setMsg(msg);
-        sendActionState(action);
-    }
-
-    public void sendActionState(ActionState state) {
-        mActionLiveData.postValue(state);
-    }
-
-    //viewModel发送界面操作状态
-    MutableLiveData<ActionState> registerActionState(ActionState state) {
-        mActionLiveData.postValue(state);
-        return mActionLiveData;
+    public void onCleared() {
+        //viewModel销毁调用
     }
 }

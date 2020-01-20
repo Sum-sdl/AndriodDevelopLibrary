@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.sum.library.domain.ActionState;
-import com.sum.library.domain.UiViewModel;
+import com.sum.library.domain.UiAction;
 
 
 /**
@@ -37,7 +37,7 @@ public final class ActivePresent {
     }
 
     //统一动作处理
-    public void dealActionState(ActionState state, UiViewModel viewModel) {
+    public void dealActionState(ActionState state, UiAction viewModel) {
         int action = state.getState();
         switch (action) {
             case ActionState.TOAST:

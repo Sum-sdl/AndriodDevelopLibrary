@@ -7,12 +7,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.andrioddeveloplibrary.R;
-import com.sum.library.app.BaseAppBar;
+import com.sum.library.app.BaseBar;
 
 /**
  * Created by sdl on 2018/5/11.
  */
-public class CustomBar extends BaseAppBar {
+public class CustomBar extends BaseBar {
 
     public CustomBar(Context context) {
         super(context);
@@ -24,7 +24,7 @@ public class CustomBar extends BaseAppBar {
 
     @Override
     protected void initParams() {
-        TextView tn = _findViewById(R.id.tv_1);
+        TextView tn = findViewById(R.id.tv_1);
         tn.setText("@@@@@@@@@@@@@@@@@@@");
         tn.setOnClickListener(new OnClickListener() {
             @Override

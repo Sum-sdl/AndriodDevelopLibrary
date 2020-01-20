@@ -46,13 +46,13 @@ class NetActivity : BaseAppActivity() {
             WebActivity.open(this@NetActivity, url)
         }
 
-        bt_dialog1.setOnClickListener { mPresent.loadingView.showLoading() }
-        bt_dialog2.setOnClickListener { mPresent.loadingView.showLoading("Loading...") }
-        bt_dialog3.setOnClickListener { mPresent.loadingView.showProgressLoading("Progress Loading...", true) }
+        bt_dialog1.setOnClickListener { mUiActive.loadingView.showLoading() }
+        bt_dialog2.setOnClickListener { mUiActive.loadingView.showLoading("Loading...") }
+        bt_dialog3.setOnClickListener { mUiActive.loadingView.showProgressLoading("Progress Loading...", true) }
     }
 
     private fun net_post() {
-        mPresent.loadingView.showLoading("加载中-Post...")
+        mUiActive.loadingView.showLoading("加载中-Post...")
         val con = "{\"head\":{\"token\":\"4d40d6b05d67086ef1ac0c4c093155261b4db650e455e7a2\",\"client\":\"HongKongFocus\",\"version\":\"V1.2\"},\"message\":{\"userId\":\"ffffffff-8650-ca15-ffff-ffffd8967aa8\",\"userName\":\"我是一个农民\",\"userTag\":\"\",\"headUrl\":\"http:\\/\\/thirdqq.qlogo.cn\\/qqapp\\/1106296314\\/0182677DB9A9A4B450F70443EF9D9F66\\/100\",\"newType\":\"2\",\"newFollow\":false,\"pageNo\":1,\"pageSize\":10}}"
         val body = RequestBody.create(MediaType.parse("application/json"), con)
 
@@ -60,12 +60,12 @@ class NetActivity : BaseAppActivity() {
                 .apiPost_Search(body)
                 .enqueue(object : Callback<Any> {
                     override fun onFailure(call: Call<Any>?, t: Throwable?) {
-                        mPresent.loadingView.hideLoading()
+                        mUiActive.loadingView.hideLoading()
                         ToastUtils.showLong(t.toString())
                     }
 
                     override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
-                        mPresent.loadingView.hideLoading()
+                        mUiActive.loadingView.hideLoading()
                         ToastUtils.showLong(response?.body().toString())
                     }
                 })
@@ -73,17 +73,17 @@ class NetActivity : BaseAppActivity() {
 
     private fun net_post2() {
         //框架直接讲ReqBody对象转换成JSON，作为RequestBody传递
-        mPresent.loadingView.showLoading("加载中-Post2...")
+        mUiActive.loadingView.showLoading("加载中-Post2...")
         mRetrofit.create(Api::class.java)
                 .apiPost_Search(ReqBody())
                 .enqueue(object : Callback<Any> {
                     override fun onFailure(call: Call<Any>?, t: Throwable?) {
-                        mPresent.loadingView.hideLoading()
+                        mUiActive.loadingView.hideLoading()
                         ToastUtils.showLong(t.toString())
                     }
 
                     override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
-                        mPresent.loadingView.hideLoading()
+                        mUiActive.loadingView.hideLoading()
                         ToastUtils.showLong(response?.body().toString())
                     }
                 })
@@ -91,7 +91,7 @@ class NetActivity : BaseAppActivity() {
 
 
     private fun net_get() {
-        mPresent.loadingView.showLoading("加载中-Net...")
+        mUiActive.loadingView.showLoading("加载中-Net...")
     }
 
 
@@ -101,7 +101,7 @@ class NetActivity : BaseAppActivity() {
             ToastUtils.showLong("请选择图片")
             return
         }
-        mPresent.loadingView.showLoading("上传-Upload...")
+        mUiActive.loadingView.showLoading("上传-Upload...")
 
         //字符串
         val name = RequestBody.create(MediaType.parse("text/plain"), "name_test")
@@ -115,12 +115,12 @@ class NetActivity : BaseAppActivity() {
         mRetrofit.create(Api::class.java).testFileUpload1(name, part)
                 .enqueue(object : Callback<ResponseBody> {
                     override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
-                        mPresent.loadingView.hideLoading()
+                        mUiActive.loadingView.hideLoading()
                         ToastUtils.showLong(t.toString())
                     }
 
                     override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
-                        mPresent.loadingView.hideLoading()
+                        mUiActive.loadingView.hideLoading()
                         ToastUtils.showLong(response?.body().toString())
                     }
                 })

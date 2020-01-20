@@ -1,23 +1,23 @@
 package com.sum.library.domain;
 
-import androidx.arch.core.util.Function;
+import androidx.annotation.MainThread;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
-import androidx.annotation.MainThread;
 
 /**
  * Created by sdl on 2019/2/18.
- * UI处理类
+ * 数据管理类，用户获取数据并通知给UI
  */
 public abstract class BaseViewModel<T extends BaseRepository> extends ViewModel {
 
     private MutableLiveData<ActionState> mUiState = new MutableLiveData<>();
-    protected T mRepository;
+
     private boolean mHasRegisterAction;
+
+    //数据源处理类
+    protected T mRepository;
 
     public BaseViewModel() {
         mRepository = createInstance(getRepositoryClass());
@@ -27,11 +27,12 @@ public abstract class BaseViewModel<T extends BaseRepository> extends ViewModel 
     protected abstract Class<T> getRepositoryClass();
 
     private <T> T createInstance(Class<T> repositoryClass) {
+        if (repositoryClass == null) {
+            return null;
+        }
         try {
             return repositoryClass.newInstance();
-        } catch (InstantiationException e) {
-            throw new RuntimeException("Cannot create an instance of " + repositoryClass, e);
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException("Cannot create an instance of " + repositoryClass, e);
         }
     }
@@ -39,26 +40,20 @@ public abstract class BaseViewModel<T extends BaseRepository> extends ViewModel 
     @Override
     protected void onCleared() {
         super.onCleared();
+        if (mRepository != null) {
+            mRepository.onCleared();
+        }
     }
 
     //统一界面状态注册
     @MainThread
     public void registerActionState(LifecycleOwner lifecycleOwner, Observer<ActionState> observer) {
-        if (mRepository == null) {
-            return;
-        }
         if (mHasRegisterAction) {
             return;
         }
         mHasRegisterAction = true;
-        LiveData<ActionState> switchMap = Transformations.switchMap(mUiState, new Function<ActionState, LiveData<ActionState>>() {
-            @Override
-            public LiveData<ActionState> apply(ActionState input) {
-                return mRepository.registerActionState(input);
-            }
-        });
-        switchMap.observe(lifecycleOwner, observer);
 
+        mUiState.observe(lifecycleOwner, observer);
         //首次注册后，必须通过mState发送一次状态，mRepository才能将仓库中的状态发送给界面的observer
         mUiState.setValue(ActionState.obtain(ActionState.REGISTER));
     }

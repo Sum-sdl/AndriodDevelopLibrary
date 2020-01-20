@@ -33,7 +33,7 @@ public class PubEmptyView extends View {
     private int mBgColor;
     private View mEmptyAddView;
 
-    private View.OnClickListener mEmptyViewClick;
+    private OnClickListener mEmptyViewClick;
 
     public PubEmptyView(Context context) {
         this(context, null, 0);
@@ -89,7 +89,7 @@ public class PubEmptyView extends View {
         updateEmptyView();
     }
 
-    public void setEmptyViewClickListener(View.OnClickListener emptyViewClick) {
+    public void setEmptyViewClickListener(OnClickListener emptyViewClick) {
         this.mEmptyViewClick = emptyViewClick;
         updateEmptyView();
     }

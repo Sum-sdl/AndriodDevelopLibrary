@@ -181,12 +181,12 @@ public class PubTitleView extends LinearLayout {
     }
 
     //添加文本按钮
-    public TextView addRightTextButton(String btnName, View.OnClickListener clickListener) {
+    public TextView addRightTextButton(String btnName, OnClickListener clickListener) {
         return addRightTextButton(btnName, R.color.pub_title_text_right_color, clickListener);
     }
 
     //添加文本按钮
-    public TextView addRightTextButton(String btnName, int colorRes, View.OnClickListener clickListener) {
+    public TextView addRightTextButton(String btnName, int colorRes, OnClickListener clickListener) {
         TextView view = new TextView(context);
         view.setText(btnName);
         view.setTextSize(14f);
@@ -199,7 +199,7 @@ public class PubTitleView extends LinearLayout {
     }
 
     //添加图片按钮
-    public ImageView addRightImageButton(int imageSrc, View.OnClickListener clickListener) {
+    public ImageView addRightImageButton(int imageSrc, OnClickListener clickListener) {
         ImageView view = new ImageView(context);
         view.setImageResource(imageSrc);
         view.setScaleType(ImageView.ScaleType.CENTER);

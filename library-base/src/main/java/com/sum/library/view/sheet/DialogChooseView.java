@@ -82,12 +82,6 @@ public class DialogChooseView extends BaseDialogFragment {
         return this;
     }
 
-
-    @Override
-    protected int getDialogShowAnimation() {
-        return 0;
-    }
-
     @Override
     protected int getLayoutId() {
         return R.layout.cus_dialog_choice;

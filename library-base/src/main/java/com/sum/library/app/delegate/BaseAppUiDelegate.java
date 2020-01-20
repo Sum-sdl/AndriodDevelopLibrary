@@ -1,15 +1,9 @@
 package com.sum.library.app.delegate;
 
-import androidx.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,16 +11,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LifecycleOwner;
+
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.BaseViewModel;
-import com.sum.library.domain.UiViewModel;
+import com.sum.library.domain.UiAction;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by sdl on 2019-06-22.
  * 统一处理UI界面基础功能代理类,fragment、activity通用
  */
-public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
+public abstract class BaseAppUiDelegate implements IViewDelegate, UiAction {
 
     protected Context mContext;
 
@@ -39,7 +42,8 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
     //传递的参数
     protected Bundle mIntentExtras;
 
-    private View mRootView;
+    //缓存View对象
+    private WeakReference<View> mRootView;
 
     //布局id
     protected abstract int getLayoutId();
@@ -80,16 +84,16 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         printLifeLog("onCreateView");
-        mRootView = inflater.inflate(getLayoutId(), container, false);
-        return mRootView;
+        View view = inflater.inflate(getLayoutId(), container, false);
+        mRootView = new WeakReference<>(view);
+        return view;
     }
 
     @Override
     public void init() {
         printLifeLog("init delegate");
-        if (mRootView != null) {
-            initParams(mRootView);
-            loadData();
+        if (mRootView != null && mRootView.get() != null) {
+            initParams(mRootView.get());
         }
     }
 
@@ -151,7 +155,10 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiViewModel {
 
     //expand fun
     public <T extends View> T findViewById(int id) {
-        return mRootView.findViewById(id);
+        if (mRootView != null && mRootView.get() != null) {
+            return mRootView.get().findViewById(id);
+        }
+        return null;
     }
 
     protected FragmentActivity getActivity() {

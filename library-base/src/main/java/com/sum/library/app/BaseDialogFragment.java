@@ -59,9 +59,10 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         return cacheView;
     }
 
-    //对话框展示动画
+    //对话框展示动画,默认无动画
+    //动画参考：R.style.dialog_anim_bottom
     protected int getDialogShowAnimation() {
-        return R.style.dialog_anim_bottom;
+        return 0;
     }
 
     @Override
@@ -109,7 +110,7 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
     }
 
     @Override
-    public void show(FragmentManager manager, String tag) {
+    public void show(@NonNull FragmentManager manager, String tag) {
 //        try {
 //            FragmentTransaction ft = manager.beginTransaction();
 //            ft.add(this, tag);

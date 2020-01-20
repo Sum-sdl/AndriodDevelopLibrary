@@ -25,13 +25,10 @@ class UserRepository : BaseRepository() {
 
         TaskExecutor.ioThread {
             Logger.e("Thread load data start")
-            sendActionState(ActionState.NET_START)
             Thread.sleep(2000)
             mInfoLiveData.postValue(Info().apply { data = input })
             Logger.e("Thread load data finish")
             Thread.sleep(2000)
-            sendActionState(ActionState.NET_FINISH)
-
         }
 
         return mInfoLiveData

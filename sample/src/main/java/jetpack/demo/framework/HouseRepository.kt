@@ -28,12 +28,12 @@ class HouseRepository : BaseRepository() {
             val state = ActionState.obtain(ActionState.DIALOG_LOADING)
             state.msg = "加载中..."
 
-            sendActionState(state)
+//            sendActionState(state)
             Thread.sleep(1000)
             mInfoLiveData.postValue(Info().apply { data = input })
             Logger.e("Thread load data finish")
             Thread.sleep(1500)
-            sendActionState(ActionState.DIALOG_HIDE)
+//            sendActionState(ActionState.DIALOG_HIDE)
         }
 
         return mInfoLiveData
@@ -47,14 +47,14 @@ class HouseRepository : BaseRepository() {
             Logger.e("Thread uploadFile data start")
             val state = ActionState.obtain(ActionState.DIALOG_PROGRESS_SHOW)
             state.msg = "上传文件中..."
-            sendActionState(state)
+//            sendActionState(state)
 
             Thread.sleep(1500)
             mUploadLiveData.postValue(Info().apply { data = input })
             Logger.e("Thread uploadFile data finish")
 
             Thread.sleep(500)
-            sendActionState(ActionState.DIALOG_HIDE)
+//            sendActionState(ActionState.DIALOG_HIDE)
         }
 
         return mUploadLiveData

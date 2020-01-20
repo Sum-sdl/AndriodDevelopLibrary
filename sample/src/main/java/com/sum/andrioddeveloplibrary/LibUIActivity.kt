@@ -111,7 +111,7 @@ class LibUIActivity : BaseAppActivity() {
             if (mData.size > 0) {
                 AppImageUtils.LuImageCompress(this, mData, object : OnCompressListener {
                     override fun onSuccess(file: File?) {
-                        mPresent.loadingView.hideLoading()
+                        mUiActive.loadingView.hideLoading()
                         val dirSize = FileUtils.getFileSize(file)
                         tv_img_size.append(",新图大小->$dirSize")
                         tv_img_size.append("\n新图位置->${file?.path}")
@@ -119,12 +119,12 @@ class LibUIActivity : BaseAppActivity() {
                     }
 
                     override fun onError(e: Throwable?) {
-                        mPresent.loadingView.hideLoading()
+                        mUiActive.loadingView.hideLoading()
                         e?.printStackTrace()
                     }
 
                     override fun onStart() {
-                        mPresent.loadingView.showLoading("开始压缩")
+                        mUiActive.loadingView.showLoading("开始压缩")
                     }
                 })
             }
@@ -225,12 +225,12 @@ class LibUIActivity : BaseAppActivity() {
                 }
 
                 override fun onStart() {
-                    mPresent.loadingView.showLoading("开始压缩")
+                    mUiActive.loadingView.showLoading("开始压缩")
 
                 }
 
                 override fun onSuccess(file: File?) {
-                    mPresent.loadingView.hideLoading()
+                    mUiActive.loadingView.hideLoading()
                     val dirSize = FileUtils.getFileSize(file)
                     tv_img_size.append(",新图大小->$dirSize")
                     tv_img_size.append("\n新图位置->${file?.path}")

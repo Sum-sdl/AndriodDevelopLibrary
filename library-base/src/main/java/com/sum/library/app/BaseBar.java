@@ -12,9 +12,10 @@ import android.widget.FrameLayout;
 
 /**
  * Created by sdl on 2017/3/6.
+ * 用于快速集成组合View的场景
  */
 
-public abstract class BaseAppBar extends FrameLayout {
+public abstract class BaseBar extends FrameLayout {
 
     protected abstract void initParams();
 
@@ -24,7 +25,7 @@ public abstract class BaseAppBar extends FrameLayout {
     protected View mView;
     private boolean mIsFirstInit = true;
 
-    public BaseAppBar(Context context) {
+    public BaseBar(Context context) {
         super(context);
         if (mIsFirstInit) {
             initLayout(context);
@@ -32,7 +33,7 @@ public abstract class BaseAppBar extends FrameLayout {
         }
     }
 
-    public BaseAppBar(Context context, AttributeSet attrs) {
+    public BaseBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (mIsFirstInit) {
             initLayout(context);
@@ -44,10 +45,6 @@ public abstract class BaseAppBar extends FrameLayout {
         this.mContext = context;
         mView = LayoutInflater.from(context).inflate(getLayoutId(), this, true);
         initParams();
-    }
-
-    public <T extends View> T _findViewById(int id) {
-        return mView.findViewById(id);
     }
 
     public void startActivity(Class activity) {

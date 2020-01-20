@@ -89,4 +89,13 @@ public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment 
             }
         }
     }
+
+    @Override
+    public void show(@NonNull FragmentManager manager, String tag) {
+        try {
+            super.show(manager, tag);
+        } catch (Exception ignored) {
+        }
+    }
+
 }

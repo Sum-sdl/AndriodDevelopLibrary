@@ -16,7 +16,7 @@ import android.view.ViewParent;
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.BaseViewModel;
-import com.sum.library.domain.UiViewModel;
+import com.sum.library.domain.UiAction;
 import com.sum.library.utils.Logger;
 
 import java.lang.ref.WeakReference;
@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseFragment extends Fragment implements UiViewModel {
+public abstract class BaseFragment extends Fragment implements UiAction {
 
     public static boolean PRINT_LIFE = false;
 
@@ -34,15 +34,15 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     //首次创建调用（Kotlin通过id查布局需要在onViewCreated执行后才能使用）
     protected abstract void initParams(View view);
 
-    //加载数据
-    protected void loadData() {
+    //加载数据的调用模板方法,首次加载不去调用,如果需要调用,手动调用
+    public void loadData() {
 
     }
 
     //初始化布局
     protected abstract int getLayoutId();
 
-    protected ActivePresent mPresent;
+    protected ActivePresent mUiActive;
 
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
 
@@ -63,13 +63,13 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresent = new ActivePresent(this);
-        BaseViewModel viewModel = getViewModel();
-        if (viewModel != null) {
-            viewModel.registerActionState(this,
+        mUiActive = new ActivePresent(this);
+        BaseViewModel presenter = getViewModel();
+        if (presenter != null) {
+            presenter.registerActionState(this,
                     actionState -> {
                         if (actionState != null) {
-                            mPresent.dealActionState((ActionState) actionState, this);
+                            mUiActive.dealActionState((ActionState) actionState, this);
                         }
                     });
         }
@@ -104,7 +104,6 @@ public abstract class BaseFragment extends Fragment implements UiViewModel {
         if (mIsInflateView) {
             printFragmentLife("onViewCreated-initParams");
             initParams(view);
-            loadData();
         }
     }
 

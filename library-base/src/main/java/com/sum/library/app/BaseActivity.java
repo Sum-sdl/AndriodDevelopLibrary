@@ -5,23 +5,24 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.sum.library.app.common.ActivePresent;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.BaseViewModel;
-import com.sum.library.domain.UiViewModel;
+import com.sum.library.domain.UiAction;
 import com.sum.library.utils.AppUtils;
 
 /**
  * Created by Summer on 2016/9/9.
  */
-public abstract class BaseActivity extends AppCompatActivity implements UiViewModel {
+public abstract class BaseActivity extends AppCompatActivity implements UiAction {
 
     //活动数据处理
-    protected ActivePresent mPresent;
+    protected ActivePresent mUiActive;
 
     protected Context mContext;
 
@@ -31,8 +32,8 @@ public abstract class BaseActivity extends AppCompatActivity implements UiViewMo
     //kotlin 不需要实现view 初始化
     protected abstract void initParams();
 
-    //加载数据
-    protected void loadData() {
+    //加载数据的调用模板方法,首次加载不去调用,如果需要调用,手动调用
+    public void loadData() {
 
     }
 
@@ -63,25 +64,19 @@ public abstract class BaseActivity extends AppCompatActivity implements UiViewMo
         }
 
         mContext = this;
-        mPresent = new ActivePresent(this);
+        mUiActive = new ActivePresent(this);
 
-        BaseViewModel viewModel = getViewModel();
-        if (viewModel != null) {
-            viewModel.registerActionState(this,
+        BaseViewModel presenter = getViewModel();
+        if (presenter != null) {
+            presenter.registerActionState(this,
                     actionState -> {
                         if (actionState != null) {
-                            mPresent.dealActionState((ActionState) actionState, this);
+                            mUiActive.dealActionState((ActionState) actionState, this);
                         }
                     });
         }
 
         initParams();
-        loadData();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     //useful
@@ -103,14 +98,6 @@ public abstract class BaseActivity extends AppCompatActivity implements UiViewMo
 
     public Drawable getTintDrawable(int drawableRes) {
         return getTintDrawable(drawableRes, -1);
-    }
-
-    public void showLoadingDilog() {
-        mPresent.loadingView.showLoading();
-    }
-
-    public void hideLoadingDilog() {
-        mPresent.loadingView.hideLoading();
     }
 
     //base
