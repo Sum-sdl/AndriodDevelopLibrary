@@ -34,8 +34,13 @@
  > 基础结构库(Java) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-base/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-base/_latestVersion)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-base:2.2.2'
+         //AndroiX版本
+         implementation 'com.github.Sum-sdl:library-base:2.3.0'
       }
+      
+  gradle.properties文件中增加配置 
+      android.useAndroidX=true
+      android.enableJetifier=true
   ```
 > 网络库 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-network/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-network/_latestVersion)
   ```gradle
