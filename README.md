@@ -36,6 +36,9 @@
   dependencies {
          //AndroiX版本
          implementation 'com.github.Sum-sdl:library-base:2.3.0'
+         
+         //缓存库,参考CacheManager使用
+         implementation 'com.github.Sum-sdl:library-cache:1.0.0'
       }
       
   gradle.properties文件中增加配置 

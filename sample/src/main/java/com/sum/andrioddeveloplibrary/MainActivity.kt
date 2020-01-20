@@ -21,6 +21,10 @@ import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
 import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
 import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateActivity
+import com.sum.cache.CacheConfiguration
+import com.sum.cache.CacheManager
+import com.sum.cache.CacheOption
+import com.sum.cache.util.CacheLog
 import com.sum.library.AppFileConfig
 import com.sum.library.app.BaseActivity
 import com.sum.library.utils.ACache
@@ -87,8 +91,17 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
             download(url)
         }
 
+
+        //缓存初始化
+        CacheManager.getInstance().init(CacheConfiguration.Builder(this).build())
+
         b20.setOnClickListener {
 //            wms()
+            CacheLog.setTAG("cache", true)
+            CacheManager.getInstance().save("k","Hello",
+                    CacheOption.Builder().isSyncRun(true).build())
+
+            ToastUtils.showLong(CacheManager.getInstance().loadString("k"))
         }
     }
 
