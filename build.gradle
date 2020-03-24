@@ -19,6 +19,10 @@ buildscript {
         //JCenter()
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+
+        //proto使用 gradle 3.4 使用
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
+
     }
 }
 

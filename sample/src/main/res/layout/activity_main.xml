@@ -135,6 +135,15 @@
             android:text="打开"
             android:textColor="@color/black" />
 
+
+        <Button
+            android:id="@+id/b22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="ProtoFileTest" />
+
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

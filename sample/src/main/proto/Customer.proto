@@ -1,0 +1,76 @@
+//使用proto buf版本
+syntax = "proto3";
+
+//编译之后生成类所在的包名
+option java_package = "com.sum.andrioddeveloplibrary.protobuffer";
+//编译之后生成类所在的类名
+option java_outer_classname = "ProtoCustomer";
+
+message RequestCustomerRsp {
+    //返回状态
+    bool result = 1;
+    //返回信息
+    string info = 2;
+    //接口时间
+    string repDate = 3;
+    //错误码
+    string errCode = 4;
+    //客户集合
+    repeated Customer customer = 5;
+}
+
+// int64:long
+// int32:int
+// string:String
+// double:double
+//客户档案
+message Customer {
+    //客户id
+    int64 id = 1;
+    //客户名称
+    string name = 2;
+    //客户简称
+    string shortName = 3;
+    string contactName = 4;
+    string contactTel = 5;
+    //客户编码
+    string consumerCode = 6;
+    //客户编号
+    string licence = 7;
+    //食品许可证
+    string foodLicenseNumber = 8;
+    //最大欠款
+    string maxDebtAmount = 9;
+    //当前欠款
+    double debtAmount = 10;
+    string address = 11;
+    double addrLat = 12;
+    double addrLng = 13;
+    //客户状态
+    int32 state = 14;
+    string createTime = 15;
+    string updateTime = 16;
+    string submitTime = 17;
+    //备注1
+    string showRemark = 18;
+    //备注2
+    string printRemark = 19;
+    //0：未开通，1：已开通店管家
+    string openWeChat = 20;
+    //挂账，现结
+    int32 settleMethod = 21;
+
+    //2级对象
+    //客户区域
+    int64 area_id = 22;
+    string area_name = 23;
+    //客户分组
+    int64 group_id = 24;
+    string group_name = 25;
+    //客户等级
+    int64 customer_grade_id = 26;
+    string customer_grade_name = 27;
+    //客户价格方案
+    int64 price_plan_id = 28;
+
+}

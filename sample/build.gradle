@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+//应用protobuf插件
+apply plugin: 'com.google.protobuf'
+
 android {
     signingConfigs {
         config {
@@ -83,6 +86,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
+    sourceSets {
+        main{
+            proto{
+                srcDir "src/main/proto"
+            }
+        }
+    }
     /* //修改生成的apk名字
       android.applicationVariants.all { variant ->
         variant.outputs.all {
@@ -196,7 +206,41 @@ dependencies {
 //    implementation 'com.github.Sum-sdl:router-api:1.0.1'
 //    annotationProcessor 'com.github.Sum-sdl:router-complier:1.0.1'
 
+//    implementation "com.google.protobuf:protobuf-java:3.11.0"
+//    implementation "com.google.protobuf:protobuf-java:3.1.0"
+
+
+    // You need to depend on the lite runtime library, not protobuf-java 固定不变
+    implementation 'com.google.protobuf:protobuf-lite:3.0.0'
+
 }
+
+//配置protobuf插件信息
+protobuf {
+    protoc {
+        // You still need protoc like in the non-Android case
+        //编译proto文件采用的版本,可以升级
+        artifact = 'com.google.protobuf:protoc:3.8.0'
+    }
+    plugins {
+        javalite {
+            //固定不变
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                remove java
+            }
+            task.plugins {
+                javalite { }
+            }
+        }
+    }
+}
+
+
 
 repositories {
     mavenCentral()

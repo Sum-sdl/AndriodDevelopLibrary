@@ -1,0 +1,130 @@
+//使用proto buf的版本
+syntax = "proto3";
+
+//编译之后生成类所在的包名
+option java_package = "com.sum.andrioddeveloplibrary.protobuffer";
+//编译之后生成类所在的类名
+option java_outer_classname = "ProtoGoods";
+
+message RequestGoodsRsp {
+    //返回状态
+    bool result = 1;
+    //返回信息
+    string info = 2;
+    //接口时间
+    string repDate = 3;
+    //错误码
+    string errCode = 4;
+    //repeated 标识集合,返回的goods集合
+    repeated Goods goodsList = 5;
+}
+
+//Goods 在Java 环境下可以看成是关键字 class
+// int64:long
+// int32:int
+// string:String
+// double:double
+// bool:boolean，false
+//标识商品集合
+message Goods {
+    //商品id
+    int64 id = 1;
+    string name = 2;
+    string shortName = 3;
+    //商品是否支持改价
+    bool discount = 4;
+    //商品状态
+    int32 state = 5;
+
+    //小单位属性 id，名称，条形码
+    string baseUnitId = 6;
+    string baseUnitName = 7;
+    string baseBarcode = 8;
+    //大单位属性
+    string pkgUnitId = 9;
+    string pkgUnitName = 10;
+    string pkgBarcode = 11;
+    //中单位属性
+    string midUnitId = 12;
+    string midUnitName = 13;
+    string midBarcode = 14;
+
+    //换算单位
+    //中单位->小单位
+    double midUnitFactor = 15;
+    //大单位->小单位
+    double unitFactor = 16;
+    string unitFactorName = 17;
+
+    //价格存在空的场景,需要用String接收
+    //小单位 批发价
+    string baseWholesale = 18;
+    //零售价
+    string baseRetail = 19;
+    //最低售价
+    string baseCheapest = 20;
+    //进价
+    string basePurchase = 21;
+    //特价1
+    string baseSpecials1 = 22;
+    //特价2
+    string baseSpecials2 = 23;
+    //特价3
+    string baseSpecials3 = 24;
+
+    //大单位 批发价
+    string pkgWholesale = 25;
+    //大单位 零售价
+    string pkgRetail = 26;
+    //大单位 最低售价
+    string pkgCheapest = 27;
+    //大单位 进价
+    string pkgPurchase = 28;
+    string pkgSpecials1 = 29;
+    string pkgSpecials2 = 30;
+    string pkgSpecials3 = 31;
+
+    //中单位 批发价
+    string midWholesale = 32;
+    //中单位 零售价
+    string midRetail = 33;
+    //中单位 最低售价
+    string midCheapest = 34;
+    //中单位 进价
+    string midPurchase = 35;
+    string midSpecials1 = 36;
+    string midSpecials2 = 37;
+    string midSpecials3 = 38;
+
+    //成本价，只有一个
+    string costPrice = 39;
+    //没有使用
+    string origPlace = 40;
+
+    string articleNumber = 41;
+    string specifications = 42;
+    string specifications1 = 43;
+    //保质期
+    int32 shelfLife = 44;
+    //商品创建时间
+    string createTime = 45;
+    //父商品id
+    string parentId = 46;
+    string parentState = 47;
+    string calStockByTaste = 48;
+    //生产日期
+    string productionDateState = 49;
+    //是否关联单据
+    string hasBillRecord = 50;
+    //3张商品图片
+    string picture1 = 51;
+    string picture2 = 52;
+    string picture3 = 53;
+
+    //2级字段
+    string brand_id = 54;
+    string brand_name = 55;
+    string type_id = 56;
+    string type_name = 57;
+    string type_typeChain = 58;
+}

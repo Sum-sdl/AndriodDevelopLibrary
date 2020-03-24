@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.WindowManager
 import android.widget.ImageView
@@ -19,6 +20,7 @@ import com.sum.andrioddeveloplibrary.autosize.AutoSizeTestActivity
 import com.sum.andrioddeveloplibrary.coroutine.CoroutineActivity
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
+import com.sum.andrioddeveloplibrary.protobuffer.GoodsProto
 import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
 import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateActivity
 import com.sum.cache.CacheConfiguration
@@ -103,6 +105,14 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
             ToastUtils.showLong(CacheManager.getInstance().loadString("k"))
         }
+
+        b22.setOnClickListener {
+            protoTest()
+        }
+    }
+
+    private fun protoTest(){
+
     }
 
     /**
