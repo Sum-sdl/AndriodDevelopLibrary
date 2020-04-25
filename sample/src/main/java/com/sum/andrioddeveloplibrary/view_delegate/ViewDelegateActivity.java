@@ -10,8 +10,8 @@ import com.sum.library.app.delegate.IViewDelegate;
 public class ViewDelegateActivity extends BaseDelegateActivity {
 
     @Override
-    protected void onCreateFirst(Bundle savedInstanceState) {
-        super.onCreateFirst(savedInstanceState);
+    protected void onCreateDoFirst(Bundle savedInstanceState) {
+        super.onCreateDoFirst(savedInstanceState);
     }
 
     @Override

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.sum.library.AppFileConfig;
+import com.sum.library.storage.AppFileStorage;
 import com.sum.library.utils.Logger;
 
 import java.io.File;
@@ -61,13 +61,13 @@ public class PhotoHelper {
     public PhotoHelper(Activity activity) {
         mContext = activity;
         this.mActivity = activity;
-        this.mPhotoFolder = AppFileConfig.getFileImageDirectory();
+        this.mPhotoFolder = AppFileStorage.getStorageImagesDir();
     }
 
     public PhotoHelper(Fragment fragment) {
         mContext = fragment.getContext();
         this.mFragment = fragment;
-        this.mPhotoFolder = AppFileConfig.getFileImageDirectory();
+        this.mPhotoFolder =  AppFileStorage.getStorageImagesDir();
     }
 
     //显示相册

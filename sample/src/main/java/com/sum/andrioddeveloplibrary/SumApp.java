@@ -17,7 +17,6 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.squareup.leakcanary.LeakCanary;
 import com.sum.library.storage.AppFileStorage;
 import com.sum.library.storage.StorageConfig;
 import com.sum.library.utils.ACache;
@@ -75,11 +74,6 @@ public class SumApp extends Application {
         super.onCreate();
         Utils.init(this);
         mOpenStartTime = System.currentTimeMillis();
-        //内存检测
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        LeakCanary.install(this);
         //ui
 //        BlockCanary.install(this, new BlockCanaryContext()).start();
 //        if (BuildConfig.DEBUG) {

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.blankj.utilcode.util.Utils;
-import com.sum.library.AppFileConfig;
+import com.sum.library.storage.AppFileStorage;
 
 import java.io.File;
 import java.util.Locale;
@@ -91,6 +91,7 @@ public class FileOpen {
         intent.setDataAndType(uri, "image/*");
         return intent;
     }
+
     // Android获取一个用于打开PPT文件的intent
     private static Intent getPptFileIntent(String param) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -153,9 +154,8 @@ public class FileOpen {
     }
 
 
-
     private static Uri getUri(String param) {
-        return AppFileConfig.getAppSelfUri(Utils.getApp(), new File(param));
+        return AppFileStorage.getStorageFileUri(new File(param));
     }
 
 }

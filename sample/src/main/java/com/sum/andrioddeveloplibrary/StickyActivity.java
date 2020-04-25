@@ -1,11 +1,12 @@
 package com.sum.andrioddeveloplibrary;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.sum.adapter.RecyclerDataHolder;
@@ -21,7 +22,6 @@ public class StickyActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private StickAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +32,16 @@ public class StickyActivity extends AppCompatActivity {
         List<StickyItemModel> infos = getModel();
 
         //显示数据的Holder
-        List<RecyclerDataHolder<StickyItemModel>> holders = new ArrayList<>();
+        List<RecyclerDataHolder> holders = new ArrayList<>();
         for (StickyItemModel i : infos) {
-            holders.add(new DataHolder(i));
+            holders.add(new Holder(i));
         }
-        mAdapter = new StickAdapter(holders);
+       Stick mAdapter = new Stick();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new StickyHeadDecoration(mAdapter));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter.setDataHolders(holders);
 
     }
 
@@ -67,73 +68,51 @@ public class StickyActivity extends AppCompatActivity {
             }
             i++;
         }
-
-
         return itemModels;
     }
 
-    class StickAdapter extends StickRecyclerAdapter<StickyItemModel> {
-
-        public StickAdapter() {
-            super();
-        }
-
-        public StickAdapter(List<RecyclerDataHolder<StickyItemModel>> holders) {
-            super(holders);
-        }
-
+    private class  Stick extends StickRecyclerAdapter<StickyItemModel>{
         @Override
         public int headLayoutId() {
             return R.layout.sticky_head;
         }
 
-
         @Override
-        public long headId(int position, StickyItemModel o) {
-         /*   if (position == 0 || position == 1) {
-                return -1;//负数，忽略不偏移
-            }*/
-            return o.headId;
+        public long headId(int position, StickyItemModel data) {
+            return data.headId;
         }
 
         @Override
-        public void onBindHeaderViewHolder(View holder, int position, StickyItemModel o) {
+        public void onBindHeaderViewHolder(View holder, int position, StickyItemModel data) {
             TextView name = (TextView) holder.findViewById(R.id.tv_title);
-            StickyItemModel d = o;
+            StickyItemModel d = data;
             name.setText(d.name + " " + d.headId);
-        }
-
-
-        @Override
-        public void firstHead(long headId, int position) {
         }
     }
 
-
-    class DataHolder extends RecyclerDataHolder<StickyItemModel> {
-
-        public DataHolder(StickyItemModel data) {
+    private class Holder extends RecyclerDataHolder<StickyItemModel>{
+        public Holder(StickyItemModel data) {
             super(data);
         }
 
         @Override
-        public int getItemViewLayoutId() {
+        protected int getItemViewLayoutId() {
             return R.layout.sticky_item;
         }
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(View contentView, int position) {
-            return new RecyclerViewHolder(contentView);
+        protected RecyclerView.ViewHolder onCreateViewHolder(View itemView, int position) {
+            return new RecyclerViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(int i, RecyclerView.ViewHolder viewHolder, StickyItemModel stickyItemModel) {
+        protected void onBindViewHolder(int position, RecyclerView.ViewHolder viewHolder, StickyItemModel data) {
             TextView name = (TextView) viewHolder.itemView.findViewById(R.id.tv);
-            name.setText("" + i + "->" + stickyItemModel.name);
+            name.setText("" + position + "->" + data.name);
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtils.showShort(stickyItemModel.name);
+                    ToastUtils.showShort(data.name);
                 }
             });
         }
