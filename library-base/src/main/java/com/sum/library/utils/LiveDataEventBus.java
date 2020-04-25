@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.util.ArrayMap;
 
 import java.util.Map;
@@ -28,19 +29,25 @@ public class LiveDataEventBus {
         return SingletonHolder.DEFAULT_BUS;
     }
 
+    //移除所有的缓存key
     public static void clearAll() {
         get().mCacheBus.clear();
     }
 
-    public static MutableLiveData<String> with(@Nullable String key) {
+    //移除缓存的key
+    public static void removeKey(String key) {
+        get().mCacheBus.remove(key);
+    }
+
+    public static MutableLiveData<String> with(@NonNull String key) {
         return get().withInfo(key, String.class, false);
     }
 
-    public static <T> MutableLiveData<T> with(@Nullable String key, Class<T> type) {
+    public static <T> MutableLiveData<T> with(@NonNull String key, Class<T> type) {
         return get().withInfo(key, type, false);
     }
 
-    public static <T> MutableLiveData<T> with(@Nullable String key, Class<T> type, boolean needCurrentDataWhenNewObserve) {
+    public static <T> MutableLiveData<T> with(@NonNull String key, Class<T> type, boolean needCurrentDataWhenNewObserve) {
         return get().withInfo(key, type, needCurrentDataWhenNewObserve);
     }
 
@@ -83,16 +90,22 @@ public class LiveDataEventBus {
         //添加注册对应事件type的监听
         @Override
         public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super T> observer) {
-            super.observe(owner, new ObserverWrapper(observer, this));
+            super.observe(owner, new ObserverWrapper<>(observer, this));
+        }
+
+        @Override
+        public void observeForever(@NonNull Observer<? super T> observer) {
+            //首次注册会接收到数据源
+            super.observeForever(new ObserverWrapper<>(observer, this));
         }
     }
 
     private static class ObserverWrapper<T> implements Observer<T> {
 
-        private Observer<T> observer;
+        private Observer<? super T> observer;
         private BusLiveData<T> liveData;
 
-        private ObserverWrapper(Observer<T> observer, BusLiveData<T> liveData) {
+        private ObserverWrapper(Observer<? super T> observer, BusLiveData<T> liveData) {
             this.observer = observer;
             this.liveData = liveData;
             //mIsStartChangeData 可过滤掉liveData首次创建监听，之前的遗留的值
