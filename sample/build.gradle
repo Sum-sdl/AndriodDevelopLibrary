@@ -136,13 +136,14 @@ dependencies {
 //    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha05'
 
     api "androidx.appcompat:appcompat:${rootProject.ext.dependencies.androidXVersion}"
+    api 'com.google.android.material:material:1.1.0'
 
     testImplementation 'junit:junit:4.12'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
     //基础库
-//    api('com.github.Sum-sdl:RvAdapter:2.1.1')
+//    api 'com.github.Sum-sdl:RvAdapter:3.0.1
 //    api 'com.github.bumptech.glide:glide:4.9.0'
-    api 'com.blankj:utilcode:1.24.4'
+    api 'com.blankj:utilcode:1.28.0'
 
     implementation project(':library-base')
     implementation project(':library-ui')
@@ -193,8 +194,8 @@ dependencies {
 
     //ui卡顿检测
     implementation 'com.github.markzhai:blockcanary-android:1.5.0'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.1'
+
     implementation 'me.jessyan:autosize:1.1.2'
     if (file("${rootProject.rootDir}/core/aa.aar").exists()) {
         implementation files("${rootProject.rootDir}/core/aa.aar")

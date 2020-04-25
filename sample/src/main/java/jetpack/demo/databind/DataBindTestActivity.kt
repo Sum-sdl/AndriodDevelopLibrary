@@ -19,7 +19,7 @@ import java.util.*
 
 class DataBindTestActivity : AppCompatActivity() {
 
-    private lateinit var mAdapter: RecyclerAdapter<RecyclerDataHolder<Any>>
+    private lateinit var mAdapter: RecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

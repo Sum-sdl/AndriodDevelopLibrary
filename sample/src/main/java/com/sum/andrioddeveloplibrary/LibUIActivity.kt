@@ -5,14 +5,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.core.view.ViewCompat
 import android.text.TextUtils
 import android.transition.AutoTransition
 import android.transition.Transition
+import androidx.core.view.ViewCompat
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
-import com.sum.library.AppFileConfig
+import com.sum.library.storage.AppFileStorage
 import com.sum.library.utils.Logger
 import com.sum.library_ui.camera.CameraActivity
 import com.sum.library_ui.image.AppImageUtils
@@ -112,7 +112,7 @@ class LibUIActivity : BaseAppActivity() {
                 AppImageUtils.LuImageCompress(this, mData, object : OnCompressListener {
                     override fun onSuccess(file: File?) {
                         mUiActive.loadingView.hideLoading()
-                        val dirSize = FileUtils.getFileSize(file)
+                        val dirSize = FileUtils.getSize(file)
                         tv_img_size.append(",新图大小->$dirSize")
                         tv_img_size.append("\n新图位置->${file?.path}")
                         ToastUtils.showLong("压缩成功")
@@ -132,7 +132,7 @@ class LibUIActivity : BaseAppActivity() {
 
         btn_6.setOnClickListener {
             //            WebActivity.open(this, "https://aznapi.house365.com/Home/Information/lists")
-            val target = AppFileConfig.getAppStoreDirectory().path + "/test.jpg"
+            val target = AppFileStorage.getStorageImagesDir().path + "/test.jpg"
             CameraActivity.open(this, 1001, "")
         }
     }
@@ -202,7 +202,7 @@ class LibUIActivity : BaseAppActivity() {
 
             //update size
             if (mData.isNotEmpty()) {
-                val dirSize = FileUtils.getFileSize(mData[0])
+                val dirSize = FileUtils.getSize(mData[0])
                 tv_img_size.text = "原图大小->$dirSize"
             }
 
@@ -216,11 +216,11 @@ class LibUIActivity : BaseAppActivity() {
             Logger.e(file)
             updateImageShow(file)
 
-            val dirSize = FileUtils.getFileSize(file)
+            val dirSize = FileUtils.getSize(file)
             tv_img_size.text = "拍照原图大小->$dirSize"
 
             //compress
-            AppImageUtils.LuImageCompress(this,file,object :OnCompressListener{
+            AppImageUtils.LuImageCompress(this, file, object : OnCompressListener {
                 override fun onError(e: Throwable?) {
                 }
 
@@ -231,7 +231,7 @@ class LibUIActivity : BaseAppActivity() {
 
                 override fun onSuccess(file: File?) {
                     mUiActive.loadingView.hideLoading()
-                    val dirSize = FileUtils.getFileSize(file)
+                    val dirSize = FileUtils.getSize(file)
                     tv_img_size.append(",新图大小->$dirSize")
                     tv_img_size.append("\n新图位置->${file?.path}")
                     ToastUtils.showLong("压缩成功")

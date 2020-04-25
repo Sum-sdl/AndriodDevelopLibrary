@@ -30,15 +30,18 @@
 </br>
 
 ### Dependency
-
+ > 通用RV适配器
+   ```gradle
+   dependencies {
+          //AndroidX版本
+          implementation 'com.github.Sum-sdl:RvAdapter:3.0.1'
+       }
+   ```
  > 基础结构库(Java) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-base/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-base/_latestVersion)
   ```gradle
   dependencies {
-         //AndroiX版本
-         implementation 'com.github.Sum-sdl:library-base:2.3.0'
-         
-         //缓存库,参考CacheManager使用
-         implementation 'com.github.Sum-sdl:library-cache:1.0.0'
+         //AndroidX版本
+         implementation 'com.github.Sum-sdl:library-base:2.4.0'
       }
       
   gradle.properties文件中增加配置 
@@ -53,14 +56,15 @@
   ```
 > 基础UI库(Kotlin) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-ui/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-ui/_latestVersion)
   ```gradle
+  //AndroidX版本
   dependencies {
-         implementation 'com.github.Sum-sdl:library-ui:2.2.2'
+         implementation 'com.github.Sum-sdl:library-ui:2.4.0'
       }
       1.自定义相册
       2.自定义相机
       3.图片预览
   ```
- 
+
 
 ### 项目功能介绍
 

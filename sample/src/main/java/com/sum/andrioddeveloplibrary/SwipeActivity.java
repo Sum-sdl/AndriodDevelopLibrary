@@ -2,6 +2,7 @@ package com.sum.andrioddeveloplibrary;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
-    RecyclerAdapter<RecyclerDataHolder> mAdapter;
+    RecyclerAdapter mAdapter;
 
     SmartRefreshLayout smartRefreshLayout;
 
@@ -28,7 +29,7 @@ public class SwipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
 
-        RecyclerAdapter<RecyclerDataHolder> adapter = new RecyclerAdapter<>();
+        RecyclerAdapter adapter = new RecyclerAdapter();
         mAdapter = adapter;
         SwipeMenuRecyclerView recyclerView = findViewById(R.id.sm_rv);
         smartRefreshLayout = findViewById(R.id.smart_refresh);

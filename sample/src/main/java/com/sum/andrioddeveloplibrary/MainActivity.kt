@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.WindowManager
 import android.widget.ImageView
@@ -20,15 +19,14 @@ import com.sum.andrioddeveloplibrary.autosize.AutoSizeTestActivity
 import com.sum.andrioddeveloplibrary.coroutine.CoroutineActivity
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.andrioddeveloplibrary.net.NetActivity
-import com.sum.andrioddeveloplibrary.protobuffer.GoodsProto
 import com.sum.andrioddeveloplibrary.testActivity.ServiceTestActivity
 import com.sum.andrioddeveloplibrary.view_delegate.ViewDelegateActivity
 import com.sum.cache.CacheConfiguration
 import com.sum.cache.CacheManager
 import com.sum.cache.CacheOption
 import com.sum.cache.util.CacheLog
-import com.sum.library.AppFileConfig
 import com.sum.library.app.BaseActivity
+import com.sum.library.storage.AppFileStorage
 import com.sum.library.utils.ACache
 import com.sum.library.utils.Logger
 import com.sum.library.utils.TaskExecutor.mainThread
@@ -153,7 +151,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
 
     private fun download(url: String) {
-        val mLocalFile = AppFileConfig.getFileDirectory().path + "/20180913150705.jpg"
+        val mLocalFile = AppFileStorage.getStorageRootDir().path + "/20180913150705.jpg"
         Logger.e("file->$mLocalFile")
         val file = File(mLocalFile)
 //        if (file.exists()) {
