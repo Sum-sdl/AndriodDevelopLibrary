@@ -11,7 +11,7 @@ ext {
     artifact = bintrayName
     libraryName = 'library ui'
     libraryDescription = ''
-    libraryVersion = '2.2.2'//每次升级+1
+    libraryVersion = '2.4.0'//每次升级+1
 }
 
 android {
@@ -57,7 +57,9 @@ dependencies {
 
     //compileOnly
 //    compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
-    api 'com.github.Sum-sdl:RvAdapter:3.0.0'
+    api 'com.github.Sum-sdl:RvAdapter:3.0.1'
+
+    //依赖base库功能
     implementation project(path: ':library-base')
 }
 

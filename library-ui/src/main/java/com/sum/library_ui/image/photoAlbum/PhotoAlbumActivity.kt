@@ -79,7 +79,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
 
     private var TAG_ALL: String = "所有图片"
 
-    private lateinit var mAdapter: RecyclerAdapter<RecyclerDataHolder<*>>
+    private lateinit var mAdapter: RecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mHasLoadFinish = false

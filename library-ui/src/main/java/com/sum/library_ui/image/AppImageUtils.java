@@ -9,12 +9,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 
-import com.sum.library.AppFileConfig;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import com.sum.library.R;
+import com.sum.library.storage.AppFileStorage;
 import com.sum.library_ui.image.photoAlbum.AlbumInfo;
 import com.sum.library_ui.image.photoAlbum.PhotoAlbumActivity;
 import com.sum.library_ui.image.preview.ImagePreviewActivity;
@@ -87,9 +88,9 @@ public class AppImageUtils {
      * @return 拍照完成时，返回拍照的文件位置
      */
     public static File systemTakePhoto(Activity activity, int requestCode) {
-        String target = AppFileConfig.getFileImageDirectory().getPath() + File.separator + System.currentTimeMillis() + ".jpg";
+        String target = AppFileStorage.getStorageImagesDir().getAbsolutePath() + File.separator + System.currentTimeMillis() + ".jpg";
         File file = new File(target);
-        systemTakePhoto(activity, requestCode, AppFileConfig.getAppSelfUri(activity, file));
+        systemTakePhoto(activity, requestCode, AppFileStorage.getStorageFileUri(file));
         return file;
     }
 
@@ -137,7 +138,7 @@ public class AppImageUtils {
      * 图片剪裁
      */
     public static void appImageCrop(Activity activity, String sourcePath, int requestCode, float ratio, UCrop.Options option) {
-        String destinationPath = AppFileConfig.getFileImageDirectory() + File.separator + System.currentTimeMillis() + ".jpg";
+        String destinationPath = AppFileStorage.getStorageImagesDir().getAbsolutePath() + File.separator + System.currentTimeMillis() + ".jpg";
         UCrop uCrop = UCrop.of(Uri.fromFile(new File(sourcePath)), Uri.fromFile(new File(destinationPath)));
         UCrop.Options options = new UCrop.Options();
         if (ratio != 0) {
@@ -227,7 +228,7 @@ public class AppImageUtils {
         Luban.with(context)
                 .load(target)
                 .ignoreBy(100)
-                .setTargetDir(AppFileConfig.getFileCompressDirectory().getPath())
+                .setTargetDir(AppFileStorage.getStorageImagesDir().getAbsolutePath())
                 .setCompressListener(compressListener).launch();
     }
 
@@ -235,7 +236,7 @@ public class AppImageUtils {
         Luban.with(context)
                 .load(target)
                 .ignoreBy(100)
-                .setTargetDir(AppFileConfig.getFileCompressDirectory().getPath())
+                .setTargetDir(AppFileStorage.getStorageImagesDir().getAbsolutePath())
                 .setCompressListener(compressListener).launch();
     }
 }

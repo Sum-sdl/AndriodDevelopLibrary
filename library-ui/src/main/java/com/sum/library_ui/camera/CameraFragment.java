@@ -24,8 +24,8 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.sum.library.AppFileConfig;
 import com.sum.library.app.BaseFragment;
+import com.sum.library.storage.AppFileStorage;
 import com.sum.library.utils.TaskExecutor;
 import com.sum.library_ui.R;
 import com.sum.library_ui.utils.LibUtils;
@@ -112,7 +112,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
         final ImageView swapCameraBtn = view.findViewById(R.id.change_camera);
         PackageManager pm = mContext.getPackageManager();
         //同时拥有前后置摄像头才可以切换
-        if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
+        if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY) && pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)) {
             swapCameraBtn.setVisibility(View.VISIBLE);
         } else {
             swapCameraBtn.setVisibility(View.GONE);
@@ -157,7 +157,7 @@ public class CameraFragment extends BaseFragment implements SurfaceHolder.Callba
             }
         }
         if (dirPath == null) {
-            dirPath = new File(AppFileConfig.getFileImageDirectory(), System.currentTimeMillis() + ".jpg");
+            dirPath = new File(AppFileStorage.getStorageImagesDir(), System.currentTimeMillis() + ".jpg");
         }
     }
 
