@@ -9,7 +9,7 @@ ext {
     artifact = bintrayName
     libraryName = 'base library'
     libraryDescription = ''
-    libraryVersion = '2.3.0'
+    libraryVersion = '2.4.0'
 }
 
 android {
@@ -42,7 +42,7 @@ android {
 dependencies {
     //compileOnly
     api "androidx.appcompat:appcompat:${rootProject.ext.dependencies.androidXVersion}"
-    api 'com.google.android.material:material:1.0.0'
+    api 'com.google.android.material:material:1.1.0'
 
 }
 

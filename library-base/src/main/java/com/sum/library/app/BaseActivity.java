@@ -47,6 +47,11 @@ public abstract class BaseActivity extends AppCompatActivity implements UiAction
 
     }
 
+    //界面初始化后最先调用的模板方法，处理一些
+    protected void onCreateDoFirst(Bundle savedInstanceState) {
+
+    }
+
     //状态栏背景 颜色
     protected int statusBarColor() {
         return 0;
@@ -55,12 +60,10 @@ public abstract class BaseActivity extends AppCompatActivity implements UiAction
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onCreateDoFirst(savedInstanceState);
         setContentView(getLayoutId());
         if (statusBarColor() != 0) {//状态栏颜色
             AppUtils.setColor(this, statusBarColor());
-            if (statusBarColor() == Color.WHITE) {
-                AppUtils.setDark(this);
-            }
         }
 
         mContext = this;

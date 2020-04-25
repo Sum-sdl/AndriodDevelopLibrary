@@ -40,19 +40,16 @@ public abstract class BaseDelegateActivity extends FragmentActivity {
     }
 
     //界面初始化后最先调用的模板方法，处理一些
-    protected void onCreateFirst(Bundle savedInstanceState) {
+    protected void onCreateDoFirst(Bundle savedInstanceState) {
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onCreateFirst(savedInstanceState);
+        onCreateDoFirst(savedInstanceState);
         if (statusBarColor() != 0) {//状态栏颜色
             AppUtils.setColor(this, statusBarColor());
-            if (statusBarColor() == Color.WHITE) {
-                AppUtils.setDark(this);
-            }
         }
         checkOrCreateDelegate();
         mViewDelegate.onAttach(this, null, this);

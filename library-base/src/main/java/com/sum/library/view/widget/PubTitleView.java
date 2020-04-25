@@ -6,9 +6,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -114,7 +116,7 @@ public class PubTitleView extends LinearLayout {
 
     private TextView mTitleTextView = null;//标题
 
-    public ImageView mTitleBackImage = null;//返回
+    private ImageView mTitleBackImage = null;//返回
 
     private LinearLayout mTitleRightContent = null;//右侧按钮
 
@@ -212,6 +214,12 @@ public class PubTitleView extends LinearLayout {
     //添加按钮
     public View addRightView(View view) {
         mTitleRightContent.addView(view, 0, new ViewGroup.LayoutParams(-2, -1));
+        return view;
+    }
+
+    //添加按钮
+    public View addRightView(View view, int width, int height) {
+        mTitleRightContent.addView(view, 0, new ViewGroup.LayoutParams(width, height));
         return view;
     }
 
