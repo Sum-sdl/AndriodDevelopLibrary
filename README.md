@@ -30,7 +30,7 @@
 </br>
 
 ### Dependency
- > 通用RV适配器
+ > 通用RV适配器 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/RvAdapter/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/RvAdapter/_latestVersion)
    ```gradle
    dependencies {
           //AndroidX版本
