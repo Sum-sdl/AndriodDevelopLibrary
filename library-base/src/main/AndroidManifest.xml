@@ -12,6 +12,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
+        <!--SDK内部的文件处理-->
+        <provider
+            android:name=".storage.BaseSdkFileProvider"
+            android:authorities="${applicationId}.sdkFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/base_sdk_file_path" />
+        </provider>
     </application>
 
 </manifest>

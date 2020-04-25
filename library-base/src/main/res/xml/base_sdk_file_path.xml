@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--内部应用缓存目录-->
+    <files-path
+        name="files"
+        path="app" />
+
+    <cache-path
+        name="cache_files"
+        path="app" />
+
+    <!--外部缓存缓存目录-->
+    <external-cache-path
+        name="external-cache"
+        path="app" />
+
+    <external-files-path
+        name="external-files"
+        path="app" />
+
+</paths>

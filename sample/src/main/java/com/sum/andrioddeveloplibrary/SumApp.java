@@ -18,11 +18,15 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.squareup.leakcanary.LeakCanary;
-import com.sum.andrioddeveloplibrary.net.TestToken;
-import com.sum.library.AppFileConfig;
+import com.sum.library.storage.AppFileStorage;
+import com.sum.library.storage.StorageConfig;
 import com.sum.library.utils.ACache;
 import com.sum.library.utils.Logger;
 import com.sum.library_network.Retrofit2Helper;
+import com.sum.library_network.token.BaseDynamicInterceptor;
+
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import me.jessyan.autosize.AutoSizeConfig;
 
@@ -64,9 +68,6 @@ public class SumApp extends Application {
         });
     }
 
-    //TODO 以/结尾
-    public static String BASE_URL = "http://apps.meitoutiao.net/";
-
     public static long mOpenStartTime = 0;
 
     @Override
@@ -94,11 +95,27 @@ public class SumApp extends Application {
         //ANRWatchDog ANR监测线程
 
         Logger.e("SumApp onCreate");
-        Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new TestToken());
+
+        //网络请求基础类
+        String BASE_URL = "http://apps.meitoutiao.net/";
+
+        //自定义插值器
+        Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new BaseDynamicInterceptor() {
+            @Override
+            public void addPubParams(TreeMap<String, String> params) {
+
+            }
+
+            @Override
+            public HashMap<String, String> addPubHeaders() {
+                return null;
+            }
+        });
 
         ACache.get(this).put("time", mOpenStartTime);
 
-        AppFileConfig.init(this, "AA_Sum",true);
+        //默认的文件初始化
+        AppFileStorage.init(new StorageConfig.Builder(this).build());
 
         //自适配
         //多进程适配
