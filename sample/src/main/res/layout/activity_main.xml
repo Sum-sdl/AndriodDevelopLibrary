@@ -26,6 +26,12 @@
             android:text="WindowManager" />
 
         <Button
+            android:id="@+id/b23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Api依赖倒置测试" />
+
+        <Button
             android:id="@+id/b19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

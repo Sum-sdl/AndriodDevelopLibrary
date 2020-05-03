@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+//依赖倒置
+apply plugin: 'com.zhoupu.api'
 
 //应用protobuf插件
 apply plugin: 'com.google.protobuf'

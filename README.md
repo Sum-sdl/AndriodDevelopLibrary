@@ -7,6 +7,8 @@
  
 -  [RecyclerView通用适配器库](https://github.com/Sum-sdl/RvAdapter)
 
+-  [Api依赖倒置框架](https://github.com/Sum-sdl/AndroidAucFrame)
+
 -  [常用开源库连接地址](https://github.com/Sum-sdl/AndriodDevelopLibrary/blob/master/sample/%E5%B8%B8%E7%94%A8%E5%BC%80%E6%BA%90%E5%BA%93.md)
 
 -  [后台接口开发规范](https://github.com/Sum-sdl/StudyNode/blob/master/TeamWork/Interface_development_standard.md)
@@ -27,10 +29,25 @@
         <td style ="text-align:center"><a href="https://gitee.com/Sum-sdl/code_project" target="_blank">其他项目地址</a></td>
     </tr>
 </table>
-</br>
 
 ### Dependency
- > 通用RV适配器 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/RvAdapter/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/RvAdapter/_latestVersion)
+ > Api依赖框架设计 [[ ![Download](https://api.bintray.com/packages/sum-sdl/android/api-gradle-plugin/images/download.svg) ](https://bintray.com/sum-sdl/android/api-gradle-plugin/_latestVersion))
+   ```
+    根目录
+    build.gradle {
+         dependencies {
+                classpath 'com.android.tools.build:gradle:3.6.3'
+                //Api依赖倒置框架
+                classpath 'com.github.Sum-sdl:api-gradle-plugin:1.0.0'
+            }
+    }
+
+    在需要使用的任意模块添加以下插件
+    build.gradle {
+        apply plugin: 'com.zhoupu.api'
+    }
+   ```
+> 通用RV适配器 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/RvAdapter/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/RvAdapter/_latestVersion)
    ```gradle
    dependencies {
           //AndroidX版本

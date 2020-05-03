@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.aa_surface_test.SurfaceActivity
 import com.sum.andrioddeveloplibrary.activity.BridgeWebViewActivity
+import com.sum.andrioddeveloplibrary.api.IApiFun
 import com.sum.andrioddeveloplibrary.autosize.AutoSizeTestActivity
 import com.sum.andrioddeveloplibrary.coroutine.CoroutineActivity
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
@@ -32,6 +33,7 @@ import com.sum.library.utils.Logger
 import com.sum.library.utils.TaskExecutor.mainThread
 import com.sum.library.view.widget.DialogMaker
 import com.sum.library_network.download.FileDownloadHelper
+import com.zp.apt.api.ApiFinder
 import jetpack.demo.NewStartActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -106,6 +108,10 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
 
         b22.setOnClickListener {
             protoTest()
+        }
+
+        b23.setOnClickListener {
+            ApiFinder.findApi(IApiFun::class.java).toast()
         }
     }
 

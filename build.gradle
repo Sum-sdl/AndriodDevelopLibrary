@@ -23,6 +23,9 @@ buildscript {
         //proto使用 gradle 3.4 使用
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
 
+        //Api依赖倒置框架
+        classpath 'com.github.Sum-sdl:api-gradle-plugin:1.0.0'
+
     }
 }
 
