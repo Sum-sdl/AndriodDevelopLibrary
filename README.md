@@ -47,7 +47,7 @@
         apply plugin: 'com.zhoupu.api'
     }
    ```
-> 通用RV适配器 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/RvAdapter/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/RvAdapter/_latestVersion)
+> RecycleView通用适配器 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/RvAdapter/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/RvAdapter/_latestVersion)
    ```gradle
    dependencies {
           //AndroidX版本
@@ -68,7 +68,8 @@
 > 网络库 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-network/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-network/_latestVersion)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-network:2.0.0'
+         implementation 'com.github.Sum-sdl:library-network:2.0.1'
+         //Retrofit2 2.9.0版本
       }
   ```
 > 基础UI库(Kotlin) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-ui/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-ui/_latestVersion)

@@ -17,15 +17,12 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.sum.andrioddeveloplibrary.net.TestToken;
 import com.sum.library.storage.AppFileStorage;
 import com.sum.library.storage.StorageConfig;
 import com.sum.library.utils.ACache;
 import com.sum.library.utils.Logger;
 import com.sum.library_network.Retrofit2Helper;
-import com.sum.library_network.token.BaseDynamicInterceptor;
-
-import java.util.HashMap;
-import java.util.TreeMap;
 
 import me.jessyan.autosize.AutoSizeConfig;
 
@@ -94,17 +91,7 @@ public class SumApp extends Application {
         String BASE_URL = "http://apps.meitoutiao.net/";
 
         //自定义插值器
-        Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new BaseDynamicInterceptor() {
-            @Override
-            public void addPubParams(TreeMap<String, String> params) {
-
-            }
-
-            @Override
-            public HashMap<String, String> addPubHeaders() {
-                return null;
-            }
-        });
+        Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new TestToken());
 
         ACache.get(this).put("time", mOpenStartTime);
 
