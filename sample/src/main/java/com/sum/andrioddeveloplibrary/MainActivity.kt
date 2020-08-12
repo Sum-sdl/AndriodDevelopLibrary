@@ -111,7 +111,7 @@ class MainActivity : BaseActivity(), ItemListDialogFragment.Listener {
         }
 
         b23.setOnClickListener {
-            ApiFinder.findApi(IApiFun::class.java).toast()
+            ApiFinder.get(IApiFun::class.java).toast()
         }
     }
 
