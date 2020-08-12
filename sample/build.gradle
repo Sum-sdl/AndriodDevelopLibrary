@@ -67,6 +67,10 @@ android {
     dataBinding {
         enabled = true
     }
+//    //ui处理
+//    viewBinding {
+//        enabled = true
+//    }
 
     repositories {
         mavenCentral()
