@@ -91,7 +91,7 @@ public class SumApp extends Application {
         String BASE_URL = "http://apps.meitoutiao.net/";
 
         //自定义插值器
-        Retrofit2Helper.getInstance().initRetrofit(BASE_URL, new Gson(), new TestToken());
+        Retrofit2Helper.getInstance().setBaseUrl(BASE_URL).addInterceptor(new TestToken()).init();
 
         ACache.get(this).put("time", mOpenStartTime);
 

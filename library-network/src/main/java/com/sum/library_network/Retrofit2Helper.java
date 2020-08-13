@@ -1,6 +1,7 @@
 package com.sum.library_network;
 
 import com.google.gson.Gson;
+import com.sum.library_network.utils.HttpsUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,76 +32,85 @@ public class Retrofit2Helper {
         return mHelper;
     }
 
+    //网络请求类
     private Retrofit mRetrofit;
-    private Retrofit mUploadFileRetrofit;
+    //构建请求基础参数
+    private OkHttpClient.Builder mClientBuilder;
+    private String mBaseUrl;
+    private Gson mGson;
+    private boolean mNeedGsonConverter = true;
 
     private Retrofit2Helper() {
+        mClientBuilder = buildDefaultOkHttpClient();
+        mGson = new Gson();
     }
 
     private OkHttpClient.Builder buildDefaultOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
                 .connectTimeout(20, TimeUnit.SECONDS);
         return builder;
     }
 
-    //直接设置
-    public void initRetrofit(Retrofit.Builder builder) {
+    /**
+     * 必须调用一次初始化
+     */
+    public void init() {
+        Retrofit.Builder builder = new Retrofit.Builder();
+        builder.baseUrl(mBaseUrl);
+        //自动将ResponseBody转成对象,自动将请求体转成json
+        //将请求体@body注解的对转成Json数据传输
+        if (mNeedGsonConverter) {
+            builder.addConverterFactory(GsonConverterFactory.create(mGson));
+        }
+        builder.client(mClientBuilder.build());
         mRetrofit = builder.build();
     }
 
     //直接默认设置
-    public void initRetrofit(String baseUrl) {
-        initRetrofit(baseUrl, buildDefaultOkHttpClient().build(), new Gson());
+    public Retrofit2Helper setBaseUrl(String baseUrl) {
+        mBaseUrl = baseUrl;
+        return this;
     }
 
-    //自己添加添加公共参数Interceptor
-    public void initRetrofit(String baseUrl, Gson gson, Interceptor... interceptor) {
-        OkHttpClient.Builder builder = buildDefaultOkHttpClient();
-        if (interceptor != null && interceptor.length > 0) {
-            for (Interceptor item : interceptor) {
-                builder.addInterceptor(item);
-            }
-        }
-        initRetrofit(baseUrl, builder.build(), gson);
+    //直接默认设置
+    public Retrofit2Helper setGson(Gson gson) {
+        mGson = gson;
+        return this;
     }
 
-    private void initRetrofit(String baseUrl, OkHttpClient client, Gson gson) {
-        Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl(baseUrl);
-        //自动将ResponseBody转成对象,自动将请求体转成json
-        builder.addConverterFactory(GsonConverterFactory.create(gson));
-        builder.client(client);
+    //设置是否需要Gson自动转换
+    public Retrofit2Helper setNeedConvert(boolean needConvert) {
+        mNeedGsonConverter = needConvert;
+        return this;
+    }
+
+    //添加自定义插值器
+    public Retrofit2Helper addInterceptor(Interceptor interceptor) {
+        mClientBuilder.addInterceptor(interceptor);
+        return this;
+    }
+
+    //信任全部证书
+    public Retrofit2Helper setCertificates() {
+        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null,
+                null);
+        mClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+        return this;
+    }
+
+    //所有对Builder的设置必须在init方法之前调用
+    public OkHttpClient.Builder getClientBuilder() {
+        return mClientBuilder;
+    }
+
+    //直接设置默认请求类
+    public void resetDefaultRetrofit(Retrofit.Builder builder) {
         mRetrofit = builder.build();
-    }
-
-    //自定义上传文件操作信息
-    public Retrofit initUploadFileRetrofit(String uploadUrl, int seconds) {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(seconds, TimeUnit.SECONDS)
-                .writeTimeout(seconds, TimeUnit.SECONDS)
-                .readTimeout(seconds, TimeUnit.SECONDS)
-                .build();
-        mUploadFileRetrofit = new Retrofit.Builder()
-                .client(client)
-                .baseUrl(uploadUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        return mUploadFileRetrofit;
-    }
-
-    public Retrofit initUploadFileRetrofit(Retrofit.Builder builder) {
-        mUploadFileRetrofit = builder.build();
-        return mUploadFileRetrofit;
     }
 
     public static Retrofit getRetrofit() {
         return Retrofit2Helper.getInstance().mRetrofit;
     }
-
-    public static Retrofit getUploadFileRetrofit() {
-        return Retrofit2Helper.getInstance().mUploadFileRetrofit;
-    }
-
 }
