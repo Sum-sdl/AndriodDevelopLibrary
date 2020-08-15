@@ -10,8 +10,10 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -46,10 +48,7 @@ import java.util.Map;
  */
 public class WebActivity extends BaseActivity {
 
-    public static void openTarget(Context c, Class<?> target, String title, String url, Bundle other) {
-        openTarget(c, target, title, url, null, null, other);
-    }
-
+    //打开指定的子类activity
     public static void openTarget(Context c, Class<?> target, String title, String url, WebJavascriptInterface js, String jsName, Bundle other) {
         Intent intent = new Intent(c, target);
         intent.putExtra("title", title);
@@ -62,21 +61,11 @@ public class WebActivity extends BaseActivity {
         c.startActivity(intent);
     }
 
-    public static void open(Context c, String title, String url, WebJavascriptInterface js, String jsName, Bundle other) {
-        openTarget(c, WebActivity.class, title, url, js, jsName, other);
-    }
-
-    public static void open(Context c, String url) {
-        open(c, null, url, null, null, null);
-    }
-
+    //直接打开默认的Activity
     public static void open(Context c, String url, String title) {
-        open(c, title, url, null, null, null);
+        openTarget(c, WebActivity.class, title, url, null, null, null);
     }
 
-    public static void open(Context c, String url, String title, Bundle other) {
-        open(c, title, url, null, null, other);
-    }
 
     @Override
     protected int statusBarColor() {

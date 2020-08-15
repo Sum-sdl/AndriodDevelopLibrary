@@ -43,7 +43,7 @@ android {
 dependencies {
     //网页
     //https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md
-    implementation 'com.tencent.sonic:sdk:3.0.0'
+    implementation 'com.tencent.sonic:sdk:3.1.0'
 
     //image
     api 'com.github.bumptech.glide:glide:4.9.0'
@@ -57,7 +57,7 @@ dependencies {
 
     //compileOnly
 //    compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
-    api 'com.github.Sum-sdl:RvAdapter:3.0.1'
+    compileOnly 'com.github.Sum-sdl:RvAdapter:3.0.1'
 
     //依赖base库功能
     implementation project(path: ':library-base')
