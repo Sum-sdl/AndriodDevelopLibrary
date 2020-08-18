@@ -26,7 +26,7 @@ class LibWidgetUseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BarUtils.setStatusBarColor(this,Color.RED)
+        BarUtils.setStatusBarColor(this, Color.RED)
         setContentView(R.layout.activity_widget_use)
         ActivityCompat.setExitSharedElementCallback(this, exitElementCallback)
         Logger.e("LibWidgetUseActivity onCreate")
@@ -34,12 +34,12 @@ class LibWidgetUseActivity : AppCompatActivity() {
         val view: PubTitleView = pub_view
 
         view.addRightTextButton("Github", View.OnClickListener {
-            WebActivity.open(this, "https://github.com/Sum-sdl")
+            WebActivity.open(this, "https://github.com/Sum-sdl", "")
         })
 
 
         title_2.addRightTextButton("按钮", View.OnClickListener {
-            WebActivity.open(this, "https://github.com/Sum-sdl")
+            WebActivity.open(this, "https://github.com/Sum-sdl", "")
         })
 
 
@@ -61,7 +61,7 @@ class LibWidgetUseActivity : AppCompatActivity() {
         val sp = SpanUtils().append("Hi ! Hello\n").append("World").setForegroundColor(Color.RED)
         pub_empty_view.setEmptyText(sp.create())
 
-        val tv= TextView(this)
+        val tv = TextView(this)
         tv.text = "add View"
         tv.setPadding(0, 20, 0, 20)
         pub_empty_view.addEmptyView(tv)
@@ -72,8 +72,9 @@ class LibWidgetUseActivity : AppCompatActivity() {
             val intent = Intent(this, LibUIActivity::class.java)
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 val activityOptions =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                activity, iv_1, "IMG_TRANSITION")
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        activity, iv_1, "IMG_TRANSITION"
+                    )
                 ActivityCompat.startActivity(this, intent, activityOptions.toBundle())
             } else {
                 activity.startActivity(intent)
@@ -82,10 +83,10 @@ class LibWidgetUseActivity : AppCompatActivity() {
 
         //num
         val mBadgeWork = QBadgeView(this).setBadgeTextSize(7f, true)
-                .setBadgeGravity(Gravity.TOP or Gravity.END)
-                .setBadgePadding(2f, true)
-                .setOnDragStateChangedListener { _, _, _ -> }
-                .bindTarget(mr_btn.ivParent)
+            .setBadgeGravity(Gravity.TOP or Gravity.END)
+            .setBadgePadding(2f, true)
+            .setOnDragStateChangedListener { _, _, _ -> }
+            .bindTarget(mr_btn.ivParent)
 
         mBadgeWork.badgeNumber = 99
 
@@ -95,7 +96,10 @@ class LibWidgetUseActivity : AppCompatActivity() {
     private var reenterState: Bundle? = null
 
     private val exitElementCallback = object : SharedElementCallback() {
-        override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
+        override fun onMapSharedElements(
+            names: MutableList<String>,
+            sharedElements: MutableMap<String, View>
+        ) {
             if (reenterState != null) {
                 val trant = reenterState!!.getString("tag")
 
@@ -129,7 +133,8 @@ class LibWidgetUseActivity : AppCompatActivity() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         val options = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions.makeSceneTransitionAnimation(
-                    this, iv_2, "iv_2")
+                this, iv_2, "iv_2"
+            )
         } else {
             null
         }

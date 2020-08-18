@@ -43,7 +43,7 @@ class NetActivity : BaseAppActivity() {
 
         xutils_net_webview.setOnClickListener {
             val url = "http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12"
-            WebActivity.open(this@NetActivity, url)
+            WebActivity.open(this@NetActivity, url,"")
         }
 
         bt_dialog1.setOnClickListener { mUiActive.loadingView.showLoading() }

@@ -5,10 +5,10 @@
     android:orientation="horizontal">
 
     <RadioGroup
-        android:visibility="gone"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <RadioButton
             android:id="@+id/rb1"
@@ -38,11 +38,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/smart_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffa" />
+            android:layout_height="match_parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
     </LinearLayout>
 
 </LinearLayout>

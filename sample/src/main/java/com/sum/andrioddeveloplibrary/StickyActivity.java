@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.sum.adapter.RecyclerDataHolder;
 import com.sum.adapter.RecyclerViewHolder;
 import com.sum.adapter.sticky.StickRecyclerAdapter;
@@ -22,6 +23,7 @@ public class StickyActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
+    private SmartRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class StickyActivity extends AppCompatActivity {
         for (StickyItemModel i : infos) {
             holders.add(new Holder(i));
         }
-       Stick mAdapter = new Stick();
+        Stick mAdapter = new Stick();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new StickyHeadDecoration(mAdapter));
@@ -71,7 +73,7 @@ public class StickyActivity extends AppCompatActivity {
         return itemModels;
     }
 
-    private class  Stick extends StickRecyclerAdapter<StickyItemModel>{
+    private class Stick extends StickRecyclerAdapter<StickyItemModel> {
         @Override
         public int headLayoutId() {
             return R.layout.sticky_head;
@@ -87,10 +89,16 @@ public class StickyActivity extends AppCompatActivity {
             TextView name = (TextView) holder.findViewById(R.id.tv_title);
             StickyItemModel d = data;
             name.setText(d.name + " " + d.headId);
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtils.showLong("Name click->" + d.name);
+                }
+            });
         }
     }
 
-    private class Holder extends RecyclerDataHolder<StickyItemModel>{
+    private class Holder extends RecyclerDataHolder<StickyItemModel> {
         public Holder(StickyItemModel data) {
             super(data);
         }

@@ -7,13 +7,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smart.refresh.header.BezierRadarHeader;
+import com.scwang.smart.refresh.header.FalsifyFooter;
+import com.scwang.smart.refresh.header.FalsifyHeader;
+import com.scwang.smart.refresh.header.TwoLevelHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import com.sum.adapter.RecyclerAdapter;
 import com.sum.adapter.RecyclerDataHolder;
+import com.sum.andrioddeveloplibrary.refreshview.CustomRefreshHeader;
 import com.sum.andrioddeveloplibrary.testActivity.holder.DemoDataHolder;
+import com.sum.library.utils.Logger;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -39,28 +45,47 @@ public class SwipeActivity extends AppCompatActivity {
         recyclerView.setItemViewSwipeEnabled(true);
         recyclerView.setAdapter(adapter);
 
+//        smartRefreshLayout.setRefreshHeader(new BezierRadarHeader(this));
+//        smartRefreshLayout.setRefreshHeader(new TwoLevelHeader(this));
+        smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(this));
+        //不好用
+//        smartRefreshLayout.setRefreshHeader(new FalsifyHeader(this));
+//        smartRefreshLayout.setRefreshFooter(new FalsifyFooter(this));
+
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                //开始刷新
+                Logger.e("onRefresh finish1111");
+                //获取结果
                 top();
-                refreshLayout.finishRefresh(1000);//传入
+                //刷新结束
+                refreshLayout.finishRefresh(4000, false, true);//传入
             }
         });
+        smartRefreshLayout.setEnableFooterFollowWhenNoMoreData(true);
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 add();
                 refreshLayout.finishLoadMore(2000);
+                refreshLayout.setNoMoreData(true);
             }
         });
 
         smartRefreshLayout.autoRefresh();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Logger.e("destory2222");
+    }
+
     private void top() {
         List<RecyclerDataHolder> holders = new ArrayList<>();
         for (int i = 0; i <= 20; i++) {
-            holders.add(new DemoDataHolder("index->" + i + ""));
+            holders.add(new DemoDataHolder("index1111111->" + i + ""));
         }
         mAdapter.setDataHolders(holders);
     }

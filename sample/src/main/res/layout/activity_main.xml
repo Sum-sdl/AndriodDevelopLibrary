@@ -52,7 +52,7 @@
             android:id="@+id/b3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="刷新和侧滑删除使用" />
+            android:text="下拉刷新组件和侧滑删除使用" />
 
         <Button
             android:id="@+id/b4"
