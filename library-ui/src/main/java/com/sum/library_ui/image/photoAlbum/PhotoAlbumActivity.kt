@@ -167,7 +167,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 mChoosePhoto.forEach {
                     list.add(it.path)
                 }
-                ImagePreviewActivity.open(this, list)
+                ImagePreviewActivity.open(this, list,0)
             }
         }
 

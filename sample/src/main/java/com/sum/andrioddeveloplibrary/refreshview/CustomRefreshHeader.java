@@ -11,6 +11,7 @@ import com.scwang.smart.refresh.layout.api.RefreshHeader;
 import com.scwang.smart.refresh.layout.api.RefreshKernel;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.constant.RefreshState;
+import com.scwang.smart.refresh.layout.constant.SpinnerStyle;
 import com.scwang.smart.refresh.layout.simple.SimpleComponent;
 import com.sum.andrioddeveloplibrary.R;
 import com.sum.library.utils.AppUtils;
@@ -31,6 +32,8 @@ public class CustomRefreshHeader extends SimpleComponent implements RefreshHeade
 
     protected CustomRefreshHeader(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
+        //布局位置样式
+        mSpinnerStyle = SpinnerStyle.Translate;
 
         View.inflate(context, R.layout.custom_refresh_header, this);
 

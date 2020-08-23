@@ -27,7 +27,10 @@ class LibUIActivity : BaseAppActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ImageLoader.loadImage(iv_2, "http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg")
+        ImageLoader.loadImage(
+            iv_2,
+            "http://img31.house365.com/M02/01/72/rBEBYFTTb52AKGnpAAGRhUbP6bI584.jpg"
+        )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.sharedElementReenterTransition = AutoTransition()
@@ -78,7 +81,7 @@ class LibUIActivity : BaseAppActivity() {
             list.add(mTake)
             list.addAll(mData)
             list.addAll(getAll())
-            AppImageUtils.appImagePreview(this, list)
+            AppImageUtils.appImagePreview(this, list, 3)
         }
 
         //系统相册

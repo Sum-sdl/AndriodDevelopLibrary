@@ -46,7 +46,7 @@ public class ImageLoader {
         RequestOptions format = options
                 .placeholder(placeholderResId)
                 .error(errorResId)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .format(DecodeFormat.PREFER_RGB_565);
 
         Glide.with(imageView.getContext())

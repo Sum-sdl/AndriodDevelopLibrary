@@ -62,7 +62,7 @@ public class WebActivity extends BaseActivity {
     }
 
     //直接打开默认的Activity
-    public static void open(Context c, String url, String title) {
+    public static void startCommonUrl(Context c, String url, String title) {
         openTarget(c, WebActivity.class, title, url, null, null, null);
     }
 

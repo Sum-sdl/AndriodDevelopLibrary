@@ -42,7 +42,8 @@ class HouseInfoTestActivity : BaseActivity() {
         })
 
         bt1.setOnClickListener {
-            viewModel.sendActionState(Random().nextInt(200))
+//            viewModel.sendActionState(Random().nextInt(200))
+            viewModel.sendActionState(ActionState.DIALOG_LOADING)
         }
 
         bt2.setOnClickListener {

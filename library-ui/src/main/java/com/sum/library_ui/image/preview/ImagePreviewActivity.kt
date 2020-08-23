@@ -13,10 +13,11 @@ import kotlinx.android.synthetic.main.ui_activity_image_preview.*
 class ImagePreviewActivity : BaseActivity() {
 
     companion object {
-        fun open(context: Context, list: ArrayList<String>) {
+        fun open(context: Context, list: ArrayList<String>, index: Int) {
             if (list.isNotEmpty()) {
                 val intent = Intent(context, ImagePreviewActivity::class.java)
                 intent.putExtra("urls", list)
+                intent.putExtra("index", index)
                 context.startActivity(intent)
             }
         }
@@ -36,7 +37,8 @@ class ImagePreviewActivity : BaseActivity() {
             fragments.add(ImagePreviewFragment.instance(it, true))
         }
         LibUtils.transparentStatusBar(this)
-        image_view_pager.adapter = SimpleViewPagerFragmentAdapter(supportFragmentManager, fragments, null)
+        val adapter = SimpleViewPagerFragmentAdapter(supportFragmentManager, fragments, null)
+        image_view_pager.adapter = adapter
         image_view_pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 mTitle.setTitle("${position + 1}/$size")
@@ -47,5 +49,8 @@ class ImagePreviewActivity : BaseActivity() {
             image_indicator.setViewPager(image_view_pager)
             mTitle.setTitle("1/$size")
         }
+        val index = intent.getIntExtra("index", 0)
+        image_view_pager.setCurrentItem(index, false)
+
     }
 }

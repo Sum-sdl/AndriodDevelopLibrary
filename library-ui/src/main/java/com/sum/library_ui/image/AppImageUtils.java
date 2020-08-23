@@ -126,11 +126,11 @@ public class AppImageUtils {
         }
         ArrayList<String> list = new ArrayList<>();
         list.add(url);
-        appImagePreview(context, list);
+        appImagePreview(context, list, 0);
     }
 
-    public static void appImagePreview(Context context, ArrayList<String> urls) {
-        ImagePreviewActivity.Companion.open(context, urls);
+    public static void appImagePreview(Context context, ArrayList<String> urls, int index) {
+        ImagePreviewActivity.Companion.open(context, urls, index);
     }
 
 
