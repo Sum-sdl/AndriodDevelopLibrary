@@ -34,12 +34,12 @@ class LibWidgetUseActivity : AppCompatActivity() {
         val view: PubTitleView = pub_view
 
         view.addRightTextButton("Github", View.OnClickListener {
-            WebActivity.open(this, "https://github.com/Sum-sdl", "")
+            WebActivity.startCommonUrl(this, "https://github.com/Sum-sdl", "")
         })
 
 
         title_2.addRightTextButton("按钮", View.OnClickListener {
-            WebActivity.open(this, "https://github.com/Sum-sdl", "")
+            WebActivity.startCommonUrl(this, "https://github.com/Sum-sdl", "")
         })
 
 

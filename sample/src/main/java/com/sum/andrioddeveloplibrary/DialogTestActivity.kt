@@ -1,9 +1,8 @@
 package com.sum.andrioddeveloplibrary
 
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.library.app.BaseDialogFragment
@@ -133,7 +132,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
         bt6.setOnClickListener {
             //            DialogF().show(supportFragmentManager, "test")
             val d = DialogF()
-            d.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.dialog_no_bg)
+//            d.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.dialog_no_bg)
 
             d.showFast(this)
         }
@@ -154,6 +153,15 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
     class DialogF : BaseDialogFragment() {
         override fun getLayoutId(): Int = R.layout.bsv_bottom_in_view
+
+        override fun isNeedSubNavHeight(): Boolean {
+            return true;
+        }
+        //动画参考：R.style.dialog_anim_bottom
+        override fun getDialogShowAnimation(): Int {
+            return R.style.dialog_anim_bottom
+        }
+
 
         override fun initParams(view: View) {
             view.findViewById<View>(R.id.fl_content).setOnClickListener { dismiss() }

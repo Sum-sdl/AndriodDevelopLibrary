@@ -22,7 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
  */
 public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment {
 
-    private static class BottomDialog extends BottomSheetDialog {
+    protected static class BottomDialog extends BottomSheetDialog {
 
         BottomDialog(Context context, int theme) {
             super(context, theme);
