@@ -58,7 +58,7 @@
   ```gradle
   dependencies {
          //AndroidX版本
-         implementation 'com.github.Sum-sdl:library-base:2.4.0'
+         implementation 'com.github.Sum-sdl:library-base:2.4.1'
       }
       
   gradle.properties文件中增加配置 
@@ -69,7 +69,7 @@
   ```gradle
   dependencies {
          implementation 'com.github.Sum-sdl:library-network:2.0.2'
-         //Retrofit2 2.9.0版本
+         //Retrofit2-> 2.9.0版本
       }
   ```
 > 基础UI库(Kotlin) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-ui/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-ui/_latestVersion)
