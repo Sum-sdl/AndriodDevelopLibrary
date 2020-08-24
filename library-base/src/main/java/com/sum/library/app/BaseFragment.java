@@ -3,20 +3,24 @@ package com.sum.library.app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.sum.library.app.common.ActivePresent;
+import com.sum.library.app.common.ActiveDefaultImpl;
+import com.sum.library.app.common.ICommonActive;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.BaseViewModel;
-import com.sum.library.domain.UiAction;
+import com.sum.library.app.common.UiAction;
 import com.sum.library.utils.Logger;
 
 import java.lang.ref.WeakReference;
@@ -42,13 +46,19 @@ public abstract class BaseFragment extends Fragment implements UiAction {
     //初始化布局
     protected abstract int getLayoutId();
 
-    protected ActivePresent mUiActive;
+    //统一的ViewModel操作数据处理
+    protected ICommonActive mUiActive;
 
     private boolean mIsInflateView = false;//在onViewCreated执行后进行数据加载
 
     private boolean mIsMulti = false;
 
     protected Context mContext;
+
+    //默认采用lib中的样式处理
+    protected ICommonActive getCommandActive() {
+        return new ActiveDefaultImpl(this);
+    }
 
     @Override
     public BaseViewModel getViewModel() {
@@ -63,15 +73,18 @@ public abstract class BaseFragment extends Fragment implements UiAction {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUiActive = new ActivePresent(this);
+        //ui状态初始
+        mUiActive = getCommandActive();
         BaseViewModel presenter = getViewModel();
         if (presenter != null) {
-            presenter.registerActionState(this,
-                    actionState -> {
-                        if (actionState != null) {
-                            mUiActive.dealActionState((ActionState) actionState, this);
-                        }
-                    });
+            presenter.registerActionState(this, new Observer<ActionState>() {
+                @Override
+                public void onChanged(ActionState actionState) {
+                    if (actionState != null && mUiActive != null) {
+                        mUiActive.doActionCommand(actionState, BaseFragment.this);
+                    }
+                }
+            });
         }
         printFragmentLife("onCreate");
     }

@@ -8,7 +8,6 @@ import com.sum.library.app.BaseActivity
 import com.sum.library.domain.ActionState
 import com.sum.library.utils.Logger
 import kotlinx.android.synthetic.main.activity_house_info_test.*
-import java.util.*
 
 class HouseInfoTestActivity : BaseActivity() {
 
@@ -43,7 +42,7 @@ class HouseInfoTestActivity : BaseActivity() {
 
         bt1.setOnClickListener {
 //            viewModel.sendActionState(Random().nextInt(200))
-            viewModel.sendActionState(ActionState.DIALOG_LOADING)
+            viewModel.sendActionState(ActionState.DIALOG_LOADING_SHOW)
         }
 
         bt2.setOnClickListener {

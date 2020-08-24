@@ -6,13 +6,17 @@ import androidx.lifecycle.Transformations
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.ToastUtils
+import com.sum.library.domain.BaseRepository
 import com.sum.library.domain.BaseViewModel
 
 /**
  * Created by sdl on 2018/7/13.
  */
 class UserViewModel : BaseViewModel<UserRepository>() {
-    override fun getRepositoryClass(): Class<UserRepository> = UserRepository::class.java
+
+    override fun buildRepository(): UserRepository {
+        return UserRepository()
+    }
 
     var name = ObservableField("Hello world")
 
@@ -23,7 +27,7 @@ class UserViewModel : BaseViewModel<UserRepository>() {
     }
 
     val mRespotryData: LiveData<UserRepository.Info> =
-            Transformations.switchMap(mInfoLiveData) { mRepository.getData(it) }
+        Transformations.switchMap(mInfoLiveData) { repository.getData(it) }
 
 
     fun textClickData(content: String) {

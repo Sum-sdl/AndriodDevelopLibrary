@@ -25,7 +25,7 @@ class HouseRepository : BaseRepository() {
 
         ioThread {
             Logger.e("Thread load data start")
-            val state = ActionState.obtain(ActionState.DIALOG_LOADING)
+            val state = ActionState.obtain(ActionState.DIALOG_LOADING_SHOW)
             state.msg = "加载中..."
 
 //            sendActionState(state)

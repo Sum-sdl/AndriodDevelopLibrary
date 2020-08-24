@@ -2,18 +2,19 @@ package com.sum.library.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.lifecycle.Observer;
 
-import com.sum.library.app.common.ActivePresent;
+import com.sum.library.app.common.ActiveDefaultImpl;
+import com.sum.library.app.common.ICommonActive;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.BaseViewModel;
-import com.sum.library.domain.UiAction;
+import com.sum.library.app.common.UiAction;
 import com.sum.library.utils.AppUtils;
 
 /**
@@ -21,10 +22,11 @@ import com.sum.library.utils.AppUtils;
  */
 public abstract class BaseActivity extends AppCompatActivity implements UiAction {
 
-    //活动数据处理
-    protected ActivePresent mUiActive;
-
+    //上下文
     protected Context mContext;
+
+    //统一的ViewModel操作数据处理
+    protected ICommonActive mUiActive;
 
     //布局id
     protected abstract int getLayoutId();
@@ -57,6 +59,11 @@ public abstract class BaseActivity extends AppCompatActivity implements UiAction
         return 0;
     }
 
+    //默认采用lib中的样式处理
+    protected ICommonActive getCommandActive() {
+        return new ActiveDefaultImpl(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,41 +74,45 @@ public abstract class BaseActivity extends AppCompatActivity implements UiAction
         }
 
         mContext = this;
-        mUiActive = new ActivePresent(this);
+        mUiActive = getCommandActive();
 
         BaseViewModel presenter = getViewModel();
         if (presenter != null) {
-            presenter.registerActionState(this,
-                    actionState -> {
-                        if (actionState != null) {
-                            mUiActive.dealActionState((ActionState) actionState, this);
-                        }
-                    });
+            presenter.registerActionState(this, new Observer<ActionState>() {
+                @Override
+                public void onChanged(ActionState actionState) {
+                    if (actionState != null && mUiActive != null) {
+                        mUiActive.doActionCommand(actionState, BaseActivity.this);
+                    }
+                }
+            });
         }
 
         initParams();
     }
 
     //useful
-    public void updateDrawableTint(Drawable drawable, int colorRes) {
+    public void setDrawableTint(Drawable drawable, int colorRes) {
         DrawableCompat.setTint(drawable, ContextCompat.getColor(this, colorRes));
     }
 
     public Drawable getTintDrawable(int drawableRes, int colorRes) {
         Drawable drawable = ContextCompat.getDrawable(this, drawableRes);
         if (colorRes != -1) {
-            updateDrawableTint(drawable, colorRes);
+            setDrawableTint(drawable, colorRes);
         }
         return drawable;
-    }
-
-    public int getColorByResId(int colorResId) {
-        return ContextCompat.getColor(this, colorResId);
     }
 
     public Drawable getTintDrawable(int drawableRes) {
         return getTintDrawable(drawableRes, -1);
     }
+
+
+    public int getColorByResId(int colorResId) {
+        return ContextCompat.getColor(this, colorResId);
+    }
+
 
     //base
     public void startActivity(Class<?> clazz) {

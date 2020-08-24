@@ -1,4 +1,7 @@
-package com.sum.library.domain;
+package com.sum.library.app.common;
+
+import com.sum.library.domain.ActionState;
+import com.sum.library.domain.BaseViewModel;
 
 /**
  * Created by sdl on 2018/7/16.

@@ -2,42 +2,41 @@ package com.sum.library.app.common;
 
 import android.app.Activity;
 import android.content.Context;
+
 import androidx.fragment.app.Fragment;
+
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.sum.library.domain.ActionState;
-import com.sum.library.domain.UiAction;
 
 
 /**
  * Created by Sum on 16/6/23.
  * 统一UI通用处理
  */
-public final class ActivePresent {
+public class ActiveDefaultImpl implements ICommonActive {
 
-    public LoadingView loadingView;
+    private LoadingView loadingView;
     private Context mContext;
 
-    public ActivePresent(Activity context) {
-        this.loadingView = new LoadingViewImpl(context);
+    public ActiveDefaultImpl(Activity context) {
+        this.loadingView = buildLoadingView(context);
         mContext = context;
     }
 
-    public ActivePresent(Fragment fragment) {
-        this.loadingView = new LoadingViewImpl(fragment.getActivity());
+    public ActiveDefaultImpl(Fragment fragment) {
+        this.loadingView = buildLoadingView(fragment.getActivity());
         mContext = fragment.getContext();
     }
 
-    //重置loadingView
-    public void setLoadingView(LoadingView loadingView) {
-        if (loadingView != null) {
-            this.loadingView = loadingView;
-        }
+    //子类处理的LoadingView实现
+    protected LoadingView buildLoadingView(Activity activity) {
+        return new LoadingViewImpl(activity);
     }
 
     //统一动作处理
-    public void dealActionState(ActionState state, UiAction viewModel) {
+    private void dealActionState(ActionState state, UiAction viewModel) {
         int action = state.getState();
         switch (action) {
             case ActionState.TOAST:
@@ -57,7 +56,7 @@ public final class ActivePresent {
                 loadingView.hideLoading();
                 break;
 
-            case ActionState.DIALOG_LOADING:
+            case ActionState.DIALOG_LOADING_SHOW:
                 if (!TextUtils.isEmpty(state.getMsg())) {
                     loadingView.showLoading(state.getMsg());
                 } else {
@@ -74,5 +73,15 @@ public final class ActivePresent {
         viewModel.expandActionDeal(state);
         //添加对象缓存
         ActionState.release(state);
+    }
+
+    @Override
+    public void doActionCommand(ActionState state, UiAction uiAction) {
+        dealActionState(state, uiAction);
+    }
+
+    @Override
+    public LoadingView getLoadingView() {
+        return loadingView;
     }
 }

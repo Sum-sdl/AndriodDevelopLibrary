@@ -10,10 +10,6 @@ ext {
     ]
 
     dependencies = [
-            //27.1.0库图片选择界面，LoaderManager加载数据库onLoadFinished会多次调用
-            //27.1.1库图片选择界面，加载数据库会重复bug已经修复
-            //28.0.0 最新版
-            supportLibraryVersion : "28.0.0",
-            androidXVersion : "1.1.0",
+            androidXVersion : "1.2.0",
     ]
 }

@@ -13,7 +13,7 @@ public class ActionState implements Cloneable {
     //Toast提示
     public static final int TOAST = 1;
     //show 加载中
-    public static final int DIALOG_LOADING = 2;
+    public static final int DIALOG_LOADING_SHOW = 2;
     //close 加载中
     public static final int DIALOG_HIDE = 3;
     //进度条提示

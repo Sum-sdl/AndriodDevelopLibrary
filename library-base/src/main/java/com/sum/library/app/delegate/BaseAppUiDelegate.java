@@ -18,10 +18,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.sum.library.app.common.ActivePresent;
+import com.sum.library.app.common.ActiveDefaultImpl;
 import com.sum.library.domain.ActionState;
 import com.sum.library.domain.BaseViewModel;
-import com.sum.library.domain.UiAction;
+import com.sum.library.app.common.UiAction;
 
 import java.lang.ref.WeakReference;
 
@@ -38,7 +38,7 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiAction {
     private Fragment mFragment;//可能为null
 
     //活动数据处理
-    private ActivePresent mPresent;
+    private ActiveDefaultImpl mPresent;
     //传递的参数
     protected Bundle mIntentExtras;
 
@@ -69,13 +69,13 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiAction {
     public void onCreate(Bundle savedInstanceState, Bundle intentExtras) {
         printLifeLog("onCreate");
         mIntentExtras = intentExtras;
-        mPresent = new ActivePresent(mActivity);
+        mPresent = new ActiveDefaultImpl(mActivity);
         BaseViewModel viewModel = getViewModel();
         if (viewModel != null) {
             viewModel.registerActionState(mLifecycle,
                     actionState -> {
                         if (actionState != null) {
-                            mPresent.dealActionState((ActionState) actionState, this);
+                            mPresent.doActionCommand((ActionState) actionState, this);
                         }
                     });
         }
@@ -173,7 +173,7 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiAction {
         return mLifecycle;
     }
 
-    public ActivePresent getActivePresent() {
+    public ActiveDefaultImpl getActivePresent() {
         return mPresent;
     }
 
@@ -227,19 +227,6 @@ public abstract class BaseAppUiDelegate implements IViewDelegate, UiAction {
 
     public Drawable getDrawableByResId(int drawableRes) {
         return ContextCompat.getDrawable(mContext, drawableRes);
-    }
-
-    //ui function
-    public void showLoadingDilog() {
-        mPresent.loadingView.showLoading();
-    }
-
-    public void hideLoadingDilog() {
-        mPresent.loadingView.hideLoading();
-    }
-
-    public void hideLoadingDilog(String msg) {
-        mPresent.loadingView.showLoading(msg);
     }
 
     public void toast(String msg) {

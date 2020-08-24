@@ -96,7 +96,7 @@ public class UiCopyUseDelegate extends BaseAppUiDelegate {
     }
 
     private void active() {
-        getActivePresent().loadingView.showLoading("Hello:" + getObjectId());
+        getActivePresent().getLoadingView().showLoading("Hello:" + getObjectId());
     }
 
     private void replaceUi() {
