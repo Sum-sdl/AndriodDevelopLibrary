@@ -15,7 +15,6 @@ import com.scwang.smart.refresh.layout.api.RefreshKernel;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.constant.RefreshState;
 import com.scwang.smart.refresh.layout.simple.SimpleComponent;
-import com.sum.library.utils.Logger;
 
 /**
  * Created by sdl on 2020/8/28
@@ -45,7 +44,7 @@ public class RefreshEmptyFooter extends SimpleComponent implements RefreshFooter
         super(context, attrs, 0);
         //增加一个TextView
         mTipView = new TextView(context);
-        mTipView.setText("上拉加载更多");
+        mTipView.setText("");
         mTipView.setGravity(Gravity.CENTER);
         mTipView.setPadding(0, dp2px(18), 0, dp2px(20));
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-1, -2);
@@ -56,16 +55,6 @@ public class RefreshEmptyFooter extends SimpleComponent implements RefreshFooter
         final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
-    public RefreshEmptyFooter setNeedRefreshCallback(boolean needRefreshCallback) {
-        this.mNeedRefreshCallback = needRefreshCallback;
-        return this;
-    }
-
-    private void print(String msg) {
-        Logger.e(msg);
-    }
-
 
     //初始化后，只调用一次
     @Override
@@ -87,13 +76,6 @@ public class RefreshEmptyFooter extends SimpleComponent implements RefreshFooter
                 refreshLayout.closeHeaderOrFooter();
             }
         }
-    }
-
-    //状态切换
-    @Override
-    public void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState) {
-        super.onStateChanged(refreshLayout, oldState, newState);
-        print("onStateChanged:" + oldState + ";" + newState);
     }
 
     @Override
