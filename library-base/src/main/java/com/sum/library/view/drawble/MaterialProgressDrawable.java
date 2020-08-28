@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sum.library.view.widget;
+package com.sum.library.view.drawble;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -47,7 +47,7 @@ import java.util.ArrayList;
 /**
  * Fancy progress indicator for Material theme.
  */
-class MaterialProgressDrawable extends Drawable implements Animatable {
+public class MaterialProgressDrawable extends Drawable implements Animatable {
     private static final Interpolator LINEAR_INTERPOLATOR = new LinearInterpolator();
     private static final Interpolator END_CURVE_INTERPOLATOR = new EndCurveInterpolator();
     private static final Interpolator START_CURVE_INTERPOLATOR = new StartCurveInterpolator();

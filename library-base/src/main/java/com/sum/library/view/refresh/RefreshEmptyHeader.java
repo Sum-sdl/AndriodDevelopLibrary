@@ -1,38 +1,36 @@
-package com.sum.andrioddeveloplibrary.refresh;
+package com.sum.library.view.refresh;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.blankj.utilcode.util.SizeUtils;
-import com.scwang.smart.refresh.header.falsify.FalsifyAbstract;
-import com.scwang.smart.refresh.layout.api.RefreshFooter;
 import com.scwang.smart.refresh.layout.api.RefreshHeader;
 import com.scwang.smart.refresh.layout.api.RefreshKernel;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.constant.RefreshState;
-import com.sum.library.utils.Logger;
+import com.scwang.smart.refresh.layout.simple.SimpleComponent;
 
 /**
  * Created by sdl on 2020/8/28
  */
-public class RefreshEmptyHeaderAndFooter extends FalsifyAbstract implements RefreshHeader, RefreshFooter {
-
+public class RefreshEmptyHeader extends SimpleComponent implements RefreshHeader {
+    protected RefreshKernel mRefreshKernel;
     private boolean mNeedRefreshCallback = true;
 
     private TextView mTipView;
 
     //<editor-fold desc="RelativeLayout">
-    public RefreshEmptyHeaderAndFooter(Context context) {
+    public RefreshEmptyHeader(Context context) {
         this(context, null);
     }
 
-    public RefreshEmptyHeaderAndFooter(Context context, boolean refreshCallback, String text) {
+    public RefreshEmptyHeader(Context context, boolean refreshCallback, String text) {
         this(context, null);
         mNeedRefreshCallback = refreshCallback;
         if (!TextUtils.isEmpty(text)) {
@@ -40,25 +38,21 @@ public class RefreshEmptyHeaderAndFooter extends FalsifyAbstract implements Refr
         }
     }
 
-    protected RefreshEmptyHeaderAndFooter(Context context, AttributeSet attrs) {
+    protected RefreshEmptyHeader(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
         //增加一个TextView
         mTipView = new TextView(context);
-        mTipView.setText("上拉加载更多");
+        mTipView.setText("");
         mTipView.setGravity(Gravity.CENTER);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, SizeUtils.dp2px(50));
+        mTipView.setPadding(0, dp2px(20), 0, dp2px(18));
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-1, -2);
         addView(mTipView, params);
     }
 
-    public RefreshEmptyHeaderAndFooter setNeedRefreshCallback(boolean needRefreshCallback) {
-        this.mNeedRefreshCallback = needRefreshCallback;
-        return this;
+    private int dp2px(final float dpValue) {
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
-
-    private void print(String msg) {
-        Logger.e(msg);
-    }
-
 
     //初始化后，只调用一次
     @Override
@@ -80,13 +74,6 @@ public class RefreshEmptyHeaderAndFooter extends FalsifyAbstract implements Refr
                 refreshLayout.closeHeaderOrFooter();
             }
         }
-    }
-
-    //状态切换
-    @Override
-    public void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState) {
-        super.onStateChanged(refreshLayout, oldState, newState);
-        print("onStateChanged:" + oldState + ";" + newState);
     }
 
     @Override

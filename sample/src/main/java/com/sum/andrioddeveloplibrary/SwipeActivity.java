@@ -14,9 +14,11 @@ import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import com.sum.adapter.RecyclerAdapter;
 import com.sum.adapter.RecyclerDataHolder;
-import com.sum.andrioddeveloplibrary.refresh.RefreshEmptyHeaderAndFooter;
 import com.sum.andrioddeveloplibrary.testActivity.holder.DemoDataHolder;
 import com.sum.library.utils.Logger;
+import com.sum.library.view.refresh.RefreshEmptyFooter;
+import com.sum.library.view.refresh.RefreshEmptyHeader;
+import com.sum.library.view.refresh.RefreshMaterialFooter;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -42,15 +44,18 @@ public class SwipeActivity extends AppCompatActivity {
         recyclerView.setItemViewSwipeEnabled(true);
         recyclerView.setAdapter(adapter);
 
-        smartRefreshLayout.setEnableFooterFollowWhenNoMoreData(true);
-        smartRefreshLayout.setEnableFooterTranslationContent(true);
-
 //        smartRefreshLayout.setRefreshHeader(new BezierRadarHeader(this));
 //        smartRefreshLayout.setRefreshHeader(new TwoLevelHeader(this));
 //        smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(this));
         //滚动效果，支持回调
-        smartRefreshLayout.setRefreshHeader(new RefreshEmptyHeaderAndFooter(this,false,"下拉不回调"));
-        smartRefreshLayout.setRefreshFooter(new RefreshEmptyHeaderAndFooter(this));
+        smartRefreshLayout.setRefreshHeader(new RefreshEmptyHeader(this,true,"5555"));
+        smartRefreshLayout.setRefreshFooter(new RefreshEmptyFooter(this));
+
+//        RefreshMaterialFooter footer = new RefreshMaterialFooter(this);
+//        footer.getTieView().setText("666666");
+//        footer.getTieView().setTextColor(getColor(R.color.chuck_colorAccent));
+//        footer.setRefreshColor(getColor(R.color.chuck_colorAccent));
+//        smartRefreshLayout.setRefreshFooter(footer);
         //用于空滚动回弹效果
 //        smartRefreshLayout.setRefreshHeader(new FalsifyHeader(this));
 //        smartRefreshLayout.setRefreshFooter(new FalsifyFooter(this));
@@ -67,13 +72,13 @@ public class SwipeActivity extends AppCompatActivity {
                 refreshLayout.finishRefresh(2000);//传入
             }
         });
-        smartRefreshLayout.setEnableFooterFollowWhenNoMoreData(false);
+
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 ToastUtils.showShort("loadMore");
                 add();
-                refreshLayout.finishLoadMore(2000);
+                refreshLayout.finishLoadMore(1500);
 //                refreshLayout.setNoMoreData(true);
             }
         });
