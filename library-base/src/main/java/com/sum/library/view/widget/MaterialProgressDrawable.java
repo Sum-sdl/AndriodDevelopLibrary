@@ -65,8 +65,8 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
 
     // Maps to ProgressBar default style
     private static final int CIRCLE_DIAMETER = 40;
-    private static final float CENTER_RADIUS = 8.75f; //should add up to 10 when + stroke_width
-    private static final float STROKE_WIDTH = 2.5f;
+    private static final float CENTER_RADIUS = 9f; //should add up to 10 when + stroke_width
+    private static final float STROKE_WIDTH = 1.8f;
 
     // Maps to ProgressBar.Large style
     private static final int CIRCLE_DIAMETER_LARGE = 56;

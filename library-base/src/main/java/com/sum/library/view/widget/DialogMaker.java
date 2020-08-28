@@ -20,10 +20,6 @@ import com.sum.library.R;
  */
 public class DialogMaker {
 
-    public static AlertDialog showLoadingDialog(Context context, String content) {
-        return showLoadingDialog(context, content, true);
-    }
-
     public static AlertDialog showLoadingDialog(Context context, String content, boolean cancel) {
         return showLoadingDialog(context, content, R.style.dialog_no_bg, cancel);
     }
@@ -49,6 +45,41 @@ public class DialogMaker {
 
         MaterialProgressDrawable drawable = new MaterialProgressDrawable(context, viewParent);
         int color1 = ContextCompat.getColor(context, R.color.pub_loading_bg_color);
+        drawable.setColorSchemeColors(color1);
+        imageView.setImageDrawable(drawable);
+        drawable.setAlpha(255);
+        drawable.start();
+        dialog.setView(view);
+
+        AlertDialog res = dialog.create();
+        res.setCancelable(cancel);
+        res.setCanceledOnTouchOutside(false);
+
+        return res;
+    }
+
+
+    public static AlertDialog showLoadingDialog2(Context context, String content, boolean cancel) {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.dialog_no_bg);
+        View view = LayoutInflater.from(context).inflate(R.layout.pub_loading_view_2, null);
+
+        ImageView imageView = view.findViewById(R.id.loading);
+        View viewParent = view.findViewById(R.id.load_content);
+
+        TextView tv = view.findViewById(R.id.loading_hint);
+        if (!TextUtils.isEmpty(content)) {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(content);
+        } else {
+            tv.setVisibility(View.GONE);
+        }
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
+        view.setLayoutParams(params);
+
+        MaterialProgressDrawable drawable = new MaterialProgressDrawable(context, viewParent);
+        int color1 = ContextCompat.getColor(context, R.color.pub_loading_bg_color2);
         drawable.setColorSchemeColors(color1);
         imageView.setImageDrawable(drawable);
         drawable.setAlpha(255);

@@ -2,6 +2,7 @@ package com.sum.library.app.common;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+
 import androidx.appcompat.app.AlertDialog;
 
 import com.sum.library.utils.Logger;
@@ -13,7 +14,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Sum on 16/6/20.
  */
-class LoadingViewImpl implements LoadingView {
+public class LoadingViewImpl implements LoadingView {
 
     private WeakReference<Activity> mReference;
 
@@ -21,8 +22,11 @@ class LoadingViewImpl implements LoadingView {
 
     private ProgressDialog mProgressDialog;
 
-    LoadingViewImpl(Activity context) {
+    private int mLoadingStyle;
+
+    public LoadingViewImpl(Activity context, int style) {
         mReference = new WeakReference<>(context);
+        mLoadingStyle = style;
     }
 
     @Override
@@ -45,7 +49,11 @@ class LoadingViewImpl implements LoadingView {
             Logger.e("!!! context finish");
             return;
         }
-        mLoadDialog = DialogMaker.showLoadingDialog(context, msg, cancelable);
+        if (mLoadingStyle == 2) {
+            mLoadDialog = DialogMaker.showLoadingDialog2(context, msg, cancelable);
+        }else {
+            mLoadDialog = DialogMaker.showLoadingDialog(context, msg, cancelable);
+        }
         if (!mLoadDialog.isShowing()) {
             mLoadDialog.show();
         }

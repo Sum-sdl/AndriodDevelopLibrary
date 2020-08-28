@@ -32,7 +32,7 @@ public class ActiveDefaultImpl implements ICommonActive {
 
     //子类处理的LoadingView实现
     protected LoadingView buildLoadingView(Activity activity) {
-        return new LoadingViewImpl(activity);
+        return new LoadingViewImpl(activity, 2);
     }
 
     //统一动作处理
