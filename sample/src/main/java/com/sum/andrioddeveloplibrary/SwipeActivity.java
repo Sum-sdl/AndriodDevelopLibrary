@@ -7,17 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.scwang.smart.refresh.header.BezierRadarHeader;
-import com.scwang.smart.refresh.header.FalsifyFooter;
-import com.scwang.smart.refresh.header.FalsifyHeader;
-import com.scwang.smart.refresh.header.TwoLevelHeader;
+import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import com.sum.adapter.RecyclerAdapter;
 import com.sum.adapter.RecyclerDataHolder;
-import com.sum.andrioddeveloplibrary.refreshview.CustomRefreshHeader;
+import com.sum.andrioddeveloplibrary.refresh.RefreshEmptyHeaderAndFooter;
 import com.sum.andrioddeveloplibrary.testActivity.holder.DemoDataHolder;
 import com.sum.library.utils.Logger;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
@@ -45,31 +42,39 @@ public class SwipeActivity extends AppCompatActivity {
         recyclerView.setItemViewSwipeEnabled(true);
         recyclerView.setAdapter(adapter);
 
+        smartRefreshLayout.setEnableFooterFollowWhenNoMoreData(true);
+        smartRefreshLayout.setEnableFooterTranslationContent(true);
+
 //        smartRefreshLayout.setRefreshHeader(new BezierRadarHeader(this));
 //        smartRefreshLayout.setRefreshHeader(new TwoLevelHeader(this));
-        smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(this));
-        //不好用
+//        smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(this));
+        //滚动效果，支持回调
+        smartRefreshLayout.setRefreshHeader(new RefreshEmptyHeaderAndFooter(this,false,"下拉不回调"));
+        smartRefreshLayout.setRefreshFooter(new RefreshEmptyHeaderAndFooter(this));
+        //用于空滚动回弹效果
 //        smartRefreshLayout.setRefreshHeader(new FalsifyHeader(this));
 //        smartRefreshLayout.setRefreshFooter(new FalsifyFooter(this));
 
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                ToastUtils.showShort("refreshTop");
                 //开始刷新
-                Logger.e("onRefresh finish1111");
+                Logger.e("onRefresh finish->>>");
                 //获取结果
                 top();
                 //刷新结束
-                refreshLayout.finishRefresh(4000, false, true);//传入
+                refreshLayout.finishRefresh(2000);//传入
             }
         });
-        smartRefreshLayout.setEnableFooterFollowWhenNoMoreData(true);
+        smartRefreshLayout.setEnableFooterFollowWhenNoMoreData(false);
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                ToastUtils.showShort("loadMore");
                 add();
                 refreshLayout.finishLoadMore(2000);
-                refreshLayout.setNoMoreData(true);
+//                refreshLayout.setNoMoreData(true);
             }
         });
 

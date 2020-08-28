@@ -1,4 +1,4 @@
-package com.sum.andrioddeveloplibrary.refreshview;
+package com.sum.andrioddeveloplibrary.refresh;
 
 import android.content.Context;
 import android.graphics.Color;

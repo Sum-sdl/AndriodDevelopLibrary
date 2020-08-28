@@ -81,7 +81,7 @@ public abstract class BaseViewModel<T extends BaseRepository> extends ViewModel 
     }
 
     //获取发送事件的LiveData
-    public LiveData<ActionState> getLiveData() {
+    public MutableLiveData<ActionState> getLiveData() {
         return mUiState;
     }
 }
