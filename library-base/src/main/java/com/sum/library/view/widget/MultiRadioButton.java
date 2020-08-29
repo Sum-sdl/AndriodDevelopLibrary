@@ -1,19 +1,19 @@
 package com.sum.library.view.widget;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.sum.library.R;
 
@@ -24,7 +24,7 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     private boolean mChecked = false;
 
-    private ImageView mImageView;
+    private AppCompatImageView mImageView;
 
     private TextView mTextView;
 
@@ -65,9 +65,11 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         if (mTextSize > 0) {
             mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
-
-        //初始化状态值
-        initDefaultTint();
+        if (!TextUtils.isEmpty(mName)) {
+            mTextView.setText(mName);
+        }
+        //初始化
+        setChecked(mDefaultChecked);
     }
 
     private void loadAttrs(Context context, AttributeSet attrs) {
@@ -118,14 +120,28 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
     public void setChecked(boolean checked) {
         if (mChecked != checked) {
             mChecked = checked;
-            mTextView.setEnabled(checked);
-            if (mShowType == 0) {
-                mImageView.setEnabled(checked);
+            if (mChecked) {
+                mTextView.setTextColor(mColorChecked);
             } else {
-                if (checked) {
-                    mImageView.setImageResource(mImageResChecked);
-                } else {
+                mTextView.setTextColor(mColorDefault);
+            }
+            //Tint处理
+            if (mShowType == 0) {
+                int color = mColorDefault;
+                if (mChecked) {
+                    color = mColorChecked;
+                }
+                Drawable drawable = ContextCompat.getDrawable(mContext, mImageResDefault);
+                if (drawable != null) {
+                    DrawableCompat.setTint(drawable, color);
+                }
+                mImageView.setImageDrawable(drawable);
+            } else {
+                //图片处理
+                if (mChecked) {
                     mImageView.setImageResource(mImageResDefault);
+                } else {
+                    mImageView.setImageResource(mImageResChecked);
                 }
             }
         }
@@ -141,46 +157,12 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         setChecked(!mChecked);
     }
 
-    private void initDefaultTint() {
-        //set Text
-        if (!TextUtils.isEmpty(mName)) {
-            mTextView.setText(mName);
-            ColorStateList sl = new ColorStateList(new int[][]{
-                    new int[]{-android.R.attr.state_enabled},
-                    new int[]{android.R.attr.state_enabled},
-            }, new int[]{
-                    mColorDefault,
-                    mColorChecked,
-            });
-            mTextView.setTextColor(sl);
-            mTextView.setEnabled(mChecked);
-        }
-
-        //set Image tint
-        if (mShowType == 0) {
-            ColorStateList sl = new ColorStateList(new int[][]{
-                    new int[]{-android.R.attr.state_enabled},
-                    new int[]{android.R.attr.state_enabled},
-            }, new int[]{
-                    mColorDefault,
-                    mColorChecked,
-            });
-            Drawable drawable = ContextCompat.getDrawable(mContext, mImageResDefault);
-            DrawableCompat.setTintList(drawable, sl);
-            mImageView.setImageDrawable(drawable);
-        } else {
-            mImageView.setImageResource(mImageResDefault);
-        }
-
-        setChecked(mDefaultChecked);
-    }
-
     //调整图片位置
     public FrameLayout getIvParent() {
         return mIvParent;
     }
 
-    public ImageView getImageView() {
+    public AppCompatImageView getImageView() {
         return mImageView;
     }
 
@@ -188,8 +170,4 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         return mTextView;
     }
 
-    //变更倒初始状态
-    public void resetToDefault() {
-        initDefaultTint();
-    }
 }

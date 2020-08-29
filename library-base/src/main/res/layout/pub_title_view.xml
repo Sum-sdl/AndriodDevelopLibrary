@@ -4,7 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="@dimen/pub_title_height">
 
-	<ImageView
+	<androidx.appcompat.widget.AppCompatImageView
 		android:id="@id/pub_title_back"
 		android:layout_width="@dimen/pub_title_height"
 		android:layout_height="@dimen/pub_title_height"
@@ -12,7 +12,7 @@
 		android:scaleType="center"
 		android:src="@mipmap/lib_ic_black_arrow" />
 
-	<TextView
+	<androidx.appcompat.widget.AppCompatTextView
 		android:id="@id/pub_title_text"
 		style="@style/lib_style_pub_title_text" />
 

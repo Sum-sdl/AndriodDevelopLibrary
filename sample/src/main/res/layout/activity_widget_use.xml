@@ -65,6 +65,20 @@
 			app:multiText="@string/app_name"
 			app:multiTextSize="12sp" />
 
+		<com.sum.library.view.widget.MultiRadioButton
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			app:multiChecked="true"
+			app:multiColorChecked="#f00"
+			app:multiColorDefault="@color/black"
+			app:multiDrawableDefault="@mipmap/home_tab_icon_home_h"
+			app:multiDrawableMarginBottom="4dp"
+			app:multiDrawableMarginLeft="6dp"
+			app:multiDrawableMarginRight="6dp"
+			app:multiDrawableMarginTop="4dp"
+			app:multiText="@string/app_name"
+			app:multiTextSize="12sp" />
+
 	</LinearLayout>
 
 	<androidx.constraintlayout.widget.ConstraintLayout

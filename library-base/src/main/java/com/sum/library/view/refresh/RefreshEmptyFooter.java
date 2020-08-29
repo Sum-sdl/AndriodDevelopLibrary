@@ -27,6 +27,8 @@ public class RefreshEmptyFooter extends SimpleComponent implements RefreshFooter
 
     private TextView mTipView;
 
+    private int mBackgroundColor = -1;
+
     //<editor-fold desc="RelativeLayout">
     public RefreshEmptyFooter(Context context) {
         this(context, null);
@@ -40,7 +42,7 @@ public class RefreshEmptyFooter extends SimpleComponent implements RefreshFooter
         }
     }
 
-    protected RefreshEmptyFooter(Context context, AttributeSet attrs) {
+    private RefreshEmptyFooter(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
         //增加一个TextView
         mTipView = new TextView(context);
@@ -49,6 +51,12 @@ public class RefreshEmptyFooter extends SimpleComponent implements RefreshFooter
         mTipView.setPadding(0, dp2px(18), 0, dp2px(20));
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-1, -2);
         addView(mTipView, params);
+    }
+
+    //设置刷新颜色
+    public RefreshEmptyFooter setRefreshBackgroundColor(int backgroundColor) {
+        this.mBackgroundColor = backgroundColor;
+        return this;
     }
 
     private int dp2px(final float dpValue) {
@@ -61,6 +69,9 @@ public class RefreshEmptyFooter extends SimpleComponent implements RefreshFooter
     public void onInitialized(@NonNull RefreshKernel kernel, int height, int maxDragHeight) {
         mRefreshKernel = kernel;
         kernel.getRefreshLayout().setEnableAutoLoadMore(false);
+        if (mBackgroundColor != -1) {
+            mRefreshKernel.requestDrawBackgroundFor(this, mBackgroundColor);
+        }
     }
 
     //手动释放后执行
