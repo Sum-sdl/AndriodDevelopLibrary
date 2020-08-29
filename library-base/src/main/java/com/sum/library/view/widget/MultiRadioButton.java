@@ -32,7 +32,10 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     private int mImageResDefault = -1, mImageResChecked = -1;
 
+    //文本颜色
     private int mColorDefault, mColorChecked;
+    //图片Tint颜色
+    private int mImageNorColor, mImageCheckedColor;
 
     private int mTextSize;
 
@@ -69,7 +72,7 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
             mTextView.setText(mName);
         }
         //初始化
-        setChecked(mDefaultChecked);
+        updateUi(mDefaultChecked);
     }
 
     private void loadAttrs(Context context, AttributeSet attrs) {
@@ -81,6 +84,14 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         mColorDefault = array.getColor(R.styleable.MultiRadioButton_multiColorDefault, 0xfff);
 
         mColorChecked = array.getColor(R.styleable.MultiRadioButton_multiColorChecked, 0xff0);
+        mImageNorColor = array.getColor(R.styleable.MultiRadioButton_multiImageColorDefault, -1);
+        if (mImageNorColor == -1) {
+            mImageNorColor = mColorDefault;
+        }
+        mImageCheckedColor = array.getColor(R.styleable.MultiRadioButton_multiImageColorChecked, -1);
+        if (mImageCheckedColor == -1) {
+            mImageCheckedColor = mColorDefault;
+        }
 
         mImageResDefault = array.getResourceId(R.styleable.MultiRadioButton_multiDrawableDefault, -1);
 
@@ -120,29 +131,33 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
     public void setChecked(boolean checked) {
         if (mChecked != checked) {
             mChecked = checked;
-            if (mChecked) {
-                mTextView.setTextColor(mColorChecked);
-            } else {
-                mTextView.setTextColor(mColorDefault);
+            updateUi(checked);
+        }
+    }
+
+    private void updateUi(boolean checked) {
+        if (checked) {
+            mTextView.setTextColor(mColorChecked);
+        } else {
+            mTextView.setTextColor(mColorDefault);
+        }
+        //Tint处理
+        if (mShowType == 0) {
+            int color = mImageNorColor;
+            if (checked) {
+                color = mImageCheckedColor;
             }
-            //Tint处理
-            if (mShowType == 0) {
-                int color = mColorDefault;
-                if (mChecked) {
-                    color = mColorChecked;
-                }
-                Drawable drawable = ContextCompat.getDrawable(mContext, mImageResDefault);
-                if (drawable != null) {
-                    DrawableCompat.setTint(drawable, color);
-                }
-                mImageView.setImageDrawable(drawable);
+            Drawable drawable = ContextCompat.getDrawable(mContext, mImageResDefault);
+            if (drawable != null) {
+                DrawableCompat.setTint(drawable, color);
+            }
+            mImageView.setImageDrawable(drawable);
+        } else {
+            //图片处理
+            if (checked) {
+                mImageView.setImageResource(mImageResDefault);
             } else {
-                //图片处理
-                if (mChecked) {
-                    mImageView.setImageResource(mImageResDefault);
-                } else {
-                    mImageView.setImageResource(mImageResChecked);
-                }
+                mImageView.setImageResource(mImageResChecked);
             }
         }
     }
@@ -155,6 +170,26 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
     @Override
     public void toggle() {
         setChecked(!mChecked);
+    }
+
+    public void updateUi() {
+        setChecked(mChecked);
+    }
+
+    public void setColorDefault(int mColorDefault) {
+        this.mColorDefault = mColorDefault;
+    }
+
+    public void setColorChecked(int mColorChecked) {
+        this.mColorChecked = mColorChecked;
+    }
+
+    public void setImageNorColor(int mImageNor) {
+        this.mImageNorColor = mImageNor;
+    }
+
+    public void setImageCheckedColor(int mImageChecked) {
+        this.mImageCheckedColor = mImageChecked;
     }
 
     //调整图片位置
