@@ -81,16 +81,17 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         //读取数据
         mShowType = 0;
 
+        //文本颜色
         mColorDefault = array.getColor(R.styleable.MultiRadioButton_multiColorDefault, 0xfff);
-
         mColorChecked = array.getColor(R.styleable.MultiRadioButton_multiColorChecked, 0xff0);
-        mImageNorColor = array.getColor(R.styleable.MultiRadioButton_multiImageColorDefault, -1);
+        //图片颜色
+        mImageNorColor = array.getColor(R.styleable.MultiRadioButton_multiColorImageDefault, -1);
         if (mImageNorColor == -1) {
             mImageNorColor = mColorDefault;
         }
-        mImageCheckedColor = array.getColor(R.styleable.MultiRadioButton_multiImageColorChecked, -1);
+        mImageCheckedColor = array.getColor(R.styleable.MultiRadioButton_multiColorImageChecked, -1);
         if (mImageCheckedColor == -1) {
-            mImageCheckedColor = mColorDefault;
+            mImageCheckedColor = mColorChecked;
         }
 
         mImageResDefault = array.getResourceId(R.styleable.MultiRadioButton_multiDrawableDefault, -1);

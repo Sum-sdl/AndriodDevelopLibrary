@@ -33,8 +33,8 @@
         <attr name="multiTextSize" format="dimension" />
         <attr name="multiColorDefault" format="reference|color" />
         <attr name="multiColorChecked" format="reference|color" />
-        <attr name="multiImageColorDefault" format="reference|color" />
-        <attr name="multiImageColorChecked" format="reference|color" />
+        <attr name="multiColorImageDefault" format="reference|color" />
+        <attr name="multiColorImageChecked" format="reference|color" />
         <attr name="multiDrawableDefault" format="reference" />
         <attr name="multiDrawableChecked" format="reference" />
         <attr name="multiDrawableWidth" format="dimension" />
