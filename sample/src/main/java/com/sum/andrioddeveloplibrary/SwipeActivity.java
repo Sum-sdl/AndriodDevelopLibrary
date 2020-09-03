@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.FalsifyFooter;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
@@ -29,6 +31,8 @@ public class SwipeActivity extends AppCompatActivity {
 
     SmartRefreshLayout smartRefreshLayout;
 
+    int index = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,21 +52,23 @@ public class SwipeActivity extends AppCompatActivity {
 //        smartRefreshLayout.setRefreshHeader(new TwoLevelHeader(this));
 //        smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(this));
         //滚动效果，支持回调
-        smartRefreshLayout.setRefreshHeader(new RefreshEmptyHeader(this,true,"5555"));
-        smartRefreshLayout.setRefreshFooter(new RefreshEmptyFooter(this));
+        smartRefreshLayout.setRefreshHeader(new RefreshEmptyHeader(this, true, "5555"));
+//        smartRefreshLayout.setRefreshFooter(new RefreshEmptyFooter(this));
 
-//        RefreshMaterialFooter footer = new RefreshMaterialFooter(this);
-//        footer.getTieView().setText("666666");
-//        footer.getTieView().setTextColor(getColor(R.color.chuck_colorAccent));
-//        footer.setRefreshColor(getColor(R.color.chuck_colorAccent));
-//        smartRefreshLayout.setRefreshFooter(footer);
+        RefreshMaterialFooter footer = new RefreshMaterialFooter(this);
+        footer.getTieView().setText("666666");
+        footer.getTieView().setTextColor(getColor(R.color.chuck_colorAccent));
+        footer.setRefreshColor(getColor(R.color.chuck_colorAccent));
+        smartRefreshLayout.setRefreshFooter(footer);
         //用于空滚动回弹效果
 //        smartRefreshLayout.setRefreshHeader(new FalsifyHeader(this));
 //        smartRefreshLayout.setRefreshFooter(new FalsifyFooter(this));
+//        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(this));
 
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                index = 0;
                 ToastUtils.showShort("refreshTop");
                 //开始刷新
                 Logger.e("onRefresh finish->>>");
@@ -76,10 +82,14 @@ public class SwipeActivity extends AppCompatActivity {
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                index++;
                 ToastUtils.showShort("loadMore");
                 add();
-                refreshLayout.finishLoadMore(1500);
-//                refreshLayout.setNoMoreData(true);
+                if (index == 3) {
+                    refreshLayout.finishLoadMore(1500, true, true);
+                }else {
+                    refreshLayout.finishLoadMore(500, false,false);
+                }
             }
         });
 

@@ -80,7 +80,7 @@ public class DialogMaker {
         view.setLayoutParams(params);
 
         MaterialProgressDrawable drawable = new MaterialProgressDrawable(context, viewParent);
-        int color1 = ContextCompat.getColor(context, R.color.pub_loading_bg_color2);
+        int color1 = ContextCompat.getColor(context, R.color.pub_loading_small_bg_color);
         drawable.setColorSchemeColors(color1);
         imageView.setImageDrawable(drawable);
         drawable.setAlpha(255);

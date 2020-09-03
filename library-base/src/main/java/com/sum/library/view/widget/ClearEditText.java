@@ -3,12 +3,13 @@ package com.sum.library.view.widget;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import androidx.appcompat.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.sum.library.R;
 
@@ -86,6 +87,15 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
                 }
                 mTimeHandler.sendEmptyMessageDelayed(MSG_SEARCH_INPUT, mDelayTime);
             }
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mTimeHandler != null) {
+            mTimeHandler.removeMessages(MSG_SEARCH_INPUT);
+            mTimeHandler = null;
         }
     }
 

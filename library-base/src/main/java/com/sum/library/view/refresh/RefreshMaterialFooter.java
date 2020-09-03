@@ -1,7 +1,6 @@
 package com.sum.library.view.refresh;
 
 import android.content.Context;
-import android.graphics.drawable.Animatable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +12,6 @@ import androidx.core.content.ContextCompat;
 import com.scwang.smart.refresh.layout.api.RefreshFooter;
 import com.scwang.smart.refresh.layout.api.RefreshKernel;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.constant.RefreshState;
 import com.scwang.smart.refresh.layout.constant.SpinnerStyle;
 import com.scwang.smart.refresh.layout.simple.SimpleComponent;
 import com.sum.library.R;
@@ -31,9 +29,12 @@ public class RefreshMaterialFooter extends SimpleComponent implements RefreshFoo
 
     //加载的文本提示
     private TextView mTipTextView;
+    private View mNoMoreView;
 
     private MaterialProgressDrawable mDrawable;
     private int[] colors;
+
+    protected boolean mNoMoreData = false;
 
     //<editor-fold desc="RelativeLayout">
     public RefreshMaterialFooter(Context context) {
@@ -48,6 +49,7 @@ public class RefreshMaterialFooter extends SimpleComponent implements RefreshFoo
 
         View.inflate(context, R.layout.pub_refresh_material_footer, this);
         //初始化ui
+        mNoMoreView = findViewById(R.id.no_more_data);
         mTipTextView = findViewById(R.id.loading_tip);
         mTipTextView.setText(TIP);
         //view
@@ -56,7 +58,7 @@ public class RefreshMaterialFooter extends SimpleComponent implements RefreshFoo
         //父容器
         View ll_footer = findViewById(R.id.ll_footer);
         MaterialProgressDrawable drawable = new MaterialProgressDrawable(context, ll_footer);
-        drawable.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorPrimary));
+        drawable.setColorSchemeColors(ContextCompat.getColor(context, R.color.pub_loading_small_bg_color));
         drawable.setAlpha(255);
         loading.setImageDrawable(drawable);
         mDrawable = drawable;
@@ -96,10 +98,28 @@ public class RefreshMaterialFooter extends SimpleComponent implements RefreshFoo
     //<editor-fold desc="RefreshHeader">
     @Override
     public int onFinish(@NonNull RefreshLayout layout, boolean success) {
+        Logger.e("onFinish:" + success);
         if (mDrawable != null) {
             mDrawable.stop();
         }
         return 0;//延迟500毫秒之后再弹回
+    }
+
+    //下拉刷新,会重置状态
+    @Override
+    public boolean setNoMoreData(boolean noMoreData) {
+        Logger.e("mater no more data:" + noMoreData);
+        if (mNoMoreData != noMoreData) {
+            mNoMoreData = noMoreData;
+            if (noMoreData) {
+                mNoMoreView.setVisibility(VISIBLE);
+                mTipTextView.setVisibility(View.INVISIBLE);
+            } else {
+                mNoMoreView.setVisibility(GONE);
+                mTipTextView.setVisibility(View.VISIBLE);
+            }
+        }
+        return true;
     }
 
     //具体的色值

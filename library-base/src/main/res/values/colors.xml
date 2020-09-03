@@ -18,7 +18,7 @@
 
     <color name="pub_loading_bg_color">#e5e5e5</color>
     <color name="pub_loading_text_color">#e5e5e5</color>
-    <color name="pub_loading_bg_color2">@color/colorPrimary</color>
+    <color name="pub_loading_small_bg_color">@color/colorPrimary</color>
 
     <!--底部弹框-->
     <color name="bsv_title_cancel_color">#666666</color>
