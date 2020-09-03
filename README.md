@@ -58,7 +58,7 @@
   ```gradle
   dependencies {
          //AndroidX版本
-         implementation 'com.github.Sum-sdl:library-base:2.4.3'
+         implementation 'com.github.Sum-sdl:library-base:2.4.5'
       }
       
   gradle.properties文件中增加配置 
