@@ -43,7 +43,8 @@ public interface Api {
     Call<ResponseBody> getBlog(@Path("id") int id);
 
     @GET("appapi/orderStat")
-    Call<String> apiGet(@QueryMap Map<String, String> params);
+    Call<Object> apiGet(@QueryMap Map<String, String> params);
+
 
     Call<String> apiGet2(@Query("lat") double lat);
 

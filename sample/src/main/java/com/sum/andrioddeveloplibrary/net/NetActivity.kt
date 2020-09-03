@@ -15,7 +15,6 @@ import okhttp3.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 
 class NetActivity : BaseAppActivity() {
@@ -43,55 +42,77 @@ class NetActivity : BaseAppActivity() {
 
         xutils_net_webview.setOnClickListener {
             val url = "http://m.aizuna.com/index.php?m=Home&c=AznSpring&referer_id=12"
-            WebActivity.startCommonUrl(this@NetActivity, url,"")
+            WebActivity.startCommonUrl(this@NetActivity, url, "")
         }
 
         bt_dialog1.setOnClickListener { mUiActive.loadingView.showLoading() }
         bt_dialog2.setOnClickListener { mUiActive.loadingView.showLoading("Loading...") }
-        bt_dialog3.setOnClickListener { mUiActive.loadingView.showProgressLoading("Progress Loading...", true) }
+        bt_dialog3.setOnClickListener {
+            mUiActive.loadingView.showProgressLoading(
+                "Progress Loading...",
+                true
+            )
+        }
     }
 
     private fun net_post() {
         mUiActive.loadingView.showLoading("加载中-Post...")
-        val con = "{\"head\":{\"token\":\"4d40d6b05d67086ef1ac0c4c093155261b4db650e455e7a2\",\"client\":\"HongKongFocus\",\"version\":\"V1.2\"},\"message\":{\"userId\":\"ffffffff-8650-ca15-ffff-ffffd8967aa8\",\"userName\":\"我是一个农民\",\"userTag\":\"\",\"headUrl\":\"http:\\/\\/thirdqq.qlogo.cn\\/qqapp\\/1106296314\\/0182677DB9A9A4B450F70443EF9D9F66\\/100\",\"newType\":\"2\",\"newFollow\":false,\"pageNo\":1,\"pageSize\":10}}"
+        val con =
+            "{\"head\":{\"token\":\"4d40d6b05d67086ef1ac0c4c093155261b4db650e455e7a2\",\"client\":\"HongKongFocus\",\"version\":\"V1.2\"},\"message\":{\"userId\":\"ffffffff-8650-ca15-ffff-ffffd8967aa8\",\"userName\":\"我是一个农民\",\"userTag\":\"\",\"headUrl\":\"http:\\/\\/thirdqq.qlogo.cn\\/qqapp\\/1106296314\\/0182677DB9A9A4B450F70443EF9D9F66\\/100\",\"newType\":\"2\",\"newFollow\":false,\"pageNo\":1,\"pageSize\":10}}"
         val body = RequestBody.create(MediaType.parse("application/json"), con)
 
         mRetrofit.create(Api::class.java)
-                .apiPost_Search(body)
-                .enqueue(object : Callback<Any> {
-                    override fun onFailure(call: Call<Any>?, t: Throwable?) {
-                        mUiActive.loadingView.hideLoading()
-                        ToastUtils.showLong(t.toString())
-                    }
+            .apiPost_Search(body)
+            .enqueue(object : Callback<Any> {
+                override fun onFailure(call: Call<Any>?, t: Throwable?) {
+                    mUiActive.loadingView.hideLoading()
+                    ToastUtils.showLong(t.toString())
+                }
 
-                    override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
-                        mUiActive.loadingView.hideLoading()
-                        ToastUtils.showLong(response?.body().toString())
-                    }
-                })
+                override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
+                    mUiActive.loadingView.hideLoading()
+                    ToastUtils.showLong(response?.body().toString())
+                }
+            })
     }
 
     private fun net_post2() {
         //框架直接讲ReqBody对象转换成JSON，作为RequestBody传递
         mUiActive.loadingView.showLoading("加载中-Post2...")
         mRetrofit.create(Api::class.java)
-                .apiPost_Search(ReqBody())
-                .enqueue(object : Callback<Any> {
-                    override fun onFailure(call: Call<Any>?, t: Throwable?) {
-                        mUiActive.loadingView.hideLoading()
-                        ToastUtils.showLong(t.toString())
-                    }
+            .apiPost_Search(ReqBody())
+            .enqueue(object : Callback<Any> {
+                override fun onFailure(call: Call<Any>?, t: Throwable?) {
+                    mUiActive.loadingView.hideLoading()
+                    ToastUtils.showLong(t.toString())
+                }
 
-                    override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
-                        mUiActive.loadingView.hideLoading()
-                        ToastUtils.showLong(response?.body().toString())
-                    }
-                })
+                override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
+                    mUiActive.loadingView.hideLoading()
+                    ToastUtils.showLong(response?.body().toString())
+                }
+            })
     }
 
 
     private fun net_get() {
-        mUiActive.loadingView.showLoading("加载中-Net...")
+        mUiActive.loadingView.showLoading("加载中-Get...")
+        val map = HashMap<String, String>()
+        map.put("key1","value1")
+        map.put("key2","value2")
+        mRetrofit.create(Api::class.java)
+            .apiGet(map)
+            .enqueue(object : Callback<Any> {
+                override fun onFailure(call: Call<Any>?, t: Throwable?) {
+                    mUiActive.loadingView.hideLoading()
+                    ToastUtils.showLong(t.toString())
+                }
+
+                override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
+                    mUiActive.loadingView.hideLoading()
+                    ToastUtils.showLong(response?.body().toString())
+                }
+            })
     }
 
 
@@ -113,17 +134,20 @@ class NetActivity : BaseAppActivity() {
         val part = MultipartBody.Part.createFormData("file", "self.jpg", file)
 
         mRetrofit.create(Api::class.java).testFileUpload1(name, part)
-                .enqueue(object : Callback<ResponseBody> {
-                    override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
-                        mUiActive.loadingView.hideLoading()
-                        ToastUtils.showLong(t.toString())
-                    }
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+                    mUiActive.loadingView.hideLoading()
+                    ToastUtils.showLong(t.toString())
+                }
 
-                    override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
-                        mUiActive.loadingView.hideLoading()
-                        ToastUtils.showLong(response?.body().toString())
-                    }
-                })
+                override fun onResponse(
+                    call: Call<ResponseBody>?,
+                    response: Response<ResponseBody>?
+                ) {
+                    mUiActive.loadingView.hideLoading()
+                    ToastUtils.showLong(response?.body().toString())
+                }
+            })
     }
 
 
@@ -137,9 +161,9 @@ class NetActivity : BaseAppActivity() {
         }
     }
 
-    private fun test(){
+    private fun test() {
         //设置请求缓存方案
-        var req =  Request.Builder().cacheControl(CacheControl.FORCE_CACHE)
+        var req = Request.Builder().cacheControl(CacheControl.FORCE_CACHE)
     }
 
     private class ReqBody {
@@ -162,7 +186,8 @@ class NetActivity : BaseAppActivity() {
             var userId = "ffffffff-8650-ca15-ffff-ffffd8967aa8"
             var userName = "我是一个农民"
             var userTag = ""
-            var headUrl = " http://thirdqq.qlogo.cn/qqapp/1106296314/0182677DB9A9A4B450F70443EF9D9F66/100"
+            var headUrl =
+                " http://thirdqq.qlogo.cn/qqapp/1106296314/0182677DB9A9A4B450F70443EF9D9F66/100"
             var pageNo = "1"
             var newType = "2"
             var newFollow = "false"

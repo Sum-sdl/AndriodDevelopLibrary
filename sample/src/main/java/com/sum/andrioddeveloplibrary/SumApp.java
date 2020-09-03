@@ -23,6 +23,7 @@ import com.sum.library.storage.AppFileStorage;
 import com.sum.library.storage.StorageConfig;
 import com.sum.library.utils.ACache;
 import com.sum.library.utils.Logger;
+import com.sum.library_network.PubReqLogInterceptor;
 import com.sum.library_network.Retrofit2Helper;
 
 import me.jessyan.autosize.AutoSizeConfig;
@@ -92,7 +93,7 @@ public class SumApp extends Application {
         String BASE_URL = "http://apps.meitoutiao.net/";
 
         //自定义插值器
-        Retrofit2Helper.getInstance().setBaseUrl(BASE_URL).addInterceptor(new TestToken()).init();
+        Retrofit2Helper.getInstance().setBaseUrl(BASE_URL).addInterceptor(new TestToken()).addInterceptor(new PubReqLogInterceptor()).init();
 
         ACache.get(this).put("time", mOpenStartTime);
 

@@ -1,7 +1,6 @@
 package com.sum.library_network;
 
 import com.google.gson.Gson;
-import com.sum.library_network.utils.HttpsUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -94,7 +93,7 @@ public class Retrofit2Helper {
 
     //信任全部证书
     public Retrofit2Helper setCertificates() {
-        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null,
+        SSLUtils.SSLParams sslParams = SSLUtils.getSslSocketFactory(null, null, null,
                 null);
         mClientBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
         return this;

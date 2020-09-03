@@ -1,7 +1,7 @@
 package com.sum.andrioddeveloplibrary.net;
 
 
-import com.sum.library_network.token.BaseDynamicInterceptor;
+import com.sum.library_network.PubParamsInterceptor;
 
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -10,12 +10,7 @@ import java.util.TreeMap;
  * Created by sdl on 2017/12/29.
  */
 
-public class TestToken extends BaseDynamicInterceptor {
-
-    @Override
-    protected boolean needLog() {
-        return true;
-    }
+public class TestToken extends PubParamsInterceptor {
 
     private HashMap<String, String> mHeaders;
 

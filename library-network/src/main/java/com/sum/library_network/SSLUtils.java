@@ -1,4 +1,4 @@
-package com.sum.library_network.utils;
+package com.sum.library_network;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +24,7 @@ import javax.net.ssl.X509TrustManager;
  * Created by sdl on 2020/8/13
  */
 
-public class HttpsUtils {
+class SSLUtils {
 
     public static class SSLParams {
         public SSLSocketFactory sSLSocketFactory;
