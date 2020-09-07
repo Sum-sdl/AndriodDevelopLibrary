@@ -71,7 +71,7 @@ public class PubReqLogInterceptor implements Interceptor {
             if (needLog()) {
                 printLog(
                         "req(" + index + ")->{\n" +
-                                "head:[\n" + request.headers().toString() + "] " + request.method()
+                                "head:[" + request.headers().toString() + "] " + request.method()
                                 + ",url:" + request.url().toString() + "}");
             }
             //get请求,参数在url中
@@ -113,7 +113,7 @@ public class PubReqLogInterceptor implements Interceptor {
         } else {
             len = "len:" + responseBody.contentLength();
         }
-        return len + "," + buffer.clone().readString(charset);
+        return len + ";" + buffer.clone().readString(charset);
     }
 
     private Request addPostParamsSign(Request request, int index) {
@@ -174,7 +174,7 @@ public class PubReqLogInterceptor implements Interceptor {
                     if (contentType != null) {
                         contentType.charset(StandardCharsets.UTF_8);
                     }
-                    content = "len:" + contentLength + ",[" + buffer.readString(StandardCharsets.UTF_8) + "]";
+                    content = "len:" + contentLength + ";" + buffer.readString(StandardCharsets.UTF_8);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
