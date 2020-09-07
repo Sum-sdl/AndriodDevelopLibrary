@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -45,8 +46,12 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         mContext = context;
     }
 
-    public void setNeedBottomAnim() {
-        mIsNeedBottomAnim = true;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getDialogNoBg()) {
+            setStyle(DialogFragment.STYLE_NO_TITLE, com.sum.library.R.style.dialog_no_bg);
+        }
     }
 
     @Nullable
@@ -67,6 +72,16 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             }
         }
         return cacheView;
+    }
+
+    //设置是否需要默认的地步弹框动画(getDialogShowAnimation优先生效)
+    public void setNeedBottomAnim() {
+        mIsNeedBottomAnim = true;
+    }
+
+    //弹框没有背景
+    protected boolean getDialogNoBg() {
+        return false;
     }
 
     //对话框展示动画,默认无动画

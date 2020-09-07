@@ -197,7 +197,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
         }
 
         override fun getDialogNoBg(): Boolean {
-            return false
+            return true
         }
 
         override fun getDialogBgIsTransparent(): Boolean = true
@@ -212,6 +212,12 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             return 0
         }
 
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setNeedBottomAnim()
+        }
+
+        override fun getDialogNoBg(): Boolean =false
 
         override fun initParams(view: View) {
             view.findViewById<View>(R.id.fl_content).setOnClickListener { dismiss() }

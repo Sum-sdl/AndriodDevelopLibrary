@@ -15,6 +15,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <!--Dialog的Window动画-->
     <style name="dialog_anim_bottom" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/dialog_bottom_enter</item>
         <item name="android:windowExitAnimation">@anim/dialog_bottom_exit</item>
