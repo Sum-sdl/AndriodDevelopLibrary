@@ -9,7 +9,7 @@ ext {
     artifact = bintrayName
     libraryName = 'library'
     libraryDescription = ''
-    libraryVersion = '2.0.3'
+    libraryVersion = '2.0.4'
 }
 
 android {

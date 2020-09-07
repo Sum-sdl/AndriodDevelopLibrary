@@ -68,7 +68,7 @@
 > 网络库 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-network/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-network/_latestVersion)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-network:2.0.3'
+         implementation 'com.github.Sum-sdl:library-network:2.0.4'
          //Retrofit2-> 2.9.0版本
       }
   ```
