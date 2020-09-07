@@ -1,11 +1,15 @@
 package com.sum.library_network;
 
 import com.google.gson.Gson;
+import com.sum.library_network.converter.StringConverterFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -36,12 +40,12 @@ public class Retrofit2Helper {
     //构建请求基础参数
     private OkHttpClient.Builder mClientBuilder;
     private String mBaseUrl;
-    private Gson mGson;
-    private boolean mNeedGsonConverter = true;
+
+    //数据转换处理类
+    private List<Converter.Factory> mConverter = new ArrayList<>();
 
     private Retrofit2Helper() {
         mClientBuilder = buildDefaultOkHttpClient();
-        mGson = new Gson();
     }
 
     private OkHttpClient.Builder buildDefaultOkHttpClient() {
@@ -60,8 +64,10 @@ public class Retrofit2Helper {
         builder.baseUrl(mBaseUrl);
         //自动将ResponseBody转成对象,自动将请求体转成json
         //将请求体@body注解的对转成Json数据传输
-        if (mNeedGsonConverter) {
-            builder.addConverterFactory(GsonConverterFactory.create(mGson));
+        if (!mConverter.isEmpty()) {
+            for (Converter.Factory factory : mConverter) {
+                builder.addConverterFactory(factory);
+            }
         }
         builder.client(mClientBuilder.build());
         mRetrofit = builder.build();
@@ -73,17 +79,18 @@ public class Retrofit2Helper {
         return this;
     }
 
-    //直接默认设置
-    public Retrofit2Helper setGson(Gson gson) {
-        mGson = gson;
+    public Retrofit2Helper addConvert(Converter.Factory factory) {
+        mConverter.add(factory);
         return this;
     }
 
-    //设置是否需要Gson自动转换
-    public Retrofit2Helper setNeedConvert(boolean needConvert) {
-        mNeedGsonConverter = needConvert;
+
+    public Retrofit2Helper addDefaultConvert() {
+        mConverter.add(new StringConverterFactory());
+        mConverter.add(GsonConverterFactory.create(new Gson()));
         return this;
     }
+
 
     //添加自定义插值器
     public Retrofit2Helper addInterceptor(Interceptor interceptor) {

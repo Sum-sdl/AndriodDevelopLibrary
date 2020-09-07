@@ -15,7 +15,6 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.constant.SpinnerStyle;
 import com.scwang.smart.refresh.layout.simple.SimpleComponent;
 import com.sum.library.R;
-import com.sum.library.utils.Logger;
 import com.sum.library.view.drawble.MaterialProgressDrawable;
 
 /**
@@ -24,11 +23,12 @@ import com.sum.library.view.drawble.MaterialProgressDrawable;
 public class RefreshMaterialFooter extends SimpleComponent implements RefreshFooter {
 
     public static String TIP = "加载中...";
+    public static String NO_MORE_TIP = "我是有底线的";
 
     protected RefreshKernel mRefreshKernel;
 
     //加载的文本提示
-    private TextView mTipTextView;
+    private TextView mTipTextView, mNoMoreText;
     private View mNoMoreView;
 
     private MaterialProgressDrawable mDrawable;
@@ -52,6 +52,8 @@ public class RefreshMaterialFooter extends SimpleComponent implements RefreshFoo
         mNoMoreView = findViewById(R.id.no_more_data);
         mTipTextView = findViewById(R.id.loading_tip);
         mTipTextView.setText(TIP);
+        mNoMoreText = findViewById(R.id.tv_no_more_data);
+        mNoMoreText.setText(NO_MORE_TIP);
         //view
         ImageView loading = findViewById(R.id.loading);
 
@@ -98,7 +100,6 @@ public class RefreshMaterialFooter extends SimpleComponent implements RefreshFoo
     //<editor-fold desc="RefreshHeader">
     @Override
     public int onFinish(@NonNull RefreshLayout layout, boolean success) {
-        Logger.e("onFinish:" + success);
         if (mDrawable != null) {
             mDrawable.stop();
         }
@@ -108,7 +109,6 @@ public class RefreshMaterialFooter extends SimpleComponent implements RefreshFoo
     //下拉刷新,会重置状态
     @Override
     public boolean setNoMoreData(boolean noMoreData) {
-        Logger.e("mater no more data:" + noMoreData);
         if (mNoMoreData != noMoreData) {
             mNoMoreData = noMoreData;
             if (noMoreData) {
@@ -128,8 +128,12 @@ public class RefreshMaterialFooter extends SimpleComponent implements RefreshFoo
         return this;
     }
 
-    public TextView getTieView() {
+    public TextView getTipTextView() {
         return mTipTextView;
+    }
+
+    public TextView getNoMoreTextView() {
+        return mNoMoreText;
     }
 
 }

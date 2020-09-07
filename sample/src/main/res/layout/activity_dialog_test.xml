@@ -73,5 +73,11 @@
 		android:layout_height="wrap_content"
 		android:text="自定义的DialogFragment 测试" />
 
+	<Button
+		android:id="@+id/bt61"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="导航View弹框适配" />
+
 
 </LinearLayout>

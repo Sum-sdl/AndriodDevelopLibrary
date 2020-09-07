@@ -2,16 +2,10 @@ package com.sum.library.app;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.AppCompatDialogFragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +13,12 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.sum.library.R;
 
@@ -36,11 +36,17 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
     private WeakReference<View> mWRView;
 
     protected Context mContext;
+    //需要底部动画
+    protected boolean mIsNeedBottomAnim = false;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+    }
+
+    public void setNeedBottomAnim() {
+        mIsNeedBottomAnim = true;
     }
 
     @Nullable
@@ -69,12 +75,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         return 0;
     }
 
-
-    //全屏Dialog是否需要删除虚拟导航栏高度
-    protected boolean isNeedSubNavHeight() {
-        return false;
-    }
-
     //调整整体内容显示位置
     public void updateGravity(int gravity) {
         Dialog dialog = getDialog();
@@ -96,15 +96,25 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             if (window == null) {
                 return;
             }
+            boolean navBarVisible = true;
+            //虚拟导航键显示出来(如果显示，需要将内容上移)
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                navBarVisible = isNavBarVisible(activity.getWindow());
+            }
 
             window.setBackgroundDrawableResource(android.R.color.transparent);
             if (getDialogShowAnimation() != 0) {
                 window.setWindowAnimations(getDialogShowAnimation());  //添加动画
+            } else {
+                if (mIsNeedBottomAnim) {
+                    window.setWindowAnimations(R.style.dialog_anim_bottom);  //添加动画
+                }
             }
 
             int height = -1;
             //需要减去导航栏高度
-            if (isNeedSubNavHeight()) {
+            if (navBarVisible) {
                 //获取系统显示内容高度
                 WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                 Point point = new Point();
@@ -133,6 +143,28 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             }
             window.setAttributes(lp);
         }
+    }
+
+    private boolean isNavBarVisible(@NonNull final Window window) {
+        boolean isVisible = false;
+        ViewGroup decorView = (ViewGroup) window.getDecorView();
+        for (int i = 0, count = decorView.getChildCount(); i < count; i++) {
+            final View child = decorView.getChildAt(i);
+            final int id = child.getId();
+            if (id != View.NO_ID) {
+                String resourceEntryName = Resources.getSystem().getResourceEntryName(id);
+                if ("navigationBarBackground".equals(resourceEntryName)
+                        && child.getVisibility() == View.VISIBLE) {
+                    isVisible = true;
+                    break;
+                }
+            }
+        }
+        if (isVisible) {
+            int visibility = decorView.getSystemUiVisibility();
+            isVisible = (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+        }
+        return isVisible;
     }
 
 

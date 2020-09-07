@@ -3,12 +3,14 @@ package com.sum.library.app;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by sdl on 2017/3/6.
@@ -62,8 +64,13 @@ public abstract class BaseBar extends FrameLayout {
         ((Activity) getContext()).startActivityForResult(data, reqCode);
     }
 
-    public int getColorRes(int colorRes) {
+    public int getColorByResId(int colorRes) {
         return ContextCompat.getColor(mContext, colorRes);
     }
+
+    public Drawable getDrawableByResId(int drawableRes) {
+        return ContextCompat.getDrawable(mContext, drawableRes);
+    }
+
 
 }

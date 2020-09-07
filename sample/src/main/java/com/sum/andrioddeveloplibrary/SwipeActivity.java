@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -33,6 +34,11 @@ public class SwipeActivity extends AppCompatActivity {
 
     int index = 0;
 
+
+    public int getColorByResId(int colorResId) {
+        return ContextCompat.getColor(this, colorResId);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +62,10 @@ public class SwipeActivity extends AppCompatActivity {
 //        smartRefreshLayout.setRefreshFooter(new RefreshEmptyFooter(this));
 
         RefreshMaterialFooter footer = new RefreshMaterialFooter(this);
-        footer.getTieView().setText("666666");
-        footer.getTieView().setTextColor(getColor(R.color.chuck_colorAccent));
-        footer.setRefreshColor(getColor(R.color.chuck_colorAccent));
+        footer.getTipTextView().setText("666666");
+        footer.getNoMoreTextView().setText("No More Data");
+        footer.getTipTextView().setTextColor(getColorByResId(R.color.colorAccent));
+        footer.setRefreshColor(getColorByResId(R.color.colorAccent));
         smartRefreshLayout.setRefreshFooter(footer);
         //用于空滚动回弹效果
 //        smartRefreshLayout.setRefreshHeader(new FalsifyHeader(this));

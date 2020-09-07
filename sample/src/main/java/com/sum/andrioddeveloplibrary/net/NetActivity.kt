@@ -97,7 +97,9 @@ class NetActivity : BaseAppActivity() {
 
     private fun net_get() {
         mUiActive.loadingView.showLoading("加载中-Get...")
-        val map = HashMap<String, String>()
+        val map = HashMap<String, String>().apply {
+            put("key3","value3")
+        }
         map.put("key1","value1")
         map.put("key2","value2")
         mRetrofit.create(Api::class.java)

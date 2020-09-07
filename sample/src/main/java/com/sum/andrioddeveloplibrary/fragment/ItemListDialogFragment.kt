@@ -68,7 +68,7 @@ class ItemListDialogFragment : BottomSheetDialogFragment() {
             text.setOnClickListener {
                 mListener?.let {
                     it.onItemClicked(adapterPosition)
-                    dismiss()
+//                    dismiss()
                 }
             }
         }

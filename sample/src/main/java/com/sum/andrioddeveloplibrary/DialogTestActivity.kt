@@ -1,8 +1,10 @@
 package com.sum.andrioddeveloplibrary
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
 import com.sum.library.app.BaseDialogFragment
@@ -15,6 +17,14 @@ import kotlinx.android.synthetic.main.activity_dialog_test.*
 class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener {
     override fun onItemClicked(position: Int) {
         ToastUtils.showShort("pos=$position")
+        if (position == 1) {
+            startActivity(
+                Intent(
+                    this,
+                    LibUIActivity::class.java
+                )
+            )
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +33,7 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
         bt1.setOnClickListener {
             ItemListDialogFragment.newInstance(20)
-                    .show(supportFragmentManager, "3")
+                .show(supportFragmentManager, "3")
         }
         bt2.setOnClickListener {
             var time = ""
@@ -31,13 +41,13 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                 time = it.tag as String
             }
             DialogTimeChooseView.Builder()
-                    .setShowHours()
-                    .setCurrentTime(time)
-                    .setTitle("选择时间")
-                    .setListener { _, content ->
-                        it.tag = content
-                        ToastUtils.showLong("time = $content")
-                    }.showFast(this)
+                .setShowHours()
+                .setCurrentTime(time)
+                .setTitle("选择时间")
+                .setListener { _, content ->
+                    it.tag = content
+                    ToastUtils.showLong("time = $content")
+                }.showFast(this)
 
         }
 
@@ -47,11 +57,11 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                 time = it.tag as String
             }
             DialogTimeChooseView.Builder()
-                    .setCurrentTime(time)
-                    .setListener { _, content ->
-                        it.tag = content
-                        ToastUtils.showLong("date = $content")
-                    }.showFast(this)
+                .setCurrentTime(time)
+                .setListener { _, content ->
+                    it.tag = content
+                    ToastUtils.showLong("date = $content")
+                }.showFast(this)
 
         }
 
@@ -61,14 +71,14 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                 time = it.tag as String
             }
             DialogTimeChooseView.Builder()
-                    .setCurrentTime(time)
-                    .setShowTimeAndHours()
-                    .setTitle(time)
-                    .setClickDismiss(false)
-                    .setListener { _, content ->
-                        it.tag = content
-                        ToastUtils.showLong("date = $content")
-                    }.showFast(this)
+                .setCurrentTime(time)
+                .setShowTimeAndHours()
+                .setTitle(time)
+                .setClickDismiss(false)
+                .setListener { _, content ->
+                    it.tag = content
+                    ToastUtils.showLong("date = $content")
+                }.showFast(this)
 
         }
         bt52.setOnClickListener {
@@ -77,41 +87,41 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
                 time = it.tag as String
             }
             DialogTimeChooseView.Builder()
-                    .setCurrentTime(time)
-                    .setShowMonth()
-                    .setTitle(time)
-                    .setClickDismiss(true )
-                    .setListener { _, content ->
-                        it.tag = content
-                        ToastUtils.showLong("date = $content")
-                    }.showFast(this)
+                .setCurrentTime(time)
+                .setShowMonth()
+                .setTitle(time)
+                .setClickDismiss(true)
+                .setListener { _, content ->
+                    it.tag = content
+                    ToastUtils.showLong("date = $content")
+                }.showFast(this)
 
         }
 
         bt31.setOnClickListener { _ ->
             DialogChooseView().setMessage("message").setTitle("Test Title")
-                    .setPosListener { ToastUtils.showLong("pos") }
-                    .showFast(this)
+                .setPosListener { ToastUtils.showLong("pos") }
+                .showFast(this)
         }
         bt3.setOnClickListener { _ ->
             DialogChooseView().setMessage("message").setTitle("Test Title")
-                    .setPos("立即更新").setCancel(false).setNeedHideButtonWhenEmpty(true)
-                    .setPosListener { ToastUtils.showLong("Next") }
-                    .setNegListener {
-                        ToastUtils.showLong("update")
-                        it.dismiss()
-                    }
-                    .showFast(this)
+                .setPos("立即更新").setCancel(false).setNeedHideButtonWhenEmpty(true)
+                .setPosListener { ToastUtils.showLong("Next") }
+                .setNegListener {
+                    ToastUtils.showLong("update")
+                    it.dismiss()
+                }
+                .showFast(this)
         }
 
         bt73.setOnClickListener { _ ->
             DialogChooseView().setMessage("message")
-                    .setPos("立即更新2").setNeg("取消").setCancel(false).setNeedHideButtonWhenEmpty(true)
-                    .setPosListener {
-                        ToastUtils.showLong("升级")
-                    }
-                    .setNegListener { ToastUtils.showLong("Cancel") }
-                    .show(supportFragmentManager, "show")
+                .setPos("立即更新2").setNeg("取消").setCancel(false).setNeedHideButtonWhenEmpty(true)
+                .setPosListener {
+                    ToastUtils.showLong("升级")
+                }
+                .setNegListener { ToastUtils.showLong("Cancel") }
+                .show(supportFragmentManager, "show")
         }
         bt74.setOnClickListener {
             TaskExecutor.mainThread({ showTipDelay() }, 1000)
@@ -122,11 +132,25 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             if (it.tag is Int) {
                 index = it.tag as Int
             }
-            val data = arrayOf("单选1", "单选2", "单选3", "单选4", "单选5", "单选6", "单选7", "单选8", "单选9", "单选10", "单选11", "单选12")
-            DialogTimeChooseView.Builder().setCustomItems(data).setChooseIndex(index).setListener { pos, content ->
-                it.tag = pos
-                ToastUtils.showLong("pos=$pos,content$content")
-            }.showFast(this)
+            val data = arrayOf(
+                "单选1",
+                "单选2",
+                "单选3",
+                "单选4",
+                "单选5",
+                "单选6",
+                "单选7",
+                "单选8",
+                "单选9",
+                "单选10",
+                "单选11",
+                "单选12"
+            )
+            DialogTimeChooseView.Builder().setCustomItems(data).setChooseIndex(index)
+                .setListener { pos, content ->
+                    it.tag = pos
+                    ToastUtils.showLong("pos=$pos,content$content")
+                }.showFast(this)
         }
 
         bt6.setOnClickListener {
@@ -136,17 +160,23 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
 
             d.showFast(this)
         }
+
+        bt61.setOnClickListener {
+            val navBarVisible = BarUtils.isNavBarVisible(this)
+            val su = BarUtils.isSupportNavBar()
+            Logger.e("" + navBarVisible + "," + su)
+        }
     }
 
     private fun showTipDelay() {
         DialogChooseView().setMessage("message")
-                .setPos("立即更新3").setNeg("neg").setNeedHideButtonWhenEmpty(true)
-                .setPosListener {
-                    it.dismiss()
-                    ToastUtils.showLong("升级")
-                }
-                .setNegListener { ToastUtils.showLong("Cancel") }
-                .showFast(this)
+            .setPos("立即更新3").setNeg("neg").setNeedHideButtonWhenEmpty(true)
+            .setPosListener {
+                it.dismiss()
+                ToastUtils.showLong("升级")
+            }
+            .setNegListener { ToastUtils.showLong("Cancel") }
+            .showFast(this)
         Logger.e("show11112222")
     }
 
@@ -154,18 +184,22 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
     class DialogF : BaseDialogFragment() {
         override fun getLayoutId(): Int = R.layout.bsv_bottom_in_view
 
-        override fun isNeedSubNavHeight(): Boolean {
-            return true;
-        }
         //动画参考：R.style.dialog_anim_bottom
         override fun getDialogShowAnimation(): Int {
-            return R.style.dialog_anim_bottom
+            return 0
         }
 
 
         override fun initParams(view: View) {
             view.findViewById<View>(R.id.fl_content).setOnClickListener { dismiss() }
-            view.findViewById<View>(R.id.btn_cancel).setOnClickListener { dismiss() }
+            view.findViewById<View>(R.id.btn_cancel).setOnClickListener {
+                startActivity(
+                    Intent(
+                        view.context,
+                        LibUIActivity::class.java
+                    )
+                )
+            }
 
         }
     }
