@@ -102,7 +102,7 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
             if (activity != null) {
                 navBarVisible = isNavBarVisible(activity.getWindow());
             }
-
+            //默认背景色透明
             window.setBackgroundDrawableResource(android.R.color.transparent);
             if (getDialogShowAnimation() != 0) {
                 window.setWindowAnimations(getDialogShowAnimation());  //添加动画

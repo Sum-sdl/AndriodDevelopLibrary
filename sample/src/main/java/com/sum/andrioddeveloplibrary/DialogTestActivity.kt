@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.fragment.ItemListDialogFragment
+import com.sum.library.app.BaseBottomSheetFragment
 import com.sum.library.app.BaseDialogFragment
 import com.sum.library.utils.Logger
 import com.sum.library.utils.TaskExecutor
@@ -166,6 +168,12 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             val su = BarUtils.isSupportNavBar()
             Logger.e("" + navBarVisible + "," + su)
         }
+
+        bt62.setOnClickListener {
+            val d = BottomDialog()
+//            d.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.dialog_no_bg)
+            d.showFast(this)
+        }
     }
 
     private fun showTipDelay() {
@@ -178,6 +186,21 @@ class DialogTestActivity : AppCompatActivity(), ItemListDialogFragment.Listener 
             .setNegListener { ToastUtils.showLong("Cancel") }
             .showFast(this)
         Logger.e("show11112222")
+    }
+
+    class BottomDialog : BaseBottomSheetFragment() {
+        override fun getLayoutId(): Int = R.layout.bsv_bottom_in_view2
+
+        override fun initParams(view: View?) {
+            //不支持滚动
+            isCancelable = false
+        }
+
+        override fun getDialogNoBg(): Boolean {
+            return false
+        }
+
+        override fun getDialogBgIsTransparent(): Boolean = true
     }
 
 

@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -23,6 +25,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment {
 
     protected static class BottomDialog extends BottomSheetDialog {
+
+        //背景色透明
+        boolean bgIsTransparent;
 
         BottomDialog(Context context, int theme) {
             super(context, theme);
@@ -55,13 +60,39 @@ public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment 
                     }
                 });
             }
+            //跟布局颜色透明
+            View bgView = findViewById(R.id.design_bottom_sheet);
+            if (bgView != null && bgIsTransparent) {
+                bgView.setBackgroundResource(android.R.color.transparent);
+            }
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            //处理window的样式
+            Window window = getWindow();
+            if (window != null && bgIsTransparent) {
+                //默认背景色透明
+                window.setBackgroundDrawableResource(android.R.color.transparent);
+            }
         }
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new BottomDialog(getContext(), getTheme());
+        BottomDialog dialog = new BottomDialog(getContext(), getTheme());
+        dialog.bgIsTransparent = getDialogBgIsTransparent();
+        return dialog;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getDialogNoBg()) {
+            setStyle(DialogFragment.STYLE_NO_TITLE, com.sum.library.R.style.dialog_no_bg);
+        }
     }
 
     @Nullable
@@ -75,6 +106,16 @@ public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initParams(view);
+    }
+
+    //初始化设置Dialog背景色是否是透明的
+    protected boolean getDialogBgIsTransparent() {
+        return false;
+    }
+
+    //弹框没有背景
+    protected boolean getDialogNoBg() {
+        return false;
     }
 
     protected abstract int getLayoutId();
