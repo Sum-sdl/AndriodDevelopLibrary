@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.sum.library.app.BaseActivity;
+import com.sum.library.utils.AppUtils;
 import com.sum.library_network.Retrofit2Helper;
 
 import retrofit2.Retrofit;
@@ -28,6 +29,7 @@ public abstract class BaseAppActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.setStatusBarLightMode(this,true);
 
     }
 

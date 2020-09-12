@@ -19,6 +19,7 @@ import androidx.loader.content.Loader
 import com.sum.adapter.RecyclerAdapter
 import com.sum.adapter.RecyclerDataHolder
 import com.sum.library.app.BaseActivity
+import com.sum.library.utils.AppUtils
 import com.sum.library.view.widget.PubTitleView
 import com.sum.library_ui.R
 import com.sum.library_ui.camera.CameraActivity
@@ -90,6 +91,8 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             }
         }
         super.onCreate(savedInstanceState)
+        //状态栏图标黑色
+        AppUtils.setStatusBarLightMode(this, true)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -101,9 +104,9 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     override fun initParams() {
         mChoosePhoto = arrayListOf()
         mTitle = findViewById(R.id.pub_title_view)
-        mRightView = mTitle.addRightTextButton("完成", View.OnClickListener {
+        mRightView = mTitle.addRightTextButton("完成") {
             rightBtnClick()
-        })
+        }
 
         var data = intent.getSerializableExtra("data")
         if (data != null && data is AlbumInfo) {
@@ -118,10 +121,19 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
         mAdapter = RecyclerAdapter()
         rv_images.adapter = mAdapter
         rv_images.setHasFixedSize(true)
-        rv_images.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, data.span_count)
-        rv_images.addItemDecoration(object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+        rv_images.layoutManager = androidx.recyclerview.widget.GridLayoutManager(
+            this,
+            data.span_count
+        )
+        rv_images.addItemDecoration(object :
+            androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
-            override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: androidx.recyclerview.widget.RecyclerView,
+                state: androidx.recyclerview.widget.RecyclerView.State
+            ) {
                 super.getItemOffsets(outRect, view, parent, state)
                 outRect.left = data.default_space
                 outRect.bottom = data.default_space
@@ -167,11 +179,13 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 mChoosePhoto.forEach {
                     list.add(it.path)
                 }
-                ImagePreviewActivity.open(this, list,0)
+                ImagePreviewActivity.open(this, list, 0)
             }
         }
 
         updateBtn()
+        //加载图片
+        loadData()
     }
 
     private var mHasLoadFinish = false
@@ -181,88 +195,100 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
     }
 
     private fun loadDirectory() {
-        supportLoaderManager.initLoader(0, null, object : LoaderManager.LoaderCallbacks<Cursor> {
-            override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
-                if (data == null)
-                    return
-                if (mHasLoadFinish) {
-                    return
-                }
-                mHasLoadFinish = true
-                val hashMap = LinkedHashMap<String, PhotoDirectory>()
-                val photoAll = PhotoDirectory(TAG_ALL, TAG_ALL, null, null)
-                hashMap[photoAll.id] = photoAll
-                mAllFile = hashMap
+        LoaderManager.getInstance(this).initLoader(
+            0,
+            null,
+            object : LoaderManager.LoaderCallbacks<Cursor> {
+                override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
+                    if (data == null)
+                        return
+                    if (mHasLoadFinish) {
+                        return
+                    }
+                    mHasLoadFinish = true
+                    val hashMap = LinkedHashMap<String, PhotoDirectory>()
+                    val photoAll = PhotoDirectory(TAG_ALL, TAG_ALL, null, null)
+                    hashMap[photoAll.id] = photoAll
+                    mAllFile = hashMap
 
-                //add
-                while (data.moveToNext()) {
-                    val imageId = data.getInt(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID))
+                    //add
+                    while (data.moveToNext()) {
+                        val imageId =
+                            data.getInt(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID))
 //                    val bucketId = data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.BUCKET_ID))
-                    val name = data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME))
-                    val bucketId = name
-                    val path = data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATA))
-                    val file = File(path)
-                    if (!file.exists() || file.length() <= 0 || TextUtils.isEmpty(name)) {
-                        continue
-                    }
-                    if (!hashMap.containsKey(bucketId)) {
-                        val photoDirectory = PhotoDirectory(bucketId, name, path, data.getLong(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATE_ADDED)))
-                        photoDirectory.addPhoto(imageId, path)
-                        hashMap.put(bucketId, photoDirectory)
-                    } else {
-                        hashMap[bucketId]?.addPhoto(imageId, path)
-                    }
-                }
-                //add total
-                hashMap.entries.forEach {
-                    if (photoAll != it.value) {
-                        photoAll.addAllPhoto(it.value.getAllPhotos())
-                    }
-                }
-                if (photoAll.getAllPhotos().size > 0) {
-                    photoAll.coverPath = photoAll.getAllPhotos()[0].path
-                }
-
-
-                //文件夹数据
-                mDictData.clear()
-                hashMap.entries.forEach {
-                    mDictData.add(it.value)
-                }
-                mPopupWindow.setAdapter(DictAdapter(this@PhotoAlbumActivity, mDictData))
-                if (mDictData.size > 0) {
-                    val count = if (mDictData.size > 4) 4 else mDictData.size
-                    mPopupWindow.height = count * LibUtils.dp2px(90f)
-                }
-
-                //回复上次选中的文件状态
-                if (mChoosePhoto.size > 0) {
-                    val selected = arrayListOf<Photo>()
-                    val allPhotos = photoAll.getAllPhotos()
-                    for (photo in allPhotos) {
-                        mChoosePhoto.forEach {
-                            if (photo.path == it.path) {
-                                photo.selected = true
-                                selected.add(photo)
-                            }
+                        val name =
+                            data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME))
+                        val bucketId = name
+                        val path =
+                            data.getString(data.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATA))
+                        val file = File(path)
+                        if (!file.exists() || file.length() <= 0 || TextUtils.isEmpty(name)) {
+                            continue
+                        }
+                        if (!hashMap.containsKey(bucketId)) {
+                            val photoDirectory = PhotoDirectory(
+                                bucketId, name, path, data.getLong(
+                                    data.getColumnIndexOrThrow(
+                                        MediaStore.Images.ImageColumns.DATE_ADDED
+                                    )
+                                )
+                            )
+                            photoDirectory.addPhoto(imageId, path)
+                            hashMap.put(bucketId, photoDirectory)
+                        } else {
+                            hashMap[bucketId]?.addPhoto(imageId, path)
                         }
                     }
-                    mChoosePhoto.clear()
-                    mChoosePhoto.addAll(selected)
+                    //add total
+                    hashMap.entries.forEach {
+                        if (photoAll != it.value) {
+                            photoAll.addAllPhoto(it.value.getAllPhotos())
+                        }
+                    }
+                    if (photoAll.getAllPhotos().size > 0) {
+                        photoAll.coverPath = photoAll.getAllPhotos()[0].path
+                    }
+
+
+                    //文件夹数据
+                    mDictData.clear()
+                    hashMap.entries.forEach {
+                        mDictData.add(it.value)
+                    }
+                    mPopupWindow.setAdapter(DictAdapter(this@PhotoAlbumActivity, mDictData))
+                    if (mDictData.size > 0) {
+                        val count = if (mDictData.size > 4) 4 else mDictData.size
+                        mPopupWindow.height = count * LibUtils.dp2px(90f)
+                    }
+
+                    //回复上次选中的文件状态
+                    if (mChoosePhoto.size > 0) {
+                        val selected = arrayListOf<Photo>()
+                        val allPhotos = photoAll.getAllPhotos()
+                        for (photo in allPhotos) {
+                            mChoosePhoto.forEach {
+                                if (photo.path == it.path) {
+                                    photo.selected = true
+                                    selected.add(photo)
+                                }
+                            }
+                        }
+                        mChoosePhoto.clear()
+                        mChoosePhoto.addAll(selected)
+                    }
+
+                    showImages()
                 }
 
-                showImages()
-            }
+                override fun onLoaderReset(loader: Loader<Cursor>) {
 
-            override fun onLoaderReset(loader: Loader<Cursor>) {
+                }
 
-            }
+                override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
+                    return PhotoDirectoryLoader(this@PhotoAlbumActivity, false)
+                }
 
-            override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
-                return PhotoDirectoryLoader(this@PhotoAlbumActivity, false)
-            }
-
-        })
+            })
     }
 
     private fun showImages() {
@@ -369,7 +395,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
             if (mAlbumInfo.customer_camera) {
                 mTakePhotoFile = File(data!!.getStringExtra("path"))
             }
-            AppImageUtils.appRefreshAlbum(mContext,mTakePhotoFile?.path)
+            AppImageUtils.appRefreshAlbum(mContext, mTakePhotoFile?.path)
             if (mTakePhotoFile != null && mTakePhotoFile!!.exists()) {
                 addTakePic()
             }

@@ -217,7 +217,6 @@ public class AppImageUtils {
         PhotoAlbumActivity.Companion.open(activity, info);
     }
 
-
     /**
      * 鲁班压缩图片
      *

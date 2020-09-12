@@ -76,7 +76,7 @@
   ```gradle
   //AndroidX版本
   dependencies {
-         implementation 'com.github.Sum-sdl:library-ui:2.4.1'
+         implementation 'com.github.Sum-sdl:library-ui:2.4.2'
       }
       1.自定义相册
       2.自定义相机

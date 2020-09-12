@@ -10,6 +10,7 @@
         android:id="@id/pub_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:title_default_back_img_tint="@color/black"
         app:title_default_name="选择图片" />
 
     <View style="@style/pub_line_hor" />
@@ -39,8 +40,8 @@
             android:drawablePadding="3dp"
             android:focusable="true"
             android:gravity="center"
-            android:paddingEnd="14dp"
             android:paddingStart="14dp"
+            android:paddingEnd="14dp"
             android:text="所有图片"
             android:textColor="@drawable/shape_text_color" />
 

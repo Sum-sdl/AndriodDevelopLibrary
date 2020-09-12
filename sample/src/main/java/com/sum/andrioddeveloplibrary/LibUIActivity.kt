@@ -25,6 +25,7 @@ import java.io.File
 
 class LibUIActivity : BaseAppActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ImageLoader.loadImage(
@@ -102,10 +103,10 @@ class LibUIActivity : BaseAppActivity() {
         //自定义相册
         btn_7.setOnClickListener {
             val info = AlbumInfo()
-            info.max_count = 12
+            info.max_count = 10
             info.take_photo_open = true
             info.customer_camera = true
-            info.span_count = 3
+            info.span_count = 4
             AppImageUtils.appImageAlbum(this, info)
         }
 
@@ -192,8 +193,8 @@ class LibUIActivity : BaseAppActivity() {
             updateImageShow(uri)
         } else if (requestCode == 2) {
             updateImageShow(mPhoto?.path)
-        } else if (requestCode == 10) {
-            val extra = data?.getStringArrayListExtra("images")
+        } else if (AlbumInfo.isAlbumResult(requestCode)) {
+            val extra = AlbumInfo.getAlbumSelectedImages(data)
             mData.clear()
             mData.addAll(extra!!)
 
