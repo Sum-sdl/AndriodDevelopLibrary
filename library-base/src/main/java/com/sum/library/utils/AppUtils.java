@@ -6,28 +6,24 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationManagerCompat;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.UUID;
 
 /**
@@ -36,7 +32,7 @@ import java.util.UUID;
 
 public class AppUtils {
 
-    //获取唯一id，可以不用权限
+    //获取唯一id，可以不用权限(建议增加权限,部分机型会一样)
     @SuppressLint({"MissingPermission", "HardwareIds"})
     public static String getAppUniqueUUID() {
         String serial = null;
@@ -170,7 +166,12 @@ public class AppUtils {
                 ((startB + (int) (fraction * (endB - startB))));
     }
 
-    private static int getStatusBarHeight() {
+    /**
+     * 获取状态栏的颜色
+     *
+     * @return 状态栏高度
+     */
+    public static int getStatusBarHeight() {
         Resources resources = Resources.getSystem();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
@@ -182,7 +183,7 @@ public class AppUtils {
      * @param activity 界面
      * @param color    颜色
      */
-    public static void setColor(Activity activity, int color) {
+    public static void setStatusBarColor(Activity activity, int color) {
         //设置contentView为fitsSystemWindows
         ViewGroup viewGroup = activity.findViewById(android.R.id.content);
         if (viewGroup.getChildAt(0) != null) {
@@ -219,6 +220,61 @@ public class AppUtils {
                     v.setForeground(null);
                 }
             }
+        }
+    }
+
+    /**
+     * 设置状态栏透明
+     *
+     * @param activity 界面
+     */
+    public static void transparentStatusBar(final Activity activity) {
+        transparentStatusBar(activity.getWindow());
+    }
+
+    public static void transparentStatusBar(final Window window) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+            int vis = window.getDecorView().getSystemUiVisibility();
+            window.getDecorView().setSystemUiVisibility(option | vis);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    /**
+     * 设置状态栏的图标颜色
+     *
+     * @param activity    界面
+     * @param isLightMode True ：黑色图标 false：白色图标
+     */
+    public static void setStatusBarLightMode(@NonNull final Activity activity,
+                                             final boolean isLightMode) {
+        setStatusBarLightMode(activity.getWindow(), isLightMode);
+    }
+
+
+    /**
+     * 设置状态栏的图标颜色
+     *
+     * @param window      界面
+     * @param isLightMode True ：黑色图标 false：白色图标
+     */
+    public static void setStatusBarLightMode(@NonNull final Window window,
+                                             final boolean isLightMode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = window.getDecorView();
+            int vis = decorView.getSystemUiVisibility();
+            if (isLightMode) {
+                vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            } else {
+                vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            decorView.setSystemUiVisibility(vis);
         }
     }
 

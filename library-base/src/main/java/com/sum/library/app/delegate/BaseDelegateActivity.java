@@ -1,7 +1,6 @@
 package com.sum.library.app.delegate;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -49,7 +48,7 @@ public abstract class BaseDelegateActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         onCreateDoFirst(savedInstanceState);
         if (statusBarColor() != 0) {//状态栏颜色
-            AppUtils.setColor(this, statusBarColor());
+            AppUtils.setStatusBarColor(this, statusBarColor());
         }
         checkOrCreateDelegate();
         mViewDelegate.onAttach(this, null, this);

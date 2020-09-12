@@ -70,7 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity implements UiAction
         onCreateDoFirst(savedInstanceState);
         setContentView(getLayoutId());
         if (statusBarColor() != 0) {//状态栏颜色
-            AppUtils.setColor(this, statusBarColor());
+            AppUtils.setStatusBarColor(this, statusBarColor());
         }
 
         mContext = this;
