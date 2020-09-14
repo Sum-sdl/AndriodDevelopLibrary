@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.sum.andrioddeveloplibrary.LibUIActivity">
 
     <LinearLayout
@@ -12,12 +12,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_2"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/anim5" />
+            android:layout_height="200dp">
+
+            <ImageView
+                android:id="@+id/iv_2_fake"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <ImageView
+                android:id="@+id/iv_2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/anim5" />
+        </FrameLayout>
+
 
         <Button
             android:id="@+id/btn_1"

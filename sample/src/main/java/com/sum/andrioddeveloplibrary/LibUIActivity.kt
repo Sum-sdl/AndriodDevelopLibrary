@@ -2,17 +2,23 @@ package com.sum.andrioddeveloplibrary
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.app.SharedElementCallback
 import android.content.Intent
+import android.graphics.Matrix
+import android.graphics.RectF
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.TextUtils
 import android.transition.AutoTransition
 import android.transition.Transition
+import android.view.View
 import androidx.core.view.ViewCompat
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.sum.andrioddeveloplibrary.App.BaseAppActivity
 import com.sum.library.storage.AppFileStorage
+import com.sum.library.utils.LiveDataEventBus
 import com.sum.library.utils.Logger
 import com.sum.library_ui.camera.CameraActivity
 import com.sum.library_ui.image.AppImageUtils
@@ -38,6 +44,14 @@ class LibUIActivity : BaseAppActivity() {
             postponeEnterTransition()
             ViewCompat.setTransitionName(iv_2, "IMG_TRANSITION")
             startPostponedEnterTransition()
+        }
+        //
+//        LiveDataEventBus.with("preview_image_drag_start").observeForever {
+//            Logger.e("preview_image_drag_start:" + it)
+//            iv_2.alpha = 1f
+//        }
+        LiveDataEventBus.with("preview_page_selected", Int::class.java).observeForever {
+            Logger.e("preview_page_selected:" + it)
         }
     }
 
@@ -74,15 +88,73 @@ class LibUIActivity : BaseAppActivity() {
         })
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun dealShareFame() {
+        setExitSharedElementCallback(object : SharedElementCallback() {
+            override fun onMapSharedElements(
+                names: MutableList<String>?,
+                sharedElements: MutableMap<String, View>?
+            ) {
+                super.onMapSharedElements(names, sharedElements)
+                //处理转场后返回后，需要对接的view
+                //可以处理图片切换后，当前的图片位置
+                Logger.e("onMapSharedElements back" + names.toString())
+
+//                sharedElements?.remove("share_photo")
+            }
+
+            override fun onCaptureSharedElementSnapshot(
+                sharedElement: View,
+                viewToGlobalMatrix: Matrix?,
+                screenBounds: RectF?
+            ): Parcelable? {
+                //sharedElement 本页面指定共享元素动画的view
+                Logger.e("onCaptureSharedElementSnapshot")
+                //以下代码已经没必要设置，因为demo中的动画效果已经全部设置在了rv_item_fake_iv上
+                //解决执行共享元素动画的时候，一开始显示空白的问题
+                sharedElement.alpha = 1f
+                return super.onCaptureSharedElementSnapshot(
+                    sharedElement,
+                    viewToGlobalMatrix,
+                    screenBounds
+                )
+            }
+
+            override fun onSharedElementStart(
+                sharedElementNames: MutableList<String>?,
+                sharedElements: MutableList<View>?,
+                sharedElementSnapshots: MutableList<View>?
+            ) {
+                super.onSharedElementStart(
+                    sharedElementNames,
+                    sharedElements,
+                    sharedElementSnapshots
+                )
+                Logger.e("onSharedElementStart")
+            }
+
+            override fun onSharedElementEnd(
+                sharedElementNames: MutableList<String>?,
+                sharedElements: MutableList<View>?,
+                sharedElementSnapshots: MutableList<View>?
+            ) {
+                super.onSharedElementEnd(sharedElementNames, sharedElements, sharedElementSnapshots)
+                Logger.e("onSharedElementEnd")
+            }
+
+        })
+    }
+
 
     override fun initParams() {
-
+        dealShareFame()
         btn_1.setOnClickListener {
             val list = arrayListOf<String>()
             list.add(mTake)
             list.addAll(mData)
             list.addAll(getAll())
-            AppImageUtils.appImagePreview(this, list, 3)
+            //通过一个同样大小的共享空白view，解决白屏问题
+            AppImageUtils.appImagePreview(this, list, 3, iv_2_fake)
         }
 
         //系统相册

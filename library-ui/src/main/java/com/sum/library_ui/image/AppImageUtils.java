@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.View;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -130,7 +131,11 @@ public class AppImageUtils {
     }
 
     public static void appImagePreview(Context context, ArrayList<String> urls, int index) {
-        ImagePreviewActivity.Companion.open(context, urls, index);
+        appImagePreview(context, urls, index, null);
+    }
+
+    public static void appImagePreview(Context context, ArrayList<String> urls, int index, View shareView) {
+        ImagePreviewActivity.Companion.open(context, urls, index, shareView);
     }
 
 

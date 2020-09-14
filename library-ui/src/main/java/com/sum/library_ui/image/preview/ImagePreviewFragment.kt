@@ -37,15 +37,20 @@ class ImagePreviewFragment : BaseFragment() {
         val source = Uri.parse(if (url?.indexOf("http") != -1) url else "file://$url")
 
         val options = RequestOptions.fitCenterTransform()
-        Glide.with(this).asDrawable().load(source).apply(options)
-                .transition(DrawableTransitionOptions().crossFade())
-                .into(photo_view)
+        Glide.with(photo_view).load(source).apply(options)
+            .transition(DrawableTransitionOptions().crossFade())
+            .into(photo_view)
+        //点击直接关闭
         photo_view.setOnPhotoTapListener { _, _, _ ->
             if (close != null && close) {
                 activity?.finish()
             }
         }
+    }
 
+    //获取当前页面
+    fun getScale(): Float {
+        return photo_view.scale
     }
 
 

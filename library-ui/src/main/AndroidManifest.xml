@@ -1,38 +1,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.sum.library_ui">
+    package="com.sum.library_ui">
 
 
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-	<application
-		android:allowBackup="true"
-		android:label="@string/app_name"
-		android:supportsRtl="true">
-		<activity
-			android:name="com.yalantis.ucrop.UCropActivity"
-			android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
-			android:screenOrientation="portrait"
-			android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-		<activity
-			android:name=".web.WebActivity"
-			android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
-			android:screenOrientation="portrait" />
-		<activity
-			android:name=".image.preview.ImagePreviewActivity"
-			android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
-			android:screenOrientation="portrait" />
-		<activity
-			android:name=".image.photoAlbum.PhotoAlbumActivity"
-			android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
-			android:screenOrientation="portrait" />
-		<activity
-			android:name=".camera.CameraActivity"
-			android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
-			android:screenOrientation="portrait" />
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".web.WebActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".image.preview.ImagePreviewActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize|screenLayout"
+            android:screenOrientation="portrait"
+            android:theme="@style/preview_translucent" />
+        <activity
+            android:name=".image.photoAlbum.PhotoAlbumActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".camera.CameraActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
 
-	</application>
+    </application>
 
 
 </manifest>

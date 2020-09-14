@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <com.sum.library_ui.image.view.MultiTouchViewPager
         android:id="@+id/image_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black" />
+        android:transitionName="share_photo" />
 
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/image_indicator"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:layout_marginBottom="16dp" />
 
     <com.sum.library.view.widget.PubTitleView
         android:id="@id/pub_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@color/translate_50"
         app:title_default_adjust_bar="true"
         app:title_default_white_theme="true" />
 
-</RelativeLayout>
+</FrameLayout>

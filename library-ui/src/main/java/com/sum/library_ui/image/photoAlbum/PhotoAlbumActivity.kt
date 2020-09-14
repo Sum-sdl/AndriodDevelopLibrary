@@ -25,7 +25,6 @@ import com.sum.library_ui.R
 import com.sum.library_ui.camera.CameraActivity
 import com.sum.library_ui.image.AppImageUtils
 import com.sum.library_ui.image.photoAlbum.base.*
-import com.sum.library_ui.image.preview.ImagePreviewActivity
 import com.sum.library_ui.utils.LibUtils
 import kotlinx.android.synthetic.main.ui_activity_album_photo.*
 import java.io.File
@@ -179,7 +178,7 @@ class PhotoAlbumActivity : BaseActivity(), PhotoAlbumListener {
                 mChoosePhoto.forEach {
                     list.add(it.path)
                 }
-                ImagePreviewActivity.open(this, list, 0)
+                AppImageUtils.appImagePreview(this, list, 0)
             }
         }
 
