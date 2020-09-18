@@ -85,7 +85,7 @@ class ImagePreviewActivity : BaseActivity() {
         //处理view
         mDragCloseHelper = DragCloseHelper(this)
         mDragCloseHelper.setShareElementMode(true)
-        mDragCloseHelper.setMaxExitY(200)
+        mDragCloseHelper.setMaxExitY(450)
         mDragCloseHelper.setMinScale(0.5f)
         mDragCloseHelper.setDragCloseViews(rl_content, image_view_pager)
         mDragCloseHelper.setDragCloseListener(object : DragCloseHelper.DragCloseListener {

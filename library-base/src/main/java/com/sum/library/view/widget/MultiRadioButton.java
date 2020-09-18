@@ -30,7 +30,8 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     private FrameLayout mIvParent;
 
-    private int mImageResDefault = -1, mImageResChecked = -1;
+    //tab显示的图片
+    private Drawable mImageResDefault = null, mImageResChecked = null;
 
     //文本颜色
     private int mColorDefault, mColorChecked;
@@ -43,9 +44,8 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     private String mName;
 
-    private int mShowType;//0:颜色 1:图片
-
-    private Context mContext;
+    //处理选中状态下的图片操作
+    private int mShowType;//0:颜色, 1:图片 3：关闭图片选择 4：全部关闭选中
 
     public MultiRadioButton(Context context) {
         this(context, null, 0);
@@ -57,7 +57,6 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
 
     public MultiRadioButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
         LayoutInflater.from(context).inflate(R.layout.cus_multi_radio_button, this, true);
         mImageView = findViewById(R.id.multi_iv_image);
         mTextView = findViewById(R.id.multi_tv_name);
@@ -94,18 +93,29 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
             mImageCheckedColor = mColorChecked;
         }
 
-        mImageResDefault = array.getResourceId(R.styleable.MultiRadioButton_multiDrawableDefault, -1);
-
-        mImageResChecked = array.getResourceId(R.styleable.MultiRadioButton_multiDrawableChecked, -1);
-
-        if (mImageResChecked != -1) {
+        //图片状态
+        int imageResDefault = array.getResourceId(R.styleable.MultiRadioButton_multiDrawableDefault, -1);
+        if (imageResDefault != -1) {
+            mImageResDefault = ContextCompat.getDrawable(context, imageResDefault);
+        }
+        int imageResChecked = array.getResourceId(R.styleable.MultiRadioButton_multiDrawableChecked, -1);
+        if (imageResChecked != -1) {
+            mImageResChecked = ContextCompat.getDrawable(context, imageResChecked);
+        }
+        if (imageResChecked != -1) {
             mShowType = 1;
         }
+
+        //获取手动设置的状态
+        int type = array.getInt(R.styleable.MultiRadioButton_multiCheckedType, -1);
+        if (type != -1) {
+            mShowType = type;
+        }
+
         mName = array.getString(R.styleable.MultiRadioButton_multiText);
         mDefaultChecked = array.getBoolean(R.styleable.MultiRadioButton_multiChecked, false);
 
         mTextSize = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiTextSize, 0);
-
 
         MarginLayoutParams params = (MarginLayoutParams) mImageView.getLayoutParams();
         int iv_width = array.getDimensionPixelSize(R.styleable.MultiRadioButton_multiDrawableWidth, -1);
@@ -137,10 +147,13 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
     }
 
     private void updateUi(boolean checked) {
-        if (checked) {
-            mTextView.setTextColor(mColorChecked);
-        } else {
-            mTextView.setTextColor(mColorDefault);
+        //
+        if (mShowType != 4) {
+            if (checked) {
+                mTextView.setTextColor(mColorChecked);
+            } else {
+                mTextView.setTextColor(mColorDefault);
+            }
         }
         //Tint处理
         if (mShowType == 0) {
@@ -148,18 +161,20 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
             if (checked) {
                 color = mImageCheckedColor;
             }
-            Drawable drawable = ContextCompat.getDrawable(mContext, mImageResDefault);
-            if (drawable != null) {
-                DrawableCompat.setTint(drawable, color);
+            if (mImageResDefault != null) {
+                DrawableCompat.setTint(mImageResDefault, color);
             }
-            mImageView.setImageDrawable(drawable);
-        } else {
+            mImageView.setImageDrawable(mImageResDefault);
+        } else if (mShowType == 1) {
             //图片处理
             if (checked) {
-                mImageView.setImageResource(mImageResDefault);
+                mImageView.setImageDrawable(mImageResDefault);
             } else {
-                mImageView.setImageResource(mImageResChecked);
+                mImageView.setImageDrawable(mImageResChecked);
             }
+        } else if (mShowType == 3 || mShowType == 4) {
+            //只显示图片，不增加着色
+            mImageView.setImageDrawable(mImageResDefault);
         }
     }
 
@@ -173,24 +188,44 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         setChecked(!mChecked);
     }
 
+    //更新显示
     public void updateUi() {
         setChecked(mChecked);
     }
 
-    public void setColorDefault(int mColorDefault) {
+    public MultiRadioButton setColorDefault(int mColorDefault) {
         this.mColorDefault = mColorDefault;
+        return this;
     }
 
-    public void setColorChecked(int mColorChecked) {
+    public MultiRadioButton setColorChecked(int mColorChecked) {
         this.mColorChecked = mColorChecked;
+        return this;
     }
 
-    public void setImageNorColor(int mImageNor) {
+    public MultiRadioButton setImageNorColor(int mImageNor) {
         this.mImageNorColor = mImageNor;
+        return this;
     }
 
-    public void setImageCheckedColor(int mImageChecked) {
+    public MultiRadioButton setImageCheckedColor(int mImageChecked) {
         this.mImageCheckedColor = mImageChecked;
+        return this;
+    }
+
+    public MultiRadioButton setImageResDefault(Drawable mImageResDefault) {
+        this.mImageResDefault = mImageResDefault;
+        return this;
+    }
+
+    public MultiRadioButton setImageResChecked(Drawable mImageResChecked) {
+        this.mImageResChecked = mImageResChecked;
+        return this;
+    }
+
+    public MultiRadioButton setShowType(int mShowType) {
+        this.mShowType = mShowType;
+        return this;
     }
 
     //调整图片位置

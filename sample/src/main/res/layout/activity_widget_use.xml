@@ -63,6 +63,7 @@
             app:multiDrawableMarginLeft="6dp"
             app:multiDrawableMarginRight="6dp"
             app:multiDrawableMarginTop="4dp"
+            app:multiCheckedType="3"
             app:multiText="@string/app_name"
             app:multiTextSize="12sp" />
 
