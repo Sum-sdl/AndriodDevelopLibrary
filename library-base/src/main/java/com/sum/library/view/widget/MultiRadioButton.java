@@ -147,7 +147,7 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
     }
 
     private void updateUi(boolean checked) {
-        //
+        //不显示选中色
         if (mShowType != 4) {
             if (checked) {
                 mTextView.setTextColor(mColorChecked);
@@ -188,9 +188,9 @@ public class MultiRadioButton extends FrameLayout implements Checkable {
         setChecked(!mChecked);
     }
 
-    //更新显示
-    public void updateUi() {
-        setChecked(mChecked);
+    //更新显示内容
+    public void refreshUi() {
+        updateUi(mChecked);
     }
 
     public MultiRadioButton setColorDefault(int mColorDefault) {
