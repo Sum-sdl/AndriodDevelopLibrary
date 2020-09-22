@@ -86,7 +86,6 @@ class ImagePreviewActivity : BaseActivity() {
         mDragCloseHelper = DragCloseHelper(this)
         mDragCloseHelper.setShareElementMode(true)
         mDragCloseHelper.setMaxExitY(450)
-        mDragCloseHelper.setMinScale(0.5f)
         mDragCloseHelper.setDragCloseViews(rl_content, image_view_pager)
         mDragCloseHelper.setDragCloseListener(object : DragCloseHelper.DragCloseListener {
             override fun intercept(): Boolean {
