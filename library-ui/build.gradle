@@ -11,7 +11,7 @@ ext {
     artifact = bintrayName
     libraryName = 'library ui'
     libraryDescription = ''
-    libraryVersion = '2.4.3'//每次升级+1
+    libraryVersion = '2.4.4'//每次升级+1
 }
 
 android {
