@@ -1,6 +1,6 @@
 ext {
     compileSdkVersion = 28
-
+    ndkVersion = "25.1.8937393"
     app = [
             applicationId   : "com.sum.andrioddeveloplibrary",
             minSdkVersion   : 19,
