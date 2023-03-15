@@ -136,9 +136,6 @@ dependencies {
 //    api "com.android.support:design:${rootProject.ext.dependencies.supportLibraryVersion}"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
-    //impl
-    implementation 'com.github.Sum-sdl:RvAdapter:3.0.1'
-
     //刷新组件
 //    api 'com.scwang.smart:refresh-layout-kernel:2.0.1'
 //    api 'com.scwang.smart:refresh-header-material:2.0.1'
@@ -173,6 +170,7 @@ dependencies {
     implementation project(':library-ui')
     implementation project(':library-network')
     implementation project(':library-cache')
+    implementation project(':library-adapter')
 
     //美团日志框架
     implementation 'com.dianping.android.sdk:logan:1.2.1'

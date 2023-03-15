@@ -1,1 +1,1 @@
-include ':sample', ':library-base', ':library-ui', ':library-network', ':library-cache'
+include ':sample', ':library-base', ':library-ui', ':library-network', ':library-cache',':library-adapter'

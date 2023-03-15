@@ -43,11 +43,9 @@ dependencies {
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    //compileOnly
-    compileOnly 'com.github.Sum-sdl:RvAdapter:3.0.1'
-
     //依赖base库功能
     implementation project(path: ':library-base')
+    implementation project(path: ':library-adapter')
 }
 
 //上传maven central操作，执行 publishing- publish 任务即可

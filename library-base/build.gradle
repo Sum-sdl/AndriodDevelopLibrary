@@ -30,7 +30,7 @@ android {
 dependencies {
     //compileOnly
     compileOnly "androidx.appcompat:appcompat:${rootProject.ext.dependencies.androidXVersion}"
-//    compileOnly 'com.google.android.material:material:1.2.1'
+    compileOnly 'com.google.android.material:material:1.2.1'
 
     //刷新组件
     compileOnly  'com.scwang.smart:refresh-layout-kernel:2.0.1'

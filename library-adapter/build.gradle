@@ -1,0 +1,31 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.app.minSdkVersion
+        targetSdkVersion rootProject.ext.app.targetSdkVersion
+        versionCode 3
+        versionName "3.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    compileOnly 'androidx.recyclerview:recyclerview:1.2.1'
+}
+
+//上传maven central操作，执行 publishing- publish 任务即可
+ext {
+    libraryDescription = 'Android ReacyclerView的适配器库'
+    PUBLISH_ARTIFACT_ID = "library-adapter" //你的artifact_id，一般是module的名字
+    PUBLISH_VERSION = "2.0.0"  //发布版本号
+    PUBLISH_GROUP_ID = 'io.github.Sum-sdl'  //你的sonatype的group_id
+}
+apply from: '../up_mavencentral.gradle'
