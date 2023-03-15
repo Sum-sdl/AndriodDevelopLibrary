@@ -2,18 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-//手动上传操作
-//1. ./gradlew library-ui:install
-//2. ./gradlew library-ui:bintrayUpload
-
-ext {
-    bintrayName = 'library-ui'
-    artifact = bintrayName
-    libraryName = 'library ui'
-    libraryDescription = ''
-    libraryVersion = '2.4.4'//每次升级+1
-}
-
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -56,13 +44,21 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //compileOnly
-//    compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
     compileOnly 'com.github.Sum-sdl:RvAdapter:3.0.1'
 
     //依赖base库功能
     implementation project(path: ':library-base')
 }
 
-apply from: '../up_install.gradle'
-apply from: '../up_bintray.gradle'
+//上传maven central操作，执行 publishing- publish 任务即可
+ext {
+    libraryDescription = 'Android UI组件库'
+    PUBLISH_ARTIFACT_ID = "library-ui" //你的artifact_id，一般是module的名字
+    PUBLISH_VERSION = "2.0.0"  //发布版本号
+    PUBLISH_GROUP_ID = 'io.github.Sum-sdl'  //你的sonatype的group_id
+}
+apply from: '../up_mavencentral.gradle'
+
+//apply from: '../up_install.gradle'
+//apply from: '../up_bintray.gradle'
 //apply from : 'upload.gradle'

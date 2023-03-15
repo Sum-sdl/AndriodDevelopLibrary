@@ -1,17 +1,5 @@
 apply plugin: 'com.android.library'
 
-//手动上传操作
-//1. ./gradlew library-network:install
-//2. ./gradlew library-network::bintrayUpload
-
-ext {
-    bintrayName = 'library-network'
-    artifact = bintrayName
-    libraryName = 'library'
-    libraryDescription = ''
-    libraryVersion = '2.0.4'
-}
-
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -46,5 +34,14 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 }
-apply from: '../up_install.gradle'
-apply from: '../up_bintray.gradle'
+//上传maven central操作，执行 publishing- publish 任务即可
+ext {
+    libraryDescription = 'Android 网络库'
+    PUBLISH_ARTIFACT_ID = "library-network" //你的artifact_id，一般是module的名字
+    PUBLISH_VERSION = "2.0.0"  //发布版本号
+    PUBLISH_GROUP_ID = 'io.github.Sum-sdl'  //你的sonatype的group_id
+}
+apply from: '../up_mavencentral.gradle'
+
+//apply from: '../up_install.gradle'
+//apply from: '../up_bintray.gradle'

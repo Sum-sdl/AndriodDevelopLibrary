@@ -1,17 +1,5 @@
 apply plugin: 'com.android.library'
 
-//手动上传操作
-//1. ./gradlew library-base:install
-//2. ./gradlew library-base::bintrayUpload
-
-ext {
-    bintrayName = 'library-base'
-    artifact = bintrayName
-    libraryName = 'base library'
-    libraryDescription = ''
-    libraryVersion = '2.4.9'
-}
-
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -41,13 +29,22 @@ android {
 
 dependencies {
     //compileOnly
-    api "androidx.appcompat:appcompat:${rootProject.ext.dependencies.androidXVersion}"
-    api 'com.google.android.material:material:1.2.1'
+    compileOnly "androidx.appcompat:appcompat:${rootProject.ext.dependencies.androidXVersion}"
+//    compileOnly 'com.google.android.material:material:1.2.1'
 
     //刷新组件
     compileOnly  'com.scwang.smart:refresh-layout-kernel:2.0.1'
 }
 
-apply from: '../up_install.gradle'
-apply from: '../up_bintray.gradle'
+//上传maven central操作，执行 publishing- publish 任务即可
+ext {
+    libraryDescription = 'Android Base库'
+    PUBLISH_ARTIFACT_ID = "library-base" //你的artifact_id，一般是module的名字
+    PUBLISH_VERSION = "2.0.0"  //发布版本号
+    PUBLISH_GROUP_ID = 'io.github.Sum-sdl'  //你的sonatype的group_id
+}
+apply from: '../up_mavencentral.gradle'
+
+//apply from: '../up_install.gradle'
+//apply from: '../up_bintray.gradle'
 //apply from : 'upload.gradle'
