@@ -29,14 +29,14 @@ android {
 
 dependencies {
     //compileOnly
-    compileOnly "androidx.appcompat:appcompat:${rootProject.ext.dependencies.androidXVersion}"
-    compileOnly 'com.google.android.material:material:1.2.1'
+    api "androidx.appcompat:appcompat:${rootProject.ext.dependencies.androidXVersion}"
+    api 'com.google.android.material:material:1.2.1'
 
     //刷新组件
-    compileOnly  'com.scwang.smart:refresh-layout-kernel:2.0.1'
+    api  'com.scwang.smart:refresh-layout-kernel:2.0.1'
 }
 
-//上传maven central操作，执行 publishing- publish 任务即可
+//上传maven central操作，先执行build-assemble,生产aar，执行 publishing- publish 任务即可
 ext {
     libraryDescription = 'Android Base库'
     PUBLISH_ARTIFACT_ID = "library-base" //你的artifact_id，一般是module的名字

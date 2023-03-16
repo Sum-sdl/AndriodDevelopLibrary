@@ -1,12 +1,34 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-
-    exclude "**/R.class"  //排除`R.class`
-    exclude "**/BuildConfig.class"  //排除`BuildConfig.class`
+//源码
+// 生成文档注释
+task androidJavadocs(type: Javadoc) {
+    // 设置源码所在的位置
+    source = android.sourceSets.main.java.srcDirs
 }
+
+// 将文档打包成jar,生成javadoc.jar
+task androidJavadocsJar(type: Jar) {
+    // 指定文档名称
+    archiveClassifier.set('javadoc')
+    from androidJavadocs.destinationDir
+}
+
+// 将源码打包 ，生成sources.jar
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+    exclude "**/R.class"
+    exclude "**/BuildConfig.class"
+}
+//配置需要上传到maven仓库的文件
+artifacts {
+    archives androidSourcesJar //将源码打包进aar,这样使用方可以看到方法注释.
+    archives androidJavadocsJar //将注释打包进aar
+}
+
+
 //第 1 处
 ext["signing.keyId"] = '' //签名的密钥后8位
 ext["signing.password"] = ''  //签名设置的密码
@@ -38,7 +60,8 @@ publishing {
 
             // Two artifacts, the `aar` and the sources
 //            artifact("../plugin/com/eegets/plugin/upload/${PUBLISH_VERSION}/upload-${PUBLISH_VERSION}.jar")
-            artifact androidSourcesJar
+            artifact("$buildDir/outputs/aar//${PUBLISH_ARTIFACT_ID}-release.aar")
+//            artifact androidSourcesJar
 
             // Self-explanatory metadata for the most part
             pom {
