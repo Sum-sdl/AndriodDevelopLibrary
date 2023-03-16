@@ -47,36 +47,31 @@
         apply plugin: 'com.zhoupu.api'
     }
    ```
-> RecycleView通用适配器 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/RvAdapter/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/RvAdapter/_latestVersion)
+> RecycleView通用适配器
    ```gradle
    dependencies {
           //AndroidX版本
-          implementation 'com.github.Sum-sdl:RvAdapter:3.0.1'
+          implementation 'io.github.Sum-sdl:library-adapter:2.0.0'
        }
    ```
- > 基础结构库(Java) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-base/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-base/_latestVersion)
+ > 基础结构库(Java)
   ```gradle
   dependencies {
          //AndroidX版本
-         implementation 'com.github.Sum-sdl:library-base:2.4.9'
+         implementation 'io.github.Sum-sdl:library-base:2.0.0'
       }
-      
-  gradle.properties文件中增加配置 
-      android.useAndroidX=true
-      android.enableJetifier=true
   ```
-> 网络库 [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-network/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-network/_latestVersion)
+> 网络库(Retrofit)
   ```gradle
   dependencies {
-         implementation 'com.github.Sum-sdl:library-network:2.0.4'
+         implementation 'io.github.Sum-sdl:library-network:2.0.0'
          //Retrofit2-> 2.9.0版本
       }
   ```
-> 基础UI库(Kotlin) [ ![Download](https://api.bintray.com/packages/sum-sdl/AndroidDevLibrary/library-ui/images/download.svg) ](https://bintray.com/sum-sdl/AndroidDevLibrary/library-ui/_latestVersion)
+> 基础UI库(Kotlin) 
   ```gradle
-  //AndroidX版本
   dependencies {
-         implementation 'com.github.Sum-sdl:library-ui:2.4.4'
+         implementation 'io.github.Sum-sdl:library-ui:2.0.0'
       }
       1.自定义相册
       2.自定义相机
