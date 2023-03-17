@@ -71,7 +71,7 @@ public abstract class RecyclerDataHolder<T> {
     }
 
     //内部使用
-    T getData() {
+    public T getData() {
         return mData;
     }
 

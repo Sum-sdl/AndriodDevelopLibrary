@@ -71,6 +71,10 @@
 > 基础UI库(Kotlin) 
   ```gradle
   dependencies {
+        //依赖其他2个库
+         implementation 'io.github.Sum-sdl:library-base:2.0.0'
+         implementation 'io.github.Sum-sdl:library-adapter:2.0.0'
+         //基础UI库
          implementation 'io.github.Sum-sdl:library-ui:2.0.0'
       }
       1.自定义相册
