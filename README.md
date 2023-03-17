@@ -51,14 +51,14 @@
    ```gradle
    dependencies {
           //AndroidX版本
-          implementation 'io.github.Sum-sdl:library-adapter:2.0.0'
+          implementation 'io.github.Sum-sdl:library-adapter:2.0.1'
        }
    ```
  > 基础结构库(Java)
   ```gradle
   dependencies {
          //AndroidX版本
-         implementation 'io.github.Sum-sdl:library-base:2.0.0'
+         implementation 'io.github.Sum-sdl:library-base:2.0.1'
       }
   ```
 > 网络库(Retrofit)
@@ -70,12 +70,9 @@
   ```
 > 基础UI库(Kotlin) 
   ```gradle
-  dependencies {
-        //依赖其他2个库
-         implementation 'io.github.Sum-sdl:library-base:2.0.0'
-         implementation 'io.github.Sum-sdl:library-adapter:2.0.0'
+  dependencies { 
          //基础UI库
-         implementation 'io.github.Sum-sdl:library-ui:2.0.0'
+         implementation 'io.github.Sum-sdl:library-ui:2.0.1'
       }
       1.自定义相册
       2.自定义相机

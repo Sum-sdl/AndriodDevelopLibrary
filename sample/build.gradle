@@ -172,6 +172,11 @@ dependencies {
     implementation project(':library-cache')
     implementation project(':library-adapter')
 
+//    api 'io.github.Sum-sdl:library-base:2.0.0'
+//    api 'io.github.Sum-sdl:library-ui:2.0.0'
+//    api 'io.github.Sum-sdl:library-network:2.0.0'
+//    api 'io.github.Sum-sdl:library-adapter:2.0.0'
+
     //美团日志框架
     implementation 'com.dianping.android.sdk:logan:1.2.1'
     implementation 'com.tencent.mars:mars-xlog:1.0.7'

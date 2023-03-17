@@ -40,7 +40,7 @@ dependencies {
 ext {
     libraryDescription = 'Android Base库'
     PUBLISH_ARTIFACT_ID = "library-base" //你的artifact_id，一般是module的名字
-    PUBLISH_VERSION = "2.0.0"  //发布版本号
+    PUBLISH_VERSION = "2.0.1"  //发布版本号
     PUBLISH_GROUP_ID = 'io.github.Sum-sdl'  //你的sonatype的group_id
 }
 apply from: '../up_mavencentral.gradle'
